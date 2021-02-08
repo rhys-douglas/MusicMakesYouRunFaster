@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30907.101
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.CanMusicMakeYouRunFaster.Common", "RD.CanMusicMakeYouRunFaster.Common\RD.CanMusicMakeYouRunFaster.Common.csproj", "{B1E84676-AEF4-4607-A2BE-798B95F154F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.CanMusicMakeYouRunFaster.Common.UnitTests", "RD.CanMusicMakeYouRunFaster.Common.UnitTests\RD.CanMusicMakeYouRunFaster.Common.UnitTests.csproj", "{FFB96C59-E9EF-4121-8B4F-D7AF26963B95}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B1E84676-AEF4-4607-A2BE-798B95F154F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1E84676-AEF4-4607-A2BE-798B95F154F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1E84676-AEF4-4607-A2BE-798B95F154F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1E84676-AEF4-4607-A2BE-798B95F154F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFB96C59-E9EF-4121-8B4F-D7AF26963B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFB96C59-E9EF-4121-8B4F-D7AF26963B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFB96C59-E9EF-4121-8B4F-D7AF26963B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFB96C59-E9EF-4121-8B4F-D7AF26963B95}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {06437B0C-BA86-4107-81BC-CCF10771E0AD}
+	EndGlobalSection
+EndGlobal
