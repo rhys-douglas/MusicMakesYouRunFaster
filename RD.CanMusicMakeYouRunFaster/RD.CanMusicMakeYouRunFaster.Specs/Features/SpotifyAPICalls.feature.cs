@@ -28,7 +28,7 @@ namespace RD.CanMusicMakeYouRunFaster.Specs.Features
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "SpecFlowFeature1.feature"
+#line 1 "SpotifyAPICalls.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
@@ -73,16 +73,29 @@ namespace RD.CanMusicMakeYouRunFaster.Specs.Features
             testRunner.CollectScenarioErrors();
         }
         
+        public virtual void FeatureBackground()
+        {
+#line 3
+#line hidden
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
+                        "user"});
+            table1.AddRow(new string[] {
+                        "Test User"});
+#line 4
+testRunner.Given("a list of users", ((string)(null)), table1, "Given ");
+#line hidden
+        }
+        
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("fsdfds")]
+        [NUnit.Framework.DescriptionAttribute("Get User\'s listening history")]
         [NUnit.Framework.CategoryAttribute("MVP-0-Add-Spotify-API-Call")]
-        public virtual void Fsdfds()
+        public virtual void GetUsersListeningHistory()
         {
             string[] tagsOfScenario = new string[] {
                     "MVP-0-Add-Spotify-API-Call"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("fsdfds", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 4
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get User\'s listening history", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 9
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -102,13 +115,16 @@ this.ScenarioInitialize(scenarioInfo);
             else
             {
                 this.ScenarioStart();
-#line 5
- testRunner.Given("a user", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line 3
+this.FeatureBackground();
 #line hidden
-#line 6
+#line 10
+ testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 11
  testRunner.When("the user\'s recently played history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 7
+#line 12
  testRunner.Then("the user\'s recently played history is produced", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
