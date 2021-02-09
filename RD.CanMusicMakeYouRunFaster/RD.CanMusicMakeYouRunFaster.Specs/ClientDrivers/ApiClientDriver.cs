@@ -6,7 +6,7 @@
     public class ApiClientDriver : IClientDriver
     {
         /// <inheritdoc/>
-        public void RequestData()
+        public void GetRequestedData()
         {
             // request data...
         }
