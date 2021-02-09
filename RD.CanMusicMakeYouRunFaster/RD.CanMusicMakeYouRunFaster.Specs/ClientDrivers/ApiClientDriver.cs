@@ -8,7 +8,10 @@
         /// <inheritdoc/>
         public void GetRequestedData()
         {
-            // request data...
+            string spotifyOAuth2Token = string.Empty;
+
+            // Get Oauth token and authenticate.
+            // then request data.
         }
     }
 }
