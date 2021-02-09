@@ -1,26 +1,29 @@
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
 namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer
 {
+    using Microsoft.AspNetCore;
+    using Microsoft.AspNetCore.Hosting;
+    using Microsoft.Extensions.Hosting;
+
+    /// <summary>
+    /// Starts the FakeResponseServer.
+    /// </summary>
     public class Program
     {
+        /// <summary>
+        /// Called on program startup. The Web API is created and started.
+        /// </summary>
+        /// <param name="args"> CLI arguments </param>
         public static void Main(string[] args)
         {
             CreateHostBuilder(args).Build().Run();
         }
 
-        public static IHostBuilder CreateHostBuilder(string[] args) =>
-            Host.CreateDefaultBuilder(args)
-                .ConfigureWebHostDefaults(webBuilder =>
-                {
-                    webBuilder.UseStartup<Startup>();
-                });
+        /// <summary>
+        /// Creates a HostBuilder.
+        /// </summary>
+        /// <param name="args"> CLI arguments from Main()</param>
+        /// <returns>The builder used to build the web API.</returns>
+        public static IWebHostBuilder CreateHostBuilder(string[] args) =>
+            WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
     }
 }
