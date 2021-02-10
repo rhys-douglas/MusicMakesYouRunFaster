@@ -6,12 +6,13 @@
     public class ApiClientDriver : IClientDriver
     {
         /// <inheritdoc/>
-        public void GetRequestedData()
+        public void GetRecentlyPlayedMusic()
         {
-            string spotifyOAuth2Token = string.Empty;
-
             // Get Oauth token and authenticate.
-            // then request data.
+            // backendManager.spotify.getOAuthToken();
+
+            // then request recently played music.
+            // backendManager.spotify.getRecentlyPlayedMusic();
         }
     }
 }

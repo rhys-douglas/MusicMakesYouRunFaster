@@ -29,7 +29,7 @@
         [When(@"the user's recently played history is requested")]
         public void WhenTheUserSRecentlyPlayedHistoryIsRequested()
         {
-            clientDriver.GetRequestedData();
+            clientDriver.GetRecentlyPlayedMusic();
         }
 
         [Then(@"the user's recently played history is produced")]

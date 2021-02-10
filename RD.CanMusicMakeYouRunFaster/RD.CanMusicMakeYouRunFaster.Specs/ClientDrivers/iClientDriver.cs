@@ -5,6 +5,6 @@
         /// <summary>
         /// Request data from the relevant API.
         /// </summary>
-        void GetRequestedData();
+        void GetRecentlyPlayedMusic();
     }
 }
