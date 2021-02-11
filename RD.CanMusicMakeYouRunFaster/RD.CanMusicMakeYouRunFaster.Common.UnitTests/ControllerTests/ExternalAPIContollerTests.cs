@@ -7,11 +7,25 @@
     public class ExternalAPIContollerTests
     {
         [Test]
-        public void GetSpotifyOAuthToken_OAuthTokenReturned()
+        public void UseFakeDataSource_FakeDataSourceUsed()
         {
             var sut = new ExternalAPIController();
-            sut.GetSpotifyOAuthToken();
-            sut.Should().NotBeNull();
+        }
+
+        [Test]
+        public void GetSpotifyAuthenticationToken_AuthenticationTokenReturned()
+        {
+            var sut = new ExternalAPIController();
+            var token = sut.GetSpotifyAuthenticationToken();
+            token.Should().NotBeNull();
+        }
+
+        [Test]
+        public void GetSpotifyRecentlyPlayed_ListeningHistoryReturned()
+        {
+            var sut = new ExternalAPIController();
+            var listeningHistory = sut.GetSpotifyRecentlyPlayed();
+            listeningHistory.Should().NotBeNull();
         }
     }
 }

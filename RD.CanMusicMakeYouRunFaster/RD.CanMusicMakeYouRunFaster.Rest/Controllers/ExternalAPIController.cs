@@ -1,5 +1,6 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.Controllers
 {
+    using DataRetrievalSources;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
@@ -7,14 +8,38 @@
     /// </summary>
     public class ExternalAPIController : ControllerBase
     {
+        private readonly IDataRetrievalSource dataSource;
+
         /// <summary>
-        /// Gets the spotify oauth token
+        /// Initializes a new instance of the <see cref="ExternalAPIController"/> class.
         /// </summary>
-        /// <returns> A spotify OAuth Token. </returns>
-        public JsonResult GetSpotifyOAuthToken()
+        /// <param name="dataSource"> Data source to use.</param>
+        public ExternalAPIController(IDataRetrievalSource dataSource = null)
         {
-            // data source.spotify.getOAuthToken
-            return null;
+            if (dataSource == null)
+            {
+                dataSource = new RealDataRetrievalSource();
+            }
+
+            this.dataSource = dataSource;
+        }
+
+        /// <summary>
+        /// Gets the spotify recently played tracks
+        /// </summary>
+        /// <returns>Spotify recently played tracks</returns>
+        public JsonResult GetSpotifyRecentlyPlayed()
+        {
+            return this.dataSource.GetSpotifyRecentlyPlayed().Result;
+        }
+
+        /// <summary>
+        /// Gets the spotify authentication token
+        /// </summary>
+        /// <returns>Spotify authentication token</returns>
+        public JsonResult GetSpotifyAuthenticationToken()
+        {
+            return this.dataSource.GetSpotifyAuthenticationToken().Result;
         }
     }
 }

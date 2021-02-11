@@ -7,11 +7,12 @@
     public class RealDataRetrievalSourceTests
     {
         [Test]
-        public void GetSpotifyOAuthToken_OAuthTokenRetrieved()
+        public void GetSpotifyAuthenticationToken_AuthenticationTokenRetrieved()
         {
             var sut = new RealDataRetrievalSource();
-            var oauthToken = sut.GetSpotifyOAuthToken();
+            var oauthToken = sut.GetSpotifyAuthenticationToken();
             oauthToken.Result.Should().NotBeNull();
+            oauthToken.Result.Should().Be(string.Empty);
         }
     }
 }

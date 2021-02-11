@@ -18,12 +18,10 @@
         public void GetRecentlyPlayedMusic()
         {
             // Get Oauth token and authenticate.
-            externalAPIController.GetSpotifyOAuthToken();
-            //// backendManager.spotify.getOAuthToken();
+            externalAPIController.GetSpotifyAuthenticationToken();
 
             // then request recently played music.
-            ////externalAPIController.GetSpotifyRecentlyPlayed();
-            // backendManager.spotify.getRecentlyPlayedMusic();
+            externalAPIController.GetSpotifyRecentlyPlayed();
         }
     }
 }
