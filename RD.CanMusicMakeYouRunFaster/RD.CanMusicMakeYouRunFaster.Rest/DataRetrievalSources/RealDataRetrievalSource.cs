@@ -52,6 +52,8 @@
                 Console.WriteLine("Unable to open URL, manually open: {0}", uri);
             }
 
+            Task.Delay(10000).Wait();
+
             return new JsonResult(authToken);
         }
 

@@ -12,7 +12,7 @@
             var sut = new RealDataRetrievalSource();
             var oauthToken = sut.GetSpotifyAuthenticationToken();
             oauthToken.Result.Should().NotBeNull();
-            oauthToken.Result.Should().Be(string.Empty);
+            oauthToken.Result.Value.Should().NotBe(string.Empty);
         }
     }
 }
