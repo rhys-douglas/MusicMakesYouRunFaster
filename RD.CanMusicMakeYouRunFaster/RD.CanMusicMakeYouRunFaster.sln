@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30907.101
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster.Common", "RD.CanMusicMakeYouRunFaster.Common\RD.CanMusicMakeYouRunFaster.Common.csproj", "{B1E84676-AEF4-4607-A2BE-798B95F154F5}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster.Common.UnitTests", "RD.CanMusicMakeYouRunFaster.Common.UnitTests\RD.CanMusicMakeYouRunFaster.Common.UnitTests.csproj", "{FFB96C59-E9EF-4121-8B4F-D7AF26963B95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster.Rest.UnitTests", "RD.CanMusicMakeYouRunFaster.Common.UnitTests\RD.CanMusicMakeYouRunFaster.Rest.UnitTests.csproj", "{FFB96C59-E9EF-4121-8B4F-D7AF26963B95}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster.Specs", "RD.CanMusicMakeYouRunFaster.Specs\RD.CanMusicMakeYouRunFaster.Specs.csproj", "{60B4E547-66E9-4620-82BF-6F3AD6DA6A3F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.CanMusicMakeYouRunFaster.FakeResponseServer", "RD.CanMusicMakeYouRunFaster.FakeResponseServer\RD.CanMusicMakeYouRunFaster.FakeResponseServer.csproj", "{72F305CC-6FE2-4979-87C6-94F3B1541298}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster.FakeResponseServer", "RD.CanMusicMakeYouRunFaster.FakeResponseServer\RD.CanMusicMakeYouRunFaster.FakeResponseServer.csproj", "{72F305CC-6FE2-4979-87C6-94F3B1541298}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster.Rest", "RD.CanMusicMakeYouRunFaster.Rest\RD.CanMusicMakeYouRunFaster.Rest.csproj", "{F6F11575-08E4-4112-AF27-9B02801E32B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -17,10 +17,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B1E84676-AEF4-4607-A2BE-798B95F154F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B1E84676-AEF4-4607-A2BE-798B95F154F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B1E84676-AEF4-4607-A2BE-798B95F154F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B1E84676-AEF4-4607-A2BE-798B95F154F5}.Release|Any CPU.Build.0 = Release|Any CPU
 		{FFB96C59-E9EF-4121-8B4F-D7AF26963B95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{FFB96C59-E9EF-4121-8B4F-D7AF26963B95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FFB96C59-E9EF-4121-8B4F-D7AF26963B95}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -33,6 +29,10 @@ Global
 		{72F305CC-6FE2-4979-87C6-94F3B1541298}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{72F305CC-6FE2-4979-87C6-94F3B1541298}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{72F305CC-6FE2-4979-87C6-94F3B1541298}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6F11575-08E4-4112-AF27-9B02801E32B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6F11575-08E4-4112-AF27-9B02801E32B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6F11575-08E4-4112-AF27-9B02801E32B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6F11575-08E4-4112-AF27-9B02801E32B3}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
