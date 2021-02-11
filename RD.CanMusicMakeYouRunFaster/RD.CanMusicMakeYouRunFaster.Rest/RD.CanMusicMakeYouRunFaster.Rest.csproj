@@ -8,7 +8,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="Json.Net" Version="1.0.23" />
     <PackageReference Include="SpotifyAPI.Web" Version="6.0.0" />
+    <PackageReference Include="SpotifyAPI.Web.Auth" Version="6.0.0" />
     <PackageReference Include="StyleCop.MSBuild" Version="6.2.0">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

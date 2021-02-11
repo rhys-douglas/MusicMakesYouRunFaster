@@ -2,33 +2,43 @@ namespace RD.CanMusicMakeYouRunFaster.Rest
 {
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
-    using Microsoft.AspNetCore.HttpsPolicy;
-    using Microsoft.AspNetCore.Mvc;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
-    using Microsoft.Extensions.Logging;
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Threading.Tasks;
 
+    /// <summary>
+    /// Filler text
+    /// </summary>
     public class Startup
     {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="Startup"/> class.
+        /// </summary>
+        /// <param name="configuration"> Startup Configuration</param>
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
         }
 
+        /// <summary>
+        /// Gets the configuration of the server.
+        /// </summary>
         public IConfiguration Configuration { get; }
 
-        // This method gets called by the runtime. Use this method to add services to the container.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to add services to the container.
+        /// </summary>
+        /// <param name="services">Services to run</param>
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
         }
 
-        // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// <summary>
+        /// This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
+        /// </summary>
+        /// <param name="app">Application builder.</param>
+        /// <param name="env">Web host environment. </param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())

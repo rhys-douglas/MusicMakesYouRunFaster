@@ -1,6 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.UnitTests.DataRetrievalSourcesTests
 {
     using FluentAssertions;
+    using NUnit.Framework;
     using RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources;
 
     public class RealDataRetrievalSourceTests
@@ -9,7 +10,8 @@
         public void GetSpotifyOAuthToken_OAuthTokenRetrieved()
         {
             var sut = new RealDataRetrievalSource();
-            sut.GetSpotifyOAuthToken().Should().NotBeNull();
+            var oauthToken = sut.GetSpotifyOAuthToken();
+            oauthToken.Result.Should().NotBeNull();
         }
     }
 }

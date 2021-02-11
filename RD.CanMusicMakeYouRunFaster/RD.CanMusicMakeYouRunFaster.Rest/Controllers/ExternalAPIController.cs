@@ -8,11 +8,13 @@
     public class ExternalAPIController : ControllerBase
     {
         /// <summary>
-        /// Gets the spotify OAuth Token.
+        /// Gets the spotify oauth token
         /// </summary>
+        /// <returns> A spotify OAuth Token. </returns>
         public JsonResult GetSpotifyOAuthToken()
         {
             // data source.spotify.getOAuthToken
+            return null;
         }
     }
 }

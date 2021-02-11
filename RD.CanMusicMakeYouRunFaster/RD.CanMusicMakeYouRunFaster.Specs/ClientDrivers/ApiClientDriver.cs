@@ -19,10 +19,10 @@
         {
             // Get Oauth token and authenticate.
             externalAPIController.GetSpotifyOAuthToken();
-            // backendManager.spotify.getOAuthToken();
+            //// backendManager.spotify.getOAuthToken();
 
             // then request recently played music.
-            externalAPIController.GetSpotifyRecentlyPlayed();
+            ////externalAPIController.GetSpotifyRecentlyPlayed();
             // backendManager.spotify.getRecentlyPlayedMusic();
         }
     }
