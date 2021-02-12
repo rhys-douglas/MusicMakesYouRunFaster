@@ -1,5 +1,10 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Specs.ClientDrivers
 {
+    using System.Collections.Generic;
+
+    /// <summary>
+    /// Interface for client drivers.
+    /// </summary>
     public interface IClientDriver
     {
         /// <summary>

@@ -1,12 +1,15 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Specs.ClientDrivers
 {
-    using RD.CanMusicMakeYouRunFaster.Rest.Controllers;
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+    using Rest.Controllers;
 
     /// <summary>
     /// Client driver for testing without a front-end.
     /// </summary>
     public class ApiClientDriver : IClientDriver
     {
+        private readonly List<string> queryResults = new List<string>();
         private ExternalAPIController externalAPIController;
 
         public void SetUp()
@@ -17,11 +20,11 @@
         /// <inheritdoc/>
         public void GetRecentlyPlayedMusic()
         {
-            // Get Oauth token and authenticate.
             externalAPIController.GetSpotifyAuthenticationToken();
-
-            // then request recently played music.
-            externalAPIController.GetSpotifyRecentlyPlayed();
+            var searchResult = externalAPIController.GetSpotifyRecentlyPlayed();
+            var resultAsJson = JsonConvert.SerializeObject(searchResult);
+            var actualSearchResult = JsonConvert.DeserializeObject<string>(resultAsJson);
+            ////queryResults.AddRange(actualSearchResult);
         }
     }
 }

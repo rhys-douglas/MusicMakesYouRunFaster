@@ -7,9 +7,9 @@
     [Binding]
     public class MusicHistorySteps
     {
-        private readonly IClientDriver clientDriver;
+        private readonly ApiClientDriver clientDriver;
 
-        public MusicHistorySteps(IClientDriver clientDriver)
+        public MusicHistorySteps(ApiClientDriver clientDriver)
         {
             this.clientDriver = clientDriver;
         }
@@ -36,6 +36,7 @@
         public void ThenTheUserSRecentlyPlayedHistoryIsProduced()
         {
             // Assert retrieved listening history = actual listening history.
+            // var foundSongs = clientDriver.GetFoundData();
         }
     }
 }

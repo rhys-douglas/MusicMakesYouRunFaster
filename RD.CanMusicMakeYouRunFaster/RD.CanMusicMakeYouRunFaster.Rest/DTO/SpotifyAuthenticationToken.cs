@@ -18,7 +18,7 @@
         public string TokenType { get; set; }
 
         /// <summary>
-        /// Gets or sets the time from createdAt that the token is valid.
+        /// Gets or sets the time from createdAt that the token is valid. Default is 1 hour or 3600 seconds.
         /// </summary>
         public int ExpiresIn { get; set; }
 
