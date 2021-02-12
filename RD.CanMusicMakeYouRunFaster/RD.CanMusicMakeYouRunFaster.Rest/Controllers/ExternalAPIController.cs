@@ -1,7 +1,9 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.Controllers
 {
     using DataRetrievalSources;
+    using DTO;
     using Microsoft.AspNetCore.Mvc;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Controller used to handle HTTP requests to the backend / external API's.
@@ -9,6 +11,7 @@
     public class ExternalAPIController : ControllerBase
     {
         private readonly IDataRetrievalSource dataSource;
+        private SpotifyAuthenticationToken spotifyAuthToken;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExternalAPIController"/> class.
@@ -30,7 +33,7 @@
         /// <returns>Spotify recently played tracks</returns>
         public JsonResult GetSpotifyRecentlyPlayed()
         {
-            return this.dataSource.GetSpotifyRecentlyPlayed().Result;
+            return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken).Result;
         }
 
         /// <summary>
@@ -39,7 +42,9 @@
         /// <returns>Spotify authentication token</returns>
         public JsonResult GetSpotifyAuthenticationToken()
         {
-            return this.dataSource.GetSpotifyAuthenticationToken().Result;
+            var retrievedTokenJson = dataSource.GetSpotifyAuthenticationToken();
+            this.spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>((string)retrievedTokenJson.Result.Value);
+            return retrievedTokenJson.Result;
         }
     }
 }

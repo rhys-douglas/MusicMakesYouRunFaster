@@ -1,6 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources
 {
     using System.Threading.Tasks;
+    using DTO;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
@@ -11,8 +12,9 @@
         /// <summary>
         /// Gets the spotify recently played history.
         /// </summary>
+        /// <param name="authToken">Authentication token to use.</param>
         /// <returns> Json of recently played music. </returns>
-        Task<JsonResult> GetSpotifyRecentlyPlayed();
+        Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken);
 
         /// <summary>
         /// Gets the spotify authentication token

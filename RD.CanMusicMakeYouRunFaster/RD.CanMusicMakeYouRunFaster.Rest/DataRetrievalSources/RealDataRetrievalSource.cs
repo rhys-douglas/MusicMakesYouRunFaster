@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.Threading.Tasks;
+    using DTO;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using SpotifyAPI.Web;
@@ -46,25 +47,22 @@
             try
             {
                 BrowserUtil.Open(uri);
+                Task.Delay(10000).Wait();
             }
             catch (Exception)
             {
                 Console.WriteLine("Unable to open URL, manually open: {0}", uri);
             }
 
-            Task.Delay(10000).Wait();
-
             return new JsonResult(authToken);
         }
 
         /// <inheritdoc/>
-        public async Task<JsonResult> GetSpotifyRecentlyPlayed()
+        public async Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken)
         {
-            var listeningHistory = string.Empty;
-            await Task.Run(() =>
-            {
-                Task.Delay(100).Wait();
-            });
+            var spotifyClient = new SpotifyClient(authToken.AccessToken);
+
+            var listeningHistory = await spotifyClient.Player.GetRecentlyPlayed();
             return new JsonResult(listeningHistory);
         }
     }
