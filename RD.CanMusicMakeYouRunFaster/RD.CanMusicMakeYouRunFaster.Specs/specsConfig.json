@@ -1,9 +1,0 @@
-{
-    "SpecsConfig": {
-        /* 
-        * Test modes:
-        * API
-        */
-        "TestMode": "API"
-    }
-}

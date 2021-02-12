@@ -7,22 +7,24 @@
     /// <summary>
     /// TestsConfiguration class.
     /// </summary>
-    public class TestsConfiguration
+    public static class TestsConfiguration
     {
+        /// <summary>
+        /// Initializes static members of the <see cref="TestsConfiguration"/> class.
+        /// </summary>
         static TestsConfiguration()
         {
             var config = BuildConfiguration();
             TestConfig = config.GetSection("TestConfig");
         }
 
+        // See appsettings.Development.json for where the following values are assigned.
+
         /// <summary>
-        /// Gets the Test Mode
+        /// Gets the test mode.
         /// </summary>
         public static string TestMode => GetEnvironmentValue("TestMode");
 
-        /// <summary>
-        /// Gets the Test Configuration.
-        /// </summary>
         private static IConfigurationSection TestConfig { get; }
 
         /// <summary>
@@ -31,10 +33,10 @@
         /// <returns>The application Configuration.</returns>
         public static IConfiguration BuildConfiguration()
         {
-            var configBuilder = new ConfigurationBuilder()
+            var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory());
-            configBuilder.AddJsonFile("specsConfig.json", false, true);
-            return configBuilder.Build();
+            builder.AddJsonFile("appsettings.Development.json", false, true);
+            return builder.Build();
         }
 
         /// <summary>

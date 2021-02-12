@@ -12,6 +12,7 @@
         private readonly List<string> queryResults = new List<string>();
         private ExternalAPIController externalAPIController;
 
+        /// <inheritdoc/>
         public void SetUp()
         {
             externalAPIController = new ExternalAPIController();

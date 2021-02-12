@@ -1,5 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Specs
 {
+    using System;
+    using System.Threading;
     using BoDi;
     using RD.CanMusicMakeYouRunFaster.Specs.ClientDrivers;
     using RD.CanMusicMakeYouRunFaster.Specs.Utils;
@@ -26,11 +28,12 @@
                     clientDriver = new ApiClientDriver();
                     break;
                 default:
-                    throw new System.Exception("Invalid test Mode");
+                    throw new Exception("Invalid Test Mode");
             }
 
             clientDriver.SetUp();
             objectContainer.RegisterInstanceAs(clientDriver);
+            Thread.Sleep(TimeSpan.FromSeconds(1));
         }
     }
 }
