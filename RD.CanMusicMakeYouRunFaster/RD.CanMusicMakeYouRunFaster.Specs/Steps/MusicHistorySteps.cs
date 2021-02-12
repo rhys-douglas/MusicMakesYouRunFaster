@@ -7,7 +7,7 @@
     [Binding]
     public class MusicHistorySteps
     {
-        private readonly ApiClientDriver clientDriver;
+        private readonly IClientDriver clientDriver;
 
         public MusicHistorySteps(ApiClientDriver clientDriver)
         {

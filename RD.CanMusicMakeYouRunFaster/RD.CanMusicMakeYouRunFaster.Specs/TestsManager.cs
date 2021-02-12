@@ -17,6 +17,7 @@
         /// Set up precursors to testing.
         /// </summary>
         /// <param name="objectContainer"> Object container </param>
+        [BeforeTestRun]
         public static void TestSetup(IObjectContainer objectContainer)
         {
             switch (TestsConfiguration.TestMode)
@@ -28,6 +29,7 @@
                     throw new System.Exception("Invalid test Mode");
             }
 
+            clientDriver.SetUp();
             objectContainer.RegisterInstanceAs(clientDriver);
         }
     }
