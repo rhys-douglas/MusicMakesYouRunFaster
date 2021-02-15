@@ -9,6 +9,7 @@
     public class MusicHistorySteps
     {
         private readonly IClientDriver clientDriver;
+        private readonly List<Dictionary<string, string>> listeningHistory = new List<Dictionary<string, string>>();
 
         public MusicHistorySteps(IClientDriver clientDriver)
         {
@@ -18,13 +19,20 @@
         [Given(@"a list of users")]
         public void GivenAListOfUsers(Table table)
         {
-            // Does something with users.
+            // Temporarily redundant
         }
 
         [Given(@"a list of listening history")]
         public void GivenAListOfListeningHistory(Table table)
         {
-            ScenarioContext.Current.Pending();
+            foreach (var row in table.Rows)
+            {
+                var rowOfHistory = new Dictionary<string, string>
+                {
+                    { row["Song name"], row["Time of listening"] }
+                };
+                listeningHistory.Add(rowOfHistory);
+            }
         }
 
         [Given(@"a user [""]?([^""]*)[""]?")]
@@ -36,7 +44,7 @@
         [Given(@"their listening history")]
         public void GivenTheirListeningHistory()
         {
-            ScenarioContext.Current.Pending();
+            // Do something
         }
 
         [When(@"the user's recently played history is requested")]
@@ -49,9 +57,7 @@
         public void ThenTheUserSRecentlyPlayedHistoryIsProduced()
         {
             var acquiredListeningHistory = clientDriver.GetFoundItems();
-            var actualListeningHistory = new List<Dictionary<string, string>>();
-
-            acquiredListeningHistory.Should().BeEquivalentTo(actualListeningHistory);
+            acquiredListeningHistory.Should().BeEquivalentTo(listeningHistory);
         }
     }
 }
