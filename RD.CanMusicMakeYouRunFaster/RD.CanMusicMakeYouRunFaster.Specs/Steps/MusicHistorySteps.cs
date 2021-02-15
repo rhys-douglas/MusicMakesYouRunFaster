@@ -21,10 +21,22 @@
             // Does something with users.
         }
 
+        [Given(@"a list of listening history")]
+        public void GivenAListOfListeningHistory(Table table)
+        {
+            ScenarioContext.Current.Pending();
+        }
+
         [Given(@"a user [""]?([^""]*)[""]?")]
         public void GivenAUser(string user)
         {
             // Does something
+        }
+
+        [Given(@"their listening history")]
+        public void GivenTheirListeningHistory()
+        {
+            ScenarioContext.Current.Pending();
         }
 
         [When(@"the user's recently played history is requested")]
