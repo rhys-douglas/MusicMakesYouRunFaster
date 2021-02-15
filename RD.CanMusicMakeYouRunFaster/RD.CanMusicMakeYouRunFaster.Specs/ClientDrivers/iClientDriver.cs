@@ -16,5 +16,11 @@
         /// Set up client driver
         /// </summary>
         void SetUp();
+
+        /// <summary>
+        /// Returns a list of items found from previous queries.
+        /// </summary>
+        /// <returns> A list of found items. </returns>
+        List<Dictionary<string, string>> GetFoundItems();
     }
 }

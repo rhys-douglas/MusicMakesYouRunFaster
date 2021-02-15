@@ -3,7 +3,7 @@
 Background:
 Given a list of users
 | user      |
-| Test User |
+| User1 |
 
 @MVP-0-Add-Spotify-API-Call
 Scenario Outline: Get User's listening history

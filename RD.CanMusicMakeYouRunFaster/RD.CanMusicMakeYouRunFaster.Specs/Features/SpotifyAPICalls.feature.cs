@@ -80,7 +80,7 @@ namespace RD.CanMusicMakeYouRunFaster.Specs.Features
             TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "user"});
             table1.AddRow(new string[] {
-                        "Test User"});
+                        "User1"});
 #line 4
 testRunner.Given("a list of users", ((string)(null)), table1, "Given ");
 #line hidden

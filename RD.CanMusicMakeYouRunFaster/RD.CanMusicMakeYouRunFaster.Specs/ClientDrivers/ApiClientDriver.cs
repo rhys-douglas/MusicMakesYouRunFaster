@@ -1,7 +1,6 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Specs.ClientDrivers
 {
     using System.Collections.Generic;
-    using Newtonsoft.Json;
     using Rest.Controllers;
 
     /// <summary>
@@ -9,7 +8,7 @@
     /// </summary>
     public class ApiClientDriver : IClientDriver
     {
-        private readonly List<string> queryResults = new List<string>();
+        private readonly List<Dictionary<string, string>> searchResults = new List<Dictionary<string, string>>();
         private ExternalAPIController externalAPIController;
 
         /// <inheritdoc/>
@@ -26,8 +25,18 @@
             var playHistoryContainer = (SpotifyAPI.Web.CursorPaging<SpotifyAPI.Web.PlayHistoryItem>)searchResult.Value;
             foreach (var song in playHistoryContainer.Items)
             {
-                queryResults.Add(song.Track.Name);
+                var listeningHistoryItem = new Dictionary<string, string>
+                {
+                    { song.Track.Name.ToString(), song.PlayedAt.ToString("dd'/'MM'/'yyyy HH:mm:ss") }
+                };
+                searchResults.Add(listeningHistoryItem);
             }
+        }
+
+        /// <inheritdoc/>
+        public List<Dictionary<string, string>> GetFoundItems()
+        {
+            return searchResults;
         }
     }
 }

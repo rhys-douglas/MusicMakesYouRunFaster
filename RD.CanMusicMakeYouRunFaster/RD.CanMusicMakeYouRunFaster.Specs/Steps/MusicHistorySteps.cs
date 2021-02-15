@@ -1,5 +1,6 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Specs.Steps
 {
+    using System.Collections.Generic;
     using FluentAssertions;
     using RD.CanMusicMakeYouRunFaster.Specs.ClientDrivers;
     using TechTalk.SpecFlow;
@@ -35,8 +36,10 @@
         [Then(@"the user's recently played history is produced")]
         public void ThenTheUserSRecentlyPlayedHistoryIsProduced()
         {
-            // Assert retrieved listening history = actual listening history.
-            // var foundSongs = clientDriver.GetFoundData();
+            var acquiredListeningHistory = clientDriver.GetFoundItems();
+            var actualListeningHistory = new List<Dictionary<string, string>>();
+
+            acquiredListeningHistory.Should().BeEquivalentTo(actualListeningHistory);
         }
     }
 }
