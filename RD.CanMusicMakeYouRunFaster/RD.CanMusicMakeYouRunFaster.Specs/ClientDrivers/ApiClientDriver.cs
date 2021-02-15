@@ -23,11 +23,11 @@
         {
             externalAPIController.GetSpotifyAuthenticationToken();
             var searchResult = externalAPIController.GetSpotifyRecentlyPlayed();
-            var yeet = searchResult.Value;
-            //// List <SpotifyAPI.Web.PlayHistoryItem> extractedSongs = yeet;
-            //// var resultAsJson = JsonConvert.SerializeObject(searchResult);
-            //// var actualSearchResult = JsonConvert.DeserializeObject<string>(resultAsJson);
-            ////queryResults.AddRange(actualSearchResult);
+            var playHistoryContainer = (SpotifyAPI.Web.CursorPaging<SpotifyAPI.Web.PlayHistoryItem>)searchResult.Value;
+            foreach (var song in playHistoryContainer.Items)
+            {
+                queryResults.Add(song.Track.Name);
+            }
         }
     }
 }
