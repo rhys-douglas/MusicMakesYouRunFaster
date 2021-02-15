@@ -23,8 +23,10 @@
         {
             externalAPIController.GetSpotifyAuthenticationToken();
             var searchResult = externalAPIController.GetSpotifyRecentlyPlayed();
-            var resultAsJson = JsonConvert.SerializeObject(searchResult);
-            var actualSearchResult = JsonConvert.DeserializeObject<string>(resultAsJson);
+            var yeet = searchResult.Value;
+            //// List <SpotifyAPI.Web.PlayHistoryItem> extractedSongs = yeet;
+            //// var resultAsJson = JsonConvert.SerializeObject(searchResult);
+            //// var actualSearchResult = JsonConvert.DeserializeObject<string>(resultAsJson);
             ////queryResults.AddRange(actualSearchResult);
         }
     }

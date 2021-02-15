@@ -9,7 +9,7 @@
     {
         private readonly IClientDriver clientDriver;
 
-        public MusicHistorySteps(ApiClientDriver clientDriver)
+        public MusicHistorySteps(IClientDriver clientDriver)
         {
             this.clientDriver = clientDriver;
         }

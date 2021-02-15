@@ -3,8 +3,7 @@
     using System;
     using System.Threading;
     using BoDi;
-    using RD.CanMusicMakeYouRunFaster.Specs.ClientDrivers;
-    using RD.CanMusicMakeYouRunFaster.Specs.Utils;
+    using ClientDrivers;
     using TechTalk.SpecFlow;
 
     /// <summary>
@@ -22,17 +21,9 @@
         [BeforeTestRun]
         public static void TestSetup(IObjectContainer objectContainer)
         {
-            switch (TestsConfiguration.TestMode)
-            {
-                case "API":
-                    clientDriver = new ApiClientDriver();
-                    break;
-                default:
-                    throw new Exception("Invalid Test Mode");
-            }
-
+            clientDriver = new ApiClientDriver();
             clientDriver.SetUp();
-            objectContainer.RegisterInstanceAs(clientDriver);
+            objectContainer.RegisterInstanceAs<IClientDriver>(clientDriver);
             Thread.Sleep(TimeSpan.FromSeconds(1));
         }
     }
