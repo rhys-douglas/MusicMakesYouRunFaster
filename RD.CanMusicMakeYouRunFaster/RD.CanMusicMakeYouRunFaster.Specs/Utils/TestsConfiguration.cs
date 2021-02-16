@@ -35,7 +35,7 @@
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory());
-            builder.AddJsonFile("appsettings.Development.json", false, true);
+            //// builder.AddJsonFile("appsettings.Development.json", false, true);
             return builder.Build();
         }
 

@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.3" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore.InMemory" Version="5.0.3" />
     <PackageReference Include="Microsoft.Extensions.Configuration" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
@@ -25,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RD.CanMusicMakeYouRunFaster.FakeResponseServer\RD.CanMusicMakeYouRunFaster.FakeResponseServer.csproj" />
     <ProjectReference Include="..\RD.CanMusicMakeYouRunFaster.Rest\RD.CanMusicMakeYouRunFaster.Rest.csproj" />
   </ItemGroup>
-
 </Project>

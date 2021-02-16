@@ -49,6 +49,7 @@
 
                 convertedListeningHistory.Add(listeningHistoryItem);
             }
+
             dataSource.AddListeningHistory(convertedListeningHistory);
         }
 

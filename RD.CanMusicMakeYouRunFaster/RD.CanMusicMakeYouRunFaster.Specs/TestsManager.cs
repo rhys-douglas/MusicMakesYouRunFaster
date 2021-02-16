@@ -4,6 +4,10 @@
     using System.Threading;
     using BoDi;
     using ClientDrivers;
+    using DataSource;
+    using FakeResponseServer.DbContext;
+    using Microsoft.EntityFrameworkCore;
+    using Microsoft.EntityFrameworkCore.Storage;
     using TechTalk.SpecFlow;
 
     /// <summary>
@@ -13,6 +17,8 @@
     public class TestsManager
     {
         private static IClientDriver clientDriver;
+        private static DbContextOptions<DataRetrievalContext> contextOptions;
+        private static InMemoryDatabaseRoot databaseRoot;
 
         /// <summary>
         /// Set up precursors to testing.
@@ -21,9 +27,17 @@
         [BeforeTestRun]
         public static void TestSetup(IObjectContainer objectContainer)
         {
+            databaseRoot = new InMemoryDatabaseRoot();
+            contextOptions = new DbContextOptionsBuilder<DataRetrievalContext>()
+                .UseInMemoryDatabase("SpecsDatabase", databaseRoot).Options;
+            var dataSource = new FakeDataSource(contextOptions);
+
             clientDriver = new ApiClientDriver();
             clientDriver.SetUp();
+
             objectContainer.RegisterInstanceAs<IClientDriver>(clientDriver);
+            objectContainer.RegisterInstanceAs(dataSource);
+
             Thread.Sleep(TimeSpan.FromSeconds(1));
         }
     }

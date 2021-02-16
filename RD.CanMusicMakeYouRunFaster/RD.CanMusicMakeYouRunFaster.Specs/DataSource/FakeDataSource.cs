@@ -19,7 +19,7 @@
         {
             this.contextOptions = contextOptions;
         }
-
+        #region Component Designer generated code
         /// <summary>
         /// Adds listening history from feature files to the backend.
         /// </summary>
@@ -31,5 +31,6 @@
             context.PlayHistoryItems.AddRange(listOfListeningHistory);
             context.SaveChanges();
         }
+        #endregion
     }
 }
