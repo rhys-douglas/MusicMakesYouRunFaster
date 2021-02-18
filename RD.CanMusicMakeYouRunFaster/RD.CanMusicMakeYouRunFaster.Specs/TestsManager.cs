@@ -10,6 +10,7 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Factories;
+    using RD.CanMusicMakeYouRunFaster.Rest.Controllers;
     using RD.CanMusicMakeYouRunFaster.Specs.Utils;
     using TechTalk.SpecFlow;
 
@@ -36,10 +37,11 @@
             databaseRoot = new InMemoryDatabaseRoot();
             contextOptions = new DbContextOptionsBuilder<DataRetrievalContext>()
                 .UseInMemoryDatabase(DatabaseName, databaseRoot).Options;
-            var dataSource = new FakeDataSource(contextOptions);
-
             var webAppFactory = new InMemoryFactory<InMemoryStartup>(DatabaseName, databaseRoot);
             httpClient = webAppFactory.CreateClient(TestsConfiguration.FakeResponseServerUrl);
+
+            var externalAPIClient = new ExternalAPIController(httpClient);
+            var dataSource = new FakeDataSource(contextOptions, externalAPIClient);
 
             clientDriver = new ApiClientDriver();
             clientDriver.SetUp();
