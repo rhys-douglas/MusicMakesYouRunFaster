@@ -1,6 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Specs
 {
     using System;
+    using System.Net.Http;
     using System.Threading;
     using BoDi;
     using ClientDrivers;
@@ -8,6 +9,8 @@
     using FakeResponseServer.DbContext;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Factories;
+    using RD.CanMusicMakeYouRunFaster.Specs.Utils;
     using TechTalk.SpecFlow;
 
     /// <summary>
@@ -16,6 +19,7 @@
     [Binding]
     public class TestsManager
     {
+        private const string DatabaseName = "SpecsDatabase";
         private static IClientDriver clientDriver;
         private static DbContextOptions<DataRetrievalContext> contextOptions;
         private static InMemoryDatabaseRoot databaseRoot;
@@ -27,10 +31,15 @@
         [BeforeTestRun]
         public static void TestSetup(IObjectContainer objectContainer)
         {
+            HttpClient httpClient;
+
             databaseRoot = new InMemoryDatabaseRoot();
             contextOptions = new DbContextOptionsBuilder<DataRetrievalContext>()
-                .UseInMemoryDatabase("SpecsDatabase", databaseRoot).Options;
+                .UseInMemoryDatabase(DatabaseName, databaseRoot).Options;
             var dataSource = new FakeDataSource(contextOptions);
+
+            var webAppFactory = new InMemoryFactory<InMemoryStartup>(DatabaseName, databaseRoot);
+            httpClient = webAppFactory.CreateClient(TestsConfiguration.FakeResponseServerUrl);
 
             clientDriver = new ApiClientDriver();
             clientDriver.SetUp();

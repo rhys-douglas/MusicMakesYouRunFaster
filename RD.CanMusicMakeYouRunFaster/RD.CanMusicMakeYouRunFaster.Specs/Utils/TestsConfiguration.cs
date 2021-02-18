@@ -25,6 +25,13 @@
         /// </summary>
         public static string TestMode => GetEnvironmentValue("TestMode");
 
+        /// <summary>
+        /// Gets the backend mode.
+        /// </summary>
+        public static string BackendMode => GetEnvironmentValue("BackendMode");
+
+        public static string FakeResponseServerUrl => GetEnvironmentValue("FakeResponseServerUrl");
+
         private static IConfigurationSection TestConfig { get; }
 
         /// <summary>
@@ -35,7 +42,7 @@
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(Directory.GetCurrentDirectory());
-            //// builder.AddJsonFile("appsettings.Development.json", false, true);
+            builder.AddJsonFile("appsettings.Development.json", false, true);
             return builder.Build();
         }
 

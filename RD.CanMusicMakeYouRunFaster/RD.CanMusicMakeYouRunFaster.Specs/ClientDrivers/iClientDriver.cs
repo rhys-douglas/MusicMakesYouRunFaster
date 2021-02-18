@@ -13,7 +13,7 @@
         void GetRecentlyPlayedMusic();
 
         /// <summary>
-        /// Set up client driver
+        /// Set up client driver.
         /// </summary>
         void SetUp();
 

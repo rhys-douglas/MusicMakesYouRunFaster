@@ -6,7 +6,18 @@
 	<TreatWarningsAsErrors>true</TreatWarningsAsErrors>
 	<WarningsAsErrors />
 	<StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
+	<EnableNETAnalyzers>false</EnableNETAnalyzers>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="StyleCop.Analyzers.ruleset" />
+    <None Remove="stylecop.json" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <AdditionalFiles Include="StyleCop.Analyzers.ruleset" />
+    <AdditionalFiles Include="stylecop.json" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentAssertions" Version="5.10.3" />
@@ -20,7 +31,7 @@
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="16.5.0" />
     <PackageReference Include="SpecFlow.NUnit" Version="3.6.23" />
     <PackageReference Include="SpecFlow.Tools.MsBuild.Generation" Version="3.6.23" />
-    <PackageReference Include="StyleCop.MSBuild" Version="6.2.0">
+    <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>

@@ -1,7 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Specs.ClientDrivers
 {
     using System.Collections.Generic;
-    using Rest.Controllers;
+    using RD.CanMusicMakeYouRunFaster.Rest.Controllers;
 
     /// <summary>
     /// Client driver for testing without a front-end.
