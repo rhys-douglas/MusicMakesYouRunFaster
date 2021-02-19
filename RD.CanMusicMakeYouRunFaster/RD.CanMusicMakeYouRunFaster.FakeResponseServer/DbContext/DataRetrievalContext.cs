@@ -1,6 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.DbContext
 {
     using Microsoft.EntityFrameworkCore;
+    using SpotifyAPI.Web;
 
     /// <summary>
     /// Context for storing the session's fake data set.
@@ -19,6 +20,6 @@
         /// <summary>
         /// Gets or sets the PlayHistory data set.
         /// </summary>
-        public DbSet<SpotifyAPI.Web.PlayHistoryItem> PlayHistoryItems { get; set; }
+        public DbSet<PlayHistoryItem> PlayHistoryItems { get; set; }
     }
 }

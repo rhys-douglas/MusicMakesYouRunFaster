@@ -1,6 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Specs.ClientDrivers
 {
     using System.Collections.Generic;
+    using SpotifyAPI.Web;
     using RD.CanMusicMakeYouRunFaster.Rest.Controllers;
 
     /// <summary>
@@ -22,7 +23,7 @@
         {
             externalAPIController.GetSpotifyAuthenticationToken();
             var searchResult = externalAPIController.GetSpotifyRecentlyPlayed();
-            var playHistoryContainer = (SpotifyAPI.Web.CursorPaging<SpotifyAPI.Web.PlayHistoryItem>)searchResult.Value;
+            var playHistoryContainer = (CursorPaging<PlayHistoryItem>)searchResult.Value;
             foreach (var song in playHistoryContainer.Items)
             {
                 var listeningHistoryItem = new Dictionary<string, string>
