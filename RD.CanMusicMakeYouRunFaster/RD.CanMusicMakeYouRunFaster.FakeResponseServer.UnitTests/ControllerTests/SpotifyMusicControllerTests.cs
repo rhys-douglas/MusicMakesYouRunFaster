@@ -21,7 +21,8 @@
             PlayedAt = new DateTime(2021, 02, 19),
             Track = new SimpleTrack
             {
-                Name = "Song 1"
+                Name = "Song 1",
+                ExternalUrls = null
             }
         };
 
@@ -30,7 +31,8 @@
             PlayedAt = new DateTime(2021, 02, 20),
             Track = new SimpleTrack
             {
-                Name = "Song 2"
+                Name = "Song 2",
+                ExternalUrls = null
             }
         };
 
@@ -39,7 +41,8 @@
             PlayedAt = new DateTime(2021, 02, 21),
             Track = new SimpleTrack
             {
-                Name = "Song 3"
+                Name = "Song 3",
+                ExternalUrls = null
             }
         };
 
