@@ -26,35 +26,50 @@
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<PlayHistoryItem>()
+                .HasOne(x => x.Context);
+
+            modelBuilder.Entity<PlayHistoryItem>()
+                .HasOne(x => x.Track);
+
             modelBuilder.Entity<SimpleTrack>(b =>
                 {
                     b.Property(u => u.ExternalUrls)
                     .HasConversion(
                         d => JsonConvert.SerializeObject(d, Formatting.None),
                         s => JsonConvert.DeserializeObject<Dictionary<string, string>>(s));
+                    b.Property(u => u.AvailableMarkets)
+                    .HasConversion(
+                        d => JsonConvert.SerializeObject(d, Formatting.None),
+                        s => JsonConvert.DeserializeObject<List<string>>(s));
             });
-            
-            /*
-            modelBuilder.Entity<PlayHistoryItem>(b =>
-            {
-                b.Property(u => u.Track)
-                .HasConversion<string>();
-                });
-            */
 
-            /*
-            modelBuilder.Entity<SimpleTrack>().Ignore(e => e.ExternalUrls);
-            modelBuilder.Entity<PlayHistoryItem>().Ignore(t => t.Track);
-            modelBuilder.Ignore("ExternalUrls");
-            modelBuilder.Ignore("Context.ExternalUrls");
-            modelBuilder.Entity<SimpleTrack>()
-                .Property(e => e.ExternalUrls)
+            modelBuilder.Entity<Context>(b =>
+            {
+                b.Property(u => u.ExternalUrls)
                 .HasConversion(
-                e => JsonConvert.SerializeObject(e),
-                e => JsonConvert.DeserializeObject<Dictionary<string, string>>(e));
-            base.OnModelCreating(modelBuilder);
-            */
+                    d => JsonConvert.SerializeObject(d, Formatting.None),
+                    s => JsonConvert.DeserializeObject<Dictionary<string, string>>(s));
+                b.HasKey(x => x.Uri);
+            });
+
+            modelBuilder.Entity<LinkedTrack>(b =>
+            {
+                b.Property(u => u.ExternalUrls)
+                .HasConversion(
+                    d => JsonConvert.SerializeObject(d, Formatting.None),
+                    s => JsonConvert.DeserializeObject<Dictionary<string, string>>(s));
+            });
+
+            modelBuilder.Entity<SimpleArtist>(b =>
+            {
+                b.Property(u => u.ExternalUrls)
+                .HasConversion(
+                    d => JsonConvert.SerializeObject(d, Formatting.None),
+                    s => JsonConvert.DeserializeObject<Dictionary<string, string>>(s));
+            });
+
+            modelBuilder.Ignore("PlayHistoryItem.Context");
         }
 
         /// <summary>
