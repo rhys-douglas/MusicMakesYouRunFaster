@@ -39,15 +39,15 @@
                 .UseInMemoryDatabase(DatabaseName, databaseRoot).Options;
             var webAppFactory = new InMemoryFactory<InMemoryStartup>(DatabaseName, databaseRoot);
             httpClient = webAppFactory.CreateClient(TestsConfiguration.FakeResponseServerUrl);
-
+            /*
             var externalAPIClient = new ExternalAPIController(httpClient);
             var dataSource = new FakeDataSource(contextOptions, externalAPIClient);
-
+            */
             clientDriver = new ApiClientDriver();
             clientDriver.SetUp();
 
             objectContainer.RegisterInstanceAs<IClientDriver>(clientDriver);
-            objectContainer.RegisterInstanceAs(dataSource);
+            //objectContainer.RegisterInstanceAs(dataSource);
 
             Thread.Sleep(TimeSpan.FromSeconds(1));
         }

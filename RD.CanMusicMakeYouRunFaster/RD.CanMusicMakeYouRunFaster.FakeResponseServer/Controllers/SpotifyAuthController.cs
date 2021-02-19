@@ -6,6 +6,8 @@
     using SpotifyAPI.Web;
     using System.Collections.Generic;
     using System;
+    using static SpotifyAPI.Web.Scopes;
+    using System.Security.Cryptography;
 
     /// <summary>
     /// Fake spotify controller, which act as spotify's auth service.
@@ -35,15 +37,26 @@
                 throw new System.Exception("Token request is null.");
             }
 
+            RandomNumberGenerator rng = new RNGCryptoServiceProvider();
+            byte[] buffer0 = new byte[100];
+            byte[] buffer1 = new byte[100];
+            rng.GetBytes(buffer0);
+            string accessToken = Convert.ToBase64String(buffer0);
+            rng.GetBytes(buffer1);
+            string refreshToken = Convert.ToBase64String(buffer1);
+
+
             var TokenResponse = new PKCETokenResponse
             {
-                AccessToken = "",
+                AccessToken = accessToken,
                 CreatedAt = DateTime.Now,
                 ExpiresIn = 3600,
-                RefreshToken = "other random string",
-                Scope = scopes,
+                RefreshToken = refreshToken,
+                Scope = "UserReadPrivate, UserReadRecentlyPlayed",
                 TokenType = "Bearer"
             };
+
+            await Task.Delay(1);
 
             return TokenResponse;
         }
