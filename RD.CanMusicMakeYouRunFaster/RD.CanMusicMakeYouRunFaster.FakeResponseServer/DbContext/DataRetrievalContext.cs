@@ -26,6 +26,7 @@
         /// <param name="modelBuilder"></param>
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            /*
             modelBuilder.Entity<PlayHistoryItem>()
                 .HasOne(x => x.Context);
 
@@ -70,6 +71,7 @@
             });
 
             modelBuilder.Ignore("PlayHistoryItem.Context");
+            */
         }
 
         /// <summary>
