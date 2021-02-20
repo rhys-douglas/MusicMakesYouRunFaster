@@ -21,11 +21,11 @@
         /// <summary>
         /// SimpleTrack object, holding track information.
         /// </summary>
-        public SimpleTrack Track { get; set; } = default!;
+        public virtual SimpleTrack Track { get; set; } = default!;
 
         /// <summary>
         /// Context object, holding context information.
         /// </summary>
-        public Context Context { get; set; } = default!;
+        public virtual Context Context { get; set; } = default!;
     }
 }

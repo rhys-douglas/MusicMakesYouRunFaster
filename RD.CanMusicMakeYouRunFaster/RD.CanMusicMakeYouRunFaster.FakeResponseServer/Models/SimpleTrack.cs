@@ -65,7 +65,7 @@
         /// <summary>
         /// Track from which the track was linked from
         /// </summary>
-        public LinkedTrack LinkedFrom { get; set; } = default!;
+        public virtual LinkedTrack LinkedFrom { get; set; } = default!;
 
         /// <summary>
         /// Name of the track

@@ -18,6 +18,13 @@
         }
 
         /// <summary>
+        /// Overrides the OnConfiguring method.
+        /// </summary>
+        /// <param name="optionsBuilder">Options builder input</param>
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+            => optionsBuilder.UseLazyLoadingProxies();
+
+        /// <summary>
         /// Overrides the model creating, allowing external urls to be ignored.
         /// </summary>
         /// <param name="modelBuilder"></param>

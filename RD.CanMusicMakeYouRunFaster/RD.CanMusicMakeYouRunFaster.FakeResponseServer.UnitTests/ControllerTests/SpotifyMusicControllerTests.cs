@@ -89,7 +89,7 @@
                 retrievedSongs.Add(song);
             }
             retrievedSongs.Should().HaveCount(3);
-            // retrievedSongs.Should().BeEquivalentTo(listeningHistory);
+            retrievedSongs.Should().BeEquivalentTo(listeningHistory);
         }
     }
 }
