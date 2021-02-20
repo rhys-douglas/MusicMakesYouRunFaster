@@ -27,18 +27,18 @@
         /// </summary>
         /// <returns> A CursorPage of PlayHistoryItems</returns>
         [HttpGet]
-        public async Task<CursorPaging<PlayHistoryItem>> GetRecentlyPlayed()
+        public async Task<CursorPaging<Models.PlayHistoryItem>> GetRecentlyPlayed()
         {
             await Task.Delay(1);
             var musicHistory = context.PlayHistoryItems;
-            List<PlayHistoryItem> listOfRecentlyPlayed = new List<PlayHistoryItem>();
+            List<Models.PlayHistoryItem> listOfRecentlyPlayed = new List<Models.PlayHistoryItem>();
 
             foreach (var item in musicHistory)
             {
                 listOfRecentlyPlayed.Add(item);
             }
 
-            var listeningHistory = new CursorPaging<PlayHistoryItem>
+            var listeningHistory = new CursorPaging<Models.PlayHistoryItem>
             {
                 Items = listOfRecentlyPlayed
             };

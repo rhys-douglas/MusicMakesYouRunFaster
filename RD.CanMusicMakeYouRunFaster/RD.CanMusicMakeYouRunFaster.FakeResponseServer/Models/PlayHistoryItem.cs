@@ -10,6 +10,9 @@
     /// </summary>
     public class PlayHistoryItem
     {
+        [Key]
+        public string Id { get; set; }
+
         /// <summary>
         /// DateTime of when the track was played.
         /// </summary>
@@ -18,7 +21,6 @@
         /// <summary>
         /// SimpleTrack object, holding track information.
         /// </summary>
-        [Key]
         public SimpleTrack Track { get; set; } = default!;
 
         /// <summary>

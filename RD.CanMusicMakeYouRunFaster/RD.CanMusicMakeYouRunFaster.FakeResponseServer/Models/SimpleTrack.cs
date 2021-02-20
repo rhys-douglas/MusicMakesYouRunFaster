@@ -94,4 +94,3 @@
         public string Uri { get; set; } = default!;
     }
 }
-}

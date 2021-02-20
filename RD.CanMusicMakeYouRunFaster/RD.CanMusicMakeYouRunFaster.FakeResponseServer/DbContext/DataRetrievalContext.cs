@@ -1,10 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.DbContext
 {
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Metadata.Builders;
-    using Newtonsoft.Json;
-    using SpotifyAPI.Web;
-    using System.Collections.Generic;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models;
 
     /// <summary>
     /// Database context for storing the session's data set

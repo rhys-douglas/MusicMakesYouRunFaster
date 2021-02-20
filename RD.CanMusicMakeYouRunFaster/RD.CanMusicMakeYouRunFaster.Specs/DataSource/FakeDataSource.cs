@@ -3,6 +3,7 @@
     using System.Collections.Generic;
     using FakeResponseServer.DbContext;
     using Microsoft.EntityFrameworkCore;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models;
 
     /// <summary>
     /// FakeDataSource class. Acts as an area to store fake data for testing, to prove integration.
@@ -24,7 +25,7 @@
         /// Adds listening history from feature files to the backend.
         /// </summary>
         /// <param name="listOfListeningHistory"> Listening history to add. </param>
-        public void AddListeningHistory(List<SpotifyAPI.Web.PlayHistoryItem> listOfListeningHistory)
+        public void AddListeningHistory(List<PlayHistoryItem> listOfListeningHistory)
         {
             using var context = new DataRetrievalContext(contextOptions);
             context.PlayHistoryItems.RemoveRange(context.PlayHistoryItems);

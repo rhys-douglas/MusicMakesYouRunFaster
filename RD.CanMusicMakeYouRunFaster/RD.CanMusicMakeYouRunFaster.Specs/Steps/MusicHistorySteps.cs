@@ -50,7 +50,7 @@
                 convertedListeningHistory.Add(listeningHistoryItem);
             }
 
-            dataSource.AddListeningHistory(convertedListeningHistory);
+            //dataSource.AddListeningHistory(convertedListeningHistory);
         }
 
         [Given(@"a user [""]?([^""]*)[""]?")]

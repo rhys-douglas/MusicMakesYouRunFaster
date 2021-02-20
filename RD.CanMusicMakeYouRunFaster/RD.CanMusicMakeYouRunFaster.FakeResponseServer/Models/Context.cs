@@ -1,6 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models
 {
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
@@ -29,6 +30,7 @@
         /// <summary>
         /// Uri of the associated item.
         /// </summary>
+        [Key]
         public string Uri { get; set; } = default!;
     }
 }
