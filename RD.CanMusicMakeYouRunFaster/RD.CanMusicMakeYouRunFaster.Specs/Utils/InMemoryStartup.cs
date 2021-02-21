@@ -5,7 +5,7 @@
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer;
-    using RD.CanMusicMakeYouRunFaster.Rest.Controllers;
+    using RD.CanMusicMakeYouRunFaster.Rest.Gateways;
 
     /// <summary>
     /// Startup for the InMemory version of the FakeResponseServer.
