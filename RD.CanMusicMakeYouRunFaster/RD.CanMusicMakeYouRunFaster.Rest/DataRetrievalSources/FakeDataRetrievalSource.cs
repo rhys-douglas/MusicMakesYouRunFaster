@@ -1,38 +1,36 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources
 {
-    using System.Security.Cryptography;
     using System;
     using Microsoft.AspNetCore.Mvc;
     using RD.CanMusicMakeYouRunFaster.Rest.DTO;
     using System.Threading.Tasks;
     using Newtonsoft.Json;
     using System.Net.Http;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
 
     /// <summary>
     /// Fake data source used for tests.
     /// </summary>
     public class FakeDataRetrievalSource : IDataRetrievalSource
     {
-        private readonly HttpClient httpClient;
+        private readonly SpotifyClient spotifyClient;
         private readonly Uri fakeSpotifyAuthUrl = new Uri("localhost:8080");
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FakeDataRetrievalSource"/> class.
         /// </summary>
-        public FakeDataRetrievalSource()
+        public FakeDataRetrievalSource(SpotifyClient spotifyClient)
         {
-            httpClient = new HttpClient();
+            this.spotifyClient = spotifyClient;
         }
 
         /// <inheritdoc/>
         public async Task<JsonResult> GetSpotifyAuthenticationToken()
         {
             await Task.Delay(1);
-            var httpClientResponse = httpClient.GetAsync(fakeSpotifyAuthUrl).Result;
-            var tokenAsJson = httpClientResponse.Content.ReadAsStringAsync().Result;
-            var token = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>(tokenAsJson,
-                new JsonSerializerSettings { MissingMemberHandling = MissingMemberHandling.Ignore });
-            return new JsonResult(token);
+            var authTokenResponse = spotifyClient.Get<SpotifyAuthenticationToken>(new Uri("http://localhost/authorize"));
+            return new JsonResult(authTokenResponse);
+
         }
 
         /// <inheritdoc/>

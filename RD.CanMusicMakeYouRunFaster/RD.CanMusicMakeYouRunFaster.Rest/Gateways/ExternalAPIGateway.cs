@@ -2,6 +2,7 @@
 {
     using DataRetrievalSources;
     using DTO;
+    using FakeResponseServer.Controllers;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
 
@@ -12,6 +13,7 @@
     {
         private readonly IDataRetrievalSource dataSource;
         private SpotifyAuthenticationToken spotifyAuthToken;
+        private SpotifyClient fakeSpotifyClient;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExternalAPIGateway"/> class.

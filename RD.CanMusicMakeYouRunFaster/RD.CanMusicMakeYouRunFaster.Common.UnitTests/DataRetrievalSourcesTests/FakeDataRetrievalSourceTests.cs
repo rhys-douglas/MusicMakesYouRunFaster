@@ -14,7 +14,7 @@
         [OneTimeSetUp]
         public void SetUpTests()
         {
-            sut = new FakeDataRetrievalSource();
+            sut = MakeSut();
             var oauthToken = sut.GetSpotifyAuthenticationToken();
             oauthToken.Result.Should().NotBeNull();
             oauthToken.Result.Value.Should().NotBe(string.Empty);
@@ -36,6 +36,11 @@
             var listeningHistory = sut.GetSpotifyRecentlyPlayed(new SpotifyAuthenticationToken()) ;
             listeningHistory.Result.Value.Should().NotBeNull();
             listeningHistory.Result.Value.Should().NotBe(string.Empty);
+        }
+
+        private FakeDataRetrievalSource MakeSut()
+        {
+            return new FakeDataRetrievalSource();
         }
     }
 }

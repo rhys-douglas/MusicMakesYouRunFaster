@@ -11,10 +11,10 @@
     public class MusicHistorySteps
     {
         private readonly IClientDriver clientDriver;
-        private readonly FakeDataSource dataSource;
+        private readonly DataPort dataSource;
         private readonly List<Dictionary<string, string>> listeningHistory = new List<Dictionary<string, string>>();
 
-        public MusicHistorySteps(IClientDriver clientDriver, FakeDataSource dataSource)
+        public MusicHistorySteps(IClientDriver clientDriver, DataPort dataSource)
         {
             this.clientDriver = clientDriver;
             this.dataSource = dataSource;

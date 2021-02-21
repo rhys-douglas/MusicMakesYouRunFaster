@@ -9,6 +9,7 @@
     using FakeResponseServer.DbContext;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Factories;
     using RD.CanMusicMakeYouRunFaster.Rest.Gateways;
     using RD.CanMusicMakeYouRunFaster.Specs.Utils;
@@ -45,13 +46,13 @@
 
             var externalAPIGateway = new ExternalAPIGateway(spotifyClient);
 
-            var dataSource = new FakeDataSource(contextOptions, spotifyClient);
+            // var dataSource = new FakeDataSource(contextOptions, spotifyClient);
 
             clientDriver = new ApiClientDriver();
             clientDriver.SetUp();
 
             objectContainer.RegisterInstanceAs<IClientDriver>(clientDriver);
-            objectContainer.RegisterInstanceAs(dataSource);
+            // objectContainer.RegisterInstanceAs(dataSource);
 
             Thread.Sleep(TimeSpan.FromSeconds(1));
         }
