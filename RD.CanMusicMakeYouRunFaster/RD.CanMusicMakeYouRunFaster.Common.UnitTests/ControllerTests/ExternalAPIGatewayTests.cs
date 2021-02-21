@@ -3,17 +3,19 @@
     using FluentAssertions;
     using Newtonsoft.Json;
     using NUnit.Framework;
-    using RD.CanMusicMakeYouRunFaster.Rest.Controllers;
+    using RD.CanMusicMakeYouRunFaster.Rest.Gateways;
     using RD.CanMusicMakeYouRunFaster.Rest.DTO;
+    using RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources;
 
-    public class ExternalAPIContollerTests
+    public class ExternalAPIGatewayTests
     {
-        private ExternalAPIController sut;
+        private ExternalAPIGateway sut;
 
         [OneTimeSetUp]
         public void SetUpTests()
         {
-            sut = new ExternalAPIController();
+            var dataSource = new FakeDataRetrievalSource();
+            sut = new ExternalAPIGateway(dataSource);
         }
 
         [Test]

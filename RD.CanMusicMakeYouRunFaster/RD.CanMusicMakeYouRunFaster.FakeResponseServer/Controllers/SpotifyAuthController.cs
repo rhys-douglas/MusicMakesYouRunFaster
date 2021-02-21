@@ -1,13 +1,12 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers
 {
-    using Microsoft.AspNetCore.Mvc;
-    using DbContext;
-    using System.Threading.Tasks;
-    using SpotifyAPI.Web;
-    using System.Collections.Generic;
     using System;
-    using static SpotifyAPI.Web.Scopes;
     using System.Security.Cryptography;
+    using System.Threading.Tasks;
+    using DbContext;
+    using Microsoft.AspNetCore.Mvc;
+    using SpotifyAPI.Web;
+    
 
     /// <summary>
     /// Fake spotify controller, which act as spotify's auth service.
@@ -15,7 +14,7 @@
     [ApiController]
     public class SpotifyAuthController : ControllerBase
     {
-        private DataRetrievalContext context;
+        private readonly DataRetrievalContext context;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SpotifyAuthController"/> class.

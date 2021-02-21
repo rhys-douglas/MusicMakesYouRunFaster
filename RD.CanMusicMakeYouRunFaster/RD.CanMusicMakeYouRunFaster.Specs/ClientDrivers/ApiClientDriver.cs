@@ -2,7 +2,7 @@
 {
     using System.Collections.Generic;
     using SpotifyAPI.Web;
-    using RD.CanMusicMakeYouRunFaster.Rest.Controllers;
+    using RD.CanMusicMakeYouRunFaster.Rest.Gateways;
 
     /// <summary>
     /// Client driver for testing without a front-end.
@@ -10,12 +10,12 @@
     public class ApiClientDriver : IClientDriver
     {
         private readonly List<Dictionary<string, string>> searchResults = new List<Dictionary<string, string>>();
-        private ExternalAPIController externalAPIController;
+        private ExternalAPIGateway externalAPIController;
 
         /// <inheritdoc/>
         public void SetUp()
         {
-            externalAPIController = new ExternalAPIController();
+            externalAPIController = new ExternalAPIGateway();
         }
 
         /// <inheritdoc/>

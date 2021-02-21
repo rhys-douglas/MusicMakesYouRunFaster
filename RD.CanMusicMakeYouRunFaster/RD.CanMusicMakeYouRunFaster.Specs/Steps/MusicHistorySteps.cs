@@ -30,6 +30,8 @@
         public void GivenAListOfListeningHistory(Table table)
         {
             var convertedListeningHistory = new List<SpotifyAPI.Web.PlayHistoryItem>();
+            var fakeListeningHistory = new List<FakeResponseServer.Models.PlayHistoryItem>();
+            var count = 0;
             foreach (var row in table.Rows)
             {
                 var rowOfHistory = new Dictionary<string, string>
@@ -47,10 +49,23 @@
                     }
                 };
 
-                convertedListeningHistory.Add(listeningHistoryItem);
-            }
+                count++;
+                var fakeHistoryItem = new FakeResponseServer.Models.PlayHistoryItem
+                {
+                    Id = count.ToString(),
+                    PlayedAt = DateTime.ParseExact(row["Time of listening"], "dd'/'MM'/'yyyy HH:mm:ss", null),
+                    Track = new FakeResponseServer.Models.SimpleTrack
+                    {
+                        Id = count.ToString(),
+                        Name = row["Song name"]
+                    }
 
-            //dataSource.AddListeningHistory(convertedListeningHistory);
+                };
+
+                convertedListeningHistory.Add(listeningHistoryItem);
+                fakeListeningHistory.Add(fakeHistoryItem);
+            }
+            dataSource.AddListeningHistory(fakeListeningHistory);
         }
 
         [Given(@"a user [""]?([^""]*)[""]?")]

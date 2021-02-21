@@ -22,7 +22,7 @@ namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer
         /// Creates a HostBuilder.
         /// </summary>
         /// <param name="args"> CLI arguments from Main()</param>
-        /// <returns>The builder used to build the web API.</returns>
+        /// <returns>The builder used to build the fake response API.</returns>
         public static IWebHostBuilder CreateHostBuilder(string[] args) =>
             WebHost.CreateDefaultBuilder(args).UseStartup<Startup>();
     }

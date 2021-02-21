@@ -1,13 +1,15 @@
 namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer
 {
+    using DbContext;
     using Microsoft.AspNetCore.Builder;
     using Microsoft.AspNetCore.Hosting;
+    using Microsoft.EntityFrameworkCore;
     using Microsoft.Extensions.Configuration;
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Hosting;
 
     /// <summary>
-    /// File used to dictate the properties of the web API.
+    /// Class used to dictate startup properties of the FakeResponseServer.
     /// </summary>
     public class Startup
     {
@@ -26,30 +28,39 @@ namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer
         public IConfiguration Configuration { get; }
 
         /// <summary>
-        /// Method called by the runtime. Use this to add services to the container.
+        /// Method called by the runtime. Used to add services to the container.
         /// </summary>
         /// <param name="services"> Services to configure. </param>
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            services.AddDbContext<DataRetrievalContext>(opt => opt.UseInMemoryDatabase("FakeResponseServerDb"));
+            services.AddMvc(option => option.EnableEndpointRouting = false)
+                .SetCompatibilityVersion(Microsoft.AspNetCore.Mvc.CompatibilityVersion.Version_3_0);
+            services.AddCors(options =>
+            {
+                options.AddPolicy(
+                    "CorsPolicy",
+                    builder => builder.AllowAnyOrigin()
+                    .AllowAnyMethod()
+                    .AllowAnyHeader());
+            });
+
+            services.AddControllers()
+                .ConfigureApiBehaviorOptions(opt => { opt.SuppressModelStateInvalidFilter = true; });
         }
 
         /// <summary>
-        /// Method called by the runtime. Use this to configure the HTTP request pipeline.
+        /// Method called by the runtime. Used to configure the HTTP request pipeline.
         /// </summary>
-        /// <param name="app"> The application to configure. </param>
-        /// <param name="env"> The environment to configure. </param>
+        /// <param name="app"> The application used to configure. </param>
+        /// <param name="env"> The environment used to configure. </param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
-
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseMvc();
         }
     }
 }

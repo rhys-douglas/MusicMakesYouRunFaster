@@ -1,4 +1,4 @@
-﻿namespace RD.CanMusicMakeYouRunFaster.Rest.Controllers
+﻿namespace RD.CanMusicMakeYouRunFaster.Rest.Gateways
 {
     using DataRetrievalSources;
     using DTO;
@@ -8,16 +8,16 @@
     /// <summary>
     /// Controller used to handle HTTP requests to the backend / external API's.
     /// </summary>
-    public class ExternalAPIController : ControllerBase
+    public class ExternalAPIGateway : ControllerBase
     {
         private readonly IDataRetrievalSource dataSource;
         private SpotifyAuthenticationToken spotifyAuthToken;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ExternalAPIController"/> class.
+        /// Initializes a new instance of the <see cref="ExternalAPIGateway"/> class.
         /// </summary>
         /// <param name="dataSource"> Data source to use.</param>
-        public ExternalAPIController(IDataRetrievalSource dataSource = null)
+        public ExternalAPIGateway(IDataRetrievalSource dataSource = null)
         {
             if (dataSource == null)
             {

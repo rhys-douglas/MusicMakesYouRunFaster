@@ -29,7 +29,7 @@
         /// <param name="services"> Services to configure. </param>
         public void ConfigureServices(IServiceCollection services)
         {
-            var externalApiController = typeof(ExternalAPIController).Assembly;
+            var externalApiController = typeof(ExternalAPIGateway).Assembly;
 
             services.AddControllers()
                 .AddApplicationPart(externalApiController);
