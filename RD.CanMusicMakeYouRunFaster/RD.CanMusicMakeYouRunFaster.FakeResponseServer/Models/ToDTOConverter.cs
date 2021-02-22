@@ -55,6 +55,11 @@ namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models
 
         private static List<DTO.SimpleArtist> ConvertArtsits(List<Models.SimpleArtist> listOfModels)
         {
+            if (listOfModels == null)
+            {
+                return null;
+            }
+
             List<DTO.SimpleArtist> listOfDTOArtists = new List<DTO.SimpleArtist>();
             foreach (var model in listOfModels)
             {
