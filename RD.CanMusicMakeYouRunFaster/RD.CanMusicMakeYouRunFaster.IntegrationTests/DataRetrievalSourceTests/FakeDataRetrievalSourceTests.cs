@@ -1,19 +1,16 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.IntegrationTests.DataRetrievalSourcesTests
 {
+    using System;
+    using System.Collections.Generic;
     using DataRetrievalSources;
     using Entity;
     using FluentAssertions;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Storage;
     using Newtonsoft.Json;
     using NUnit.Framework;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.DbContext;
-    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Factories;
     using RD.CanMusicMakeYouRunFaster.Rest.IntegrationTests.TestUtils;
-    using System;
-    using System.Collections.Generic;
-    using System.Net.Http;
 
     public class FakeDataRetrievalSourceTests : TestsBase
     {
@@ -148,9 +145,9 @@
             foreach (var item in PlayHistoryItems)
             {
                 item.PlayedAt = now;
-                dataRetrievalContext.PlayHistoryItems.Add(item);
             }
-            dataRetrievalContext.SaveChanges();
+
+            RegisterMusicHistory(PlayHistoryItems);
 
             var oauthToken = sut.GetSpotifyAuthenticationToken();
             oauthToken.Result.Should().NotBeNull();
@@ -177,7 +174,7 @@
 
         private FakeDataRetrievalSource MakeSut(SpotifyClient spotifyClient)
         {
-            return new FakeDataRetrievalSource(spotifyClient);
+            return new FakeDataRetrievalSource(spotifyClient, FakeServerAddress);
         }
     }
 }

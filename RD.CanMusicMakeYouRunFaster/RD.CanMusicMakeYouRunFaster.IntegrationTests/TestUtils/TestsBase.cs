@@ -18,8 +18,8 @@
     public class TestsBase
     {
         private const string DatabaseName = "FakeDataRetrievalSourceDatabase";
-        private const string FakeServerAddress = "http://localhost:2222";
         private DbContextOptions<DataRetrievalContext> contextOptions;
+        public const string FakeServerAddress = "http://localhost:2222";
 
         [OneTimeSetUp]
         public virtual void TestSetup()
@@ -35,7 +35,7 @@
 
             var spotifyClient = new SpotifyClient(httpClient, FakeServerAddress);
 
-            FakeDataRetrievalSourceFactory = () => new FakeDataRetrievalSource(spotifyClient);
+            FakeDataRetrievalSourceFactory = () => new FakeDataRetrievalSource(spotifyClient, FakeServerAddress);
         }
 
         protected Func<FakeDataRetrievalSource> FakeDataRetrievalSourceFactory { get; private set; }

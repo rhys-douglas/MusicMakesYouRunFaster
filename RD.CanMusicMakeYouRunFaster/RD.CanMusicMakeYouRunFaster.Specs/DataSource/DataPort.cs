@@ -16,7 +16,7 @@
     {
         private readonly DbContextOptions<DataRetrievalContext> contextOptions;
 
-        public ExternalAPIGateway externalAPIGateway = new ExternalAPIGateway(new FakeDataRetrievalSource(new SpotifyClient(new HttpClient(),"")));
+        public ExternalAPIGateway externalAPIGateway = new ExternalAPIGateway(new FakeDataRetrievalSource(new SpotifyClient(new HttpClient(),""), ""));
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataPort"/> class.

@@ -16,7 +16,7 @@
         [OneTimeSetUp]
         public void SetUpTests()
         {
-            var dataSource = new FakeDataRetrievalSource(new SpotifyClient(new HttpClient(), ""));
+            var dataSource = new FakeDataRetrievalSource(new SpotifyClient(new HttpClient(), ""), "");
             sut = new ExternalAPIGateway(dataSource);
         }
 
