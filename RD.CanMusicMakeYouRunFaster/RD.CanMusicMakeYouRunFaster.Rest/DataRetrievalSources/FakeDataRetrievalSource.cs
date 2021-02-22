@@ -29,7 +29,7 @@
         public async Task<JsonResult> GetSpotifyAuthenticationToken()
         {
             await Task.Delay(1);
-            var authTokenResponse = spotifyClient.Get<SpotifyAuthenticationToken>(fakeSpotifyAuthUrl);
+            var authTokenResponse = spotifyClient.Get<SpotifyAuthenticationToken>(new Uri("http://localhost:2222/authorize"));
             return new JsonResult(authTokenResponse);
 
         }

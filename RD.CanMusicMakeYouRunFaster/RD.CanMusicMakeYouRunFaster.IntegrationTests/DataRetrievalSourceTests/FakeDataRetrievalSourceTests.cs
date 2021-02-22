@@ -2,6 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
     using DataRetrievalSources;
     using Entity;
     using FluentAssertions;
@@ -142,7 +143,9 @@
 
             RegisterMusicHistory(PlayHistoryItems);
 
+            sut = MakeSut();
             var oauthToken = sut.GetSpotifyAuthenticationToken();
+            Task.Delay(1000);
             oauthToken.Result.Should().NotBeNull();
             oauthToken.Result.Value.Should().NotBe(string.Empty);
             authenticationToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>((string)oauthToken.Result.Value);
