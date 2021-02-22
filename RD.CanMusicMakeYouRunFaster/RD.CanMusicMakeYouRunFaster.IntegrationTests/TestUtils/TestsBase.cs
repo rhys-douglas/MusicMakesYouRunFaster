@@ -34,7 +34,7 @@
             var webAppFactory = new InMemoryFactory<FakeResponseServer.Startup>(DatabaseName, databaseRoot);
             httpClient = webAppFactory.CreateClient(FakeServerAddress);
 
-            spotifyClient = new SpotifyClient(httpClient, FakeServerAddress);
+            spotifyClient = new SpotifyClient(httpClient);
 
             FakeDataRetrievalSourceFactory = () => new FakeDataRetrievalSource(spotifyClient, FakeServerAddress);
         }

@@ -8,15 +8,31 @@
     using RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources;
     using System.Net.Http;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
+    using Microsoft.EntityFrameworkCore.Storage;
+    using Microsoft.EntityFrameworkCore;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.DbContext;
+    using RD.CanMusicMakeYouRunFaster.CommonTestUtils.Factories;
 
     public class ExternalAPIGatewayTests
     {
         private ExternalAPIGateway sut;
+        private const string DatabaseName = "FakeExternalAPIGatewayDatabase";
+        private DbContextOptions<DataRetrievalContext> contextOptions;
+        private const string FakeServerAddress = "http://localhost:2222";
 
         [OneTimeSetUp]
         public void SetUpTests()
         {
-            var dataSource = new FakeDataRetrievalSource(new SpotifyClient(new HttpClient(), ""), "");
+            HttpClient httpClient;
+            var databaseRoot = new InMemoryDatabaseRoot();
+            contextOptions = new DbContextOptionsBuilder<DataRetrievalContext>()
+                    .UseInMemoryDatabase(DatabaseName, databaseRoot)
+                    .Options;
+
+            var webAppFactory = new InMemoryFactory<FakeResponseServer.Startup>(DatabaseName, databaseRoot);
+            httpClient = webAppFactory.CreateClient(FakeServerAddress);
+
+            var dataSource = new FakeDataRetrievalSource(new SpotifyClient(httpClient), FakeServerAddress);
             sut = new ExternalAPIGateway(dataSource);
         }
 

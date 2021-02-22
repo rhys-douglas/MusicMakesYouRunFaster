@@ -10,18 +10,15 @@
     public class SpotifyClient
     {
         private HttpClient httpClient;
-        private Uri fakeResponseURi;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SpotifyClient"/> class.
         /// </summary>
         /// <param name="httpClient"> Http client to use for requests. </param>
         /// <param name="FakeServerUrl">Fake server url to query.</param>
-        public SpotifyClient(HttpClient httpClient, string FakeServerUrl)
+        public SpotifyClient(HttpClient httpClient)
         {
             this.httpClient = httpClient;
-            Uri.TryCreate(FakeServerUrl, UriKind.Absolute, out var uriResult);
-            fakeResponseURi = uriResult;
         }
 
         /// <summary>

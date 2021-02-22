@@ -16,6 +16,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\RD.CanMusicMakeYouRunFaster.CommonTestUtils\RD.CanMusicMakeYouRunFaster.CommonTestUtils.csproj" />
     <ProjectReference Include="..\RD.CanMusicMakeYouRunFaster.Rest\RD.CanMusicMakeYouRunFaster.Rest.csproj" />
   </ItemGroup>
 

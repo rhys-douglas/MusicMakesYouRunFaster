@@ -75,7 +75,7 @@
 
         private SpotifyClient MakeSut(HttpClient httpClient)
         {
-            return new SpotifyClient(httpClient, "http://localhost");
+            return new SpotifyClient(httpClient);
         }
 
         private void SetUpHTTPClient(HttpStatusCode statusCode, string jsonContent)
