@@ -9,6 +9,7 @@
     using Newtonsoft.Json;
     using NUnit.Framework;
     using RD.CanMusicMakeYouRunFaster.Rest.IntegrationTests.TestUtils;
+    using SpotifyAPI.Web;
 
     public class FakeDataRetrievalSourceTests : TestsBase
     {
@@ -160,6 +161,10 @@
             var listeningHistory = sut.GetSpotifyRecentlyPlayed(authenticationToken);
             listeningHistory.Result.Value.Should().NotBeNull();
             listeningHistory.Result.Value.Should().NotBe(string.Empty);
+            var listeningHistoryJson = JsonConvert.SerializeObject(listeningHistory.Result.Value);
+            var actualListeningHistory = JsonConvert.DeserializeObject<CursorPaging<PlayHistoryItem>>(listeningHistoryJson);
+            actualListeningHistory.Items.Should().HaveCount(3);
+            actualListeningHistory.Items[0].Should().BeOfType<PlayHistoryItem>();
         }
 
         [Test]
