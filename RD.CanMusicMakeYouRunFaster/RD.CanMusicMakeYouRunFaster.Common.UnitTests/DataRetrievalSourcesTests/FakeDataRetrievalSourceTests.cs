@@ -5,6 +5,7 @@
     using FluentAssertions;
     using Newtonsoft.Json;
     using NUnit.Framework;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
 
     public class FakeDataRetrievalSourceTests
     {
@@ -14,6 +15,7 @@
         [OneTimeSetUp]
         public void SetUpTests()
         {
+            var spotifyClient = new SpotifyClient();
             sut = MakeSut();
             var oauthToken = sut.GetSpotifyAuthenticationToken();
             oauthToken.Result.Should().NotBeNull();

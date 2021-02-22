@@ -1,4 +1,4 @@
-﻿namespace RD.CanMusicMakeYouRunFaster.Rest.DTO
+﻿namespace RD.CanMusicMakeYouRunFaster.Rest.Entity
 {
     using System;
 

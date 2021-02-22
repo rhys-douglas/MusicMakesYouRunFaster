@@ -14,10 +14,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\RD.CanMusicMakeYouRunFaster.FakeResponseServer\RD.CanMusicMakeYouRunFaster.FakeResponseServer.csproj" />
   </ItemGroup>
 

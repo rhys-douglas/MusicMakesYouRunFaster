@@ -2,7 +2,7 @@
 {
     using System;
     using Microsoft.AspNetCore.Mvc;
-    using RD.CanMusicMakeYouRunFaster.Rest.DTO;
+    using RD.CanMusicMakeYouRunFaster.Rest.Entity;
     using System.Threading.Tasks;
     using Newtonsoft.Json;
     using System.Net.Http;
