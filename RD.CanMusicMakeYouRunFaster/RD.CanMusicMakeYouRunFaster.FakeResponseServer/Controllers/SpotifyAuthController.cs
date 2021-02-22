@@ -29,7 +29,7 @@
         /// Gets a PKCE Auth Token
         /// </summary>
         /// <returns> A valid PKCE Auth Token </returns>
-        public async Task<PKCETokenResponse> GetPKCEAuthToken(PKCETokenRequest request)
+        public async Task<DTO.PKCETokenResponse> GetPKCEAuthToken(PKCETokenRequest request)
         {
             if (request == null)
             {
@@ -45,10 +45,10 @@
             string refreshToken = Convert.ToBase64String(buffer1);
 
 
-            var TokenResponse = new PKCETokenResponse
+            var TokenResponse = new DTO.PKCETokenResponse
             {
                 AccessToken = accessToken,
-                CreatedAt = DateTime.Now,
+                CreatedAt = DateTime.UtcNow,
                 ExpiresIn = 3600,
                 RefreshToken = refreshToken,
                 Scope = "UserReadPrivate, UserReadRecentlyPlayed",

@@ -5,6 +5,7 @@
     using SpotifyAPI.Web;
     using System.Threading.Tasks;
     using System.Collections.Generic;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models;
 
     /// <summary>
     /// Spotify Controller to get recently played.
@@ -27,21 +28,23 @@
         /// </summary>
         /// <returns> A CursorPage of PlayHistoryItems</returns>
         [HttpGet]
-        public async Task<CursorPaging<Models.PlayHistoryItem>> GetRecentlyPlayed()
+        public async Task<CursorPaging<DTO.PlayHistoryItem>> GetRecentlyPlayed()
         {
             await Task.Delay(1);
             var musicHistory = context.PlayHistoryItems;
-            List<Models.PlayHistoryItem> listOfRecentlyPlayed = new List<Models.PlayHistoryItem>();
+            List<DTO.PlayHistoryItem> listOfRecentlyPlayed = new List<DTO.PlayHistoryItem>();
 
             foreach (var item in musicHistory)
             {
-                listOfRecentlyPlayed.Add(item);
+                listOfRecentlyPlayed.Add(item.ToDTO());
             }
 
-            var listeningHistory = new CursorPaging<Models.PlayHistoryItem>
+            var listeningHistory = new CursorPaging<DTO.PlayHistoryItem>
             {
                 Items = listOfRecentlyPlayed
             };
+
+
             return listeningHistory;
         }
     }

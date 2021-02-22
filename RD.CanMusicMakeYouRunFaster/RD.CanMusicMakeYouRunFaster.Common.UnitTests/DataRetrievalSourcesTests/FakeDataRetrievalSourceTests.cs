@@ -1,7 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.UnitTests.DataRetrievalSourcesTests
 {
     using DataRetrievalSources;
-    using DTO;
+    using Entity;
     using FluentAssertions;
     using Newtonsoft.Json;
     using NUnit.Framework;
@@ -15,7 +15,7 @@
         [OneTimeSetUp]
         public void SetUpTests()
         {
-            var spotifyClient = new SpotifyClient();
+            var spotifyClient = new SpotifyClient(new System.Net.Http.HttpClient(), "");
             sut = MakeSut();
             var oauthToken = sut.GetSpotifyAuthenticationToken();
             oauthToken.Result.Should().NotBeNull();
@@ -42,7 +42,8 @@
 
         private FakeDataRetrievalSource MakeSut()
         {
-            return new FakeDataRetrievalSource();
+            // return new FakeDataRetrievalSource();
+            return null;
         }
     }
 }

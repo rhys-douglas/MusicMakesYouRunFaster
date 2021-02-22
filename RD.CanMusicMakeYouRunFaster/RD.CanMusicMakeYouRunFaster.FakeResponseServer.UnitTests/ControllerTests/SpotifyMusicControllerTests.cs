@@ -86,7 +86,7 @@
             var retrievedSongs = new List<Models.PlayHistoryItem>();
             foreach (var song in getResult.Result.Items)
             {
-                retrievedSongs.Add(song);
+                //retrievedSongs.Add(song);
             }
             retrievedSongs.Should().HaveCount(3);
             retrievedSongs.Should().BeEquivalentTo(listeningHistory);

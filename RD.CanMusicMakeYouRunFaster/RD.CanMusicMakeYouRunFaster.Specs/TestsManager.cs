@@ -12,6 +12,7 @@
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Factories;
     using RD.CanMusicMakeYouRunFaster.Rest.Gateways;
+    using RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources;
     using RD.CanMusicMakeYouRunFaster.Specs.Utils;
     using TechTalk.SpecFlow;
 
@@ -44,7 +45,7 @@
 
             var spotifyClient = new SpotifyClient(httpClient, TestsConfiguration.FakeResponseServerUrl);
 
-            var externalAPIGateway = new ExternalAPIGateway(spotifyClient);
+            var externalAPIGateway = new ExternalAPIGateway(new FakeDataRetrievalSource(spotifyClient));
 
             // var dataSource = new FakeDataSource(contextOptions, spotifyClient);
 

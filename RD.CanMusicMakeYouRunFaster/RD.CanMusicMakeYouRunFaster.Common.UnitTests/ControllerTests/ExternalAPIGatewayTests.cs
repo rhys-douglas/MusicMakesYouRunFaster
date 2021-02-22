@@ -4,8 +4,10 @@
     using Newtonsoft.Json;
     using NUnit.Framework;
     using RD.CanMusicMakeYouRunFaster.Rest.Gateways;
-    using RD.CanMusicMakeYouRunFaster.Rest.DTO;
+    using RD.CanMusicMakeYouRunFaster.Rest.Entity;
     using RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources;
+    using System.Net.Http;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
 
     public class ExternalAPIGatewayTests
     {
@@ -14,7 +16,7 @@
         [OneTimeSetUp]
         public void SetUpTests()
         {
-            var dataSource = new FakeDataRetrievalSource();
+            var dataSource = new FakeDataRetrievalSource(new SpotifyClient(new HttpClient(), ""));
             sut = new ExternalAPIGateway(dataSource);
         }
 

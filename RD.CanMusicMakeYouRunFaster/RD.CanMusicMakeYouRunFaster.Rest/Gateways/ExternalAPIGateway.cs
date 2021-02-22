@@ -1,10 +1,10 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.Gateways
 {
     using DataRetrievalSources;
-    using DTO;
     using FakeResponseServer.Controllers;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
+    using RD.CanMusicMakeYouRunFaster.Rest.Entity;
 
     /// <summary>
     /// Controller used to handle HTTP requests to the backend / external API's.
@@ -13,7 +13,6 @@
     {
         private readonly IDataRetrievalSource dataSource;
         private SpotifyAuthenticationToken spotifyAuthToken;
-        private SpotifyClient fakeSpotifyClient;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExternalAPIGateway"/> class.

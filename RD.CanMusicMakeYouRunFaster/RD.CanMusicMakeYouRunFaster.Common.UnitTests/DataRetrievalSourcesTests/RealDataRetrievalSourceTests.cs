@@ -1,10 +1,10 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.UnitTests.DataRetrievalSourcesTests
 {
     using DataRetrievalSources;
-    using DTO;
     using FluentAssertions;
     using Newtonsoft.Json;
     using NUnit.Framework;
+    using RD.CanMusicMakeYouRunFaster.Rest.Entity;
 
     public class RealDataRetrievalSourceTests
     {

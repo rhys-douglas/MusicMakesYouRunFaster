@@ -29,7 +29,7 @@
         public void GetAuthToken_AuthTokenIsValid()
         {
             var (verifier, challenge) = PKCEUtil.GenerateCodes();
-            var tokenRequest = new PKCETokenRequest(ClientId, "0", new System.Uri("localhost:5000/callback"), verifier);
+            var tokenRequest = new PKCETokenRequest(ClientId, "0", new Uri("localhost:5000/callback"), verifier);
             var retrievedToken = sut.GetPKCEAuthToken(tokenRequest);
             retrievedToken.Result.AccessToken.Should().NotBeNullOrEmpty();
             retrievedToken.Result.RefreshToken.Should().NotBeNullOrEmpty();

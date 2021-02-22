@@ -1,7 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources
 {
     using System.Threading.Tasks;
-    using DTO;
+    using Entity;
     using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
