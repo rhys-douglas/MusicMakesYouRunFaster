@@ -12,6 +12,7 @@
     /// Fake spotify controller, which act as spotify's auth service.
     /// </summary>
     [ApiController]
+    [Route("/authorize")]
     public class SpotifyAuthController : ControllerBase
     {
         private readonly DataRetrievalContext context;
@@ -29,6 +30,7 @@
         /// Gets a PKCE Auth Token
         /// </summary>
         /// <returns> A valid PKCE Auth Token </returns>
+        [HttpGet]
         public async Task<DTO.PKCETokenResponse> GetPKCEAuthToken(PKCETokenRequest request)
         {
             if (request == null)

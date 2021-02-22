@@ -10,6 +10,8 @@
     /// <summary>
     /// Spotify Controller to get recently played.
     /// </summary>
+    [ApiController]
+    [Route("/v1/me/player/recently-played")]
     public class SpotifyMusicController : ControllerBase
     {
         private readonly DataRetrievalContext context;

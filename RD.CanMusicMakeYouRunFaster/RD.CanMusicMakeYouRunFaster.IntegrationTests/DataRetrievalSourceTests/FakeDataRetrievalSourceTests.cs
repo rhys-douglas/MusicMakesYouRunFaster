@@ -5,21 +5,14 @@
     using DataRetrievalSources;
     using Entity;
     using FluentAssertions;
-    using Microsoft.EntityFrameworkCore;
     using Newtonsoft.Json;
     using NUnit.Framework;
-    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
-    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.DbContext;
     using RD.CanMusicMakeYouRunFaster.Rest.IntegrationTests.TestUtils;
 
     public class FakeDataRetrievalSourceTests : TestsBase
     {
         private SpotifyAuthenticationToken authenticationToken;
-        private IDataRetrievalSource sut;
-        private DbContextOptions<DataRetrievalContext> contextOptions;
-
-        
-
+        private FakeDataRetrievalSource sut;
         private readonly List<FakeResponseServer.Models.PlayHistoryItem> PlayHistoryItems = new List<FakeResponseServer.Models.PlayHistoryItem>
         {
             new FakeResponseServer.Models.PlayHistoryItem
@@ -159,6 +152,7 @@
         [Test]
         public void GetSpotifyListeningHistory_ListeningHistoryRetrieved()
         {
+            sut = MakeSut();
             var listeningHistory = sut.GetSpotifyRecentlyPlayed(authenticationToken);
             listeningHistory.Result.Value.Should().NotBeNull();
             listeningHistory.Result.Value.Should().NotBe(string.Empty);
@@ -167,12 +161,13 @@
         [Test]
         public void GetSpotifyListeningHistoryWithInvalidAuthToken_ExceptionThrown()
         {
+            sut = MakeSut();
             var listeningHistory = sut.GetSpotifyRecentlyPlayed(new SpotifyAuthenticationToken()) ;
             listeningHistory.Result.Value.Should().NotBeNull();
             listeningHistory.Result.Value.Should().NotBe(string.Empty);
         }
 
-        private FakeDataRetrievalSource MakeSut(SpotifyClient spotifyClient)
+        private FakeDataRetrievalSource MakeSut()
         {
             return new FakeDataRetrievalSource(spotifyClient, FakeServerAddress);
         }
