@@ -29,7 +29,13 @@
         public void GetAuthToken_AuthTokenIsValid()
         {
             var (verifier, challenge) = PKCEUtil.GenerateCodes();
-            var tokenRequest = new PKCETokenRequest(ClientId, "0", new Uri("localhost:5000/callback"), verifier);
+            var tokenRequest = new DTO.Request.PKCETokenRequest
+            {
+                ClientId = ClientId,
+                Code = "0",
+                CodeVerifier = verifier,
+                RedirectUri = new Uri("localhost:5000/callback")
+            };
             var retrievedToken = sut.GetPKCEAuthToken(tokenRequest);
             retrievedToken.Result.AccessToken.Should().NotBeNullOrEmpty();
             retrievedToken.Result.RefreshToken.Should().NotBeNullOrEmpty();
@@ -44,7 +50,7 @@
         [Test]
         public void GetAuthTokenWithNullRequest_ExceptionThrown()
         {
-            PKCETokenRequest tokenRequest = null;
+            DTO.Request.PKCETokenRequest tokenRequest = null;
             Func<Task> act = async () => await sut.GetPKCEAuthToken(tokenRequest);
             act.Should().Throw<Exception>().WithMessage("Token request is null.");
         }

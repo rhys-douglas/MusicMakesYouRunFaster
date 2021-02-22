@@ -31,7 +31,7 @@
         /// </summary>
         /// <returns> A valid PKCE Auth Token </returns>
         [HttpGet]
-        public async Task<DTO.PKCETokenResponse> GetPKCEAuthToken(PKCETokenRequest request)
+        public async Task<DTO.PKCETokenResponse> GetPKCEAuthToken([FromQuery] DTO.Request.PKCETokenRequest request)
         {
             if (request == null)
             {

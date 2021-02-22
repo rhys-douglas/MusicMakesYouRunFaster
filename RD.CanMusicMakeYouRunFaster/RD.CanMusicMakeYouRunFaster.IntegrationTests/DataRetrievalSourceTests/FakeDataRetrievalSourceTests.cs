@@ -148,7 +148,8 @@
             Task.Delay(1000);
             oauthToken.Result.Should().NotBeNull();
             oauthToken.Result.Value.Should().NotBe(string.Empty);
-            authenticationToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>((string)oauthToken.Result.Value);
+            var temp = JsonConvert.SerializeObject(oauthToken.Result.Value);
+            authenticationToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>(temp);
             authenticationToken.AccessToken.Should().NotBeNullOrEmpty();
         }
 
