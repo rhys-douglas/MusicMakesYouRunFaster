@@ -11,7 +11,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster.Rest", "RD.CanMusicMakeYouRunFaster.Rest\RD.CanMusicMakeYouRunFaster.Rest.csproj", "{F6F11575-08E4-4112-AF27-9B02801E32B3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.CanMusicMakeYouRunFaster.FakeResponseServer.UnitTests", "RD.CanMusicMakeYouRunFaster.FakeResponseServer.UnitTests\RD.CanMusicMakeYouRunFaster.FakeResponseServer.UnitTests.csproj", "{DE06860B-D445-41B8-8FD8-FCDF527F2E4B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster.FakeResponseServer.UnitTests", "RD.CanMusicMakeYouRunFaster.FakeResponseServer.UnitTests\RD.CanMusicMakeYouRunFaster.FakeResponseServer.UnitTests.csproj", "{DE06860B-D445-41B8-8FD8-FCDF527F2E4B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.CanMusicMakeYouRunFaster.Rest.IntegrationTests", "RD.CanMusicMakeYouRunFaster.IntegrationTests\RD.CanMusicMakeYouRunFaster.Rest.IntegrationTests.csproj", "{5D0B2ABB-4EA9-4CD2-9859-F36923F01AFB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.CanMusicMakeYouRunFaster.CommonTestUtils", "RD.CanMusicMakeYouRunFaster.CommonTestUtils\RD.CanMusicMakeYouRunFaster.CommonTestUtils.csproj", "{96A77EDB-6DF0-4DCB-B45D-F1E0FAE0BC65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -39,6 +43,14 @@ Global
 		{DE06860B-D445-41B8-8FD8-FCDF527F2E4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE06860B-D445-41B8-8FD8-FCDF527F2E4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE06860B-D445-41B8-8FD8-FCDF527F2E4B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5D0B2ABB-4EA9-4CD2-9859-F36923F01AFB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5D0B2ABB-4EA9-4CD2-9859-F36923F01AFB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5D0B2ABB-4EA9-4CD2-9859-F36923F01AFB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5D0B2ABB-4EA9-4CD2-9859-F36923F01AFB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{96A77EDB-6DF0-4DCB-B45D-F1E0FAE0BC65}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{96A77EDB-6DF0-4DCB-B45D-F1E0FAE0BC65}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{96A77EDB-6DF0-4DCB-B45D-F1E0FAE0BC65}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{96A77EDB-6DF0-4DCB-B45D-F1E0FAE0BC65}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

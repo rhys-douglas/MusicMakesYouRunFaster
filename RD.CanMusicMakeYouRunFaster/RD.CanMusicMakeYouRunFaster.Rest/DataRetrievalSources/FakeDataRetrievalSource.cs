@@ -14,21 +14,22 @@
     public class FakeDataRetrievalSource : IDataRetrievalSource
     {
         private readonly SpotifyClient spotifyClient;
-        private readonly Uri fakeSpotifyAuthUrl = new Uri("localhost:8080");
+        private readonly Uri fakeSpotifyAuthUrl;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FakeDataRetrievalSource"/> class.
         /// </summary>
-        public FakeDataRetrievalSource(SpotifyClient spotifyClient)
+        public FakeDataRetrievalSource(SpotifyClient spotifyClient, string fakeServerUrl)
         {
             this.spotifyClient = spotifyClient;
+            this.fakeSpotifyAuthUrl = new Uri(fakeServerUrl);
         }
 
         /// <inheritdoc/>
         public async Task<JsonResult> GetSpotifyAuthenticationToken()
         {
             await Task.Delay(1);
-            var authTokenResponse = spotifyClient.Get<SpotifyAuthenticationToken>(new Uri("http://localhost/authorize"));
+            var authTokenResponse = spotifyClient.Get<SpotifyAuthenticationToken>(fakeSpotifyAuthUrl);
             return new JsonResult(authTokenResponse);
 
         }

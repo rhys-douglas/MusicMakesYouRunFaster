@@ -1,8 +1,8 @@
-﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Factories
+﻿namespace RD.CanMusicMakeYouRunFaster.CommonTestUtils.Factories
 {
     using System;
     using System.Net.Http;
-    using DbContext;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.DbContext;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Mvc.Testing;
     using Microsoft.AspNetCore.TestHost;
