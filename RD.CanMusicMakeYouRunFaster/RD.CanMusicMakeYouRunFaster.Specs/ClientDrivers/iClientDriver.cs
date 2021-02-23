@@ -1,6 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Specs.ClientDrivers
 {
     using System.Collections.Generic;
+    using RD.CanMusicMakeYouRunFaster.Rest.Gateways;
 
     /// <summary>
     /// Interface for client drivers.
@@ -15,7 +16,7 @@
         /// <summary>
         /// Set up client driver.
         /// </summary>
-        void SetUp();
+        void SetUp(ExternalAPIGateway externalApiGateway);
 
         /// <summary>
         /// Returns a list of items found from previous queries.

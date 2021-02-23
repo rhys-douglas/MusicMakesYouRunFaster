@@ -10,19 +10,19 @@
     public class ApiClientDriver : IClientDriver
     {
         private readonly List<Dictionary<string, string>> searchResults = new List<Dictionary<string, string>>();
-        private ExternalAPIGateway externalAPIController;
+        private ExternalAPIGateway externalAPIGateway;
 
         /// <inheritdoc/>
-        public void SetUp()
+        public void SetUp(ExternalAPIGateway externalAPIGateway)
         {
-            externalAPIController = new ExternalAPIGateway();
+            this.externalAPIGateway = externalAPIGateway;
         }
 
         /// <inheritdoc/>
         public void GetRecentlyPlayedMusic()
         {
-            externalAPIController.GetSpotifyAuthenticationToken();
-            var searchResult = externalAPIController.GetSpotifyRecentlyPlayed();
+            externalAPIGateway.GetSpotifyAuthenticationToken();
+            var searchResult = externalAPIGateway.GetSpotifyRecentlyPlayed();
             var playHistoryContainer = (CursorPaging<PlayHistoryItem>)searchResult.Value;
             foreach (var song in playHistoryContainer.Items)
             {

@@ -1,6 +1,5 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Specs.DataSource
 {
-    using System.Net.Http;
     using System.Collections.Generic;
     using FakeResponseServer.DbContext;
     using Microsoft.EntityFrameworkCore;
@@ -15,17 +14,23 @@
     public class DataPort
     {
         private readonly DbContextOptions<DataRetrievalContext> contextOptions;
-
-        public ExternalAPIGateway externalAPIGateway = new ExternalAPIGateway(new FakeDataRetrievalSource(new SpotifyClient(new HttpClient()), ""));
+        private SpotifyClient spotifyClient { get; } 
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataPort"/> class.
         /// </summary>
         /// <param name="contextOptions">Fake backend database context options. </param>
-        public DataPort(DbContextOptions<DataRetrievalContext> contextOptions)
+        /// <param name="spotifyClient">Fake spotify client to make API calls with. </param>
+        public DataPort(DbContextOptions<DataRetrievalContext> contextOptions, SpotifyClient spotifyClient)
         {
             this.contextOptions = contextOptions;
+            this.spotifyClient = spotifyClient;
         }
+
+        public ExternalAPIGateway externalAPIGateway => new ExternalAPIGateway(
+            new FakeDataRetrievalSource(
+                spotifyClient, 
+                "http://localhost:2222"));
 
         /// <summary>
         /// Adds listening history from feature files to the backend.

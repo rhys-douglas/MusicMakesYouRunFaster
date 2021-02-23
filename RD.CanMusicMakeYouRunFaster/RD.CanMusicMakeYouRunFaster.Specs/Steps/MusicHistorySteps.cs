@@ -56,12 +56,37 @@
                     PlayedAt = DateTime.ParseExact(row["Time of listening"], "dd'/'MM'/'yyyy HH:mm:ss", null),
                     Track = new FakeResponseServer.Models.SimpleTrack
                     {
+                        Artists = new List<FakeResponseServer.Models.SimpleArtist>(),
+                        AvailableMarkets = new List<string>(),
+                        DiscNumber = 1,
+                        DurationMs = 3500,
+                        Explicit = false,
+                        ExternalUrls = new Dictionary<string, string>(),
+                        Href = "https://api.spotify.com/v1/albums/SomeHref",
                         Id = count.ToString(),
-                        Name = row["Song name"]
+                        IsPlayable = true,
+                        LinkedFrom = new FakeResponseServer.Models.LinkedTrack
+                        {
+                            ExternalUrls = new Dictionary<string, string>(),
+                            Href = "https://api.spotify.com/v1/albums/SomeOtherHref",
+                            Id = count.ToString(),
+                            Type = "Track",
+                            Uri = "spotify:album:SomeOtherURI"
+                        },
+                        Name = row["Song name"],
+                        PreviewUrl = "https://p.scdn.co/mp3-preview/SomeRef",
+                        TrackNumber = 1,
+                        Type = FakeResponseServer.Models.ItemType.Track,
+                        Uri = "SomeURI",
+                    },
+                    Context = new FakeResponseServer.Models.Context
+                    {
+                        ExternalUrls = new Dictionary<string, string>(),
+                        Href = "https://api.spotify.com/v1/albums/SomeURI",
+                        Type = "Album",
+                        Uri = "spotify:album:SomeURI" + count.ToString()
                     }
-
                 };
-
                 convertedListeningHistory.Add(listeningHistoryItem);
                 fakeListeningHistory.Add(fakeHistoryItem);
             }

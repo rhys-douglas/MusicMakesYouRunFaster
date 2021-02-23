@@ -10,9 +10,6 @@
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Storage;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
-    using RD.CanMusicMakeYouRunFaster.Rest.Gateways;
-    using RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources;
-    using RD.CanMusicMakeYouRunFaster.Specs.Utils;
     using TechTalk.SpecFlow;
     using RD.CanMusicMakeYouRunFaster.CommonTestUtils.Factories;
 
@@ -35,25 +32,21 @@
         public static void TestSetup(IObjectContainer objectContainer)
         {
             HttpClient httpClient;
-            // Set up back end DB
             databaseRoot = new InMemoryDatabaseRoot();
             contextOptions = new DbContextOptionsBuilder<DataRetrievalContext>()
                 .UseInMemoryDatabase(DatabaseName, databaseRoot).Options;
-            // Set up InMemory http client.
-            var webAppFactory = new InMemoryFactory<InMemoryStartup>(DatabaseName, databaseRoot);
-            httpClient = webAppFactory.CreateClient(TestsConfiguration.FakeResponseServerUrl);
+            var webAppFactory = new InMemoryFactory<FakeResponseServer.Startup>(DatabaseName, databaseRoot);
+            httpClient = webAppFactory.CreateClient("http://localhost:2222");
 
             var spotifyClient = new SpotifyClient(httpClient);
 
-            var externalAPIGateway = new ExternalAPIGateway(new FakeDataRetrievalSource(spotifyClient, ""));
-
-            // var dataSource = new DataPort(contextOptions, spotifyClient);
+            var dataSource = new DataPort(contextOptions, spotifyClient);
 
             clientDriver = new ApiClientDriver();
-            clientDriver.SetUp();
+            clientDriver.SetUp(dataSource.externalAPIGateway);
 
             objectContainer.RegisterInstanceAs<IClientDriver>(clientDriver);
-            // objectContainer.RegisterInstanceAs(dataSource);
+            objectContainer.RegisterInstanceAs(dataSource);
 
             Thread.Sleep(TimeSpan.FromSeconds(1));
         }
