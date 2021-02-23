@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using System;
-
-namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.DTO.Request
+﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.DTO.Request
 {
+    using Microsoft.AspNetCore.Mvc;
+    using System;
+
     /// <summary>
     /// PKCE Token request class.
     /// </summary>

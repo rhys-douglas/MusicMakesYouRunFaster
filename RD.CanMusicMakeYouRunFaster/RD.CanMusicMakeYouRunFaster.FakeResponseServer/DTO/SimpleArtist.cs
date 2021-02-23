@@ -8,12 +8,12 @@
     public class SimpleArtist
     {
         /// <summary>
-        /// External URls
+        /// Artist External URls
         /// </summary>
         public Dictionary<string, string> ExternalUrls { get; set; } = default!;
 
         /// <summary>
-        /// Href
+        /// Artist Href
         /// </summary>
         public string Href { get; set; } = default!;
 

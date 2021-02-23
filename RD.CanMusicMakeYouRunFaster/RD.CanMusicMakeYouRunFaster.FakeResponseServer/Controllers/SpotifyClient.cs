@@ -9,7 +9,7 @@
     /// </summary>
     public class SpotifyClient
     {
-        private HttpClient httpClient;
+        private readonly HttpClient httpClient;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="SpotifyClient"/> class.

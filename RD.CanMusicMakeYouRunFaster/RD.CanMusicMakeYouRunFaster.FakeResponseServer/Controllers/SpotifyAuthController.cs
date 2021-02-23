@@ -15,17 +15,6 @@
     [Route("/authorize")]
     public class SpotifyAuthController : ControllerBase
     {
-        private readonly DataRetrievalContext context;
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="SpotifyAuthController"/> class.
-        /// </summary>
-        /// <param name="context">Database context </param>
-        public SpotifyAuthController(DataRetrievalContext context)
-        {
-            this.context = context;
-        }
-
         /// <summary>
         /// Gets a PKCE Auth Token
         /// </summary>

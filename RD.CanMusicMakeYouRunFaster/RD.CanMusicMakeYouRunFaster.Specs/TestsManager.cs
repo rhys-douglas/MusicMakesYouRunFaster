@@ -43,7 +43,7 @@
             var dataSource = new DataPort(contextOptions, spotifyClient);
 
             clientDriver = new ApiClientDriver();
-            clientDriver.SetUp(dataSource.externalAPIGateway);
+            clientDriver.SetUp(dataSource.ExternalAPIGateway);
 
             objectContainer.RegisterInstanceAs<IClientDriver>(clientDriver);
             objectContainer.RegisterInstanceAs(dataSource);

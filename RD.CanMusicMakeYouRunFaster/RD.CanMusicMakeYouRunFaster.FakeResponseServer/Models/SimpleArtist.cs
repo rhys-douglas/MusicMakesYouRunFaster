@@ -5,7 +5,9 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
-    /// Simple artist class.
+    /// Class used to represent a SimpleArtist from the spotify API.
+    /// This contains a subset of items used by the real SimpleArtist, as 
+    /// not all properties are supported by EntityFrameworkCore.
     /// </summary>
     public class SimpleArtist
     {

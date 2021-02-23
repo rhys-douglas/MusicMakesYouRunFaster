@@ -5,12 +5,14 @@
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
-    /// LinkedTrack class.
+    /// Class used to represent a LinkedTrack from the spotify API.
+    /// This contains a subset of items used by the real LinkedTrack, as 
+    /// not all properties are supported by EntityFrameworkCore.
     /// </summary>
     public class LinkedTrack
     {
         /// <summary>
-        /// External URLs
+        /// External URLs of the Linked Track
         /// </summary>
         [NotMapped]
         public Dictionary<string, string> ExternalUrls { get; set; } = default!;
@@ -21,17 +23,17 @@
         public string Href { get; set; } = default!;
         
         /// <summary>
-        /// Id of the linked track.
+        /// Id of the Linked Track.
         /// </summary>
         public string Id { get; set; } = default!;
 
         /// <summary>
-        /// Type of the linked track.
+        /// Type of the Linked Track.
         /// </summary>
         public string Type { get; set; } = default!;
 
         /// <summary>
-        /// Uri of the linked track.
+        /// Uri of the Linked Track.
         /// </summary>
         public string Uri { get; set; } = default!;
     }

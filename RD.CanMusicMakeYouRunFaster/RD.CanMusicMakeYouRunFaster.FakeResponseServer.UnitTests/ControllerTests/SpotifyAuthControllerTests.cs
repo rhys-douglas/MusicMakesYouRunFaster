@@ -2,9 +2,6 @@
 {
     using NUnit.Framework;
     using FakeResponseServer.Controllers;
-    using Microsoft.EntityFrameworkCore;
-    using FakeResponseServer.DbContext;
-    using Microsoft.EntityFrameworkCore.Storage;
     using FluentAssertions;
     using SpotifyAPI.Web;
     using System;
@@ -18,11 +15,7 @@
         [OneTimeSetUp]
         public void SetUp()
         {
-            var databaseRoot = new InMemoryDatabaseRoot();
-            var contextOptions = new DbContextOptionsBuilder<DataRetrievalContext>()
-                .UseInMemoryDatabase("SpotifyAuthControllerDB", databaseRoot).Options;
-
-            sut = new SpotifyAuthController(new DataRetrievalContext(contextOptions)) ;
+            sut = new SpotifyAuthController() ;
         }
 
         [Test]

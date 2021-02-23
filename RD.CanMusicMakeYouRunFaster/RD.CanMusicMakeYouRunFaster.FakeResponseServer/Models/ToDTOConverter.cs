@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-
-namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models
+﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models
 {
+    using System.Collections.Generic;
+
     /// <summary>
     /// Converts context entities / models into Data Transfer Objects.
     /// </summary>

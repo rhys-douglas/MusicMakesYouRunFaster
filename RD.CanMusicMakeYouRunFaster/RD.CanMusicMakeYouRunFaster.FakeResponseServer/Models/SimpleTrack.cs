@@ -14,7 +14,7 @@
     public class SimpleTrack
     {
         /// <summary>
-        /// List of Artists
+        /// List of Artists on the track.
         /// </summary>
         [NotMapped]
         public List<SimpleArtist> Artists { get; set; } = default!;

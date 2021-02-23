@@ -1,10 +1,10 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.UnitTests.ModelsTests
 {
+    using System;
+    using System.Collections.Generic;
     using NUnit.Framework;
     using FluentAssertions;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models;
-    using System.Collections.Generic;
-    using System;
 
     public class ToDTOConverterTests
     {

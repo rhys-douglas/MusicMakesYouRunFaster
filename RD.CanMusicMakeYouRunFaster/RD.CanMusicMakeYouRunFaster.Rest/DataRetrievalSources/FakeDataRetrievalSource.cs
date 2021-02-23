@@ -4,9 +4,6 @@
     using Microsoft.AspNetCore.Mvc;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
     using System.Threading.Tasks;
-    using Newtonsoft.Json;
-    using System.Net.Http;
-    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
     using SpotifyAPI.Web;
     using System.Web;
     using System.Collections.Generic;
@@ -56,8 +53,10 @@
         {
             await Task.Delay(1);
             var musicHistory = spotifyClient.Get<CursorPaging<FakeResponseServer.DTO.PlayHistoryItem>>(new Uri("http://localhost:2222/v1/me/player/recently-played"));
-            var correctMusicHistory = new CursorPaging<PlayHistoryItem>();
-            correctMusicHistory.Items = new List<PlayHistoryItem>();
+            var correctMusicHistory = new CursorPaging<PlayHistoryItem>
+            {
+                Items = new List<PlayHistoryItem>()
+            };
             foreach (var item in musicHistory.Items)
             {
                 correctMusicHistory.Items.Add(new PlayHistoryItem

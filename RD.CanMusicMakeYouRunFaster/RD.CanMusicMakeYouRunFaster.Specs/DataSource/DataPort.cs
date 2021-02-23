@@ -27,7 +27,7 @@
             this.spotifyClient = spotifyClient;
         }
 
-        public ExternalAPIGateway externalAPIGateway => new ExternalAPIGateway(
+        public ExternalAPIGateway ExternalAPIGateway => new ExternalAPIGateway(
             new FakeDataRetrievalSource(
                 spotifyClient, 
                 "http://localhost:2222"));

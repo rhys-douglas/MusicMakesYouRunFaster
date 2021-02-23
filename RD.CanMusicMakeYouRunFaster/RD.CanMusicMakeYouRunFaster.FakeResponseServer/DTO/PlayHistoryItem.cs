@@ -4,7 +4,7 @@
     using Newtonsoft.Json;
 
     /// <summary>
-    /// PlayHistoryItem DTO
+    /// PlayHistoryItem DTO.
     /// </summary>
     public class PlayHistoryItem
     {

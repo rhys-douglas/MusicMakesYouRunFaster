@@ -4,7 +4,7 @@
     using System;
 
     /// <summary>
-    /// Data transfer object for PKCE token responses.
+    /// PKCETokenResponse DTO.
     /// </summary>
     public class PKCETokenResponse
     {

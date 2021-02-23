@@ -10,6 +10,9 @@
     /// </summary>
     public class PlayHistoryItem
     {
+        /// <summary>
+        /// Id used for storing this object in a <see cref="FakeResponseServer.DbContext.DataRetrievalContext"/>.
+        /// </summary>
         [Key]
         public string Id { get; set; }
 

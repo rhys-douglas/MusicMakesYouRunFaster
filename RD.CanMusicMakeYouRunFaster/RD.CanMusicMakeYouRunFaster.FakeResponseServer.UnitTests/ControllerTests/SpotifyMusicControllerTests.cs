@@ -7,10 +7,6 @@
     using System;
     using DbContext;
     using Microsoft.EntityFrameworkCore;
-    using Microsoft.EntityFrameworkCore.Storage;
-    using System.Threading;
-    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models;
-    using SpotifyAPI.Web;
 
     public class SpotifyMusicControllerTests
     {

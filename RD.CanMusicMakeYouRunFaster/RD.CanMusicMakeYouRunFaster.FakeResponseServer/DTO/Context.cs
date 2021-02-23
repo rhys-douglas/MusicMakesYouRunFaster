@@ -4,7 +4,7 @@
     using Newtonsoft.Json;
 
     /// <summary>
-    /// Context DTO
+    /// Context DTO.
     /// </summary>
     public class Context
     {

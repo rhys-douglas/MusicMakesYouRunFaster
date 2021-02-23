@@ -1,7 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models
 {
     /// <summary>
-    /// ItemType enum.
+    /// Enum used to represent an ItemType from the spotify API.
     /// </summary>
     public enum ItemType
     {
