@@ -43,9 +43,10 @@
         /// <returns>Spotify authentication token</returns>
         public JsonResult GetSpotifyAuthenticationToken()
         {
-            var retrievedTokenJson = this.dataSource.GetSpotifyAuthenticationToken();
-            this.spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>((string)retrievedTokenJson.Result.Value);
-            return retrievedTokenJson.Result;
+            var retrievedTokenJson = this.dataSource.GetSpotifyAuthenticationToken().Result;
+            var temp = JsonConvert.SerializeObject(retrievedTokenJson.Value);
+            spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>(temp);
+            return retrievedTokenJson;
         }
     }
 }

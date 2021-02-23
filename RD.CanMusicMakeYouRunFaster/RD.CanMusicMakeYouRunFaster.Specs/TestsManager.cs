@@ -43,11 +43,11 @@
             var webAppFactory = new InMemoryFactory<InMemoryStartup>(DatabaseName, databaseRoot);
             httpClient = webAppFactory.CreateClient(TestsConfiguration.FakeResponseServerUrl);
 
-            var spotifyClient = new SpotifyClient(httpClient, TestsConfiguration.FakeResponseServerUrl);
+            var spotifyClient = new SpotifyClient(httpClient);
 
             var externalAPIGateway = new ExternalAPIGateway(new FakeDataRetrievalSource(spotifyClient, ""));
 
-            // var dataSource = new FakeDataSource(contextOptions, spotifyClient);
+            // var dataSource = new DataPort(contextOptions, spotifyClient);
 
             clientDriver = new ApiClientDriver();
             clientDriver.SetUp();
