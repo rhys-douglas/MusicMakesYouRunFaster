@@ -20,12 +20,6 @@
             this.dataSource = dataSource;
         }
 
-        [Given(@"a list of users")]
-        public void GivenAListOfUsers(Table table)
-        {
-            // Temporarily redundant
-        }
-
         [Given(@"a list of listening history")]
         public void GivenAListOfListeningHistory(Table table)
         {
@@ -91,12 +85,6 @@
                 fakeListeningHistory.Add(fakeHistoryItem);
             }
             dataSource.AddListeningHistory(fakeListeningHistory);
-        }
-
-        [Given(@"a user [""]?([^""]*)[""]?")]
-        public void GivenAUser(string user)
-        {
-            // Does something
         }
 
         [Given(@"their listening history")]

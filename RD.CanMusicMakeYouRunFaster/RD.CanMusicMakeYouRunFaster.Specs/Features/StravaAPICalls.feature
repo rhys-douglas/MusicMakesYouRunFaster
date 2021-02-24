@@ -5,7 +5,7 @@ Given a list of users
 | user      |
 | User1		|
 
-Given a list of running History
+Given a list of running history
 | user  | Activity Name                           | Time of activity start | Elapsed Time of Activity (s)  |
 | User1 | Cardiff Friday Morning Run			  | 15/02/2021 15:30:00	   | 4410						   |
 | User1 | Oxford Half Marathon					  | 14/02/2021 12:40:01	   | 3600						   |
