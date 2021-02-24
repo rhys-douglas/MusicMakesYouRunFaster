@@ -13,7 +13,7 @@
     {
         private readonly IClientDriver clientDriver;
         private readonly DataPort dataSource;
-        private readonly List<StravaSharp.Activity> actualHistory = new List<StravaSharp.Activity>(); 
+        private readonly List<FakeResponseServer.Models.Strava.Activity> actualHistory = new List<FakeResponseServer.Models.Strava.Activity>(); 
 
         public StravaHistorySteps(IClientDriver clientDriver, DataPort dataSource)
         {
@@ -52,13 +52,14 @@
         [When(@"the user's recent running history is requested")]
         public void WhenTheUsersRunningHistoryIsRequested()
         {
-            
+            clientDriver.GetRecentActivities();
         }
 
         [Then(@"the user's recent running history is produced")]
         public void ThenTheUsersRunningHistoryIsProduced()
         {
-
+            var acquiredListeningHistory = clientDriver.GetFoundItems();
+            acquiredListeningHistory.Should().BeEquivalentTo(actualHistory);
         }
     }
 }

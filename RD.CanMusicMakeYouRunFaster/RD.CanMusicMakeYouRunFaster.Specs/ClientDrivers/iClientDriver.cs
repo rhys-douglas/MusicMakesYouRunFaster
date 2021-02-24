@@ -9,19 +9,24 @@
     public interface IClientDriver
     {
         /// <summary>
-        /// Request data from the relevant API.
-        /// </summary>
-        void GetRecentlyPlayedMusic();
-
-        /// <summary>
         /// Set up client driver.
         /// </summary>
         void SetUp(ExternalAPIGateway externalApiGateway);
 
         /// <summary>
+        /// Request music data from the relevant API.
+        /// </summary>
+        void GetRecentlyPlayedMusic();
+
+        /// <summary>
+        /// Request activity data from the relevant API.
+        /// </summary>
+        void GetRecentActivities();
+
+        /// <summary>
         /// Returns a list of items found from previous queries.
         /// </summary>
         /// <returns> A list of found items. </returns>
-        List<Dictionary<string, string>> GetFoundItems();
+        List<object> GetFoundItems();
     }
 }
