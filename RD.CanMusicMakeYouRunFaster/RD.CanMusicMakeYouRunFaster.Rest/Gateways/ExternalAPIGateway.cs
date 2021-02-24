@@ -5,6 +5,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Controller used to handle HTTP requests to the backend / external API's.
@@ -13,6 +14,7 @@
     {
         private readonly IDataRetrievalSource dataSource;
         private SpotifyAuthenticationToken spotifyAuthToken;
+        private StravaAuthenticationToken stravaAuthToken;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExternalAPIGateway"/> class.
@@ -29,15 +31,6 @@
         }
 
         /// <summary>
-        /// Gets the spotify recently played tracks
-        /// </summary>
-        /// <returns>Spotify recently played tracks</returns>
-        public JsonResult GetSpotifyRecentlyPlayed()
-        {
-            return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken).Result;
-        }
-
-        /// <summary>
         /// Gets the spotify authentication token
         /// </summary>
         /// <returns>Spotify authentication token</returns>
@@ -47,6 +40,36 @@
             var temp = JsonConvert.SerializeObject(retrievedTokenJson.Value);
             spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>(temp);
             return retrievedTokenJson;
+        }
+
+        /// <summary>
+        /// Gets the strava authentication token
+        /// </summary>
+        /// <returns> Strava authentication token</returns>
+        public JsonResult GetStravaAuthenticationToken()
+        {
+            var retrievedTokenJson = this.dataSource.GetStravaAuthenticationToken().Result;
+            var temp = JsonConvert.SerializeObject(retrievedTokenJson.Value);
+            stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>(temp);
+            return retrievedTokenJson;
+        }
+
+        /// <summary>
+        /// Gets the strava recent activties
+        /// </summary>
+        /// <returns> Strava recent activities </returns>
+        public JsonResult GetStravaRecentActivities()
+        {
+            return new JsonResult(new List<string> { "FIX ME IN EXTERNAL API GATEWAY" });
+        }
+
+        /// <summary>
+        /// Gets the spotify recently played tracks
+        /// </summary>
+        /// <returns>Spotify recently played tracks</returns>
+        public JsonResult GetSpotifyRecentlyPlayed()
+        {
+            return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken).Result;
         }
     }
 }

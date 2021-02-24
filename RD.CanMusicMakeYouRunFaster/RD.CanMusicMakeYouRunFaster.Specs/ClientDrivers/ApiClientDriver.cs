@@ -33,7 +33,13 @@
         /// <inheritdoc/>
         public void GetRecentActivities()
         {
-            
+            externalAPIGateway.GetStravaAuthenticationToken();
+            var searchresult = externalAPIGateway.GetStravaRecentActivities();
+            var activityHistoryContainer = (List<StravaSharp.Activity>)searchresult.Value;
+            foreach (var activity in activityHistoryContainer)
+            {
+                searchResults.Add(activity);
+            }
         }
 
         /// <inheritdoc/>

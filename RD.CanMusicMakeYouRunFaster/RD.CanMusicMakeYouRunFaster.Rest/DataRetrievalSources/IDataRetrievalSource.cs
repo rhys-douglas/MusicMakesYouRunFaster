@@ -17,9 +17,15 @@
         Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken);
 
         /// <summary>
-        /// Gets the spotify authentication token
+        /// Gets the Spotify authentication token
         /// </summary>
         /// <returns> Json of a valid Authentication Token</returns>
         Task<JsonResult> GetSpotifyAuthenticationToken();
+
+        /// <summary>
+        /// Gets the Strava authentication token
+        /// </summary>
+        /// <returns> Json of a valid Authentication Token</returns>
+        Task<JsonResult> GetStravaAuthenticationToken();
     }
 }

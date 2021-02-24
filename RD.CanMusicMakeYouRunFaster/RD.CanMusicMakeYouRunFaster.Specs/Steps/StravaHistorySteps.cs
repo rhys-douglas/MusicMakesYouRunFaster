@@ -1,7 +1,6 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Specs.Steps
 {
     using FluentAssertions;
-    using NUnit.Framework;
     using System;
     using System.Collections.Generic;
     using RD.CanMusicMakeYouRunFaster.Specs.ClientDrivers;

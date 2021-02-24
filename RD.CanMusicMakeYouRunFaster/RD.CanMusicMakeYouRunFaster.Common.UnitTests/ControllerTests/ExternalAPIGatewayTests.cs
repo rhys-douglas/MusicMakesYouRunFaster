@@ -195,6 +195,17 @@
             actualListeningHistory.Items.Should().NotBeNull();
         }
 
+        [Test]
+        public void GetStravaAuthenticationToken_AuthenticationTokenReturned()
+        {
+            sut = MakeSut();
+            var tokenAsJson = sut.GetStravaAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var tokenAsExtractedJson = JsonConvert.SerializeObject(tokenAsJson.Value);
+            var stravaAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>(tokenAsExtractedJson);
+            stravaAuthToken.AccessToken.Should().NotBeNullOrEmpty();
+        }
+
         private ExternalAPIGateway MakeSut()
         {
             return new ExternalAPIGateway(fakeDataRetrievalSource);

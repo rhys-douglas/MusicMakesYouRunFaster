@@ -49,6 +49,13 @@
         }
 
         /// <inheritdoc/>
+        public async Task<JsonResult> GetStravaAuthenticationToken()
+        {
+            await Task.Delay(1);
+            return new JsonResult("");
+        }
+
+        /// <inheritdoc/>
         public async Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken)
         {
             await Task.Delay(1);
