@@ -24,7 +24,7 @@
         public void GivenAListOfListeningHistory(Table table)
         {
             var convertedListeningHistory = new List<SpotifyAPI.Web.PlayHistoryItem>();
-            var fakeListeningHistory = new List<FakeResponseServer.Models.PlayHistoryItem>();
+            var fakeListeningHistory = new List<FakeResponseServer.Models.Spotify.PlayHistoryItem>();
             var count = 0;
             foreach (var row in table.Rows)
             {
@@ -44,13 +44,13 @@
                 };
 
                 count++;
-                var fakeHistoryItem = new FakeResponseServer.Models.PlayHistoryItem
+                var fakeHistoryItem = new FakeResponseServer.Models.Spotify.PlayHistoryItem
                 {
                     Id = count.ToString(),
                     PlayedAt = DateTime.ParseExact(row["Time of listening"], "dd'/'MM'/'yyyy HH:mm:ss", null),
-                    Track = new FakeResponseServer.Models.SimpleTrack
+                    Track = new FakeResponseServer.Models.Spotify.SimpleTrack
                     {
-                        Artists = new List<FakeResponseServer.Models.SimpleArtist>(),
+                        Artists = new List<FakeResponseServer.Models.Spotify.SimpleArtist>(),
                         AvailableMarkets = new List<string>(),
                         DiscNumber = 1,
                         DurationMs = 3500,
@@ -59,7 +59,7 @@
                         Href = "https://api.spotify.com/v1/albums/SomeHref",
                         Id = count.ToString(),
                         IsPlayable = true,
-                        LinkedFrom = new FakeResponseServer.Models.LinkedTrack
+                        LinkedFrom = new FakeResponseServer.Models.Spotify.LinkedTrack
                         {
                             ExternalUrls = new Dictionary<string, string>(),
                             Href = "https://api.spotify.com/v1/albums/SomeOtherHref",
@@ -70,10 +70,10 @@
                         Name = row["Song name"],
                         PreviewUrl = "https://p.scdn.co/mp3-preview/SomeRef",
                         TrackNumber = 1,
-                        Type = FakeResponseServer.Models.ItemType.Track,
+                        Type = FakeResponseServer.Models.Spotify.ItemType.Track,
                         Uri = "SomeURI",
                     },
-                    Context = new FakeResponseServer.Models.Context
+                    Context = new FakeResponseServer.Models.Spotify.Context
                     {
                         ExternalUrls = new Dictionary<string, string>(),
                         Href = "https://api.spotify.com/v1/albums/SomeURI",

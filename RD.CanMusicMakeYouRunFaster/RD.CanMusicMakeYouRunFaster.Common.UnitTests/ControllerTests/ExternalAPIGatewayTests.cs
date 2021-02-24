@@ -23,11 +23,11 @@
         private const string FakeServerAddress = "http://localhost:2222";
         private FakeDataRetrievalSource fakeDataRetrievalSource;
 
-        private readonly List<FakeResponseServer.Models.PlayHistoryItem> PlayHistoryItems = new List<FakeResponseServer.Models.PlayHistoryItem>
+        private readonly List<FakeResponseServer.Models.Spotify.PlayHistoryItem> PlayHistoryItems = new List<FakeResponseServer.Models.Spotify.PlayHistoryItem>
         {
-            new FakeResponseServer.Models.PlayHistoryItem
+            new FakeResponseServer.Models.Spotify.PlayHistoryItem
             {
-                Context = new FakeResponseServer.Models.Context
+                Context = new FakeResponseServer.Models.Spotify.Context
                 {
                     ExternalUrls = null,
                     Href = "Href object",
@@ -36,7 +36,7 @@
                 },
                 Id = "1",
                 PlayedAt = DateTime.UtcNow,
-                Track = new FakeResponseServer.Models.SimpleTrack
+                Track = new FakeResponseServer.Models.Spotify.SimpleTrack
                 {
                     Artists = null,
                     AvailableMarkets = null,
@@ -47,7 +47,7 @@
                     Href = "Href 1",
                     Id = "1",
                     IsPlayable = true,
-                    LinkedFrom = new FakeResponseServer.Models.LinkedTrack
+                    LinkedFrom = new FakeResponseServer.Models.Spotify.LinkedTrack
                     {
                         ExternalUrls = null,
                         Href = "Some href",
@@ -58,14 +58,14 @@
                     Name = "Track 1",
                     PreviewUrl = "http://google.com",
                     TrackNumber = 1,
-                    Type = FakeResponseServer.Models.ItemType.Track,
+                    Type = FakeResponseServer.Models.Spotify.ItemType.Track,
                     Uri = "Uri1"
                 }
             },
 
-            new FakeResponseServer.Models.PlayHistoryItem
+            new FakeResponseServer.Models.Spotify.PlayHistoryItem
             {
-                Context = new FakeResponseServer.Models.Context
+                Context = new FakeResponseServer.Models.Spotify.Context
                 {
                     ExternalUrls = null,
                     Href = "Href object",
@@ -74,7 +74,7 @@
                 },
                 Id = "2",
                 PlayedAt = DateTime.UtcNow,
-                Track = new FakeResponseServer.Models.SimpleTrack
+                Track = new FakeResponseServer.Models.Spotify.SimpleTrack
                 {
                     Artists = null,
                     AvailableMarkets = null,
@@ -85,7 +85,7 @@
                     Href = "Href 2",
                     Id = "2",
                     IsPlayable = true,
-                    LinkedFrom = new FakeResponseServer.Models.LinkedTrack
+                    LinkedFrom = new FakeResponseServer.Models.Spotify.LinkedTrack
                     {
                         ExternalUrls = null,
                         Href = "Some href",
@@ -96,14 +96,14 @@
                     Name = "Track 2",
                     PreviewUrl = "http://google.com",
                     TrackNumber = 1,
-                    Type = FakeResponseServer.Models.ItemType.Track,
+                    Type = FakeResponseServer.Models.Spotify.ItemType.Track,
                     Uri = "Uri2"
                 }
             },
 
-            new FakeResponseServer.Models.PlayHistoryItem
+            new FakeResponseServer.Models.Spotify.PlayHistoryItem
             {
-                Context = new FakeResponseServer.Models.Context
+                Context = new FakeResponseServer.Models.Spotify.Context
                 {
                     ExternalUrls = null,
                     Href = "Href object",
@@ -112,7 +112,7 @@
                 },
                 Id = "3",
                 PlayedAt = DateTime.UtcNow,
-                Track = new FakeResponseServer.Models.SimpleTrack
+                Track = new FakeResponseServer.Models.Spotify.SimpleTrack
                 {
                     Artists = null,
                     AvailableMarkets = null,
@@ -123,7 +123,7 @@
                     Href = "Href 3",
                     Id = "3",
                     IsPlayable = true,
-                    LinkedFrom = new FakeResponseServer.Models.LinkedTrack
+                    LinkedFrom = new FakeResponseServer.Models.Spotify.LinkedTrack
                     {
                         ExternalUrls = null,
                         Href = "Some href",
@@ -134,7 +134,7 @@
                     Name = "Track 3",
                     PreviewUrl = "http://google.com",
                     TrackNumber = 1,
-                    Type = FakeResponseServer.Models.ItemType.Track,
+                    Type = FakeResponseServer.Models.Spotify.ItemType.Track,
                     Uri = "Uri3"
                 }
             },

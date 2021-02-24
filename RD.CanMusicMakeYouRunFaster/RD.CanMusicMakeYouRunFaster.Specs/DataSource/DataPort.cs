@@ -4,7 +4,7 @@
     using FakeResponseServer.DbContext;
     using Microsoft.EntityFrameworkCore;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
-    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Spotify;
     using RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources;
     using RD.CanMusicMakeYouRunFaster.Rest.Gateways;
 

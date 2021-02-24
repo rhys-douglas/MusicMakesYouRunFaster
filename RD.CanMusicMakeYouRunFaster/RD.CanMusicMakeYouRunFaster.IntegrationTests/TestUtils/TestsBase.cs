@@ -41,7 +41,7 @@
 
         protected Func<FakeDataRetrievalSource> FakeDataRetrievalSourceFactory { get; private set; }
 
-        protected void RegisterMusicHistory(List<PlayHistoryItem> playHistory)
+        protected void RegisterMusicHistory(List<FakeResponseServer.Models.Spotify.PlayHistoryItem> playHistory)
         {
             using var context = new DataRetrievalContext(contextOptions);
             context.PlayHistoryItems.RemoveRange(context.PlayHistoryItems);

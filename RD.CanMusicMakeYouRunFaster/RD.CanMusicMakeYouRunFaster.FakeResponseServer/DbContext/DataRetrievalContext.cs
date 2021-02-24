@@ -1,7 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.DbContext
 {
     using Microsoft.EntityFrameworkCore;
-    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Spotify;
 
     /// <summary>
     /// Database context for storing the session's data set

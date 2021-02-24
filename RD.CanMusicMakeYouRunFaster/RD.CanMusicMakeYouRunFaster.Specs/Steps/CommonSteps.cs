@@ -8,13 +8,13 @@
         [Given(@"a list of users")]
         public void GivenAListOfUsers(Table table)
         {
-            // Temporarily redundant
+            // Does nothing.
         }
 
         [Given(@"a user [""]?([^""]*)[""]?")]
         public void GivenAUser(string user)
         {
-            // Does something
+            // Does nothing.
         }
     }
 }

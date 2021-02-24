@@ -12,7 +12,7 @@
         /// </summary>
         /// <param name="playHistoryItem"></param>
         /// <returns> DTO of PlayHistoryItem.</returns>
-        public static DTO.PlayHistoryItem ToDTO(this PlayHistoryItem playHistoryItem)
+        public static DTO.PlayHistoryItem ToDTO(this Spotify.PlayHistoryItem playHistoryItem)
         {
             return playHistoryItem != null ? new DTO.PlayHistoryItem
             {
@@ -53,7 +53,7 @@
             } : null;
         }
 
-        private static List<DTO.SimpleArtist> ConvertArtsits(List<Models.SimpleArtist> listOfModels)
+        private static List<DTO.SimpleArtist> ConvertArtsits(List<Spotify.SimpleArtist> listOfModels)
         {
             if (listOfModels == null)
             {
