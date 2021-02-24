@@ -24,20 +24,21 @@
         [Given(@"a list of running history")]
         public void GivenAListOfRunningHistory(Table table)
         {
-            var convertedRunningHistory = new List<StravaSharp.Activity>();
             var fakeRunningHistory = new List<FakeResponseServer.Models.Strava.Activity>();
+            int idcounter = 0;
 
             foreach (var row in table.Rows)
             {
                 var fakeHistoryItem = new FakeResponseServer.Models.Strava.Activity
                 {
+                    ExternalId = idcounter.ToString(),
                     Name = row["Activity Name"],
                     StartDate = DateTime.ParseExact(row["Time of activity start"], "dd'/'MM'/'yyyy HH:mm:ss", null),
                     ElapsedTime = int.Parse(row["Elapsed Time of Activity (s)"]),
                 };
                 fakeRunningHistory.Add(fakeHistoryItem);
+                idcounter++;
             }
-
             dataSource.AddRunningHistory(fakeRunningHistory);
         }
 

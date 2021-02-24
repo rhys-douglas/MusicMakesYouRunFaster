@@ -1,6 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Strava
 {
     using System;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Fake activity model for a Strava activity.
@@ -10,6 +11,7 @@
         /// <summary>
         /// External ID of the activity.
         /// </summary>
+        [Key]
         public string ExternalId { get; set; }
 
         /// <summary>
@@ -25,7 +27,7 @@
         /// <summary>
         /// meta or summary representation of the athlete
         /// </summary>
-        public StravaObject<int> Athlete { get; set; }
+        public virtual StravaObject<int> Athlete { get; set; }
 
         /// <summary>
         /// Distance [meters]
@@ -70,12 +72,12 @@
         /// <summary>
         /// Start <see cref="LatLng"/>
         /// </summary>
-        public LatLng StartLatLng { get; set; }
+        public virtual LatLng StartLatLng { get; set; }
 
         /// <summary>
         /// Start <see cref="Latlng"/>
         /// </summary>
-        public LatLng EndLatLng { get; set; }
+        public virtual LatLng EndLatLng { get; set; }
 
         /// <summary>
         /// Number of achievements gathered from this activity.
@@ -108,9 +110,9 @@
         public int TotalPhotoCount { get; set; }
 
         /// <summary>
-        /// detailed representation of the route
+        /// Map representation of the route.
         /// </summary>
-        public Map Map { get; set; }
+        public virtual Map Map { get; set; }
 
         /// <summary>
         /// States whether a trainer was used.

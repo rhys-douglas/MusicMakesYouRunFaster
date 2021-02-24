@@ -1,14 +1,23 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Strava
 {
+    using System.ComponentModel.DataAnnotations;
+
     /// <summary>
     /// Class used for representing geographical position
     /// </summary>
     public class LatLng
     {
         /// <summary>
+        /// Id of the LatLng. Used for context purposes only.
+        /// </summary>
+        [Key]
+        public int Id { get; set; }
+
+        /// <summary>
         /// WGS84 latitude
         /// </summary>
         public float Latitude { get; set; }
+
         /// <summary>
         /// WGS84 longitude
         /// </summary>
