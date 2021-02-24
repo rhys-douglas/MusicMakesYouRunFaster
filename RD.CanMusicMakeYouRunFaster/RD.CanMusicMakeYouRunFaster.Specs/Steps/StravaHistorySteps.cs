@@ -12,7 +12,7 @@
     {
         private readonly IClientDriver clientDriver;
         private readonly DataPort dataSource;
-        private readonly List<Dictionary<string, string>> runningHistory = new List<Dictionary<string, string>>();
+        private readonly List<StravaSharp.Activity> actualHistory = new List<StravaSharp.Activity>(); 
 
         public StravaHistorySteps(IClientDriver clientDriver, DataPort dataSource)
         {
@@ -24,10 +24,17 @@
         public void GivenAListOfRunningHistory(Table table)
         {
             var convertedRunningHistory = new List<StravaSharp.Activity>();
-            var fakeListeningHistory = new List<FakeResponseServer.Models.Strava.Activity>();
+            var fakeRunningHistory = new List<FakeResponseServer.Models.Strava.Activity>();
+
+            foreach (var row in table.Rows)
+            {
+                var fakeHistoryItem = new FakeResponseServer.Models.Strava.Activity
+                {
+                    
+                };
+            }
 
             /*
-            var fakeListeningHistory = new List<FakeResponseServer.Models.PlayHistoryItem>();
             var count = 0;
             foreach (var row in table.Rows)
             {

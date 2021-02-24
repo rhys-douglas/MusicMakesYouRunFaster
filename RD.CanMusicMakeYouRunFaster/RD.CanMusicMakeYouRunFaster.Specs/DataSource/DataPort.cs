@@ -14,7 +14,7 @@
     public class DataPort
     {
         private readonly DbContextOptions<DataRetrievalContext> contextOptions;
-        private SpotifyClient spotifyClient { get; } 
+        private SpotifyClient SpotifyClient { get; } 
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataPort"/> class.
@@ -24,12 +24,12 @@
         public DataPort(DbContextOptions<DataRetrievalContext> contextOptions, SpotifyClient spotifyClient)
         {
             this.contextOptions = contextOptions;
-            this.spotifyClient = spotifyClient;
+            this.SpotifyClient = spotifyClient;
         }
 
         public ExternalAPIGateway ExternalAPIGateway => new ExternalAPIGateway(
             new FakeDataRetrievalSource(
-                spotifyClient, 
+                SpotifyClient, 
                 "http://localhost:2222"));
 
         /// <summary>
