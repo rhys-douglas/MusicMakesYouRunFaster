@@ -5,6 +5,7 @@
     using Microsoft.EntityFrameworkCore;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Spotify;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Strava;
     using RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources;
     using RD.CanMusicMakeYouRunFaster.Rest.Gateways;
 
@@ -41,6 +42,14 @@
             using var context = new DataRetrievalContext(contextOptions);
             context.PlayHistoryItems.RemoveRange(context.PlayHistoryItems);
             context.PlayHistoryItems.AddRange(listOfListeningHistory);
+            context.SaveChanges();
+        }
+
+        public void AddRunningHistory(List<Activity> listOfRunningHistory)
+        {
+            using var context = new DataRetrievalContext(contextOptions);
+            context.ActivityHistoryItems.RemoveRange(context.ActivityHistoryItems);
+            context.ActivityHistoryItems.AddRange(listOfRunningHistory);
             context.SaveChanges();
         }
     }
