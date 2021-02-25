@@ -61,7 +61,7 @@
         public async Task<JsonResult> GetStravaAuthenticationToken()
         {
             await Task.Delay(1);
-            return new JsonResult("1");
+
         }
 
         /// <inheritdoc/>
