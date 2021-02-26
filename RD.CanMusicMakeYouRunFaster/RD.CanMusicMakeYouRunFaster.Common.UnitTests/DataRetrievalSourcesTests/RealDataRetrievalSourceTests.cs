@@ -29,5 +29,11 @@
             listeningHistory.Result.Value.Should().NotBeNull();
             listeningHistory.Result.Value.Should().NotBe(string.Empty);
         }
+
+        [Test]
+        public void GetStravaRecentActivities_RunningActivitiesRetrieved()
+        {
+            // Does something
+        }
     }
 }

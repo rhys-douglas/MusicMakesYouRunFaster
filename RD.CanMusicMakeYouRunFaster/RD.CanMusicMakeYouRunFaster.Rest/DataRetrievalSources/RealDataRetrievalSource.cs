@@ -61,9 +61,10 @@
         /// <inheritdoc/>
         public async Task<JsonResult> GetStravaAuthenticationToken()
         {
+           await Task.Delay(0);
            var authUrl = @"https://www.strava.com/oauth/authorize";
            StravaAuthenticator stravaAuthenticator = new StravaAuthenticator(new RestSharp.RestClient(authUrl));
-           return new JsonResult(await stravaAuthenticator.GetAuthToken());
+           return new JsonResult(stravaAuthenticator.GetAuthToken());
         }
 
         /// <inheritdoc/>
