@@ -105,5 +105,12 @@
             }
             return new JsonResult(correctMusicHistory);
         }
+
+        /// <inheritdoc/>
+        public async Task<JsonResult> GetStravaActivityHistory(StravaAuthenticationToken authToken)
+        {
+            await Task.Delay(1);
+            return new JsonResult("");
+        }
     }
 }

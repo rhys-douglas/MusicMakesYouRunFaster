@@ -51,7 +51,11 @@
             var retrievedTokenJson = this.dataSource.GetStravaAuthenticationToken().Result;
             var temp = JsonConvert.SerializeObject(retrievedTokenJson.Value);
             stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>(temp);
-            return retrievedTokenJson;
+            stravaAuthToken = new StravaAuthenticationToken
+            {
+                AccessToken = "8774d079c60c0256a7bd50ee69ae769abef80005"
+            };
+            return new JsonResult(stravaAuthToken.AccessToken);
         }
 
         /// <summary>
@@ -60,7 +64,7 @@
         /// <returns> Strava recent activities </returns>
         public JsonResult GetStravaRecentActivities()
         {
-            return new JsonResult(new List<string> { "FIX ME IN EXTERNAL API GATEWAY" });
+            return this.dataSource.GetStravaActivityHistory(this.stravaAuthToken).Result;
         }
 
         /// <summary>

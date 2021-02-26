@@ -16,8 +16,10 @@
     /// </summary>
     public class RealDataRetrievalSource : IDataRetrievalSource
     {
-        private static readonly string ClientId = "1580ff80db9a43e589eee411deba30b0";
+        private static readonly string SpotifyClientId = "1580ff80db9a43e589eee411deba30b0";
         private static readonly EmbedIOAuthServer AuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5000/callback"), 5000);
+        private int stravaClientId = 61391;
+        private const string stravaClientSecret = "???"; // TO BE CHANGED LATER ON IN DEV
 
         /// <inheritdoc/>
         public async Task<JsonResult> GetSpotifyAuthenticationToken()
@@ -32,12 +34,12 @@
             {
                 await AuthServer.Stop();
                 PKCETokenResponse token = await new OAuthClient().RequestToken(
-                  new PKCETokenRequest(ClientId, response.Code, AuthServer.BaseUri, verifier));
+                  new PKCETokenRequest(SpotifyClientId, response.Code, AuthServer.BaseUri, verifier));
                 authToken = JsonConvert.SerializeObject(token);
             };
 
             // Make spotify auth call.
-            var request = new LoginRequest(AuthServer.BaseUri, ClientId, LoginRequest.ResponseType.Code)
+            var request = new LoginRequest(AuthServer.BaseUri, SpotifyClientId, LoginRequest.ResponseType.Code)
             {
                 CodeChallenge = challenge,
                 CodeChallengeMethod = "S256",
@@ -61,10 +63,46 @@
         /// <inheritdoc/>
         public async Task<JsonResult> GetStravaAuthenticationToken()
         {
-           await Task.Delay(0);
-           var authUrl = @"https://www.strava.com/oauth/authorize";
-           StravaAuthenticator stravaAuthenticator = new StravaAuthenticator(new RestSharp.RestClient(authUrl));
-           return new JsonResult(stravaAuthenticator.GetAuthToken());
+            await Task.Delay(0);
+            // var authUrl = @"https://www.strava.com/oauth/authorize";
+            string stravaAuth = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "stravaApi.txt");
+            string serializedApi = System.IO.File.Exists(stravaAuth) ? System.IO.File.ReadAllText(stravaAuth) : null;
+            var stravaApi = new de.schumacher_bw.Strava.StravaApiV3Sharp(stravaClientId,stravaClientSecret, serializedApi);
+            stravaApi.SerializedObjectChanged += (s, e) => System.IO.File.WriteAllText(stravaAuth, stravaApi.Serialize());
+
+            try
+            {
+                BrowserUtil.Open(new Uri("http://localhost:5000/callback",5001));
+                Task.Delay(10000).Wait();
+            }
+            catch (Exception)
+            {
+                Console.WriteLine("Unable to open URL, manually open: {0}", uri);
+            }
+
+            if (stravaApi.Authentication.Scope == de.schumacher_bw.Strava.Model.Scopes.None_Unknown)
+            {
+                // ensure to be called again once the authentication is done. 
+                // We will be forewared to a not existing url and catch this event
+                webView.NavigationStarting += (s, e) =>
+                {
+                    if (e.Uri?.AbsoluteUri.StartsWith(callbackUrl) ?? false) // in case we are forewarded to the callback URL
+                    {
+                        api.Authentication.DoTokenExchange(e.Uri); // do the token exchange with the stava api
+                        ShowInfoInBrowser(api, webView);
+                    }
+                };
+
+                // navigate to the strava auth page to get read access 
+                webView.Navigate(api.Authentication.GetAuthUrl(new Uri(callbackUrl), de.schumacher_bw.Strava.Model.Scopes.Read));
+            }
+            else // the api is allready connected and the information have been loaded from the stravaAuth-file
+            {
+                ShowInfoInBrowser(api, webView);
+            }
+
+
+            return new JsonResult("");
         }
 
         /// <inheritdoc/>
@@ -74,6 +112,13 @@
 
             var listeningHistory = await spotifyClient.Player.GetRecentlyPlayed();
             return new JsonResult(listeningHistory);
+        }
+
+        /// <inheritdoc/>
+        public async Task<JsonResult> GetStravaActivityHistory(StravaAuthenticationToken authToken)
+        {
+            await Task.Delay(0);
+            return new JsonResult("some object");
         }
     }
 }

@@ -10,6 +10,12 @@
     public interface IDataRetrievalSource
     {
         /// <summary>
+        /// Gets the Spotify authentication token
+        /// </summary>
+        /// <returns> Json of a valid Authentication Token</returns>
+        Task<JsonResult> GetSpotifyAuthenticationToken();
+
+        /// <summary>
         /// Gets the spotify recently played history.
         /// </summary>
         /// <param name="authToken">Authentication token to use.</param>
@@ -17,15 +23,15 @@
         Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken);
 
         /// <summary>
-        /// Gets the Spotify authentication token
-        /// </summary>
-        /// <returns> Json of a valid Authentication Token</returns>
-        Task<JsonResult> GetSpotifyAuthenticationToken();
-
-        /// <summary>
         /// Gets the Strava authentication token
         /// </summary>
         /// <returns> Json of a valid Authentication Token</returns>
         Task<JsonResult> GetStravaAuthenticationToken();
+
+        /// <summary>
+        /// Gets the Strava activity history
+        /// </summary>
+        /// <returns> Json of activity history </returns>
+        Task<JsonResult> GetStravaActivityHistory(StravaAuthenticationToken authToken);
     }
 }
