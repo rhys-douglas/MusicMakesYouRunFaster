@@ -17,8 +17,10 @@
         public void GetAuthToken_AuthTokenReturned()
         {
             var sut = new StravaAuthenticator(new RestSharp.RestClient(@"https://www.strava.com/oauth/authorize"));
-            var retrievedToken = sut.GetAuthToken();
-            retrievedToken.Should().NotBeNull();
+            var retrievedRequest = sut.GetAuthToken();
+            retrievedRequest.Should().NotBeNull();
+            retrievedRequest.IsFaulted.Should().BeFalse();
+            retrievedRequest.Result.Should().NotBeNull();
         }
     }
 }

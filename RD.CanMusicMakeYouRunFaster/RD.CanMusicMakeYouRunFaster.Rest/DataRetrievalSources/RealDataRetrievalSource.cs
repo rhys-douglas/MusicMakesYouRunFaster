@@ -17,16 +17,7 @@
     public class RealDataRetrievalSource : IDataRetrievalSource
     {
         private static readonly string SpotifyClientId = "1580ff80db9a43e589eee411deba30b0";
-        private static readonly EmbedIOAuthServer AuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5000/callback"), 5000);
-        private int stravaClientId = 61391;
-        private const string stravaClientSecret = "???"; // TO BE CHANGED LATER ON IN DEV
-        private de.schumacher_bw.Strava.StravaApiV3Sharp stravaClient;
-
-        public RealDataRetrievalSource()
-        {
-            string serializedApi = System.IO.File.Exists(stravaAuth) ? System.IO.File.ReadAllText(stravaAuth) : null;
-            stravaClient = new de.schumacher_bw.Strava.StravaApiV3Sharp(stravaClientId, stravaClientSecret, serializedApi);
-        }
+        private static readonly EmbedIOAuthServer SpotifyAuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5000/callback"), 5000);
 
         /// <inheritdoc/>
         public async Task<JsonResult> GetSpotifyAuthenticationToken()
@@ -34,19 +25,19 @@
             var authToken = string.Empty;
 
             var (verifier, challenge) = PKCEUtil.GenerateCodes();
-            await AuthServer.Start();
+            await SpotifyAuthServer.Start();
 
             // Temporary auth server lsitens for Spotify callback.
-            AuthServer.AuthorizationCodeReceived += async (sender, response) =>
+            SpotifyAuthServer.AuthorizationCodeReceived += async (sender, response) =>
             {
-                await AuthServer.Stop();
+                await SpotifyAuthServer.Stop();
                 PKCETokenResponse token = await new OAuthClient().RequestToken(
-                  new PKCETokenRequest(SpotifyClientId, response.Code, AuthServer.BaseUri, verifier));
+                  new PKCETokenRequest(SpotifyClientId, response.Code, SpotifyAuthServer.BaseUri, verifier));
                 authToken = JsonConvert.SerializeObject(token);
             };
 
             // Make spotify auth call.
-            var request = new LoginRequest(AuthServer.BaseUri, SpotifyClientId, LoginRequest.ResponseType.Code)
+            var request = new LoginRequest(SpotifyAuthServer.BaseUri, SpotifyClientId, LoginRequest.ResponseType.Code)
             {
                 CodeChallenge = challenge,
                 CodeChallengeMethod = "S256",
@@ -70,37 +61,10 @@
         /// <inheritdoc/>
         public async Task<JsonResult> GetStravaAuthenticationToken()
         {
+            var authenticator = new StravaAuthenticator(new RestSharp.RestClient());
+            var token = authenticator.GetAuthToken();
             await Task.Delay(0);
-            /*
-            // var authUrl = @"https://www.strava.com/oauth/authorize";
-            string stravaAuth = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "stravaApi.txt");
-            stravaClient.SerializedObjectChanged += (s, e) => System.IO.File.WriteAllText(stravaAuth, stravaApi.Serialize());
-
-            if (stravaApi.Authentication.Scope == de.schumacher_bw.Strava.Model.Scopes.None_Unknown)
-            {
-                // ensure to be called again once the authentication is done. 
-                // We will be forewared to a not existing url and catch this event
-                webView.NavigationStarting += (s, e) =>
-                {
-                    if (e.Uri?.AbsoluteUri.StartsWith(callbackUrl) ?? false) // in case we are forewarded to the callback URL
-                    {
-                        api.Authentication.DoTokenExchange(e.Uri); // do the token exchange with the stava api
-                        ShowInfoInBrowser(api, webView);
-                    }
-                };
-
-                // navigate to the strava auth page to get read access 
-                webView.Navigate(api.Authentication.GetAuthUrl(new Uri(callbackUrl), de.schumacher_bw.Strava.Model.Scopes.Read));
-            }
-            else // the api is allready connected and the information have been loaded from the stravaAuth-file
-            {
-                ShowInfoInBrowser(api, webView);
-            }
-
-            */
-            var settings = new Pepperoni.Strava.Models.StravaClientSettings(stravaClientId.ToString(), stravaClientSecret, "", "");
-            var client = new Pepperoni.Strava.StravaClient(settings);
-            return new JsonResult("");
+            return new JsonResult(JsonConvert.SerializeObject(token));
         }
 
         /// <inheritdoc/>
