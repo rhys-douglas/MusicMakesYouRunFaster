@@ -20,6 +20,13 @@
         private static readonly EmbedIOAuthServer AuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5000/callback"), 5000);
         private int stravaClientId = 61391;
         private const string stravaClientSecret = "???"; // TO BE CHANGED LATER ON IN DEV
+        private de.schumacher_bw.Strava.StravaApiV3Sharp stravaClient;
+
+        public RealDataRetrievalSource()
+        {
+            string serializedApi = System.IO.File.Exists(stravaAuth) ? System.IO.File.ReadAllText(stravaAuth) : null;
+            stravaClient = new de.schumacher_bw.Strava.StravaApiV3Sharp(stravaClientId, stravaClientSecret, serializedApi);
+        }
 
         /// <inheritdoc/>
         public async Task<JsonResult> GetSpotifyAuthenticationToken()
@@ -64,21 +71,10 @@
         public async Task<JsonResult> GetStravaAuthenticationToken()
         {
             await Task.Delay(0);
+            /*
             // var authUrl = @"https://www.strava.com/oauth/authorize";
             string stravaAuth = System.IO.Path.Combine(System.IO.Path.GetTempPath(), "stravaApi.txt");
-            string serializedApi = System.IO.File.Exists(stravaAuth) ? System.IO.File.ReadAllText(stravaAuth) : null;
-            var stravaApi = new de.schumacher_bw.Strava.StravaApiV3Sharp(stravaClientId,stravaClientSecret, serializedApi);
-            stravaApi.SerializedObjectChanged += (s, e) => System.IO.File.WriteAllText(stravaAuth, stravaApi.Serialize());
-
-            try
-            {
-                BrowserUtil.Open(new Uri("http://localhost:5000/callback",5001));
-                Task.Delay(10000).Wait();
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Unable to open URL, manually open: {0}", uri);
-            }
+            stravaClient.SerializedObjectChanged += (s, e) => System.IO.File.WriteAllText(stravaAuth, stravaApi.Serialize());
 
             if (stravaApi.Authentication.Scope == de.schumacher_bw.Strava.Model.Scopes.None_Unknown)
             {
@@ -101,7 +97,9 @@
                 ShowInfoInBrowser(api, webView);
             }
 
-
+            */
+            var settings = new Pepperoni.Strava.Models.StravaClientSettings(stravaClientId.ToString(), stravaClientSecret, "", "");
+            var client = new Pepperoni.Strava.StravaClient(settings);
             return new JsonResult("");
         }
 
@@ -117,6 +115,7 @@
         /// <inheritdoc/>
         public async Task<JsonResult> GetStravaActivityHistory(StravaAuthenticationToken authToken)
         {
+            // var activityHistory = stravaClient.Activities.GetLoggedInAthleteActivities();
             await Task.Delay(0);
             return new JsonResult("some object");
         }
