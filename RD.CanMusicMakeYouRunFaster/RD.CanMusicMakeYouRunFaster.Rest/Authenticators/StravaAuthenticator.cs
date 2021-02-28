@@ -36,14 +36,13 @@
             StravaAuthServer.AuthorizationCodeReceived += async (sender, response) =>
             {
                 await StravaAuthServer.Stop();
-                StravaExchangeToken token = await new OAuthClient().RequestToken(
-                  new PKCETokenRequest(SpotifyClientId, response.Code, SpotifyAuthServer.BaseUri, verifier));
-                authToken = JsonConvert.SerializeObject(token);
+                exchangeToken = response.Code;
             };
 
             // Open page for login request
             var authTokenUri = new Uri("http://www.strava.com/oauth/authorize?client_id=61391&response_type=code&redirect_uri=http://localhost:5001/stravatoken&approval_prompt=force&scope=activity:read_all");
             BrowserUtil.Open(authTokenUri);
+            Task.Delay(10000).Wait();
             await StravaAuthServer.Stop(); 
             return JsonConvert.DeserializeObject<StravaAuthenticationToken>("");
         }
