@@ -9,18 +9,21 @@
         [Test]
         public void StravaAuthenticatorInstantiated_ObjectIsNotNull()
         {
-            var sut = new StravaAuthenticator(new RestSharp.RestClient(@"https://www.strava.com/oauth/authorize"));
+            var sut = new StravaAuthenticator();
             sut.Should().NotBeNull();
         }
 
         [Test]
         public void GetAuthToken_AuthTokenReturned()
         {
-            var sut = new StravaAuthenticator(new RestSharp.RestClient(@"https://www.strava.com/oauth/authorize"));
+            var sut = new StravaAuthenticator();
             var retrievedRequest = sut.GetAuthToken();
             retrievedRequest.Should().NotBeNull();
             retrievedRequest.IsFaulted.Should().BeFalse();
             retrievedRequest.Result.Should().NotBeNull();
+            retrievedRequest.Result.access_token.Should().NotBeNullOrEmpty();
+            retrievedRequest.Result.refresh_token.Should().NotBeNullOrEmpty();
+            retrievedRequest.Result.athlete.Should().NotBeNull();
         }
     }
 }

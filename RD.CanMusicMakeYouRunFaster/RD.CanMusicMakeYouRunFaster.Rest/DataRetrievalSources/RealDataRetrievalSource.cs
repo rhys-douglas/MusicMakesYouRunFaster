@@ -61,7 +61,7 @@
         /// <inheritdoc/>
         public async Task<JsonResult> GetStravaAuthenticationToken()
         {
-            var authenticator = new StravaAuthenticator(new RestSharp.RestClient());
+            var authenticator = new StravaAuthenticator();
             var token = authenticator.GetAuthToken();
             await Task.Delay(0);
             return new JsonResult(JsonConvert.SerializeObject(token));

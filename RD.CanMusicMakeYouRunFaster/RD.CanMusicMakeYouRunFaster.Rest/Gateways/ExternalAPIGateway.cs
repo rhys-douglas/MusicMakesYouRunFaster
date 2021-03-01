@@ -53,9 +53,9 @@
             stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>(temp);
             stravaAuthToken = new StravaAuthenticationToken
             {
-                AccessToken = "8774d079c60c0256a7bd50ee69ae769abef80005"
+                access_token = "8774d079c60c0256a7bd50ee69ae769abef80005"
             };
-            return new JsonResult(stravaAuthToken.AccessToken);
+            return new JsonResult(stravaAuthToken.access_token);
         }
 
         /// <summary>
