@@ -1,11 +1,9 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.Gateways
 {
     using DataRetrievalSources;
-    using FakeResponseServer.Controllers;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Controller used to handle HTTP requests to the backend / external API's.
@@ -48,14 +46,9 @@
         /// <returns> Strava authentication token</returns>
         public JsonResult GetStravaAuthenticationToken()
         {
-            var retrievedTokenJson = this.dataSource.GetStravaAuthenticationToken().Result;
-            var temp = JsonConvert.SerializeObject(retrievedTokenJson.Value);
-            stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>(temp);
-            stravaAuthToken = new StravaAuthenticationToken
-            {
-                access_token = "8774d079c60c0256a7bd50ee69ae769abef80005"
-            };
-            return new JsonResult(stravaAuthToken.access_token);
+            var stravaAuthenticationTokenAsJson = this.dataSource.GetStravaAuthenticationToken().Result.Value;
+            stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>((string)stravaAuthenticationTokenAsJson);
+            return new JsonResult(stravaAuthToken);
         }
 
         /// <summary>
