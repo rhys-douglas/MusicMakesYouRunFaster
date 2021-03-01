@@ -5,6 +5,7 @@
     using Newtonsoft.Json;
     using NUnit.Framework;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
+    using System.Collections.Generic;
 
     public class RealDataRetrievalSourceTests
     {
@@ -48,8 +49,8 @@
             var runningHistory = sut.GetStravaActivityHistory(stravaAuthenticationToken);
             runningHistory.Result.Value.Should().NotBeNull();
             runningHistory.Result.Value.Should().NotBe(string.Empty);
-            var retrievedActivites = JsonConvert.DeserializeObject<ActivityResponse>((string)runningHistory.Result.Value);
-            retrievedActivites.ListOfActivities.Should().NotBeEmpty().And.Should().NotBeNull();
+            var retrievedActivites = JsonConvert.DeserializeObject<List<Activity>>((string)runningHistory.Result.Value);
+            retrievedActivites.Should().NotBeEmpty().And.Should().NotBeNull();
         }
     }
 }
