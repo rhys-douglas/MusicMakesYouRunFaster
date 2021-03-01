@@ -202,8 +202,8 @@
             var tokenAsJson = sut.GetStravaAuthenticationToken();
             tokenAsJson.Value.Should().NotBeNull();
             var tokenAsExtractedJson = JsonConvert.SerializeObject(tokenAsJson.Value);
-            var stravaAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>(tokenAsExtractedJson);
-            stravaAuthToken.AccessToken.Should().NotBeNullOrEmpty();
+            var stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>(tokenAsExtractedJson);
+            stravaAuthToken.access_token.Should().NotBeNullOrEmpty();
         }
 
         private ExternalAPIGateway MakeSut()

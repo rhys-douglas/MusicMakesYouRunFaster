@@ -7,6 +7,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using RD.CanMusicMakeYouRunFaster.Rest.Authenticators;
+    using RestSharp;
     using SpotifyAPI.Web;
     using SpotifyAPI.Web.Auth;
     using static SpotifyAPI.Web.Scopes;
@@ -61,10 +62,10 @@
         /// <inheritdoc/>
         public async Task<JsonResult> GetStravaAuthenticationToken()
         {
+            await Task.Delay(0);
             var authenticator = new StravaAuthenticator();
             var token = authenticator.GetAuthToken();
-            await Task.Delay(0);
-            return new JsonResult(JsonConvert.SerializeObject(token));
+            return new JsonResult(JsonConvert.SerializeObject(token.Result));
         }
 
         /// <inheritdoc/>
@@ -79,9 +80,12 @@
         /// <inheritdoc/>
         public async Task<JsonResult> GetStravaActivityHistory(StravaAuthenticationToken authToken)
         {
-            // var activityHistory = stravaClient.Activities.GetLoggedInAthleteActivities();
             await Task.Delay(0);
-            return new JsonResult("some object");
+            var client = new RestClient("https://www.strava.com/api/v3/athlete/activities");
+            var request = new RestRequest(Method.GET);
+            request.AddParameter("access_token", authToken.access_token);
+            IRestResponse response = client.Execute(request);
+            return new JsonResult(response.Content);
         }
     }
 }
