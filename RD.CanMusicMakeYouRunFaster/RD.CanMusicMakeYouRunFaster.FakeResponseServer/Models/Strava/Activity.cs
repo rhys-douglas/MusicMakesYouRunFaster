@@ -1,7 +1,9 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Strava
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Fake activity model for a Strava activity.
@@ -9,211 +11,265 @@
     public class Activity
     {
         /// <summary>
-        /// External ID of the activity.
+        /// Resource state of the activity.
         /// </summary>
-        [Key]
-        public string ExternalId { get; set; }
+        public int resource_state { get; set; }
 
         /// <summary>
-        /// Upload ID of the activity.
+        /// Athlete from the activity.
         /// </summary>
-        public long UploadId { get; set; }
+        public Athlete athlete { get; set; }
 
         /// <summary>
         /// Name of the activity.
         /// </summary>
-        public string Name { get; set; }
+        public string name { get; set; }
 
         /// <summary>
-        /// meta or summary representation of the athlete
+        /// Distance of the activity.
         /// </summary>
-        public virtual StravaObject<int> Athlete { get; set; }
+        public double distance { get; set; }
 
         /// <summary>
-        /// Distance [meters]
+        /// Moving time of the activity
         /// </summary>
-        public float Distance { get; set; }
+        public int moving_time { get; set; }
 
         /// <summary>
-        /// Moving time [sec]
+        /// Elapsed time of the activity.
         /// </summary>
-        public int MovingTime { get; set; }
-        /// <summary>
-        /// seconds
-        /// </summary>
-        public int ElapsedTime { get; set; }
+        public int elapsed_time { get; set; }
 
         /// <summary>
-        /// meters
+        /// Total elevation gain throughout the activity.
         /// </summary>
-        public float TotalElevationGain { get; set; }
+        public double total_elevation_gain { get; set; }
 
         /// <summary>
-        /// Activity type, ie.ride, run, swim, etc.
+        /// Type of the activity e.g. run
         /// </summary>
-        public ActivityType Type { get; set; }
+        public string type { get; set; }
 
         /// <summary>
-        /// Starting date
+        /// Workout type
         /// </summary>
-        /// <value>The start date.</value>
-        public DateTime StartDate { get; set; }
+        public int workout_type { get; set; }
 
         /// <summary>
-        /// Starting time in local time zone
+        /// Id of the activity
         /// </summary>
-        public DateTime StartDateLocal { get; set; }
+        public string id { get; set; }
 
         /// <summary>
-        /// Time zone of the activity.
+        /// External id of the activity.
         /// </summary>
-        public string TimeZone { get; set; }
+        [Key]
+        public string external_id { get; set; }
 
         /// <summary>
-        /// Start <see cref="LatLng"/>
+        /// Upload id of the activity
         /// </summary>
-        public virtual LatLng StartLatLng { get; set; }
+        public string upload_id { get; set; }
 
         /// <summary>
-        /// Start <see cref="Latlng"/>
+        /// Start date of the activity.
         /// </summary>
-        public virtual LatLng EndLatLng { get; set; }
+        public DateTime start_date { get; set; }
 
         /// <summary>
-        /// Number of achievements gathered from this activity.
+        /// Local time start date of the activity.
         /// </summary>
-        public int AchievementCount { get; set; }
+        public DateTime start_date_local { get; set; }
 
         /// <summary>
-        /// Number of kudos.
+        /// Timezone of the activity
         /// </summary>
-        public int KudosCount { get; set; }
+        public string timezone { get; set; }
 
         /// <summary>
-        /// Number of commen.ts
+        /// UTC offset of the activity
         /// </summary>
-        public int CommentCount { get; set; }
+        public double utc_offset { get; set; }
 
         /// <summary>
-        /// number of athletes taking part in this “group activity”. >= 1 
+        /// Start latlng position
         /// </summary>
-        public int AthleteCount { get; set; }
+        public List<double> start_latlng { get; set; }
 
         /// <summary>
-        /// Number of Instagram photos
+        /// End latlng position
         /// </summary>
-        public int PhotoCount { get; set; }
+        public List<double> end_latlng { get; set; }
 
         /// <summary>
-        /// Total number of photos(Instagram and Strava)
+        /// City location of activity
         /// </summary>
-        public int TotalPhotoCount { get; set; }
+        public object location_city { get; set; }
 
         /// <summary>
-        /// Map representation of the route.
+        /// State of activity
         /// </summary>
-        public virtual Map Map { get; set; }
+        public object location_state { get; set; }
 
         /// <summary>
-        /// States whether a trainer was used.
+        /// Country of activity.
         /// </summary>
-        public bool Trainer { get; set; }
+        public object location_country { get; set; }
 
         /// <summary>
-        /// States whether this activity was a commute
+        /// Starting latitude.
         /// </summary>
-        public bool Commute { get; set; }
+        public double start_latitude { get; set; }
 
         /// <summary>
-        /// States if this activity was manually uploaded.
+        /// Starting longitude.
         /// </summary>
-        public bool Manual { get; set; }
+        public double start_longitude { get; set; }
 
         /// <summary>
-        /// States if this activity is private.
+        /// Number of achievements earned from activity.
         /// </summary>
+        public int achievement_count { get; set; }
+
+        /// <summary>
+        /// Number of kudos earned from activity.
+        /// </summary>
+        public int kudos_count { get; set; }
+
+        /// <summary>
+        /// Number of comments on activity.
+        /// </summary>
+        public int comment_count { get; set; }
+
+        /// <summary>
+        /// Number of athletes on the activity.
+        /// </summary>
+        public int athlete_count { get; set; }
+
+        /// <summary>
+        /// Number of photos on activity.
+        /// </summary>
+        public int photo_count { get; set; }
+
+        /// <summary>
+        /// Map representation of the activity.
+        /// </summary>
+        public Map map { get; set; }
+
+        /// <summary>
+        /// Trainer used?
+        /// </summary>
+        public bool trainer { get; set; }
+
+        /// <summary>
+        /// Was this a commute?
+        /// </summary>
+        public bool commute { get; set; }
+
+        /// <summary>
+        /// Was this activity uploaded manually?
+        /// </summary>
+        public bool manual { get; set; }
+
+        /// <summary>
+        /// Is the activity private?
+        /// </summary>
+        [JsonProperty("private")]
         public bool Private { get; set; }
 
         /// <summary>
-        /// The name of the device used to record the activity.
+        /// States the visibility of the activity.
         /// </summary>
-        public string DeviceName { get; set; }
+        public string visibility { get; set; }
 
         /// <summary>
-        /// States whether the activity has been flagged or not.
+        /// States whether this activity has been flagged.
         /// </summary>
-        public bool Flagged { get; set; }
+        public bool flagged { get; set; }
 
         /// <summary>
-        /// Average speed [meters per second]
+        /// Id of the gear used.
         /// </summary>
-        public float AverageSpeed { get; set; }
+        public object gear_id { get; set; }
 
         /// <summary>
-        /// Maximum speed [meters per second]
+        /// From accepted tag?
         /// </summary>
-        public float MaxSpeed { get; set; }
+        public bool from_accepted_tag { get; set; }
 
         /// <summary>
-        /// Average cadence [rpm]
+        /// Upload Id
         /// </summary>
-        public float AverageCadence { get; set; }
+        public string upload_id_str { get; set; }
 
         /// <summary>
-        /// degrees Celsius, if provided at upload
+        /// Average speed 
         /// </summary>
-        public float AverageTemperature { get; set; }
+        public double average_speed { get; set; }
 
         /// <summary>
-        /// Average watts (rides only)
+        /// Maximum speed
         /// </summary>
-        public float AveragePower { get; set; }
+        public double max_speed { get; set; }
 
         /// <summary>
-        /// Maximum watts (rides only)
+        /// Average cadence throughout the activity.
         /// </summary>
-        public int MaxPower { get; set; }
+        public double average_cadence { get; set; }
 
         /// <summary>
-        /// weighted_average_watts: integer rides with power meter data only
-        /// similar to xPower or Normalized Power
+        /// Average temperature of the activity.
         /// </summary>
-        public int NormalizedPower { get; set; }
+        public int average_temp { get; set; }
 
         /// <summary>
-        /// kilojoules: float rides only
-        /// uses estimated power if necessary
+        /// Is there heart rate data available?
         /// </summary>
-        public float Kilojoules { get; set; }
+        public bool has_heartrate { get; set; }
 
         /// <summary>
-        /// true if the watts are from a power meter, false if estimated
+        /// Average heart rate 
         /// </summary>
-        public bool DeviceWatts { get; set; }
+        public double average_heartrate { get; set; }
 
         /// <summary>
-        /// average_heartrate: float only if recorded with heartrate
-        /// average over moving portion
+        /// Maximum heart rate.
         /// </summary>
-        public float AverageHeartRate { get; set; }
-        /// <summary>
-        /// max_heartrate: integer only if recorded with heartrate
-        /// </summary>
-        public float MaxHeartRate { get; set; }
+        public double max_heartrate { get; set; }
 
         /// <summary>
-        /// States if the Oauth'd user has kudoed the activity.
+        /// Heart rate opted out?
         /// </summary>
-        public bool HasKudoed { get; set; }
+        public bool heartrate_opt_out { get; set; }
 
         /// <summary>
-        /// Description of the activity.
+        /// Display hidden heart rate?
         /// </summary>
-        public string Description { get; set; }
+        public bool display_hide_heartrate_option { get; set; }
 
         /// <summary>
-        /// kilocalories, uses kilojoules for rides and speed/pace for runs
+        /// Highest elevation
         /// </summary>
-        public float Calories { get; set; }
+        public double elev_high { get; set; }
+
+        /// <summary>
+        /// Lowest elevation
+        /// </summary>
+        public double elev_low { get; set; }
+
+        /// <summary>
+        /// PR count
+        /// </summary>
+        public int pr_count { get; set; }
+
+        /// <summary>
+        /// Total photos uploaded.
+        /// </summary>
+        public int total_photo_count { get; set; }
+
+        /// <summary>
+        /// Has the activity been kudoed by the authenticated user?
+        /// </summary>
+        public bool has_kudoed { get; set; }
     }
 }

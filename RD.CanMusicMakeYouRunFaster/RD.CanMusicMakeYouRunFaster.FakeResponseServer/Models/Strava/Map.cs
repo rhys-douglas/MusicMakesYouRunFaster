@@ -1,18 +1,26 @@
-﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Strava
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Strava
 {
     /// <summary>
-    /// Detailed representation of the route
+    /// Map class for fake activity objects.
     /// </summary>
-    public class Map : StravaObject<string>
+    public class Map
     {
         /// <summary>
-        /// Polyline with all points
+        /// Id of the map.
         /// </summary>
-        public string Polyline { get; internal set; }
+        [Key]
+        public string id { get; set; }
 
         /// <summary>
-        /// Summary polyline
+        /// Polyline summary.
         /// </summary>
-        public string SummaryPolyline { get; internal set; }
+        public string summary_polyline { get; set; }
+
+        /// <summary>
+        /// Resource state 
+        /// </summary>
+        public int resource_state { get; set; }
     }
 }

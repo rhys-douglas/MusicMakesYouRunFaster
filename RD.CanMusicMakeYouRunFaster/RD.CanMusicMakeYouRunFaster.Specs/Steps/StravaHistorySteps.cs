@@ -30,10 +30,10 @@
             {
                 var fakeHistoryItem = new FakeResponseServer.Models.Strava.Activity
                 {
-                    ExternalId = idcounter.ToString(),
-                    Name = row["Activity Name"],
-                    StartDate = DateTime.ParseExact(row["Time of activity start"], "dd'/'MM'/'yyyy HH:mm:ss", null),
-                    ElapsedTime = int.Parse(row["Elapsed Time of Activity (s)"]),
+                    external_id = idcounter.ToString(),
+                    name = row["Activity Name"],
+                    start_date = DateTime.ParseExact(row["Time of activity start"], "dd'/'MM'/'yyyy HH:mm:ss", null),
+                    elapsed_time = int.Parse(row["Elapsed Time of Activity (s)"]),
                 };
                 fakeRunningHistory.Add(fakeHistoryItem);
                 idcounter++;

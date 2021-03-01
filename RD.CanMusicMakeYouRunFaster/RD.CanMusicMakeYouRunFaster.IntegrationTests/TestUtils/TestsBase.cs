@@ -9,7 +9,6 @@
     using RD.CanMusicMakeYouRunFaster.CommonTestUtils.Factories;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.DbContext;
-    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models;
     using RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources;
 
     /// <summary>
@@ -46,6 +45,14 @@
             using var context = new DataRetrievalContext(contextOptions);
             context.PlayHistoryItems.RemoveRange(context.PlayHistoryItems);
             context.PlayHistoryItems.AddRange(playHistory);
+            context.SaveChanges();
+        }
+
+        protected void RegisterActivityHistory(List<FakeResponseServer.Models.Strava.Activity> activityHistory)
+        {
+            using var context = new DataRetrievalContext(contextOptions);
+            context.ActivityHistoryItems.RemoveRange(context.ActivityHistoryItems);
+            context.ActivityHistoryItems.AddRange(activityHistory);
             context.SaveChanges();
         }
     }
