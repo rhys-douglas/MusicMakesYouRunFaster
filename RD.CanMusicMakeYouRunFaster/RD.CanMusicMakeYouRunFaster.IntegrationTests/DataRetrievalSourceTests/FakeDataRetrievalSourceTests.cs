@@ -2,7 +2,6 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Threading.Tasks;
     using DataRetrievalSources;
     using Entity;
     using FluentAssertions;
@@ -13,7 +12,8 @@
 
     public class FakeDataRetrievalSourceTests : TestsBase
     {
-        private SpotifyAuthenticationToken authenticationToken;
+        private SpotifyAuthenticationToken spotifyAuthToken;
+        private StravaAuthenticationToken stravaAuthToken;
         private FakeDataRetrievalSource sut;
         private readonly List<FakeResponseServer.Models.Spotify.PlayHistoryItem> PlayHistoryItems = new List<FakeResponseServer.Models.Spotify.PlayHistoryItem>
         {
@@ -133,6 +133,14 @@
 
         };
 
+        private readonly List<Activity> ActivityItems = new List<Activity>
+        {
+            new Activity
+            {
+
+            }
+        };
+
         [OneTimeSetUp]
         public void SetUpTests()
         {
@@ -145,20 +153,29 @@
             RegisterMusicHistory(PlayHistoryItems);
 
             sut = MakeSut();
-            var oauthToken = sut.GetSpotifyAuthenticationToken();
-            Task.Delay(1000);
-            oauthToken.Result.Should().NotBeNull();
-            oauthToken.Result.Value.Should().NotBe(string.Empty);
-            var temp = JsonConvert.SerializeObject(oauthToken.Result.Value);
-            authenticationToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>(temp);
-            authenticationToken.AccessToken.Should().NotBeNullOrEmpty();
+
+            // Get spotify auth token.
+            var spotifyAuthTask = sut.GetSpotifyAuthenticationToken();
+            spotifyAuthTask.Result.Should().NotBeNull();
+            spotifyAuthTask.Result.Value.Should().NotBe(string.Empty);
+            var temp = JsonConvert.SerializeObject(spotifyAuthTask.Result.Value);
+            spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>(temp);
+            spotifyAuthToken.AccessToken.Should().NotBeNullOrEmpty();
+
+            // Get strava auth token.
+            var stravaAuthTask = sut.GetStravaAuthenticationToken();
+            stravaAuthTask.Result.Should().NotBeNull();
+            stravaAuthTask.Result.Value.Should().NotBeNull();
+            temp = JsonConvert.SerializeObject(stravaAuthTask.Result.Value);
+            stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>(temp);
+            stravaAuthToken.access_token.Should().NotBeNullOrEmpty();
         }
 
         [Test]
         public void GetSpotifyListeningHistory_ListeningHistoryRetrieved()
         {
             sut = MakeSut();
-            var listeningHistory = sut.GetSpotifyRecentlyPlayed(authenticationToken);
+            var listeningHistory = sut.GetSpotifyRecentlyPlayed(spotifyAuthToken);
             listeningHistory.Result.Value.Should().NotBeNull();
             listeningHistory.Result.Value.Should().NotBe(string.Empty);
             var listeningHistoryJson = JsonConvert.SerializeObject(listeningHistory.Result.Value);
@@ -176,9 +193,22 @@
             listeningHistory.Result.Value.Should().NotBe(string.Empty);
         }
 
+        [Test]
+        public void GetStravaActivityHistoryWithValidAuthToken_ActivityHistoryRetrieved()
+        {
+            sut = MakeSut();
+            var runningHistoryTask = sut.GetStravaActivityHistory(stravaAuthToken);
+            runningHistoryTask.Result.Value.Should().NotBeNull();
+            runningHistoryTask.Result.Value.Should().NotBe(string.Empty);
+            var runningHistoryJson = JsonConvert.SerializeObject(runningHistoryTask.Result.Value);
+            var actualRunningHistory = JsonConvert.DeserializeObject<List<Activity>>(runningHistoryJson);
+            actualRunningHistory.Count.Should().Be(2);
+            actualRunningHistory[0].Should().BeOfType<Activity>();
+        }
+
         private FakeDataRetrievalSource MakeSut()
         {
-            return new FakeDataRetrievalSource(spotifyClient, FakeServerAddress);
+            return new FakeDataRetrievalSource(externalAPICaller, FakeServerAddress);
         }
     }
 }

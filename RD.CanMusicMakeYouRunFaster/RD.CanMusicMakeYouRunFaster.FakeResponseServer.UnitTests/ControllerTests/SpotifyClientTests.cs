@@ -73,9 +73,9 @@
 
         }
 
-        private SpotifyClient MakeSut(HttpClient httpClient)
+        private ExternalAPICaller MakeSut(HttpClient httpClient)
         {
-            return new SpotifyClient(httpClient);
+            return new ExternalAPICaller(httpClient);
         }
 
         private void SetUpHTTPClient(HttpStatusCode statusCode, string jsonContent)

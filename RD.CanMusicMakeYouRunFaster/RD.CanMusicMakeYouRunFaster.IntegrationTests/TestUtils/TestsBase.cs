@@ -20,7 +20,7 @@
         private const string DatabaseName = "FakeDataRetrievalSourceDatabase";
         private DbContextOptions<DataRetrievalContext> contextOptions;
         public const string FakeServerAddress = "http://localhost:2222";
-        public SpotifyClient spotifyClient;
+        public ExternalAPICaller externalAPICaller;
 
         [OneTimeSetUp]
         public virtual void TestSetup()
@@ -34,9 +34,9 @@
             var webAppFactory = new InMemoryFactory<FakeResponseServer.Startup>(DatabaseName, databaseRoot);
             httpClient = webAppFactory.CreateClient(FakeServerAddress);
 
-            spotifyClient = new SpotifyClient(httpClient);
+            externalAPICaller = new ExternalAPICaller(httpClient);
 
-            FakeDataRetrievalSourceFactory = () => new FakeDataRetrievalSource(spotifyClient, FakeServerAddress);
+            FakeDataRetrievalSourceFactory = () => new FakeDataRetrievalSource(externalAPICaller, FakeServerAddress);
         }
 
         protected Func<FakeDataRetrievalSource> FakeDataRetrievalSourceFactory { get; private set; }

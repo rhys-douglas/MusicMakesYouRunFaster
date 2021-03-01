@@ -13,15 +13,17 @@
     /// </summary>
     public class FakeDataRetrievalSource : IDataRetrievalSource
     {
-        private readonly FakeResponseServer.Controllers.SpotifyClient spotifyClient;
+        private readonly FakeResponseServer.Controllers.ExternalAPICaller externalAPICaller;
         private readonly Uri fakeSpotifyAuthUrl;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="FakeDataRetrievalSource"/> class.
         /// </summary>
-        public FakeDataRetrievalSource(FakeResponseServer.Controllers.SpotifyClient spotifyClient, string fakeServerUrl)
+        /// <param name="externalAPICaller"> HTTP encapsulated Client. </param>
+        /// <param name="fakeServerUrl"> Fake server url to call.</param>
+        public FakeDataRetrievalSource(FakeResponseServer.Controllers.ExternalAPICaller externalAPICaller,  string fakeServerUrl)
         {
-            this.spotifyClient = spotifyClient;
+            this.externalAPICaller = externalAPICaller;
             this.fakeSpotifyAuthUrl = new Uri(fakeServerUrl);
         }
 
@@ -44,7 +46,7 @@
             query["CodeVerifier"] = tokenRequest.CodeVerifier;
             query["RedirectUri"] = tokenRequest.RedirectUri.ToString();
             builder.Query = query.ToString();
-            var authTokenResponse = spotifyClient.Get<SpotifyAuthenticationToken>(new Uri("http://localhost:2222/authorize?ClientId=Some+client+id&Code=200&CodeVerifier=KmS_2IQWRizX1bXF5G508LjlbdO2P9432WFf7gKEfD4&RedirectUri=http%3a%2f%2flocalhost%3a2000%2fcallback%2f"));
+            var authTokenResponse = externalAPICaller.Get<SpotifyAuthenticationToken>(new Uri("http://localhost:2222/authorize?ClientId=Some+client+id&Code=200&CodeVerifier=KmS_2IQWRizX1bXF5G508LjlbdO2P9432WFf7gKEfD4&RedirectUri=http%3a%2f%2flocalhost%3a2000%2fcallback%2f"));
             return new JsonResult(authTokenResponse);
         }
 
@@ -52,14 +54,15 @@
         public async Task<JsonResult> GetStravaAuthenticationToken()
         {
             await Task.Delay(1);
-            return new JsonResult("");
+            var authTokenResponse = externalAPICaller.Get<StravaAuthenticationToken>(new Uri("http://localhost:2222/stravaAuthorize?"));
+            return new JsonResult(authTokenResponse);
         }
 
         /// <inheritdoc/>
         public async Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken)
         {
             await Task.Delay(1);
-            var musicHistory = spotifyClient.Get<CursorPaging<FakeResponseServer.DTO.PlayHistoryItem>>(new Uri("http://localhost:2222/v1/me/player/recently-played"));
+            var musicHistory = externalAPICaller.Get<CursorPaging<FakeResponseServer.DTO.PlayHistoryItem>>(new Uri("http://localhost:2222/v1/me/player/recently-played"));
             var correctMusicHistory = new CursorPaging<PlayHistoryItem>
             {
                 Items = new List<PlayHistoryItem>()

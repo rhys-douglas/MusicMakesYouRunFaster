@@ -38,7 +38,7 @@
             var webAppFactory = new InMemoryFactory<FakeResponseServer.Startup>(DatabaseName, databaseRoot);
             httpClient = webAppFactory.CreateClient("http://localhost:2222");
 
-            var spotifyClient = new SpotifyClient(httpClient);
+            var spotifyClient = new ExternalAPICaller(httpClient);
 
             var dataSource = new DataPort(contextOptions, spotifyClient);
 

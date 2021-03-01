@@ -152,10 +152,10 @@
 
             var webAppFactory = new InMemoryFactory<FakeResponseServer.Startup>(DatabaseName, databaseRoot);
             httpClient = webAppFactory.CreateClient(FakeServerAddress);
-            var dataSource = new FakeDataRetrievalSource(new FakeResponseServer.Controllers.SpotifyClient(httpClient), FakeServerAddress);
+            var dataSource = new FakeDataRetrievalSource(new FakeResponseServer.Controllers.ExternalAPICaller(httpClient), FakeServerAddress);
             sut = new ExternalAPIGateway(dataSource);
 
-            var spotifyClient = new FakeResponseServer.Controllers.SpotifyClient(httpClient);
+            var externalAPICaller = new FakeResponseServer.Controllers.ExternalAPICaller(httpClient);
 
             var now = DateTime.UtcNow;
             foreach (var item in PlayHistoryItems)
@@ -168,7 +168,7 @@
             context.PlayHistoryItems.AddRange(PlayHistoryItems);
             context.SaveChanges();
 
-            fakeDataRetrievalSource = new FakeDataRetrievalSource(spotifyClient, FakeServerAddress);
+            fakeDataRetrievalSource = new FakeDataRetrievalSource(externalAPICaller, FakeServerAddress);
             sut = MakeSut();
         }
 

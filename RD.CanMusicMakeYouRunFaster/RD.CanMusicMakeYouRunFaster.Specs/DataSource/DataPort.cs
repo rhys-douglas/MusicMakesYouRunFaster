@@ -15,22 +15,22 @@
     public class DataPort
     {
         private readonly DbContextOptions<DataRetrievalContext> contextOptions;
-        private SpotifyClient SpotifyClient { get; } 
+        private ExternalAPICaller externalAPICaller { get; } 
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataPort"/> class.
         /// </summary>
         /// <param name="contextOptions">Fake backend database context options. </param>
         /// <param name="spotifyClient">Fake spotify client to make API calls with. </param>
-        public DataPort(DbContextOptions<DataRetrievalContext> contextOptions, SpotifyClient spotifyClient)
+        public DataPort(DbContextOptions<DataRetrievalContext> contextOptions, ExternalAPICaller externalAPICaller)
         {
             this.contextOptions = contextOptions;
-            this.SpotifyClient = spotifyClient;
+            this.externalAPICaller = externalAPICaller;
         }
 
         public ExternalAPIGateway ExternalAPIGateway => new ExternalAPIGateway(
             new FakeDataRetrievalSource(
-                SpotifyClient, 
+                externalAPICaller, 
                 "http://localhost:2222"));
 
         /// <summary>
