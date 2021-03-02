@@ -17,7 +17,7 @@
         /// <summary>
         /// Athlete username
         /// </summary>
-        public object username { get; set; }
+        public string username { get; set; }
 
         /// <summary>
         /// Athlete resource_state
@@ -37,17 +37,17 @@
         /// <summary>
         /// Athlete city.
         /// </summary>
-        public object city { get; set; }
+        public string city { get; set; }
 
         /// <summary>
         /// Athlete state.
         /// </summary>
-        public object state { get; set; }
+        public string state { get; set; }
 
         /// <summary>
         /// Athlete country
         /// </summary>
-        public object country { get; set; }
+        public string country { get; set; }
 
         /// <summary>
         /// Athlete sex
@@ -92,11 +92,11 @@
         /// <summary>
         /// States if the athlete is a friend with another Athlete.
         /// </summary>
-        public object friend { get; set; }
+        public string friend { get; set; }
 
         /// <summary>
         /// States if the athlete is followed by another athlete.
         /// </summary>
-        public object follower { get; set; }
+        public string follower { get; set; }
     }
 }

@@ -3,6 +3,7 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
     using Newtonsoft.Json;
 
     /// <summary>
@@ -18,7 +19,7 @@
         /// <summary>
         /// Athlete from the activity.
         /// </summary>
-        public Athlete athlete { get; set; }
+        public virtual Athlete athlete { get; set; }
 
         /// <summary>
         /// Name of the activity.
@@ -94,27 +95,29 @@
         /// <summary>
         /// Start latlng position
         /// </summary>
+        [NotMapped]
         public List<double> start_latlng { get; set; }
 
         /// <summary>
         /// End latlng position
         /// </summary>
+        [NotMapped]
         public List<double> end_latlng { get; set; }
 
         /// <summary>
         /// City location of activity
         /// </summary>
-        public object location_city { get; set; }
+        public string location_city { get; set; }
 
         /// <summary>
         /// State of activity
         /// </summary>
-        public object location_state { get; set; }
+        public string location_state { get; set; }
 
         /// <summary>
         /// Country of activity.
         /// </summary>
-        public object location_country { get; set; }
+        public string location_country { get; set; }
 
         /// <summary>
         /// Starting latitude.
@@ -154,7 +157,7 @@
         /// <summary>
         /// Map representation of the activity.
         /// </summary>
-        public Map map { get; set; }
+        public virtual Map map { get; set; }
 
         /// <summary>
         /// Trainer used?
@@ -190,7 +193,7 @@
         /// <summary>
         /// Id of the gear used.
         /// </summary>
-        public object gear_id { get; set; }
+        public string gear_id { get; set; }
 
         /// <summary>
         /// From accepted tag?
