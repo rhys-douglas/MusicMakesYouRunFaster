@@ -65,7 +65,7 @@
             await Task.Delay(0);
             var authenticator = new StravaAuthenticator();
             var token = authenticator.GetAuthToken();
-            return new JsonResult(JsonConvert.SerializeObject(token.Result));
+            return new JsonResult(token.Result.access_token);
         }
 
         /// <inheritdoc/>

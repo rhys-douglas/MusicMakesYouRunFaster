@@ -46,8 +46,9 @@
         /// <returns> Strava authentication token</returns>
         public JsonResult GetStravaAuthenticationToken()
         {
-            var stravaAuthenticationTokenAsJson = this.dataSource.GetStravaAuthenticationToken().Result.Value;
-            stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>((string)stravaAuthenticationTokenAsJson);
+            var stravaAuthenticationTokenAsJson = this.dataSource.GetStravaAuthenticationToken().Result;
+            var temp = JsonConvert.SerializeObject(stravaAuthenticationTokenAsJson.Value);
+            stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>(temp);
             return new JsonResult(stravaAuthToken);
         }
 
