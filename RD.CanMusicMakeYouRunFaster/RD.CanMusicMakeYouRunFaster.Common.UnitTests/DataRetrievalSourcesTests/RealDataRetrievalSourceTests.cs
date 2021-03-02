@@ -17,13 +17,6 @@
         public void SetUpTests()
         {
             sut = new RealDataRetrievalSource();
-
-            // Get Strava Token
-            var stravaTokenAsJson = sut.GetStravaAuthenticationToken();
-            stravaTokenAsJson.Result.Should().NotBeNull();
-            stravaTokenAsJson.Result.Value.Should().NotBe(string.Empty);
-            stravaAuthenticationToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>((string)stravaTokenAsJson.Result.Value);
-            stravaAuthenticationToken.access_token.Should().NotBeNullOrEmpty();
         }
 
         [Test]
@@ -45,6 +38,16 @@
         [Test]
         public void GetStravaRecentActivities_RunningActivitiesRetrieved()
         {
+            // Get Strava Token
+            var stravaTokenAsJson = sut.GetStravaAuthenticationToken();
+            stravaTokenAsJson.Result.Should().NotBeNull();
+            stravaTokenAsJson.Result.Value.Should().NotBe(string.Empty);
+            stravaAuthenticationToken = new StravaAuthenticationToken
+            {
+                access_token = (string)stravaTokenAsJson.Result.Value
+            };
+            stravaAuthenticationToken.access_token.Should().NotBeNullOrEmpty();
+
             // Get activities
             var runningHistory = sut.GetStravaActivityHistory(stravaAuthenticationToken);
             runningHistory.Result.Value.Should().NotBeNull();
