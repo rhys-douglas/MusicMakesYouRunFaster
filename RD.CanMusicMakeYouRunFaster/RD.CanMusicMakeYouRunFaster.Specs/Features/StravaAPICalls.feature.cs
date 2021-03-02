@@ -88,32 +88,38 @@ testRunner.Given("a list of users", ((string)(null)), table3, "Given ");
                         "user",
                         "Activity Name",
                         "Time of activity start",
-                        "Elapsed Time of Activity (s)"});
+                        "Elapsed Time of Activity (s)",
+                        "Activity Id"});
             table4.AddRow(new string[] {
                         "User1",
                         "Cardiff Friday Morning Run",
                         "15/02/2021 15:30:00",
-                        "4410"});
+                        "4410",
+                        "1"});
             table4.AddRow(new string[] {
                         "User1",
                         "Oxford Half Marathon",
                         "14/02/2021 12:40:01",
-                        "3600"});
+                        "3600",
+                        "2"});
             table4.AddRow(new string[] {
                         "User1",
                         "Roath Lake Run",
                         "13/02/2021 15:30:59",
-                        "4410"});
+                        "4410",
+                        "3"});
             table4.AddRow(new string[] {
                         "User1",
                         "Late Night Run",
                         "10/02/2021 00:05:00",
-                        "1280"});
+                        "1280",
+                        "4"});
             table4.AddRow(new string[] {
                         "User1",
                         "Test Run",
                         "01/01/2021 23:59:59",
-                        "100"});
+                        "100",
+                        "5"});
 #line 8
 testRunner.Given("a list of running history", ((string)(null)), table4, "Given ");
 #line hidden
