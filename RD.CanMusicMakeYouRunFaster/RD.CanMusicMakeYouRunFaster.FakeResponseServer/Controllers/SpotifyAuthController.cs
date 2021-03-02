@@ -4,7 +4,6 @@
     using System.Security.Cryptography;
     using System.Threading.Tasks;
     using Microsoft.AspNetCore.Mvc;
-    
 
     /// <summary>
     /// Fake spotify controller, which act as spotify's auth service.
@@ -44,7 +43,7 @@
                 TokenType = "Bearer"
             };
 
-            await Task.Delay(1);
+            await Task.Delay(0);
 
             return TokenResponse;
         }

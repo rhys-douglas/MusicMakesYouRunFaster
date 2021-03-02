@@ -9,7 +9,7 @@
     /// Strava Auth controller
     /// </summary>
     [ApiController]
-    public class StravaAuthController
+    public class StravaAuthController: ControllerBase
     {
         /// <summary>
         /// Gets the exchange token for authentication.
