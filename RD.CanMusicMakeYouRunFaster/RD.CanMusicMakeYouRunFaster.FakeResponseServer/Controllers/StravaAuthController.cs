@@ -44,6 +44,7 @@
         /// <param name="request"> Access token request parameters</param>
         /// <returns> A Strava Access Token</returns>
         [Route("/oauth/token")]
+        [HttpGet]
         public async Task<DTO.StravaAuthenticationTokenResponse> GetAccessToken([FromQuery] DTO.Request.AccessTokenRequest request)
         {
             if (request.code == null || request.client_id == null || request.client_secret == null)

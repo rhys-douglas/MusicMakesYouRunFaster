@@ -22,7 +22,7 @@
         /// <summary>
         /// Exchange token state. 
         /// </summary>
-        [JsonProperty("state")]
+        [JsonProperty("scope")]
         public string scope { get; set; }
     }
 }

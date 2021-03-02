@@ -27,7 +27,7 @@
         /// <typeparam name="TResponse"> Type of object to respond with.</typeparam>
         /// <param name="endpoint"> Target endpoint.</param>
         /// <param name="queryparams"> Query params.</param>
-        /// <returns></returns>
+        /// <returns>Tresponse casted object.</returns>
         public TResponse Get<TResponse>(Uri endpoint, string queryparams = null)
             where TResponse : class
         {

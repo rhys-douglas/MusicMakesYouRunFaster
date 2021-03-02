@@ -28,6 +28,7 @@
         /// Gets the logged in athlete's activtities.
         /// </summary>
         /// <returns>Gets a list of activities</returns>
+        [HttpGet]
         public async Task<List<DTO.Activity>> GetLoggedInAthleteActivities()
         {
             await Task.Delay(0);
