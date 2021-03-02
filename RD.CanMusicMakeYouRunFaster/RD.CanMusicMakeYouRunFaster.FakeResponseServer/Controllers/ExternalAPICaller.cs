@@ -7,16 +7,16 @@
     /// <summary>
     /// Fake spotify client, used for sending requests to the FakeResponse server.
     /// </summary>
-    public class SpotifyClient
+    public class ExternalAPICaller
     {
         private readonly HttpClient httpClient;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="SpotifyClient"/> class.
+        /// Initializes a new instance of the <see cref="ExternalAPICaller"/> class.
         /// </summary>
         /// <param name="httpClient"> Http client to use for requests. </param>
         /// <param name="FakeServerUrl">Fake server url to query.</param>
-        public SpotifyClient(HttpClient httpClient)
+        public ExternalAPICaller(HttpClient httpClient)
         {
             this.httpClient = httpClient;
         }
@@ -27,7 +27,7 @@
         /// <typeparam name="TResponse"> Type of object to respond with.</typeparam>
         /// <param name="endpoint"> Target endpoint.</param>
         /// <param name="queryparams"> Query params.</param>
-        /// <returns></returns>
+        /// <returns>Tresponse casted object.</returns>
         public TResponse Get<TResponse>(Uri endpoint, string queryparams = null)
             where TResponse : class
         {

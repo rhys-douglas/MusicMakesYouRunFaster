@@ -6,6 +6,8 @@
     using Entity;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
+    using RD.CanMusicMakeYouRunFaster.Rest.Authenticators;
+    using RestSharp;
     using SpotifyAPI.Web;
     using SpotifyAPI.Web.Auth;
     using static SpotifyAPI.Web.Scopes;
@@ -15,8 +17,8 @@
     /// </summary>
     public class RealDataRetrievalSource : IDataRetrievalSource
     {
-        private static readonly string ClientId = "1580ff80db9a43e589eee411deba30b0";
-        private static readonly EmbedIOAuthServer AuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5000/callback"), 5000);
+        private static readonly string SpotifyClientId = "1580ff80db9a43e589eee411deba30b0";
+        private static readonly EmbedIOAuthServer SpotifyAuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5000/callback"), 5000);
 
         /// <inheritdoc/>
         public async Task<JsonResult> GetSpotifyAuthenticationToken()
@@ -24,19 +26,19 @@
             var authToken = string.Empty;
 
             var (verifier, challenge) = PKCEUtil.GenerateCodes();
-            await AuthServer.Start();
+            await SpotifyAuthServer.Start();
 
             // Temporary auth server lsitens for Spotify callback.
-            AuthServer.AuthorizationCodeReceived += async (sender, response) =>
+            SpotifyAuthServer.AuthorizationCodeReceived += async (sender, response) =>
             {
-                await AuthServer.Stop();
+                await SpotifyAuthServer.Stop();
                 PKCETokenResponse token = await new OAuthClient().RequestToken(
-                  new PKCETokenRequest(ClientId, response.Code, AuthServer.BaseUri, verifier));
+                  new PKCETokenRequest(SpotifyClientId, response.Code, SpotifyAuthServer.BaseUri, verifier));
                 authToken = JsonConvert.SerializeObject(token);
             };
 
             // Make spotify auth call.
-            var request = new LoginRequest(AuthServer.BaseUri, ClientId, LoginRequest.ResponseType.Code)
+            var request = new LoginRequest(SpotifyAuthServer.BaseUri, SpotifyClientId, LoginRequest.ResponseType.Code)
             {
                 CodeChallenge = challenge,
                 CodeChallengeMethod = "S256",
@@ -58,12 +60,32 @@
         }
 
         /// <inheritdoc/>
+        public async Task<JsonResult> GetStravaAuthenticationToken()
+        {
+            await Task.Delay(0);
+            var authenticator = new StravaAuthenticator();
+            var token = authenticator.GetAuthToken();
+            return new JsonResult(token.Result.access_token);
+        }
+
+        /// <inheritdoc/>
         public async Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken)
         {
             var spotifyClient = new SpotifyClient(authToken.AccessToken);
 
             var listeningHistory = await spotifyClient.Player.GetRecentlyPlayed();
             return new JsonResult(listeningHistory);
+        }
+
+        /// <inheritdoc/>
+        public async Task<JsonResult> GetStravaActivityHistory(StravaAuthenticationToken authToken)
+        {
+            await Task.Delay(0);
+            var client = new RestClient("https://www.strava.com/api/v3/athlete/activities");
+            var request = new RestRequest(Method.GET);
+            request.AddParameter("access_token", authToken.access_token);
+            IRestResponse response = client.Execute(request);
+            return new JsonResult(response.Content);
         }
     }
 }

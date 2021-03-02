@@ -9,7 +9,7 @@
     /// </summary>
     public class ApiClientDriver : IClientDriver
     {
-        private readonly List<Dictionary<string, string>> searchResults = new List<Dictionary<string, string>>();
+        private readonly List<object> searchResults = new List<object>();
         private ExternalAPIGateway externalAPIGateway;
 
         /// <inheritdoc/>
@@ -26,16 +26,24 @@
             var playHistoryContainer = (CursorPaging<PlayHistoryItem>)searchResult.Value;
             foreach (var song in playHistoryContainer.Items)
             {
-                var listeningHistoryItem = new Dictionary<string, string>
-                {
-                    { song.Track.Name.ToString(), song.PlayedAt.ToString("dd'/'MM'/'yyyy HH:mm:ss") }
-                };
-                searchResults.Add(listeningHistoryItem);
+                searchResults.Add(song);
             }
         }
 
         /// <inheritdoc/>
-        public List<Dictionary<string, string>> GetFoundItems()
+        public void GetRecentActivities()
+        {
+            externalAPIGateway.GetStravaAuthenticationToken();
+            var searchresult = externalAPIGateway.GetStravaRecentActivities();
+            var activityHistoryContainer = (List<Rest.Entity.Activity>)searchresult.Value;
+            foreach (var activity in activityHistoryContainer)
+            {
+                searchResults.Add(activity);
+            }
+        }
+
+        /// <inheritdoc/>
+        public List<object> GetFoundItems()
         {
             return searchResults;
         }

@@ -79,7 +79,7 @@
         /// Type of the Track.
         /// </summary>
         [JsonConverter(typeof(StringEnumConverter))]
-        public ItemType Type { get; set; }
+        public Models.Spotify.ItemType Type { get; set; }
 
         /// <summary>
         /// Track URI.

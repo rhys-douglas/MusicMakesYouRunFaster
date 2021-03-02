@@ -13,9 +13,9 @@
         private SpotifyMusicController sut;
         private readonly List<DTO.PlayHistoryItem> listeningHistory = new List<DTO.PlayHistoryItem>();
 
-        private readonly Models.PlayHistoryItem item1 = new Models.PlayHistoryItem
+        private readonly Models.Spotify.PlayHistoryItem item1 = new Models.Spotify.PlayHistoryItem
         {
-            Context = new Models.Context
+            Context = new Models.Spotify.Context
             {
                 ExternalUrls = new Dictionary<string, string>(),
                 Href = "SomeHREF",
@@ -24,9 +24,9 @@
             },
             Id = "Unneeded value 1.",
             PlayedAt = DateTime.UtcNow,
-            Track = new Models.SimpleTrack
+            Track = new Models.Spotify.SimpleTrack
             {
-                Artists = new List<Models.SimpleArtist>(),
+                Artists = new List<Models.Spotify.SimpleArtist>(),
                 AvailableMarkets = new List<string>(),
                 DiscNumber = 1,
                 DurationMs = 3600,
@@ -35,7 +35,7 @@
                 Href = "AnotherHref",
                 Id = "12345678",
                 IsPlayable = true,
-                LinkedFrom = new Models.LinkedTrack 
+                LinkedFrom = new Models.Spotify.LinkedTrack 
                 { 
                     Id = "12345678",
                     ExternalUrls = new Dictionary<string, string>(),
@@ -46,14 +46,14 @@
                 Name = "My favourite song",
                 PreviewUrl = "https://google.com",
                 TrackNumber = 5,
-                Type = Models.ItemType.Track,
+                Type = Models.Spotify.ItemType.Track,
                 Uri = "AnotherURI"
             }
         };
 
-        private readonly Models.PlayHistoryItem item2 = new Models.PlayHistoryItem
+        private readonly Models.Spotify.PlayHistoryItem item2 = new Models.Spotify.PlayHistoryItem
         {
-            Context = new Models.Context
+            Context = new Models.Spotify.Context
             {
                 ExternalUrls = new Dictionary<string, string>(),
                 Href = "SomeHREF",
@@ -62,9 +62,9 @@
             },
             Id = "Unneeded value 2.",
             PlayedAt = DateTime.UtcNow,
-            Track = new Models.SimpleTrack
+            Track = new Models.Spotify.SimpleTrack
             {
-                Artists = new List<Models.SimpleArtist>(),
+                Artists = new List<Models.Spotify.SimpleArtist>(),
                 AvailableMarkets = new List<string>(),
                 DiscNumber = 1,
                 DurationMs = 3600,
@@ -73,7 +73,7 @@
                 Href = "AnotherHref",
                 Id = "23456789",
                 IsPlayable = true,
-                LinkedFrom = new Models.LinkedTrack
+                LinkedFrom = new Models.Spotify.LinkedTrack
                 {
                     Id = "23456789",
                     ExternalUrls = new Dictionary<string, string>(),
@@ -84,14 +84,14 @@
                 Name = "My favourite song",
                 PreviewUrl = "https://google.com",
                 TrackNumber = 5,
-                Type = Models.ItemType.Track,
+                Type = Models.Spotify.ItemType.Track,
                 Uri = "AnotherURI"
             }
         };
 
-        private readonly Models.PlayHistoryItem item3 = new Models.PlayHistoryItem
+        private readonly Models.Spotify.PlayHistoryItem item3 = new Models.Spotify.PlayHistoryItem
         {
-            Context = new Models.Context
+            Context = new Models.Spotify.Context
             {
                 ExternalUrls = new Dictionary<string, string>(),
                 Href = "SomeHREF",
@@ -100,9 +100,9 @@
             },
             Id = "Unneeded value 3.",
             PlayedAt = DateTime.UtcNow,
-            Track = new Models.SimpleTrack
+            Track = new Models.Spotify.SimpleTrack
             {
-                Artists = new List<Models.SimpleArtist>(),
+                Artists = new List<Models.Spotify.SimpleArtist>(),
                 AvailableMarkets = new List<string>(),
                 DiscNumber = 1,
                 DurationMs = 3600,
@@ -111,7 +111,7 @@
                 Href = "AnotherHref",
                 Id = "34567890",
                 IsPlayable = true,
-                LinkedFrom = new Models.LinkedTrack
+                LinkedFrom = new Models.Spotify.LinkedTrack
                 {
                     Id = "34567890",
                     ExternalUrls = new Dictionary<string, string>(),
@@ -122,7 +122,7 @@
                 Name = "My favourite song",
                 PreviewUrl = "https://google.com",
                 TrackNumber = 5,
-                Type = Models.ItemType.Track,
+                Type = Models.Spotify.ItemType.Track,
                 Uri = "AnotherURI"
             }
         };
@@ -159,7 +159,7 @@
                 Name = "My favourite song",
                 PreviewUrl = "https://google.com",
                 TrackNumber = 5,
-                Type = Models.ItemType.Track,
+                Type = Models.Spotify.ItemType.Track,
                 Uri = "AnotherURI"
             }
         };
@@ -196,7 +196,7 @@
                 Name = "My favourite song",
                 PreviewUrl = "https://google.com",
                 TrackNumber = 5,
-                Type = Models.ItemType.Track,
+                Type = Models.Spotify.ItemType.Track,
                 Uri = "AnotherURI"
             }
         };
@@ -233,7 +233,7 @@
                 Name = "My favourite song",
                 PreviewUrl = "https://google.com",
                 TrackNumber = 5,
-                Type = Models.ItemType.Track,
+                Type = Models.Spotify.ItemType.Track,
                 Uri = "AnotherURI"
             }
         };

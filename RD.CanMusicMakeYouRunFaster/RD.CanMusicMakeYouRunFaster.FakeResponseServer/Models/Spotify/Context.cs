@@ -1,46 +1,36 @@
-﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models
+﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Spotify
 {
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
-    /// Class used to represent a SimpleArtist from the spotify API.
-    /// This contains a subset of items used by the real SimpleArtist, as 
+    /// Class used to represent a Context from the spotify API.
+    /// This contains a subset of items used by the real Context, as 
     /// not all properties are supported by EntityFrameworkCore.
     /// </summary>
-    public class SimpleArtist
+    public class Context
     {
         /// <summary>
-        /// External URls
+        /// External Urls
         /// </summary>
         [NotMapped]
         public Dictionary<string, string> ExternalUrls { get; set; } = default!;
 
         /// <summary>
-        /// Href
+        /// Href of the associated item
         /// </summary>
         public string Href { get; set; } = default!;
 
         /// <summary>
-        /// Id of the Artist
-        /// </summary>
-        [Key]
-        public string Id { get; set; } = default!;
-
-        /// <summary>
-        /// Name of the artist
-        /// </summary>
-        public string Name { get; set; } = default!;
-
-        /// <summary>
-        /// Type of the artist
+        /// Type of the associated item
         /// </summary>
         public string Type { get; set; } = default!;
 
         /// <summary>
-        /// Artist URI.
+        /// Uri of the associated item.
         /// </summary>
+        [Key]
         public string Uri { get; set; } = default!;
     }
 }

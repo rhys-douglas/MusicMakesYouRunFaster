@@ -23,11 +23,11 @@
         private const string FakeServerAddress = "http://localhost:2222";
         private FakeDataRetrievalSource fakeDataRetrievalSource;
 
-        private readonly List<FakeResponseServer.Models.PlayHistoryItem> PlayHistoryItems = new List<FakeResponseServer.Models.PlayHistoryItem>
+        private readonly List<FakeResponseServer.Models.Spotify.PlayHistoryItem> PlayHistoryItems = new List<FakeResponseServer.Models.Spotify.PlayHistoryItem>
         {
-            new FakeResponseServer.Models.PlayHistoryItem
+            new FakeResponseServer.Models.Spotify.PlayHistoryItem
             {
-                Context = new FakeResponseServer.Models.Context
+                Context = new FakeResponseServer.Models.Spotify.Context
                 {
                     ExternalUrls = null,
                     Href = "Href object",
@@ -36,7 +36,7 @@
                 },
                 Id = "1",
                 PlayedAt = DateTime.UtcNow,
-                Track = new FakeResponseServer.Models.SimpleTrack
+                Track = new FakeResponseServer.Models.Spotify.SimpleTrack
                 {
                     Artists = null,
                     AvailableMarkets = null,
@@ -47,7 +47,7 @@
                     Href = "Href 1",
                     Id = "1",
                     IsPlayable = true,
-                    LinkedFrom = new FakeResponseServer.Models.LinkedTrack
+                    LinkedFrom = new FakeResponseServer.Models.Spotify.LinkedTrack
                     {
                         ExternalUrls = null,
                         Href = "Some href",
@@ -58,14 +58,14 @@
                     Name = "Track 1",
                     PreviewUrl = "http://google.com",
                     TrackNumber = 1,
-                    Type = FakeResponseServer.Models.ItemType.Track,
+                    Type = FakeResponseServer.Models.Spotify.ItemType.Track,
                     Uri = "Uri1"
                 }
             },
 
-            new FakeResponseServer.Models.PlayHistoryItem
+            new FakeResponseServer.Models.Spotify.PlayHistoryItem
             {
-                Context = new FakeResponseServer.Models.Context
+                Context = new FakeResponseServer.Models.Spotify.Context
                 {
                     ExternalUrls = null,
                     Href = "Href object",
@@ -74,7 +74,7 @@
                 },
                 Id = "2",
                 PlayedAt = DateTime.UtcNow,
-                Track = new FakeResponseServer.Models.SimpleTrack
+                Track = new FakeResponseServer.Models.Spotify.SimpleTrack
                 {
                     Artists = null,
                     AvailableMarkets = null,
@@ -85,7 +85,7 @@
                     Href = "Href 2",
                     Id = "2",
                     IsPlayable = true,
-                    LinkedFrom = new FakeResponseServer.Models.LinkedTrack
+                    LinkedFrom = new FakeResponseServer.Models.Spotify.LinkedTrack
                     {
                         ExternalUrls = null,
                         Href = "Some href",
@@ -96,14 +96,14 @@
                     Name = "Track 2",
                     PreviewUrl = "http://google.com",
                     TrackNumber = 1,
-                    Type = FakeResponseServer.Models.ItemType.Track,
+                    Type = FakeResponseServer.Models.Spotify.ItemType.Track,
                     Uri = "Uri2"
                 }
             },
 
-            new FakeResponseServer.Models.PlayHistoryItem
+            new FakeResponseServer.Models.Spotify.PlayHistoryItem
             {
-                Context = new FakeResponseServer.Models.Context
+                Context = new FakeResponseServer.Models.Spotify.Context
                 {
                     ExternalUrls = null,
                     Href = "Href object",
@@ -112,7 +112,7 @@
                 },
                 Id = "3",
                 PlayedAt = DateTime.UtcNow,
-                Track = new FakeResponseServer.Models.SimpleTrack
+                Track = new FakeResponseServer.Models.Spotify.SimpleTrack
                 {
                     Artists = null,
                     AvailableMarkets = null,
@@ -123,7 +123,7 @@
                     Href = "Href 3",
                     Id = "3",
                     IsPlayable = true,
-                    LinkedFrom = new FakeResponseServer.Models.LinkedTrack
+                    LinkedFrom = new FakeResponseServer.Models.Spotify.LinkedTrack
                     {
                         ExternalUrls = null,
                         Href = "Some href",
@@ -134,11 +134,143 @@
                     Name = "Track 3",
                     PreviewUrl = "http://google.com",
                     TrackNumber = 1,
-                    Type = FakeResponseServer.Models.ItemType.Track,
+                    Type = FakeResponseServer.Models.Spotify.ItemType.Track,
                     Uri = "Uri3"
                 }
             },
 
+        };
+
+        private readonly List<FakeResponseServer.Models.Strava.Activity> ActivityHistory = new List<FakeResponseServer.Models.Strava.Activity>
+        {
+            new FakeResponseServer.Models.Strava.Activity
+            {
+                resource_state = 1,
+                athlete = new FakeResponseServer.Models.Strava.Athlete
+                {
+                    id = 12345678,
+                    resource_state = 2
+                },
+                name = "Activity 1",
+                distance = 100.1,
+                moving_time = 7620,
+                elapsed_time = 8920,
+                total_elevation_gain = -5,
+                type = "Run",
+                workout_type = 1,
+                id = "1274371a83432",
+                external_id = "Activity 1",
+                upload_id = "132387623743t8a",
+                start_date = DateTime.UtcNow,
+                start_date_local = DateTime.Now,
+                timezone = "GMT+00",
+                utc_offset = 0,
+                start_latlng = new List<double>(),
+                end_latlng = new List<double>(),
+                location_city = "Oxford",
+                location_state = "OXF",
+                location_country = "UK",
+                start_latitude = 50.10202412,
+                start_longitude = -1.2435235,
+                achievement_count = 9,
+                kudos_count = 6,
+                comment_count = 1,
+                athlete_count = 1,
+                photo_count = 0,
+                map = new FakeResponseServer.Models.Strava.Map
+                {
+                    id = "Map1",
+                    resource_state = 2,
+                    summary_polyline = "something"
+                },
+                trainer = false,
+                commute = true,
+                manual = false,
+                Private = true,
+                visibility = "Private",
+                flagged = false,
+                gear_id = "asdasf123dsf21",
+                from_accepted_tag = false,
+                upload_id_str = "String upload ID",
+                average_speed = 12.35,
+                max_speed = 14.2,
+                average_cadence = 78.5,
+                average_temp = 7,
+                has_heartrate = true,
+                average_heartrate = 163,
+                max_heartrate = 200,
+                heartrate_opt_out = false,
+                display_hide_heartrate_option = false,
+                elev_high = 65,
+                elev_low = 60,
+                pr_count = 1,
+                total_photo_count = 1,
+                has_kudoed = false,
+            },
+            new FakeResponseServer.Models.Strava.Activity
+            {
+                resource_state = 1,
+                athlete = new FakeResponseServer.Models.Strava.Athlete
+                {
+                    id = 2345678,
+                    resource_state = 2
+                },
+                name = "Activity 2",
+                distance = 100.1,
+                moving_time = 7620,
+                elapsed_time = 8920,
+                total_elevation_gain = -5,
+                type = "Run",
+                workout_type = 1,
+                id = "43271617841asf3472",
+                external_id = "Activity 2",
+                upload_id = "132387623743t8a",
+                start_date = DateTime.UtcNow,
+                start_date_local = DateTime.Now,
+                timezone = "GMT+00",
+                utc_offset = 0,
+                start_latlng = new List<double>(),
+                end_latlng = new List<double>(),
+                location_city = "Cardiff",
+                location_state = "CDF",
+                location_country = "UK",
+                start_latitude = 50.10202412,
+                start_longitude = -1.2435235,
+                achievement_count = 9,
+                kudos_count = 6,
+                comment_count = 1,
+                athlete_count = 1,
+                photo_count = 0,
+                map = new FakeResponseServer.Models.Strava.Map
+                {
+                    id = "Map2",
+                    resource_state = 2,
+                    summary_polyline = "something"
+                },
+                trainer = false,
+                commute = true,
+                manual = false,
+                Private = true,
+                visibility = "Private",
+                flagged = false,
+                gear_id = "asdasf123dsf21",
+                from_accepted_tag = false,
+                upload_id_str = "String upload ID",
+                average_speed = 12.35,
+                max_speed = 14.2,
+                average_cadence = 78.5,
+                average_temp = 7,
+                has_heartrate = true,
+                average_heartrate = 163,
+                max_heartrate = 200,
+                heartrate_opt_out = false,
+                display_hide_heartrate_option = false,
+                elev_high = 65,
+                elev_low = 60,
+                pr_count = 1,
+                total_photo_count = 1,
+                has_kudoed = false,
+            }
         };
 
         [OneTimeSetUp]
@@ -152,23 +284,32 @@
 
             var webAppFactory = new InMemoryFactory<FakeResponseServer.Startup>(DatabaseName, databaseRoot);
             httpClient = webAppFactory.CreateClient(FakeServerAddress);
-            var dataSource = new FakeDataRetrievalSource(new FakeResponseServer.Controllers.SpotifyClient(httpClient), FakeServerAddress);
+            var dataSource = new FakeDataRetrievalSource(new FakeResponseServer.Controllers.ExternalAPICaller(httpClient), FakeServerAddress);
             sut = new ExternalAPIGateway(dataSource);
 
-            var spotifyClient = new FakeResponseServer.Controllers.SpotifyClient(httpClient);
+            var externalAPICaller = new FakeResponseServer.Controllers.ExternalAPICaller(httpClient);
 
-            var now = DateTime.UtcNow;
+            var now_UTC = DateTime.UtcNow;
+            var now_local = DateTime.Now;
             foreach (var item in PlayHistoryItems)
             {
-                item.PlayedAt = now;
+                item.PlayedAt = now_UTC;
+            }
+
+            foreach (var item in ActivityHistory)
+            {
+                item.start_date = now_UTC;
+                item.start_date_local = now_local;
             }
 
             using var context = new DataRetrievalContext(contextOptions);
             context.PlayHistoryItems.RemoveRange(context.PlayHistoryItems);
             context.PlayHistoryItems.AddRange(PlayHistoryItems);
+            context.ActivityHistoryItems.RemoveRange(context.ActivityHistoryItems);
+            context.ActivityHistoryItems.AddRange(ActivityHistory);
             context.SaveChanges();
 
-            fakeDataRetrievalSource = new FakeDataRetrievalSource(spotifyClient, FakeServerAddress);
+            fakeDataRetrievalSource = new FakeDataRetrievalSource(externalAPICaller, FakeServerAddress);
             sut = MakeSut();
         }
 
@@ -193,6 +334,29 @@
             var actualListeningHistory = JsonConvert.DeserializeObject<CursorPaging<PlayHistoryItem>>(listeningHistoryExtracted);
             actualListeningHistory.Items.Should().HaveCount(3);
             actualListeningHistory.Items.Should().NotBeNull();
+        }
+
+        [Test]
+        public void GetStravaAuthenticationToken_AuthenticationTokenReturned()
+        {
+            sut = MakeSut();
+            var tokenAsJson = sut.GetStravaAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var tokenAsExtractedJson = JsonConvert.SerializeObject(tokenAsJson.Value);
+            var stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>(tokenAsExtractedJson);
+            stravaAuthToken.access_token.Should().NotBeNullOrEmpty();
+        }
+
+        [Test]
+        public void GetStravaActivityHistory_ActivityHistoryReturned()
+        {
+            sut = MakeSut();
+            var activityHistory = sut.GetStravaRecentActivities();
+            activityHistory.Value.Should().NotBeNull();
+            var activityHistoryExtracted = JsonConvert.SerializeObject(activityHistory.Value);
+            var actualActivityHistory = JsonConvert.DeserializeObject<List<Activity>>(activityHistoryExtracted);
+            actualActivityHistory.Count.Should().Be(2);
+            actualActivityHistory[0].average_speed.Should().Be(12.35);
         }
 
         private ExternalAPIGateway MakeSut()

@@ -1,4 +1,4 @@
-﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models
+﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Spotify
 {
     using System;
     using System.ComponentModel.DataAnnotations;

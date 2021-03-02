@@ -4,7 +4,8 @@
     using FakeResponseServer.DbContext;
     using Microsoft.EntityFrameworkCore;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
-    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Spotify;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Strava;
     using RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources;
     using RD.CanMusicMakeYouRunFaster.Rest.Gateways;
 
@@ -14,22 +15,22 @@
     public class DataPort
     {
         private readonly DbContextOptions<DataRetrievalContext> contextOptions;
-        private SpotifyClient spotifyClient { get; } 
+        private ExternalAPICaller externalAPICaller { get; } 
 
         /// <summary>
         /// Initializes a new instance of the <see cref="DataPort"/> class.
         /// </summary>
         /// <param name="contextOptions">Fake backend database context options. </param>
         /// <param name="spotifyClient">Fake spotify client to make API calls with. </param>
-        public DataPort(DbContextOptions<DataRetrievalContext> contextOptions, SpotifyClient spotifyClient)
+        public DataPort(DbContextOptions<DataRetrievalContext> contextOptions, ExternalAPICaller externalAPICaller)
         {
             this.contextOptions = contextOptions;
-            this.spotifyClient = spotifyClient;
+            this.externalAPICaller = externalAPICaller;
         }
 
         public ExternalAPIGateway ExternalAPIGateway => new ExternalAPIGateway(
             new FakeDataRetrievalSource(
-                spotifyClient, 
+                externalAPICaller, 
                 "http://localhost:2222"));
 
         /// <summary>
@@ -41,6 +42,14 @@
             using var context = new DataRetrievalContext(contextOptions);
             context.PlayHistoryItems.RemoveRange(context.PlayHistoryItems);
             context.PlayHistoryItems.AddRange(listOfListeningHistory);
+            context.SaveChanges();
+        }
+
+        public void AddRunningHistory(List<Activity> listOfRunningHistory)
+        {
+            using var context = new DataRetrievalContext(contextOptions);
+            context.ActivityHistoryItems.RemoveRange(context.ActivityHistoryItems);
+            context.ActivityHistoryItems.AddRange(listOfRunningHistory);
             context.SaveChanges();
         }
     }

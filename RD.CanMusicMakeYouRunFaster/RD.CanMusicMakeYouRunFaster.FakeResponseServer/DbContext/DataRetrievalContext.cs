@@ -1,7 +1,8 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.DbContext
 {
     using Microsoft.EntityFrameworkCore;
-    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Spotify;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Strava;
 
     /// <summary>
     /// Database context for storing the session's data set
@@ -25,8 +26,13 @@
             => optionsBuilder.UseLazyLoadingProxies();
 
         /// <summary>
-        /// Gets or sets the Stock Locations Data Set
+        /// Gets or sets the PlayHistoryItems data set
         /// </summary>
         public DbSet<PlayHistoryItem> PlayHistoryItems { get; set; }
+
+        /// <summary>
+        /// Gets or sets the ActivityHistoryItems data set.
+        /// </summary>
+        public DbSet<Activity> ActivityHistoryItems { get; set; }
     }
 }

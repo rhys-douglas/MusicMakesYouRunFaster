@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using NUnit.Framework;
     using FluentAssertions;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Spotify;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models;
 
     public class ToDTOConverterTests
