@@ -3,9 +3,7 @@
     using System;
     using System.Security.Cryptography;
     using System.Threading.Tasks;
-    using DbContext;
     using Microsoft.AspNetCore.Mvc;
-    using SpotifyAPI.Web;
     
 
     /// <summary>

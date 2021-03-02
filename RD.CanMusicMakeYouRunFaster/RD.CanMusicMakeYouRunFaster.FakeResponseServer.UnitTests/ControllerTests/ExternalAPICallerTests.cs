@@ -14,7 +14,7 @@
     using NUnit.Framework;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
 
-    public class SpotifyClientTests
+    public class ExternalAPICallerTests
     {
         private HttpClient mockHttpClient;
         private Mock<HttpMessageHandler> mockHttpMessageHandler;
@@ -46,14 +46,14 @@
         }
 
         [Test]
-        public void SpotifyClientCreatedWithCorrectInputs_SpotifyClientIsNotNull()
+        public void ExternalAPICallerCreatedWithCorrectInputs_SpotifyClientIsNotNull()
         {
             var sut = MakeSut(mockHttpClient);
             sut.Should().NotBeNull();
         }
 
         [Test]
-        public void SpotifyClientGet_DataRetrieved()
+        public void ExternalAPICallerGet_DataRetrieved()
         {
             var endpoint = new Uri("http://localhost/context");
             SetUpHTTPClient(HttpStatusCode.OK, "{\"href\": \"Some text\", \"type\": \"Some type\", \"uri\": 12345678}");
