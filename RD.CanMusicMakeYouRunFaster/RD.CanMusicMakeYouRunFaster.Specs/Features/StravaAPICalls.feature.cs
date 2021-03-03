@@ -77,51 +77,51 @@ namespace RD.CanMusicMakeYouRunFaster.Specs.Features
         {
 #line 3
 #line hidden
-            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "user"});
-            table3.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "User1"});
 #line 4
-testRunner.Given("a list of users", ((string)(null)), table3, "Given ");
+testRunner.Given("a list of users", ((string)(null)), table6, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "user",
                         "Activity Name",
                         "Time of activity start",
                         "Elapsed Time of Activity (s)",
                         "Activity Id"});
-            table4.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Cardiff Friday Morning Run",
                         "15/02/2021 15:30:00",
                         "4410",
                         "1"});
-            table4.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Oxford Half Marathon",
                         "14/02/2021 12:40:01",
                         "3600",
                         "2"});
-            table4.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Roath Lake Run",
                         "13/02/2021 15:30:59",
                         "4410",
                         "3"});
-            table4.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Late Night Run",
                         "10/02/2021 00:05:00",
                         "1280",
                         "4"});
-            table4.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Test Run",
                         "01/01/2021 23:59:59",
                         "100",
                         "5"});
 #line 8
-testRunner.Given("a list of running history", ((string)(null)), table4, "Given ");
+testRunner.Given("a list of running history", ((string)(null)), table7, "Given ");
 #line hidden
         }
         

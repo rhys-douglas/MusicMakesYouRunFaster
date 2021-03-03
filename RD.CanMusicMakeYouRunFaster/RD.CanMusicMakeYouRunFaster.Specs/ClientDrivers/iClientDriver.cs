@@ -28,5 +28,10 @@
         /// </summary>
         /// <returns> A list of found items. </returns>
         List<object> GetFoundItems();
+
+        /// <summary>
+        /// Makes the comparison between running and listening history.
+        /// </summary>
+        void MakeRunningAndListeningHistoryComparison();
     }
 }

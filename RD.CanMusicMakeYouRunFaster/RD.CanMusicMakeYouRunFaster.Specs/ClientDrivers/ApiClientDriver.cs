@@ -47,5 +47,25 @@
         {
             return searchResults;
         }
+
+        /// <inheritdoc/>
+        public void MakeRunningAndListeningHistoryComparison()
+        {
+            var runningHistory = new List<Rest.Entity.Activity>();
+            var listeningHistory = new List<PlayHistoryItem>();
+            foreach (var item in searchResults)
+            {
+                if (item is Rest.Entity.Activity activity)
+                {
+                    runningHistory.Add(activity);
+                }
+
+                if (item is PlayHistoryItem playHistoryItem)
+                {
+                    listeningHistory.Add(playHistoryItem);
+                }
+            }
+            return;
+        }
     }
 }

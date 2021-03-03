@@ -23,9 +23,11 @@ Given a list of listening history
 
 
 @MVP-5-Single-Date-Comparison
-Scenario Outline: Get User's Running History
+Scenario Outline: Compare Listening And Running History
 	Given a user <user>
 	And their running history
 	And their listening history
-	When the comparison between running and listening history is made
-	Then the user's top tracks for running faster are produced.
+	When the user's recently played history is requested
+	And the user's recent running history is requested
+	And the comparison between running and listening history is made
+	Then the user's top tracks for running faster are produced
