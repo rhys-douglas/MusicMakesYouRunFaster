@@ -17,6 +17,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster.Rest.UnitTests", "RD.CanMusicMakeYouRunFaster.Rest.UnitTests\RD.CanMusicMakeYouRunFaster.Rest.UnitTests.csproj", "{314C9E04-0826-4223-9F8A-63B31AC3AFEC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.CanMusicMakeYouRunFaster.ComparisonLogic", "RD.CanMusicMakeYouRunFaster.ComparisonLogic\RD.CanMusicMakeYouRunFaster.ComparisonLogic.csproj", "{4AD8C59C-1108-4A33-A8ED-9477CFCCD6EE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.CanMusicMakeYouRunFaster.ComparisonLogic.UnitTests", "RD.CanMusicMakeYouRunFaster.ComparisonLogic.UnitTests\RD.CanMusicMakeYouRunFaster.ComparisonLogic.UnitTests.csproj", "{AC1FC22D-359A-4EC4-9F67-C432ED98BA47}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -51,6 +55,14 @@ Global
 		{314C9E04-0826-4223-9F8A-63B31AC3AFEC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{314C9E04-0826-4223-9F8A-63B31AC3AFEC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{314C9E04-0826-4223-9F8A-63B31AC3AFEC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4AD8C59C-1108-4A33-A8ED-9477CFCCD6EE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4AD8C59C-1108-4A33-A8ED-9477CFCCD6EE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4AD8C59C-1108-4A33-A8ED-9477CFCCD6EE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4AD8C59C-1108-4A33-A8ED-9477CFCCD6EE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AC1FC22D-359A-4EC4-9F67-C432ED98BA47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AC1FC22D-359A-4EC4-9F67-C432ED98BA47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AC1FC22D-359A-4EC4-9F67-C432ED98BA47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AC1FC22D-359A-4EC4-9F67-C432ED98BA47}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
