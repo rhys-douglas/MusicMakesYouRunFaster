@@ -30,12 +30,12 @@
         public double distance { get; set; }
 
         /// <summary>
-        /// Moving time of the activity
+        /// Moving time of the activity (in seconds).
         /// </summary>
         public int moving_time { get; set; }
 
         /// <summary>
-        /// Elapsed time of the activity.
+        /// Elapsed time of the activity (in seconds).
         /// </summary>
         public int elapsed_time { get; set; }
 
@@ -201,12 +201,12 @@
         public string upload_id_str { get; set; }
         
         /// <summary>
-        /// Average speed 
+        /// Average speed in metres per second.
         /// </summary>
         public double average_speed { get; set; }
 
         /// <summary>
-        /// Maximum speed
+        /// Maximum speed in metres per second.
         /// </summary>
         public double max_speed { get; set; }
 
