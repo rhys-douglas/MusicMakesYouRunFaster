@@ -7,4 +7,8 @@
 	<StyleCopTreatErrorsAsWarnings>false</StyleCopTreatErrorsAsWarnings>
   </PropertyGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\RD.CanMusicMakeYouRunFaster.Rest\RD.CanMusicMakeYouRunFaster.Rest.csproj" />
+  </ItemGroup>
+
 </Project>
