@@ -7,14 +7,14 @@
     /// <summary>
     /// Activity comparer class, used for finding differences between <see cref="Activity"/> objects.
     /// </summary>
-    public class ActivityComparer
+    public static class ActivityComparer
     {
         /// <summary>
         /// Function that returns the activity with the fastest average pace.
         /// </summary>
         /// <param name="listOfActivities">List of activities to compare</param>
         /// <returns>The activity with the fastest average pace.</returns>
-        public Activity FindFastestActivity(List<Activity> listOfActivities)
+        public static Activity FindFastestActivity(List<Activity> listOfActivities)
         {
             if (listOfActivities.Count == 0)
             {
