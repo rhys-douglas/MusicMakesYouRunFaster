@@ -29,7 +29,8 @@
         [Then(@"the user's top tracks for running faster are produced")]
         public void ThenTheUsersTopTracksForRunningFasterAreProduced()
         {
-            clientDriver.GetFastestTracks();
+            var results = clientDriver.GetFastestTracks();
+            clientDriver.
         }
     }
 }

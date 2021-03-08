@@ -1,10 +1,10 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Specs.ClientDrivers
 {
     using System.Collections.Generic;
+    using System.Linq;
     using SpotifyAPI.Web;
     using RD.CanMusicMakeYouRunFaster.Rest.Gateways;
     using RD.CanMusicMakeYouRunFaster.ComparisonLogic.Mappers;
-    using System.Linq;
     using RD.CanMusicMakeYouRunFaster.ComparisonLogic.Managers;
 
     /// <summary>
