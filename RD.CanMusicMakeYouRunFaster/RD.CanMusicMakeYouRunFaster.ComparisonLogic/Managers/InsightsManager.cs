@@ -18,8 +18,7 @@
         /// <returns></returns>
         public Dictionary<Activity,List<PlayHistoryItem>> GetFastestActivityWithListeningHistory(Dictionary<Activity, List<PlayHistoryItem>> activityAndMusicHistory)
         {
-            var fastestActivityWithRunningHistory = new Dictionary<Activity, List<PlayHistoryItem>>();
-            var fastestActivity = ActivityComparer.FindFastestActivity(fastestActivityWithRunningHistory.Keys.ToList());
+            var fastestActivity = ActivityComparer.FindFastestActivity(activityAndMusicHistory.Keys.ToList());
 
             return new Dictionary<Activity, List<PlayHistoryItem>>
             {

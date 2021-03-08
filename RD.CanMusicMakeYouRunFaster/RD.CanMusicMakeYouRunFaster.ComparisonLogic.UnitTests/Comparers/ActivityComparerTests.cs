@@ -9,12 +9,9 @@
 
     public class ActivityComparerTests
     {
-        private ActivityComparer sut;
-
         [Test]
         public void FindFastestActivity_FastestActivityReturned()
         {
-            sut = new ActivityComparer();
             var now_UTC = DateTime.UtcNow;
             var sampleActivities = new List<Activity>
             {
@@ -40,7 +37,7 @@
                     average_speed = 5
                 },
             };
-            var result = sut.FindFastestActivity(sampleActivities);
+            var result = ActivityComparer.FindFastestActivity(sampleActivities);
             result.id.Should().Be("3");
             result.average_speed.Should().Be(5);
         }
@@ -48,9 +45,8 @@
         [Test]
         public void FindFastestActivityWithEmptyList_ExceptionThrown()
         {
-            sut = new ActivityComparer();
             var emptyActivityList = new List<Activity>();
-            Action a = () => sut.FindFastestActivity(emptyActivityList);
+            Action a = () => ActivityComparer.FindFastestActivity(emptyActivityList);
             a.Should().Throw<IndexOutOfRangeException>().WithMessage("Empty activity list");
         }
     }
