@@ -16,7 +16,7 @@
         /// <param name="activity"> Activity to map songs to.</param>
         /// <param name="playHistory"> List of PlayHistoryItems that are used to map to activities</param>
         /// <returns> A 1 item dictionary of an activity to songs that played within the correct time range.</returns>
-        public Dictionary<Activity,List<PlayHistoryItem>> MapSongsToActivity(Activity activity, List<PlayHistoryItem> playHistory)
+        public static Dictionary<Activity,List<PlayHistoryItem>> MapSongsToActivity(Activity activity, List<PlayHistoryItem> playHistory)
         {
             var startTimeUTC = activity.start_date;
             var endTimeUTC = startTimeUTC.AddSeconds(activity.elapsed_time);

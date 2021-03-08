@@ -108,11 +108,13 @@
                     }
                 },
             };
+
             var sampleData = new Dictionary<Activity, List<PlayHistoryItem>>
             {
                 { activity1, listOfActivity1PlayHistory },
                 { activity2, listOfActivity2PlayHistory }
             };
+
             sut = new InsightsManager();
             var result = sut.GetFastestActivityWithListeningHistory(sampleData);
             result.Keys.Should().Contain(activity2);
@@ -124,8 +126,8 @@
         public void GetFastestActivitySongsWithNoActivitiesOrSongs_ExceptionThrown()
         {
             sut = new InsightsManager();
-            Action a = () => sut.GetFastestActivityWithListeningHistory(new Dictionary<Activity, List<PlayHistoryItem>>());
-            a.Should().Throw<IndexOutOfRangeException>().WithMessage("No activities in parsed array dictionary.");
+            Action exceptionAction = () => sut.GetFastestActivityWithListeningHistory(new Dictionary<Activity, List<PlayHistoryItem>>());
+            exceptionAction.Should().Throw<IndexOutOfRangeException>().WithMessage("No activities in parsed array dictionary.");
         }
     }
 }

@@ -3,6 +3,9 @@
     using System.Collections.Generic;
     using SpotifyAPI.Web;
     using RD.CanMusicMakeYouRunFaster.Rest.Gateways;
+    using RD.CanMusicMakeYouRunFaster.ComparisonLogic.Mappers;
+    using System.Linq;
+    using RD.CanMusicMakeYouRunFaster.ComparisonLogic.Managers;
 
     /// <summary>
     /// Client driver for testing without a front-end.
@@ -10,6 +13,7 @@
     public class ApiClientDriver : IClientDriver
     {
         private readonly List<object> searchResults = new List<object>();
+        private Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>> fastestActivity = new Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>>();
         private ExternalAPIGateway externalAPIGateway;
 
         /// <inheritdoc/>
@@ -65,7 +69,29 @@
                     listeningHistory.Add(playHistoryItem);
                 }
             }
-            return;
+
+            var mappedSongsToActivities = new Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>>();
+
+            foreach (var run in runningHistory)
+            {
+                var tempDict = SongsToActivityMapper.MapSongsToActivity(run, listeningHistory);
+                tempDict.ToList().ForEach(x => mappedSongsToActivities.Add(x.Key, x.Value));
+            }
+
+            // Determine what date to search on...
+            var dateToSearchOn = runningHistory[0].start_date;
+            var subsetMappedSongsToActivities = mappedSongsToActivities.Where(s => s.Key.start_date.Date == dateToSearchOn)
+                .ToDictionary(dict => dict.Key, dict => dict.Value);
+
+            // Then make comparison
+            var insightsManager = new InsightsManager();
+            fastestActivity = insightsManager.GetFastestActivityWithListeningHistory(subsetMappedSongsToActivities);
+        }
+
+        /// <inheritdoc/>
+        public Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>> GetFastestTracks()
+        {
+            return fastestActivity;
         }
     }
 }
