@@ -1,11 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Specs.Steps
 {
-    using System;
-    using System.Collections.Generic;
     using ClientDrivers;
     using DataSource;
-    using FluentAssertions;
-    using SpotifyAPI.Web;
     using TechTalk.SpecFlow;
 
     [Binding]
@@ -30,7 +26,6 @@
         public void ThenTheUsersTopTracksForRunningFasterAreProduced()
         {
             var results = clientDriver.GetFastestTracks();
-            clientDriver.
         }
     }
 }
