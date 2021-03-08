@@ -119,5 +119,13 @@
             result.Keys.Should().HaveCount(1);
             result.Values.ToList()[0].Should().BeEquivalentTo(listOfActivity2PlayHistory);
         }
+
+        [Test]
+        public void GetFastestActivitySongsWithNoActivitiesOrSongs_ExceptionThrown()
+        {
+            sut = new InsightsManager();
+            Action a = () => sut.GetFastestActivityWithListeningHistory(new Dictionary<Activity, List<PlayHistoryItem>>());
+            a.Should().Throw<IndexOutOfRangeException>().WithMessage("No activities in parsed array dictionary.");
+        }
     }
 }

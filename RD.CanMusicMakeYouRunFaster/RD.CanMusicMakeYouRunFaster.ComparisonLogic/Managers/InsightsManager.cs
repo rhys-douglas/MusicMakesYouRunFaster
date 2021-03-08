@@ -5,6 +5,7 @@
     using SpotifyAPI.Web;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
     using RD.CanMusicMakeYouRunFaster.ComparisonLogic.Comparers;
+    using System;
 
     /// <summary>
     /// Insights manager, used for managing insights made comparing user data.
@@ -18,8 +19,12 @@
         /// <returns></returns>
         public Dictionary<Activity,List<PlayHistoryItem>> GetFastestActivityWithListeningHistory(Dictionary<Activity, List<PlayHistoryItem>> activityAndMusicHistory)
         {
-            var fastestActivity = ActivityComparer.FindFastestActivity(activityAndMusicHistory.Keys.ToList());
+            if (activityAndMusicHistory.Count == 0)
+            {
+                throw new IndexOutOfRangeException("No activities in parsed array dictionary.");
+            }
 
+            var fastestActivity = ActivityComparer.FindFastestActivity(activityAndMusicHistory.Keys.ToList());
             return new Dictionary<Activity, List<PlayHistoryItem>>
             {
                 {fastestActivity, activityAndMusicHistory[fastestActivity] }
