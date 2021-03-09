@@ -2,6 +2,7 @@
 {
     using ClientDrivers;
     using DataSource;
+    using NUnit.Framework;
     using TechTalk.SpecFlow;
 
     [Binding]
@@ -22,9 +23,16 @@
             clientDriver.MakeRunningAndListeningHistoryComparison();
         }
 
+        [When(@"And the user's recently played history based on their running history is requested")]
+        public void WhenTheUsersRecentlyPlayedHistoryBasedOnTheirRunningHistoryIsRequested()
+        {
+            clientDriver.GetRecentlyPlayedMusicForActivities();
+        }
+
         [Then(@"the user's top tracks for running faster are produced")]
         public void ThenTheUsersTopTracksForRunningFasterAreProduced()
         {
+            Assert.Fail();
             var results = clientDriver.GetFastestTracks();
         }
     }

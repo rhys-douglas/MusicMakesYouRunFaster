@@ -40,5 +40,10 @@
         /// </summary>
         /// <returns>A dictionary with songs that make you run faster.</returns>
         Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>> GetFastestTracks();
+
+        /// <summary>
+        /// Request music data from the relevant API, specifically for mapping to activities.
+        /// </summary>
+        void GetRecentlyPlayedMusicForActivities();
     }
 }

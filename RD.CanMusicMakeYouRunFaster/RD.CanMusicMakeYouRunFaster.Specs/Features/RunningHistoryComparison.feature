@@ -28,6 +28,6 @@ Scenario Outline: Compare Listening And Running History
 	And their running history
 	And their listening history
 	When the user's recent running history is requested
-	And the user's recently played history is requested
+	And the user's recently played history based on their running history is requested
 	And the comparison between running and listening history is made
 	Then the user's top tracks for running faster are produced

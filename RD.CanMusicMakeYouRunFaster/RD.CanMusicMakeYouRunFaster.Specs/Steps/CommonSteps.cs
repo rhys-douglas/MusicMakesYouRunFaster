@@ -267,11 +267,5 @@
         {
             // Does nothing.
         }
-
-        [When(@"the user's recently played history is requested")]
-        public void WhenTheUserSRecentlyPlayedHistoryIsRequested()
-        {
-            clientDriver.GetRecentlyPlayedMusic();
-        }
     }
 }

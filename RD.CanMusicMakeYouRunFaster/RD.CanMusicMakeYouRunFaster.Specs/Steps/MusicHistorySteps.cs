@@ -1,11 +1,8 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Specs.Steps
 {
-    using System;
-    using System.Collections.Generic;
     using ClientDrivers;
     using DataSource;
-    using FluentAssertions;
-    using SpotifyAPI.Web;
+    using NUnit.Framework;
     using TechTalk.SpecFlow;
 
     [Binding]
@@ -13,7 +10,6 @@
     {
         private readonly IClientDriver clientDriver;
         private readonly DataPort dataSource;
-        private readonly List<PlayHistoryItem> listeningHistory = new List<PlayHistoryItem>();
 
         public MusicHistorySteps(IClientDriver clientDriver, DataPort dataSource)
         {
@@ -27,11 +23,20 @@
             // Do something
         }
 
+        [When(@"the user's recently played history is requested")]
+        public void WhenTheUserSRecentlyPlayedHistoryIsRequested()
+        {
+            clientDriver.GetRecentlyPlayedMusic();
+        }
+
         [Then(@"the user's recently played history is produced")]
         public void ThenTheUserSRecentlyPlayedHistoryIsProduced()
         {
             var acquiredListeningHistory = clientDriver.GetFoundItems();
-            acquiredListeningHistory.Should().BeEquivalentTo(listeningHistory);
+
+            // need to read in table and compare.
+            // acquiredListeningHistory.Should().BeEquivalentTo(listeningHistory);
+            Assert.Fail();
         }
     }
 }

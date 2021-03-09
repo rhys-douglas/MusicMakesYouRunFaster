@@ -65,8 +65,12 @@
         /// Gets the spotify recently played tracks
         /// </summary>
         /// <returns>Spotify recently played tracks</returns>
-        public JsonResult GetSpotifyRecentlyPlayed()
+        public JsonResult GetSpotifyRecentlyPlayed(long after = -1)
         {
+            if (after == 0)
+            {
+
+            }
             return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken).Result;
         }
     }

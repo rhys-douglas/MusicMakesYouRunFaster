@@ -6,6 +6,7 @@
     using RD.CanMusicMakeYouRunFaster.Specs.ClientDrivers;
     using RD.CanMusicMakeYouRunFaster.Specs.DataSource;
     using TechTalk.SpecFlow;
+    using NUnit.Framework;
 
     [Binding]
     public class StravaHistorySteps
@@ -36,7 +37,8 @@
         public void ThenTheUsersRunningHistoryIsProduced()
         {
             var acquiredListeningHistory = clientDriver.GetFoundItems();
-            acquiredListeningHistory.Should().BeEquivalentTo(actualHistory);
+            // acquiredListeningHistory.Should().BeEquivalentTo(actualHistory);
+            Assert.Fail();
         }
     }
 }

@@ -13,6 +13,7 @@
     public class ApiClientDriver : IClientDriver
     {
         private readonly List<object> searchResults = new List<object>();
+        private Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>> activitiesAndSongs = new Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>>();
         private Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>> fastestActivity = new Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>>();
         private ExternalAPIGateway externalAPIGateway;
 
@@ -31,6 +32,23 @@
             foreach (var song in playHistoryContainer.Items)
             {
                 searchResults.Add(song);
+            }
+        }
+
+        /// <inheritdoc/>
+        public void GetRecentlyPlayedMusicForActivities()
+        {
+            externalAPIGateway.GetSpotifyAuthenticationToken();
+            var activitiesAndSongs = new Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>>();
+            foreach (var item in searchResults)
+            {
+                if (item is Rest.Entity.Activity activity)
+                {
+                    var searchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(activity.start_date.Ticks);
+                    var playHistoryContainer = (CursorPaging<PlayHistoryItem>)searchResult.Value;
+                    var listOfSongs = playHistoryContainer.Items.ToList();
+                    activitiesAndSongs.Add(activity, listOfSongs);
+                }
             }
         }
 
