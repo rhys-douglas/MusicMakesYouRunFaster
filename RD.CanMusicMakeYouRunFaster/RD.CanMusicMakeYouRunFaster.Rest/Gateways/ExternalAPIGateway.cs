@@ -67,11 +67,12 @@
         /// <returns>Spotify recently played tracks</returns>
         public JsonResult GetSpotifyRecentlyPlayed(long after = -1)
         {
-            if (after == 0)
+            if (after == -1)
             {
-
+                return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken).Result;
             }
-            return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken).Result;
+
+            return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken, after).Result;
         }
     }
 }

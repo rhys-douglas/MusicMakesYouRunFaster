@@ -35,7 +35,7 @@
                     Uri = "Uri1"
                 },
                 Id = "1",
-                PlayedAt = DateTime.UtcNow,
+                PlayedAt = DateTime.UtcNow.AddHours(1),
                 Track = new FakeResponseServer.Models.Spotify.SimpleTrack
                 {
                     Artists = null,
@@ -357,6 +357,27 @@
             var actualActivityHistory = JsonConvert.DeserializeObject<List<Activity>>(activityHistoryExtracted);
             actualActivityHistory.Count.Should().Be(2);
             actualActivityHistory[0].average_speed.Should().Be(12.35);
+        }
+
+        [Test]
+        public void GetSpotifyRecentlyPlayedWithAfterParam_CorrectResponseReturned()
+        {
+            var now = DateTime.UtcNow.AddMinutes(30).Ticks;
+            sut = MakeSut();
+            var listeningHistory = sut.GetSpotifyRecentlyPlayed(now);
+            listeningHistory.Value.Should().NotBeNull();
+            var afterTestJSON = JsonConvert.SerializeObject(listeningHistory.Value);
+            var afterTest = JsonConvert.DeserializeObject<CursorPaging<PlayHistoryItem>>(afterTestJSON);
+            afterTest.Items.Should().HaveCount(1);
+            afterTest.Items.Should().NotBeNull().And.NotBeEmpty();
+
+            listeningHistory = sut.GetSpotifyRecentlyPlayed();
+            listeningHistory.Value.Should().NotBeNull();
+            var listeningHistoryExtracted = JsonConvert.SerializeObject(listeningHistory.Value);
+            var actualListeningHistory = JsonConvert.DeserializeObject<CursorPaging<PlayHistoryItem>>(listeningHistoryExtracted);
+            actualListeningHistory.Items.Should().HaveCount(3);
+            actualListeningHistory.Items.Should().NotBeNull();
+
         }
 
         private ExternalAPIGateway MakeSut()
