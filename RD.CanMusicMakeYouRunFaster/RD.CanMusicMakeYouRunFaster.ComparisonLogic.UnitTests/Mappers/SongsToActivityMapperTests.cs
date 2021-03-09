@@ -132,7 +132,7 @@
                 }
             };
 
-            var mappedSongsToActivity = sut.MapSongsToActivity(fakeActivity,fakeListeningHistory);
+            var mappedSongsToActivity = SongsToActivityMapper.MapSongsToActivity(fakeActivity,fakeListeningHistory);
 
             mappedSongsToActivity.Count.Should().Be(1);
             mappedSongsToActivity[fakeActivity].Count.Should().Be(3);

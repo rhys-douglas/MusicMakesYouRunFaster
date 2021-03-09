@@ -5,6 +5,7 @@
     using Newtonsoft.Json;
     using NUnit.Framework;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
+    using System;
     using System.Collections.Generic;
 
     public class RealDataRetrievalSourceTests
@@ -17,22 +18,36 @@
         public void SetUpTests()
         {
             sut = new RealDataRetrievalSource();
-        }
-
-        [Test]
-        public void GetSpotifyListeningHistory_ListeningHistoryRetrieved()
-        {
-            // Get Spotify Token
+            // Get spotify auth token
             var spotifyTokenAsJson = sut.GetSpotifyAuthenticationToken();
             spotifyTokenAsJson.Result.Should().NotBeNull();
             spotifyTokenAsJson.Result.Value.Should().NotBe(string.Empty);
             spotifyAuthenticationToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>((string)spotifyTokenAsJson.Result.Value);
             spotifyAuthenticationToken.AccessToken.Should().NotBeNullOrEmpty();
+        }
 
+        [Test]
+        public void GetSpotifyListeningHistory_ListeningHistoryRetrieved()
+        {
             // Get listening history
             var listeningHistory = sut.GetSpotifyRecentlyPlayed(spotifyAuthenticationToken);
             listeningHistory.Result.Value.Should().NotBeNull();
             listeningHistory.Result.Value.Should().NotBe(string.Empty);
+        }
+
+        [Test]
+        public void GetSpotifyListeningHistoryWithAfterParameter_CorrectListeningHistoryReturned()
+        { 
+            // Get listening history with after parameter
+            var listeningHistory0 = sut.GetSpotifyRecentlyPlayed(spotifyAuthenticationToken);
+            listeningHistory0.Result.Value.Should().NotBeNull();
+            listeningHistory0.Result.Value.Should().NotBe(string.Empty);
+
+            var ticks = DateTime.UtcNow.AddDays(-7).Ticks;
+            var listeningHistory1 = sut.GetSpotifyRecentlyPlayed(spotifyAuthenticationToken, ticks);
+            listeningHistory1.Result.Value.Should().NotBeNull();
+            listeningHistory1.Result.Value.Should().NotBe(string.Empty);
+            listeningHistory1.Should().NotBeEquivalentTo(listeningHistory0);
         }
 
         [Test]

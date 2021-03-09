@@ -21,7 +21,7 @@
         /// <param name="authToken">Authentication token to use.</param>
         /// <param name="after">Ticks to search after.</param>
         /// <returns> Json of recently played music. </returns>
-        Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken, long after);
+        Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken, long after = -1);
 
         /// <summary>
         /// Gets the Strava authentication token
