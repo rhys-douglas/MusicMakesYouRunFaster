@@ -5,6 +5,7 @@
     using Newtonsoft.Json;
     using NUnit.Framework;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
+    using SpotifyAPI.Web;
     using System;
     using System.Collections.Generic;
 
@@ -39,15 +40,16 @@
         public void GetSpotifyListeningHistoryWithAfterParameter_CorrectListeningHistoryReturned()
         { 
             // Get listening history with after parameter
-            var listeningHistory0 = sut.GetSpotifyRecentlyPlayed(spotifyAuthenticationToken);
-            listeningHistory0.Result.Value.Should().NotBeNull();
-            listeningHistory0.Result.Value.Should().NotBe(string.Empty);
+            var listeningHistory0Task = sut.GetSpotifyRecentlyPlayed(spotifyAuthenticationToken);
+            var listeningHistory0Json = JsonConvert.SerializeObject(listeningHistory0Task.Result.Value);
+            var listeningHistory0 = JsonConvert.DeserializeObject<CursorPaging<PlayHistoryItem>>(listeningHistory0Json);
+            listeningHistory0.Items.Should().NotBeEmpty().And.Should().NotBeNull();
 
             var ticks = DateTime.UtcNow.AddDays(-7).Ticks;
             var listeningHistory1 = sut.GetSpotifyRecentlyPlayed(spotifyAuthenticationToken, ticks);
             listeningHistory1.Result.Value.Should().NotBeNull();
             listeningHistory1.Result.Value.Should().NotBe(string.Empty);
-            listeningHistory1.Should().NotBeEquivalentTo(listeningHistory0);
+            listeningHistory1.Result.Value.Should().NotBeEquivalentTo(listeningHistory0.Result.Value);
         }
 
         [Test]
