@@ -64,6 +64,7 @@
         /// <summary>
         /// Gets the spotify recently played tracks
         /// </summary>
+        /// <param name="after"> UNIX timestamp to search after </param>
         /// <returns>Spotify recently played tracks</returns>
         public JsonResult GetSpotifyRecentlyPlayed(long after = -1)
         {

@@ -63,7 +63,8 @@
         public async Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken, long after = -1)
         {
             await Task.Delay(1);
-            var musicHistory = externalAPICaller.Get<CursorPaging<FakeResponseServer.DTO.PlayHistoryItem>>(new Uri("http://localhost:2222/v1/me/player/recently-played"));
+            var requesturiString = string.Format("http://localhost:2222/v1/me/player/recently-played?after={0}",after);
+            var musicHistory = externalAPICaller.Get<CursorPaging<FakeResponseServer.DTO.PlayHistoryItem>>(new Uri(requesturiString));
             var correctMusicHistory = new CursorPaging<PlayHistoryItem>
             {
                 Items = new List<PlayHistoryItem>()
