@@ -7,6 +7,7 @@
     using System;
     using DbContext;
     using Microsoft.EntityFrameworkCore;
+    using System.Linq;
 
     public class SpotifyMusicControllerTests
     {
@@ -23,7 +24,7 @@
                 Uri = "SomeURI"
             },
             Id = "Unneeded value 1.",
-            PlayedAt = DateTime.UtcNow,
+            PlayedAt = DateTime.UtcNow.AddDays(-2),
             Track = new Models.Spotify.SimpleTrack
             {
                 Artists = new List<Models.Spotify.SimpleArtist>(),
@@ -61,7 +62,7 @@
                 Uri = "SomeURI2"
             },
             Id = "Unneeded value 2.",
-            PlayedAt = DateTime.UtcNow,
+            PlayedAt = DateTime.UtcNow.AddDays(-3),
             Track = new Models.Spotify.SimpleTrack
             {
                 Artists = new List<Models.Spotify.SimpleArtist>(),
@@ -136,7 +137,7 @@
                 Type = "SomeType",
                 Uri = "SomeURI"
             },
-            PlayedAt = DateTime.UtcNow,
+            PlayedAt = DateTime.UtcNow.AddDays(-2),
             Track = new DTO.SimpleTrack
             {
                 Artists = null,
@@ -173,7 +174,7 @@
                 Type = "SomeType",
                 Uri = "SomeURI2"
             },
-            PlayedAt = DateTime.UtcNow,
+            PlayedAt = DateTime.UtcNow.AddDays(-3),
             Track = new DTO.SimpleTrack
             {
                 Artists = null,
@@ -272,15 +273,21 @@
         {
             sut = new SpotifyMusicController(new DataRetrievalContext(contextOptions));
             var getResult = sut.GetRecentlyPlayed();
-            getResult.Result.Items.Should().NotBeEmpty();
-            getResult.Result.Items.Count.Should().Be(3);
-            var retrievedSongs = new List<DTO.PlayHistoryItem>();
-            foreach (var song in getResult.Result.Items)
-            {
-                retrievedSongs.Add(song);
-            }
+            var retrievedSongs = getResult.Result.Items.ToList();
             retrievedSongs.Should().HaveCount(3);
             retrievedSongs.Should().BeEquivalentTo(listeningHistory);
+        }
+
+        [Test]
+        public void GetRecentlyPlayedWithAfterParam_MusicHistoryReturned()
+        {
+            var after = DateTime.UtcNow.AddDays(1);
+            var afterAsUnix = ((DateTimeOffset)after).ToUnixTimeMilliseconds();
+            sut = new SpotifyMusicController(new DataRetrievalContext(contextOptions));
+            var getResult = sut.GetRecentlyPlayed(afterAsUnix);
+            var retrievedSongs = getResult.Result.Items.ToList();
+            retrievedSongs.Should().HaveCount(0);
+            retrievedSongs.Should().NotBeEquivalentTo(listeningHistory);
         }
     }
 }
