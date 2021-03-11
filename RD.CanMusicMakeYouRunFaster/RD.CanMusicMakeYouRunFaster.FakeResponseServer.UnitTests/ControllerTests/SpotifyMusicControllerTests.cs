@@ -250,11 +250,11 @@
 
             using var context = new DataRetrievalContext(contextOptions);
             var now = DateTime.UtcNow;
-            item1.PlayedAt = now;
-            item2.PlayedAt = now;
+            item1.PlayedAt = now.AddDays(-2);
+            item2.PlayedAt = now.AddDays(-3);
             item3.PlayedAt = now;
-            DTOItem1.PlayedAt = now;
-            DTOItem2.PlayedAt = now;
+            DTOItem1.PlayedAt = now.AddDays(-2);
+            DTOItem2.PlayedAt = now.AddDays(-3);
             DTOItem3.PlayedAt = now;
 
             listeningHistory.Add(DTOItem1);
@@ -281,12 +281,12 @@
         [Test]
         public void GetRecentlyPlayedWithAfterParam_MusicHistoryReturned()
         {
-            var after = DateTime.UtcNow.AddDays(1);
+            var after = DateTime.UtcNow.AddDays(-1);
             var afterAsUnix = ((DateTimeOffset)after).ToUnixTimeMilliseconds();
             sut = new SpotifyMusicController(new DataRetrievalContext(contextOptions));
             var getResult = sut.GetRecentlyPlayed(afterAsUnix);
             var retrievedSongs = getResult.Result.Items.ToList();
-            retrievedSongs.Should().HaveCount(0);
+            retrievedSongs.Should().HaveCount(1);
             retrievedSongs.Should().NotBeEquivalentTo(listeningHistory);
         }
     }

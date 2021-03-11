@@ -270,9 +270,11 @@
         {
             var now = DateTime.UtcNow;
             var now_local = DateTime.Now;
+            var offset = -2;
             foreach (var item in PlayHistoryItems)
             {
-                item.PlayedAt = now;
+                item.PlayedAt = now.AddDays(offset);
+                offset++;
             }
 
             foreach (var item in ActivityItems)
@@ -314,6 +316,21 @@
             var listeningHistoryJson = JsonConvert.SerializeObject(listeningHistory.Result.Value);
             var actualListeningHistory = JsonConvert.DeserializeObject<CursorPaging<PlayHistoryItem>>(listeningHistoryJson);
             actualListeningHistory.Items.Should().HaveCount(3);
+            actualListeningHistory.Items[0].Should().BeOfType<PlayHistoryItem>();
+        }
+
+        [Test]
+        public void GetSpotifyListeningHistoryWithAfterParam_ListeningHistoryRetrieved()
+        {
+            sut = MakeSut();
+            var after = DateTime.UtcNow.AddDays(-1);
+            var afterAsUnix = ((DateTimeOffset)after).ToUnixTimeMilliseconds();
+            var listeningHistory = sut.GetSpotifyRecentlyPlayed(spotifyAuthToken,afterAsUnix);
+            listeningHistory.Result.Value.Should().NotBeNull();
+            listeningHistory.Result.Value.Should().NotBe(string.Empty);
+            var listeningHistoryJson = JsonConvert.SerializeObject(listeningHistory.Result.Value);
+            var actualListeningHistory = JsonConvert.DeserializeObject<CursorPaging<PlayHistoryItem>>(listeningHistoryJson);
+            actualListeningHistory.Items.Should().HaveCount(1);
             actualListeningHistory.Items[0].Should().BeOfType<PlayHistoryItem>();
         }
 

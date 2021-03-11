@@ -31,7 +31,7 @@
         /// </summary>
         /// <returns> A CursorPage of PlayHistoryItems</returns>
         [HttpGet]
-        public async Task<CursorPaging<DTO.PlayHistoryItem>> GetRecentlyPlayed(long? after = null)
+        public async Task<CursorPaging<DTO.PlayHistoryItem>> GetRecentlyPlayed([FromQuery]long? after = null)
         {
             await Task.Delay(0);
             var musicHistory = context.PlayHistoryItems;
