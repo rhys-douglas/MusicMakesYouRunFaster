@@ -291,9 +291,11 @@
 
             var now_UTC = DateTime.UtcNow;
             var now_local = DateTime.Now;
+            var offset = -2;
             foreach (var item in PlayHistoryItems)
             {
-                item.PlayedAt = now_UTC;
+                item.PlayedAt = now_UTC.AddDays(offset);
+                offset++;
             }
 
             foreach (var item in ActivityHistory)
@@ -362,7 +364,7 @@
         [Test]
         public void GetSpotifyRecentlyPlayedWithAfterParam_CorrectResponseReturned()
         {
-            var now = DateTime.UtcNow.AddMinutes(30);
+            var now = DateTime.UtcNow.AddDays(-1);
             var nowInUnix = ((DateTimeOffset)now).ToUnixTimeMilliseconds();
             sut = MakeSut();
             var listeningHistory = sut.GetSpotifyRecentlyPlayed(nowInUnix);
