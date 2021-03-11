@@ -45,8 +45,9 @@
             var listeningHistory0 = JsonConvert.DeserializeObject<CursorPaging<PlayHistoryItem>>(listeningHistory0Json);
             listeningHistory0.Items.Should().NotBeNull();
 
-            var ticks = DateTime.UtcNow.AddDays(-7).Ticks;
-            var listeningHistory1Task = sut.GetSpotifyRecentlyPlayed(spotifyAuthenticationToken, ticks);
+            var nowMinus7Days = DateTime.UtcNow.AddHours(-5);
+            var after = ((DateTimeOffset)nowMinus7Days).ToUnixTimeMilliseconds();
+            var listeningHistory1Task = sut.GetSpotifyRecentlyPlayed(spotifyAuthenticationToken, after);
             var listeningHistory1Json = JsonConvert.SerializeObject(listeningHistory1Task.Result.Value);
             var listeningHistory1 = JsonConvert.DeserializeObject<CursorPaging<PlayHistoryItem>>(listeningHistory1Json);
             listeningHistory1.Items.Should().NotBeNull();

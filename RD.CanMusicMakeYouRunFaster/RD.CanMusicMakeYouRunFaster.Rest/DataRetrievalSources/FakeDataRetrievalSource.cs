@@ -60,7 +60,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken, long after = -1)
+        public async Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken, long? after = null)
         {
             await Task.Delay(1);
             var requesturiString = string.Format("http://localhost:2222/v1/me/player/recently-played?after={0}",after);

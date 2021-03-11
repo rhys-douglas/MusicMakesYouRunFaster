@@ -66,13 +66,8 @@
         /// </summary>
         /// <param name="after"> UNIX timestamp to search after </param>
         /// <returns>Spotify recently played tracks</returns>
-        public JsonResult GetSpotifyRecentlyPlayed(long after = -1)
+        public JsonResult GetSpotifyRecentlyPlayed(long? after = null)
         {
-            if (after == -1)
-            {
-                return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken).Result;
-            }
-
             return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken, after).Result;
         }
     }

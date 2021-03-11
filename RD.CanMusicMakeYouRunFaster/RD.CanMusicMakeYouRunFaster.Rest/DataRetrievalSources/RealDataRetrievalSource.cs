@@ -69,18 +69,13 @@
         }
 
         /// <inheritdoc/>
-        public async Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken, long after = -1)
+        public async Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken, long? after = null)
         {
             var request = new PlayerRecentlyPlayedRequest
             {
                 After = after,
                 Limit = 50
             };
-
-            if (after == -1)
-            {
-                request.After = null;
-            }
 
             var spotifyClient = new SpotifyClient(authToken.AccessToken);
             var listeningHistory = await spotifyClient.Player.GetRecentlyPlayed(request);

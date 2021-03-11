@@ -362,9 +362,10 @@
         [Test]
         public void GetSpotifyRecentlyPlayedWithAfterParam_CorrectResponseReturned()
         {
-            var now = DateTime.UtcNow.AddMinutes(30).Ticks;
+            var now = DateTime.UtcNow.AddMinutes(30);
+            var nowInUnix = ((DateTimeOffset)now).ToUnixTimeMilliseconds();
             sut = MakeSut();
-            var listeningHistory = sut.GetSpotifyRecentlyPlayed(now);
+            var listeningHistory = sut.GetSpotifyRecentlyPlayed(nowInUnix);
             listeningHistory.Value.Should().NotBeNull();
             var afterTestJSON = JsonConvert.SerializeObject(listeningHistory.Value);
             var afterTest = JsonConvert.DeserializeObject<CursorPaging<PlayHistoryItem>>(afterTestJSON);
