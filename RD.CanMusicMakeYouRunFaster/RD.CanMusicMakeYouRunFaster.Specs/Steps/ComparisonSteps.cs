@@ -23,7 +23,7 @@
             clientDriver.MakeRunningAndListeningHistoryComparison();
         }
 
-        [When(@"And the user's recently played history based on their running history is requested")]
+        [When(@"the user's recently played history based on their running history is requested")]
         public void WhenTheUsersRecentlyPlayedHistoryBasedOnTheirRunningHistoryIsRequested()
         {
             clientDriver.GetRecentlyPlayedMusicForActivities();
