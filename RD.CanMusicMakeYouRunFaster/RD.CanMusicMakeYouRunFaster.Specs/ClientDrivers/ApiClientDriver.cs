@@ -6,6 +6,7 @@
     using RD.CanMusicMakeYouRunFaster.Rest.Gateways;
     using RD.CanMusicMakeYouRunFaster.ComparisonLogic.Mappers;
     using RD.CanMusicMakeYouRunFaster.ComparisonLogic.Managers;
+    using System;
 
     /// <summary>
     /// Client driver for testing without a front-end.
@@ -39,15 +40,17 @@
         public void GetRecentlyPlayedMusicForActivities()
         {
             externalAPIGateway.GetSpotifyAuthenticationToken();
-            var activitiesAndSongs = new Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>>();
             foreach (var item in searchResults)
             {
                 if (item is Rest.Entity.Activity activity)
                 {
-                    var searchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(activity.start_date.Ticks);
+                    var startDateAsDateTime = activity.start_date;
+                    var startDateAsUnixTime = ((DateTimeOffset)startDateAsDateTime).ToUnixTimeMilliseconds();
+                    var searchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
                     var playHistoryContainer = (CursorPaging<PlayHistoryItem>)searchResult.Value;
                     var listOfSongs = playHistoryContainer.Items.ToList();
-                    activitiesAndSongs.Add(activity, listOfSongs);
+                    var tempDict = SongsToActivityMapper.MapSongsToActivity(activity, listOfSongs);
+                    tempDict.ToList().ForEach(x => activitiesAndSongs.Add(x.Key, x.Value));
                 }
             }
         }
@@ -73,32 +76,9 @@
         /// <inheritdoc/>
         public void MakeRunningAndListeningHistoryComparison()
         {
-            var runningHistory = new List<Rest.Entity.Activity>();
-            var listeningHistory = new List<PlayHistoryItem>();
-            foreach (var item in searchResults)
-            {
-                if (item is Rest.Entity.Activity activity)
-                {
-                    runningHistory.Add(activity);
-                }
-
-                if (item is PlayHistoryItem playHistoryItem)
-                {
-                    listeningHistory.Add(playHistoryItem);
-                }
-            }
-
-            var mappedSongsToActivities = new Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>>();
-
-            foreach (var run in runningHistory)
-            {
-                var tempDict = SongsToActivityMapper.MapSongsToActivity(run, listeningHistory);
-                tempDict.ToList().ForEach(x => mappedSongsToActivities.Add(x.Key, x.Value));
-            }
-
             // Determine what date to search on...
-            var dateToSearchOn = runningHistory[0].start_date;
-            var subsetMappedSongsToActivities = mappedSongsToActivities.Where(s => s.Key.start_date.Date == dateToSearchOn)
+            var dateToSearchOn = activitiesAndSongs.Keys.First().start_date;
+            var subsetMappedSongsToActivities = activitiesAndSongs.Where(s => s.Key.start_date.Date == dateToSearchOn)
                 .ToDictionary(dict => dict.Key, dict => dict.Value);
 
             // Then make comparison
