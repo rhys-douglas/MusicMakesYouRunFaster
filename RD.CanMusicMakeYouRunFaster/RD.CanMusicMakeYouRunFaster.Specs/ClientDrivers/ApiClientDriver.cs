@@ -78,7 +78,7 @@
         {
             // Determine what date to search on...
             var dateToSearchOn = activitiesAndSongs.Keys.First().start_date;
-            var subsetMappedSongsToActivities = activitiesAndSongs.Where(s => s.Key.start_date.Date == dateToSearchOn)
+            var subsetMappedSongsToActivities = activitiesAndSongs.Where(s => s.Key.start_date.Date == dateToSearchOn.Date)
                 .ToDictionary(dict => dict.Key, dict => dict.Value);
 
             // Then make comparison
