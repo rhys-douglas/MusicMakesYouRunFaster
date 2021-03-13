@@ -240,8 +240,20 @@ this.FeatureBackground();
 #line 42
  testRunner.And("the comparison between running and listening history is made", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
+                TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Song name"});
+                table4.AddRow(new string[] {
+                            "The Chain - 2004 Remaster"});
+                table4.AddRow(new string[] {
+                            "I Want To Break Free - Single Remix"});
+                table4.AddRow(new string[] {
+                            "Good Vibrations - Remastered"});
+                table4.AddRow(new string[] {
+                            "Dreams - 2004 Remaster"});
+                table4.AddRow(new string[] {
+                            "Stayin Alive"});
 #line 43
- testRunner.Then("the user\'s top tracks for running faster are produced", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the user\'s top tracks for running faster are produced", ((string)(null)), table4, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -256,7 +268,7 @@ this.FeatureBackground();
                     "EDF-0-DateRange-Comparison"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Compare Listening and Running History with date range", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 46
+#line 52
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -279,27 +291,37 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 47
+#line 53
 testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 48
+#line 54
  testRunner.And("their running history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 49
+#line 55
  testRunner.And("their listening history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 50
+#line 56
  testRunner.When("the user\'s recent running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 51
+#line 57
  testRunner.And("the user\'s recently played history based on their running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 52
+#line 58
  testRunner.And("the comparison between running and listening history is made using a specified da" +
                         "te range", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 53
- testRunner.Then("the user\'s top tracks for running faster are produced", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+                TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Song name"});
+                table5.AddRow(new string[] {
+                            "Riptide"});
+                table5.AddRow(new string[] {
+                            "Can\'t Hold Us"});
+                table5.AddRow(new string[] {
+                            "Starboy"});
+                table5.AddRow(new string[] {
+                            "Beautiful Day"});
+#line 59
+ testRunner.Then("the user\'s top tracks for running faster are produced", ((string)(null)), table5, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

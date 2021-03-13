@@ -33,7 +33,7 @@ Given a list of listening history
 
 
 @MVP-5-Single-Date-Comparison
-Scenario Outline: Compare Listening And Running History
+Scenario: Compare Listening And Running History
 	Given a user <user>
 	And their running history
 	And their listening history
@@ -41,9 +41,15 @@ Scenario Outline: Compare Listening And Running History
 	And the user's recently played history based on their running history is requested
 	And the comparison between running and listening history is made
 	Then the user's top tracks for running faster are produced
+	|Song name							|
+	|The Chain - 2004 Remaster			|
+	|I Want To Break Free - Single Remix|
+	|Good Vibrations - Remastered		|
+	|Dreams - 2004 Remaster				|
+	|Stayin Alive						|
 
 @EDF-0-DateRange-Comparison
-Scenario Outline: Compare Listening and Running History with date range
+Scenario: Compare Listening and Running History with date range
 Given a user <user>
 	And their running history
 	And their listening history
@@ -51,3 +57,8 @@ Given a user <user>
 	And the user's recently played history based on their running history is requested
 	And the comparison between running and listening history is made using a specified date range
 	Then the user's top tracks for running faster are produced
+	|Song name							  |
+	| Riptide	                          |
+	| Can't Hold Us                       |
+	| Starboy		                      |
+	| Beautiful Day	                      |
