@@ -2,7 +2,12 @@
 {
     using ClientDrivers;
     using DataSource;
+    using FluentAssertions;
     using NUnit.Framework;
+    using SpotifyAPI.Web;
+    using System;
+    using System.Collections.Generic;
+    using System.Linq;
     using TechTalk.SpecFlow;
 
     [Binding]
@@ -32,8 +37,13 @@
         [Then(@"the user's top tracks for running faster are produced")]
         public void ThenTheUsersTopTracksForRunningFasterAreProduced()
         {
-            Assert.Fail();
-            var results = clientDriver.GetFastestTracks();
+            var resultAsDictionary = clientDriver.GetFastestTracks();
+            var resultAsSinglePair = resultAsDictionary.First();
+            resultAsSinglePair.Should().NotBeNull();
+            resultAsSinglePair.Key.name.Should().Be("Cardiff Friday Morning Run");
+            resultAsSinglePair.Key.average_speed.Should().Be(4.5);
+            resultAsSinglePair.Value.Count.Should().Be(5);
+            resultAsSinglePair.Value.First().Track.Name.Should().Be("The Chain - 2004 Remaster");
         }
     }
 }

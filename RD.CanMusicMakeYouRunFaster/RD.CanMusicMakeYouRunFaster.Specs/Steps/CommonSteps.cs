@@ -130,7 +130,7 @@
                     },
                     average_cadence = 75,
                     average_heartrate = 151,
-                    average_speed = 16.4,
+                    average_speed = double.Parse(row["Average Pace (m/s)"]),
                     average_temp = 15,
                     comment_count = 0,
                     commute = false,

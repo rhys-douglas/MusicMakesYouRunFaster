@@ -89,37 +89,43 @@ testRunner.Given("a list of users", ((string)(null)), table1, "Given ");
                         "Activity Name",
                         "Time of activity start",
                         "Elapsed Time of Activity (s)",
-                        "Activity Id"});
+                        "Activity Id",
+                        "Average Pace (m/s)"});
             table2.AddRow(new string[] {
                         "User1",
                         "Cardiff Friday Morning Run",
-                        "15/02/2021 15:30:00",
+                        "15/03/2021 12:00:00",
                         "4410",
-                        "1"});
+                        "1",
+                        "4.5"});
             table2.AddRow(new string[] {
                         "User1",
                         "Oxford Half Marathon",
-                        "14/02/2021 12:40:01",
-                        "3600",
-                        "2"});
+                        "14/03/2021 08:00:00",
+                        "9000",
+                        "2",
+                        "4.6"});
             table2.AddRow(new string[] {
                         "User1",
-                        "Roath Lake Run",
-                        "13/02/2021 15:30:59",
+                        "Roath Lake Midnight Run",
+                        "13/03/2021 23:39:59",
                         "4410",
-                        "3"});
+                        "3",
+                        "4.2"});
             table2.AddRow(new string[] {
                         "User1",
                         "Late Night Run",
-                        "10/02/2021 00:05:00",
+                        "10/03/2021 00:05:00",
                         "1280",
-                        "4"});
+                        "4",
+                        "1.6"});
             table2.AddRow(new string[] {
                         "User1",
                         "Test Run",
                         "01/01/2021 23:59:59",
-                        "100",
-                        "5"});
+                        "60",
+                        "5",
+                        "0.0"});
 #line 8
 testRunner.Given("a list of running history", ((string)(null)), table2, "Given ");
 #line hidden
@@ -130,23 +136,55 @@ testRunner.Given("a list of running history", ((string)(null)), table2, "Given "
             table3.AddRow(new string[] {
                         "User1",
                         "The Chain - 2004 Remaster",
-                        "15/02/2021 15:45:30"});
+                        "15/03/2021 12:00:05"});
             table3.AddRow(new string[] {
                         "User1",
                         "I Want To Break Free - Single Remix",
-                        "15/02/2021 15:40:01"});
+                        "15/03/2021 12:03:30"});
             table3.AddRow(new string[] {
                         "User1",
                         "Good Vibrations - Remastered",
-                        "15/02/2021 15:30:59"});
+                        "15/03/2021 12:04:59"});
             table3.AddRow(new string[] {
                         "User1",
                         "Dreams - 2004 Remaster",
-                        "15/02/2021 00:05:00"});
+                        "15/03/2021 12:05:30"});
             table3.AddRow(new string[] {
                         "User1",
                         "Stayin Alive",
-                        "14/02/2021 23:59:59"});
+                        "15/03/2021 12:07:20"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Junk Song",
+                        "15/03/2021 23:59:20"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Riptide",
+                        "14/03/2021 08:00:01"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Can\'t Hold Us",
+                        "14/03/2021 08:03:30"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Starboy",
+                        "14/03/2021 08:09:40"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Beautiful Day",
+                        "14/03/2021 08:30:00"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Starman",
+                        "13/03/2021 00:02:00"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Kickstarts",
+                        "13/03/2021 00:05:00"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Sugar",
+                        "10/03/2021 00:05:01"});
 #line 16
 testRunner.Given("a list of listening history", ((string)(null)), table3, "Given ");
 #line hidden
@@ -161,7 +199,7 @@ testRunner.Given("a list of listening history", ((string)(null)), table3, "Given
                     "MVP-5-Single-Date-Comparison"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Compare Listening And Running History", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 26
+#line 36
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -184,25 +222,25 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 27
+#line 37
  testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 28
+#line 38
  testRunner.And("their running history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 29
+#line 39
  testRunner.And("their listening history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 30
+#line 40
  testRunner.When("the user\'s recent running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 31
+#line 41
  testRunner.And("the user\'s recently played history based on their running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 32
+#line 42
  testRunner.And("the comparison between running and listening history is made", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 33
+#line 43
  testRunner.Then("the user\'s top tracks for running faster are produced", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
