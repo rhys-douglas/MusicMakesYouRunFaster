@@ -41,3 +41,13 @@ Scenario Outline: Compare Listening And Running History
 	And the user's recently played history based on their running history is requested
 	And the comparison between running and listening history is made
 	Then the user's top tracks for running faster are produced
+
+@EDF-0-DateRange-Comparison
+Scenario Outline: Compare Listening and Running History with date range
+Given a user <user>
+	And their running history
+	And their listening history
+	When the user's recent running history is requested
+	And the user's recently played history based on their running history is requested
+	And the comparison between running and listening history is made using a specified date range
+	Then the user's top tracks for running faster are produced
