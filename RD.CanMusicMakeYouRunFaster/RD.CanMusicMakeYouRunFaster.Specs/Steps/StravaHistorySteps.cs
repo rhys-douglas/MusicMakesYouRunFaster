@@ -36,9 +36,22 @@
         [Then(@"the user's recent running history is produced")]
         public void ThenTheUsersRunningHistoryIsProduced()
         {
-            var acquiredListeningHistory = clientDriver.GetFoundItems();
-            // acquiredListeningHistory.Should().BeEquivalentTo(actualHistory);
-            Assert.Fail();
+            var acquiredItems = clientDriver.GetFoundItems();
+            var actualRunningHistory = new List<Rest.Entity.Activity>();
+
+            foreach (var item in acquiredItems)
+            {
+                if (item is Rest.Entity.Activity run)
+                {
+                    actualRunningHistory.Add(run);
+                }
+            }
+
+            actualRunningHistory[0].name.Should().Be("Cardiff Friday Morning Run");
+            actualRunningHistory[1].name.Should().Be("Oxford Half Marathon");
+            actualRunningHistory[2].name.Should().Be("Roath Lake Midnight Run");
+            actualRunningHistory[3].name.Should().Be("Late Night Run");
+            actualRunningHistory[4].name.Should().Be("Test Run");
         }
     }
 }

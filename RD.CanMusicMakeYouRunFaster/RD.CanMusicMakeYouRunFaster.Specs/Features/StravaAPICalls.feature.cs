@@ -89,37 +89,43 @@ testRunner.Given("a list of users", ((string)(null)), table6, "Given ");
                         "Activity Name",
                         "Time of activity start",
                         "Elapsed Time of Activity (s)",
-                        "Activity Id"});
+                        "Activity Id",
+                        "Average Pace (m/s)"});
             table7.AddRow(new string[] {
                         "User1",
                         "Cardiff Friday Morning Run",
-                        "15/02/2021 15:30:00",
+                        "15/03/2021 12:00:00",
                         "4410",
-                        "1"});
+                        "1",
+                        "4.5"});
             table7.AddRow(new string[] {
                         "User1",
                         "Oxford Half Marathon",
-                        "14/02/2021 12:40:01",
-                        "3600",
-                        "2"});
+                        "14/03/2021 08:00:00",
+                        "9000",
+                        "2",
+                        "4.6"});
             table7.AddRow(new string[] {
                         "User1",
-                        "Roath Lake Run",
-                        "13/02/2021 15:30:59",
+                        "Roath Lake Midnight Run",
+                        "13/03/2021 23:39:59",
                         "4410",
-                        "3"});
+                        "3",
+                        "4.2"});
             table7.AddRow(new string[] {
                         "User1",
                         "Late Night Run",
-                        "10/02/2021 00:05:00",
+                        "10/03/2021 00:05:00",
                         "1280",
-                        "4"});
+                        "4",
+                        "1.6"});
             table7.AddRow(new string[] {
                         "User1",
                         "Test Run",
                         "01/01/2021 23:59:59",
-                        "100",
-                        "5"});
+                        "60",
+                        "5",
+                        "0.0"});
 #line 8
 testRunner.Given("a list of running history", ((string)(null)), table7, "Given ");
 #line hidden
@@ -134,7 +140,7 @@ testRunner.Given("a list of running history", ((string)(null)), table7, "Given "
                     "MVP-4-Add-Strava-API-Call"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get User\'s Running History", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 18
+#line 17
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -157,16 +163,16 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 19
+#line 18
  testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 20
+#line 19
  testRunner.And("their running history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 21
+#line 20
  testRunner.When("the user\'s recent running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 22
+#line 21
  testRunner.Then("the user\'s recent running history is produced", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
