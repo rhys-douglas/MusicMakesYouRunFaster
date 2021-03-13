@@ -2,6 +2,7 @@
 {
     using System.Collections.Generic;
     using RD.CanMusicMakeYouRunFaster.Rest.Gateways;
+    using SpotifyAPI.Web;
 
     /// <summary>
     /// Interface for client drivers.
@@ -28,5 +29,21 @@
         /// </summary>
         /// <returns> A list of found items. </returns>
         List<object> GetFoundItems();
+
+        /// <summary>
+        /// Makes the comparison between running and listening history.
+        /// </summary>
+        void MakeRunningAndListeningHistoryComparison();
+
+        /// <summary>
+        /// Returns the dictionary of fastest tracks, and the paired activity.
+        /// </summary>
+        /// <returns>A dictionary with songs that make you run faster.</returns>
+        Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>> GetFastestTracks();
+
+        /// <summary>
+        /// Request music data from the relevant API, specifically for mapping to activities.
+        /// </summary>
+        void GetRecentlyPlayedMusicForActivities();
     }
 }

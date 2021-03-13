@@ -64,10 +64,11 @@
         /// <summary>
         /// Gets the spotify recently played tracks
         /// </summary>
+        /// <param name="after"> UNIX timestamp to search after </param>
         /// <returns>Spotify recently played tracks</returns>
-        public JsonResult GetSpotifyRecentlyPlayed()
+        public JsonResult GetSpotifyRecentlyPlayed(long? after = null)
         {
-            return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken).Result;
+            return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken, after).Result;
         }
     }
 }

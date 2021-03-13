@@ -20,22 +20,22 @@ namespace RD.CanMusicMakeYouRunFaster.Specs.Features
     [System.CodeDom.Compiler.GeneratedCodeAttribute("TechTalk.SpecFlow", "3.7.0.0")]
     [System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
     [NUnit.Framework.TestFixtureAttribute()]
-    [NUnit.Framework.DescriptionAttribute("Strava API Calls")]
-    public partial class StravaAPICallsFeature
+    [NUnit.Framework.DescriptionAttribute("Comparison between running and listening history")]
+    public partial class ComparisonBetweenRunningAndListeningHistoryFeature
     {
         
         private TechTalk.SpecFlow.ITestRunner testRunner;
         
         private string[] _featureTags = ((string[])(null));
         
-#line 1 "StravaAPICalls.feature"
+#line 1 "RunningHistoryComparison.feature"
 #line hidden
         
         [NUnit.Framework.OneTimeSetUpAttribute()]
         public virtual void FeatureSetup()
         {
             testRunner = TechTalk.SpecFlow.TestRunnerManager.GetTestRunner();
-            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Strava API Calls", null, ProgrammingLanguage.CSharp, ((string[])(null)));
+            TechTalk.SpecFlow.FeatureInfo featureInfo = new TechTalk.SpecFlow.FeatureInfo(new System.Globalization.CultureInfo("en-US"), "Features", "Comparison between running and listening history", null, ProgrammingLanguage.CSharp, ((string[])(null)));
             testRunner.OnFeatureStart(featureInfo);
         }
         
@@ -77,49 +77,49 @@ namespace RD.CanMusicMakeYouRunFaster.Specs.Features
         {
 #line 3
 #line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table1 = new TechTalk.SpecFlow.Table(new string[] {
                         "user"});
-            table6.AddRow(new string[] {
+            table1.AddRow(new string[] {
                         "User1"});
 #line 4
-testRunner.Given("a list of users", ((string)(null)), table6, "Given ");
+testRunner.Given("a list of users", ((string)(null)), table1, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table2 = new TechTalk.SpecFlow.Table(new string[] {
                         "user",
                         "Activity Name",
                         "Time of activity start",
                         "Elapsed Time of Activity (s)",
                         "Activity Id",
                         "Average Pace (m/s)"});
-            table7.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "User1",
                         "Cardiff Friday Morning Run",
                         "15/03/2021 12:00:00",
                         "4410",
                         "1",
                         "4.5"});
-            table7.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "User1",
                         "Oxford Half Marathon",
                         "14/03/2021 08:00:00",
                         "9000",
                         "2",
                         "4.6"});
-            table7.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "User1",
                         "Roath Lake Midnight Run",
                         "13/03/2021 23:39:59",
                         "4410",
                         "3",
                         "4.2"});
-            table7.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "User1",
                         "Late Night Run",
                         "10/03/2021 00:05:00",
                         "1280",
                         "4",
                         "1.6"});
-            table7.AddRow(new string[] {
+            table2.AddRow(new string[] {
                         "User1",
                         "Test Run",
                         "01/01/2021 23:59:59",
@@ -127,20 +127,79 @@ testRunner.Given("a list of users", ((string)(null)), table6, "Given ");
                         "5",
                         "0.0"});
 #line 8
-testRunner.Given("a list of running history", ((string)(null)), table7, "Given ");
+testRunner.Given("a list of running history", ((string)(null)), table2, "Given ");
+#line hidden
+            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+                        "user",
+                        "Song name",
+                        "Time of listening"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "The Chain - 2004 Remaster",
+                        "15/03/2021 12:00:05"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "I Want To Break Free - Single Remix",
+                        "15/03/2021 12:03:30"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Good Vibrations - Remastered",
+                        "15/03/2021 12:04:59"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Dreams - 2004 Remaster",
+                        "15/03/2021 12:05:30"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Stayin Alive",
+                        "15/03/2021 12:07:20"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Junk Song",
+                        "15/03/2021 23:59:20"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Riptide",
+                        "14/03/2021 08:00:01"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Can\'t Hold Us",
+                        "14/03/2021 08:03:30"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Starboy",
+                        "14/03/2021 08:09:40"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Beautiful Day",
+                        "14/03/2021 08:30:00"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Starman",
+                        "13/03/2021 00:02:00"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Kickstarts",
+                        "13/03/2021 00:05:00"});
+            table3.AddRow(new string[] {
+                        "User1",
+                        "Sugar",
+                        "10/03/2021 00:05:01"});
+#line 16
+testRunner.Given("a list of listening history", ((string)(null)), table3, "Given ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Get User\'s Running History")]
-        [NUnit.Framework.CategoryAttribute("MVP-4-Add-Strava-API-Call")]
-        public virtual void GetUsersRunningHistory()
+        [NUnit.Framework.DescriptionAttribute("Compare Listening And Running History")]
+        [NUnit.Framework.CategoryAttribute("MVP-5-Single-Date-Comparison")]
+        public virtual void CompareListeningAndRunningHistory()
         {
             string[] tagsOfScenario = new string[] {
-                    "MVP-4-Add-Strava-API-Call"};
+                    "MVP-5-Single-Date-Comparison"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get User\'s Running History", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 17
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Compare Listening And Running History", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 36
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -163,17 +222,26 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 18
+#line 37
  testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 19
+#line 38
  testRunner.And("their running history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 20
+#line 39
+ testRunner.And("their listening history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 40
  testRunner.When("the user\'s recent running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 21
- testRunner.Then("the user\'s recent running history is produced", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+#line 41
+ testRunner.And("the user\'s recently played history based on their running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 42
+ testRunner.And("the comparison between running and listening history is made", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 43
+ testRunner.Then("the user\'s top tracks for running faster are produced", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

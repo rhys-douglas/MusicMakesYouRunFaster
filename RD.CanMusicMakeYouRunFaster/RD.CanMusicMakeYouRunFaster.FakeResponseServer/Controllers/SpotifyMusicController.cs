@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using System.Collections.Generic;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models;
+    using System;
 
     /// <summary>
     /// Spotify Controller to get recently played.
@@ -30,22 +31,36 @@
         /// </summary>
         /// <returns> A CursorPage of PlayHistoryItems</returns>
         [HttpGet]
-        public async Task<CursorPaging<DTO.PlayHistoryItem>> GetRecentlyPlayed()
+        public async Task<CursorPaging<DTO.PlayHistoryItem>> GetRecentlyPlayed([FromQuery]long? after = null)
         {
-            await Task.Delay(1);
+            await Task.Delay(0);
             var musicHistory = context.PlayHistoryItems;
             List<DTO.PlayHistoryItem> listOfRecentlyPlayed = new List<DTO.PlayHistoryItem>();
 
-            foreach (var item in musicHistory)
+            if (after == null)
             {
-                listOfRecentlyPlayed.Add(item.ToDTO());
+                foreach (var item in musicHistory)
+                {
+                    listOfRecentlyPlayed.Add(item.ToDTO());
+                }
+            }
+            else
+            {
+                var afterAsDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                afterAsDateTime = afterAsDateTime.AddMilliseconds((double)after);
+                foreach (var item in musicHistory)
+                {
+                    if (item.PlayedAt >= afterAsDateTime)
+                    {
+                        listOfRecentlyPlayed.Add(item.ToDTO());
+                    }
+                }
             }
 
             var listeningHistory = new CursorPaging<DTO.PlayHistoryItem>
             {
                 Items = listOfRecentlyPlayed
             };
-
 
             return listeningHistory;
         }
