@@ -7,7 +7,7 @@
     using Android.Widget;
 
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
-    public class MainActivity : AppCompatActivity
+    public class WelcomeActivity : AppCompatActivity
     {
         protected override void OnCreate(Bundle savedInstanceState)
         {
@@ -15,6 +15,11 @@
             Xamarin.Essentials.Platform.Init(this, savedInstanceState);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.welcome);
+            Button continueButton = FindViewById<Button>(Resource.Id.GetStartedButton);
+            continueButton.Click += (sender, e) =>
+            {
+                SetContentView(Resource.Layout.ConnectRunningServices);
+            };
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
         {

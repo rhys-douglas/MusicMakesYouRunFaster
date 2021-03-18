@@ -61,7 +61,8 @@
     <Reference Include="System.Numerics.Vectors" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MainActivity.cs" />
+    <Compile Include="SpotifyAuthActivity.cs" />
+    <Compile Include="WelcomeActivity.cs" />
     <Compile Include="Resources\Resource.designer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -109,6 +110,11 @@
   </ItemGroup>
   <ItemGroup>
     <AndroidResource Include="Resources\layout\ConnectRunningServices.xml">
+      <SubType>Designer</SubType>
+    </AndroidResource>
+  </ItemGroup>
+  <ItemGroup>
+    <AndroidResource Include="Resources\layout\ConnectMusicServices.xml">
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
