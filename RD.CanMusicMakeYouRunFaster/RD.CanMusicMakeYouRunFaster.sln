@@ -21,9 +21,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster.ComparisonLogic.UnitTests", "RD.CanMusicMakeYouRunFaster.ComparisonLogic.UnitTests\RD.CanMusicMakeYouRunFaster.ComparisonLogic.UnitTests.csproj", "{AC1FC22D-359A-4EC4-9F67-C432ED98BA47}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.CanMusicMakeYouRunFaster.AndroidApp", "RD.CanMusicMakeYouRunFaster.AndroidApp\RD.CanMusicMakeYouRunFaster.AndroidApp.csproj", "{A620141C-B70B-40F8-9BC8-88C9AA129C2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster.AndroidApp.UnitTests", "RD.CanMusicMakeYouRunFaster.AndroidApp.UnitTests\RD.CanMusicMakeYouRunFaster.AndroidApp.UnitTests.csproj", "{E9A48AF0-FF77-4597-8834-729C864FD729}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.CanMusicMakeYouRunFaster.AndroidApp.UnitTests", "RD.CanMusicMakeYouRunFaster.AndroidApp.UnitTests\RD.CanMusicMakeYouRunFaster.AndroidApp.UnitTests.csproj", "{E9A48AF0-FF77-4597-8834-729C864FD729}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AndroidApp", "AndroidApp\AndroidApp.csproj", "{CDF37A02-A8DE-48E3-B3B8-6E43C0E477B3}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -67,16 +67,16 @@ Global
 		{AC1FC22D-359A-4EC4-9F67-C432ED98BA47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC1FC22D-359A-4EC4-9F67-C432ED98BA47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC1FC22D-359A-4EC4-9F67-C432ED98BA47}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A620141C-B70B-40F8-9BC8-88C9AA129C2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{A620141C-B70B-40F8-9BC8-88C9AA129C2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{A620141C-B70B-40F8-9BC8-88C9AA129C2E}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
-		{A620141C-B70B-40F8-9BC8-88C9AA129C2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{A620141C-B70B-40F8-9BC8-88C9AA129C2E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{A620141C-B70B-40F8-9BC8-88C9AA129C2E}.Release|Any CPU.Deploy.0 = Release|Any CPU
 		{E9A48AF0-FF77-4597-8834-729C864FD729}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{E9A48AF0-FF77-4597-8834-729C864FD729}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E9A48AF0-FF77-4597-8834-729C864FD729}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E9A48AF0-FF77-4597-8834-729C864FD729}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDF37A02-A8DE-48E3-B3B8-6E43C0E477B3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CDF37A02-A8DE-48E3-B3B8-6E43C0E477B3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CDF37A02-A8DE-48E3-B3B8-6E43C0E477B3}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{CDF37A02-A8DE-48E3-B3B8-6E43C0E477B3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CDF37A02-A8DE-48E3-B3B8-6E43C0E477B3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CDF37A02-A8DE-48E3-B3B8-6E43C0E477B3}.Release|Any CPU.Deploy.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

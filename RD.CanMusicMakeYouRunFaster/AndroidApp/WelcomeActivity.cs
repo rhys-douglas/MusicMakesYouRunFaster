@@ -1,4 +1,4 @@
-﻿namespace RD.CanMusicMakeYouRunFaster.AndroidApp
+﻿namespace AndroidApp
 {
     using Android.App;
     using Android.OS;
