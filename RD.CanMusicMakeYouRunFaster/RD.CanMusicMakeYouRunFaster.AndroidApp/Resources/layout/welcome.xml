@@ -13,7 +13,6 @@
         android:minHeight="25px"
         android:id="@+id/welcomeTextView"
         android:textAlignment="center"
-        android:layout_marginHorizontal="true"
         android:layout_marginTop="10px"/>
     <Button
         android:text="Get Started"
