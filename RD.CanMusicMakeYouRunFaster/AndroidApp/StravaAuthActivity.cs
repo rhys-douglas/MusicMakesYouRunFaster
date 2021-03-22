@@ -19,6 +19,10 @@
     DataScheme = "myapp")]
     public class StravaAuthActivity : Xamarin.Essentials.WebAuthenticatorCallbackActivity
     {
+        /// <summary>
+        /// StravaAuthActivity OnCreate method.
+        /// </summary>
+        /// <param name="savedInstanceState"></param>
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
@@ -28,11 +32,16 @@
             var authToken = "";
             spotifyAuthButton.Click += async (sender, o) =>
             {
+                infoTextVar.Text = "Wawaweewa";
                 var authResult = await WebAuthenticator.AuthenticateAsync(
                     new Uri("https://www.strava.com/oauth/token?client_id=61391&client_secret=8b0eb19e37bbbeffc8b8ba75efdb1b7f9c2cfc95&grant_type=authorization_code"),
                     new Uri("myapp://"));
                 authToken = authResult?.AccessToken;
                 infoTextVar.Text = authToken;
+                if (authToken != "")
+                {
+                    SetContentView(Resource.Layout.ConnectMusicServices);
+                }
             };
         }
     }

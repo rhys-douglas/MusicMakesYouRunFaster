@@ -9,6 +9,10 @@
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class WelcomeActivity : AppCompatActivity
     {
+        /// <summary>
+        ///  Welcome acivity OnCreate
+        /// </summary>
+        /// <param name="savedInstanceState"></param>
         protected override void OnCreate(Bundle savedInstanceState)
         {
             base.OnCreate(savedInstanceState);
