@@ -5,6 +5,7 @@
     using Android.Support.V7.App;
     using Android.Runtime;
     using Android.Widget;
+    using Android.Content;
 
     [Activity(Label = "@string/app_name", Theme = "@style/AppTheme", MainLauncher = true)]
     public class WelcomeActivity : AppCompatActivity
@@ -23,6 +24,8 @@
             continueButton.Click += (sender, e) =>
             {
                 SetContentView(Resource.Layout.ConnectRunningServices);
+                var stravaActivity = new Intent(this,typeof(StravaAuthActivity));
+                StartActivity(stravaActivity);
             };
         }
         public override void OnRequestPermissionsResult(int requestCode, string[] permissions, [GeneratedEnum] Android.Content.PM.Permission[] grantResults)
