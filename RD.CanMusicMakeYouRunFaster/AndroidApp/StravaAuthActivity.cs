@@ -4,34 +4,29 @@
     using Android.Content;
     using Android.Content.PM;
     using Android.OS;
-    using Android.Runtime;
-    using Android.Views;
+    using Android.Support.V7.App;
     using Android.Widget;
     using System;
-    using System.Collections.Generic;
-    using System.Json;
-    using System.Linq;
-    using System.Text;
     using Xamarin.Auth;
-    using Xamarin.Essentials;
 
-    [Activity(NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
+    [Activity(NoHistory = true, LaunchMode = LaunchMode.SingleTop, Label = "StravaAuthActivity")]
     [IntentFilter(new[] { Android.Content.Intent.ActionView },
     Categories = new[] { Android.Content.Intent.CategoryDefault, Android.Content.Intent.CategoryBrowsable },
     DataScheme = "myapp")]
-    public class StravaAuthActivity : Xamarin.Essentials.WebAuthenticatorCallbackActivity
+    public class StravaAuthActivity : AppCompatActivity
     {
-        Button stravaLoginButton;
-        TextView infoText;
+        Button stravaLoginButton = null;
+        TextView infoText = null;
 
         /// <summary>
         /// StravaAuthActivity OnCreate method.
         /// </summary>
-        /// <param name="savedInstanceState"> Saved instance state. </param>
-        protected override void OnCreate(Bundle savedInstanceState)
+        /// <param name="bundle"> Saved instance state. </param>
+        protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(savedInstanceState);
+            base.OnCreate(bundle);
             // Create your application here
+            SetContentView(Resource.Layout.ConnectRunningServices);
             stravaLoginButton = FindViewById<Button>(Resource.Id.stravaButton);
             infoText = FindViewById<TextView>(Resource.Id.runningInfoText);
             stravaLoginButton.Click += StravaButton_Click;

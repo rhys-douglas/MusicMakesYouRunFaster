@@ -13,17 +13,16 @@
         /// <summary>
         ///  Welcome acivity OnCreate
         /// </summary>
-        /// <param name="savedInstanceState"></param>
-        protected override void OnCreate(Bundle savedInstanceState)
+        /// <param name="bundle"></param>
+        protected override void OnCreate(Bundle bundle)
         {
-            base.OnCreate(savedInstanceState);
-            Xamarin.Essentials.Platform.Init(this, savedInstanceState);
+            base.OnCreate(bundle);
+            Xamarin.Essentials.Platform.Init(this, bundle);
             // Set our view from the "main" layout resource
             SetContentView(Resource.Layout.welcome);
             Button continueButton = FindViewById<Button>(Resource.Id.GetStartedButton);
             continueButton.Click += (sender, e) =>
             {
-                SetContentView(Resource.Layout.ConnectRunningServices);
                 var stravaActivity = new Intent(this,typeof(StravaAuthActivity));
                 StartActivity(stravaActivity);
             };
