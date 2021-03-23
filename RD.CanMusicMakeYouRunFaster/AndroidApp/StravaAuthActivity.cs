@@ -1,20 +1,23 @@
 ﻿namespace AndroidApp
 {
+    using System;
     using Android.App;
     using Android.Content;
     using Android.Content.PM;
     using Android.OS;
     using Android.Support.V7.App;
     using Android.Widget;
-    using System;
+    using SpotifyAPI.Web.Auth;
     using Xamarin.Auth;
 
-    [Activity(NoHistory = true, LaunchMode = LaunchMode.SingleTop, Label = "StravaAuthActivity")]
+    [Activity(NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
     [IntentFilter(new[] { Android.Content.Intent.ActionView },
     Categories = new[] { Android.Content.Intent.CategoryDefault, Android.Content.Intent.CategoryBrowsable },
     DataScheme = "myapp")]
     public class StravaAuthActivity : AppCompatActivity
     {
+        private static readonly EmbedIOAuthServer StravaAuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5001/stravatoken"), 5001);
+
         Button stravaLoginButton = null;
         TextView infoText = null;
 
@@ -32,8 +35,9 @@
             stravaLoginButton.Click += StravaButton_Click;
         }
 
-        private void StravaButton_Click(object sender, EventArgs e)
+        private async void StravaButton_Click(object sender, EventArgs e)
         {
+            await StravaAuthServer.Start();
             var auth = new OAuth2Authenticator(
                 "61391",
                 "8b0eb19e37bbbeffc8b8ba75efdb1b7f9c2cfc95",
@@ -50,6 +54,7 @@
         {
             if (e.IsAuthenticated)
             {
+                await StravaAuthServer.Stop();
                 var request = new OAuth2Request(
                     "GET",
                     new Uri("https://www.strava.com/api/v3/athlete/activities" 
