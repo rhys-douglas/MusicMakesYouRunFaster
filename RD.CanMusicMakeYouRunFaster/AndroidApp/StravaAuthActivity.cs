@@ -11,6 +11,7 @@
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    using Xamarin.Auth;
     using Xamarin.Essentials;
 
     [Activity(NoHistory = true, LaunchMode = LaunchMode.SingleTop)]
@@ -19,6 +20,9 @@
     DataScheme = "myapp")]
     public class StravaAuthActivity : Xamarin.Essentials.WebAuthenticatorCallbackActivity
     {
+        Button stravaLoginButton;
+        TextView infoText;
+
         /// <summary>
         /// StravaAuthActivity OnCreate method.
         /// </summary>
@@ -27,22 +31,25 @@
         {
             base.OnCreate(savedInstanceState);
             // Create your application here
-            Button spotifyAuthButton = FindViewById<Button>(Resource.Id.spotifyButton);
-            var infoTextVar = FindViewById<TextView>(Resource.Id.runningInfoText);
-            var authToken = "";
-            spotifyAuthButton.Click += async (sender, o) =>
+            stravaLoginButton = FindViewById<Button>(Resource.Id.spotifyButton);
+            infoText = FindViewById<TextView>(Resource.Id.runningInfoText);
+            stravaLoginButton.Click += StravaButton_Click;
+        }
+
+        private void StravaButton_Click(object sender, EventArgs e)
+        {
+            var auth = new OAuth2Authenticator("61391","SCOPE",new Uri(""), new Uri(""));
+            auth.Completed += StravaAuth_Completed;
+            var ui = auth.GetUI(this);
+            StartActivity(ui);
+        }
+
+        private void StravaAuth_Completed(object sender, AuthenticatorCompletedEventArgs e)
+        {
+            if (e.IsAuthenticated)
             {
-                infoTextVar.Text = "Wawaweewa";
-                var authResult = await WebAuthenticator.AuthenticateAsync(
-                    new Uri("https://www.strava.com/oauth/token?client_id=61391&client_secret=8b0eb19e37bbbeffc8b8ba75efdb1b7f9c2cfc95&grant_type=authorization_code"),
-                    new Uri("myapp://"));
-                authToken = authResult?.AccessToken;
-                infoTextVar.Text = authToken;
-                if (authToken != "")
-                {
-                    SetContentView(Resource.Layout.ConnectMusicServices);
-                }
-            };
+                var authrequest = new OAuth2Request("GET", new Uri(""), null, e.Account);
+            }
         }
     }
 }

@@ -17,6 +17,9 @@
         public void SetUp(ExternalAPIGateway externalApiGateway)
         {
             this.externalAPIGateway = externalApiGateway;
+            
+            // Set up app?
+
         }
 
         /// <inheritdoc/>
