@@ -65,6 +65,8 @@
                 var stravaResponse = await request.GetResponseAsync();
                 var json = stravaResponse.GetResponseText();
                 infoText.Text += json;
+                var stravaActivity = new Intent(this, typeof(StravaAuthActivity));
+                StartActivity(stravaActivity);
             }
         }
     }

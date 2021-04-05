@@ -13,4 +13,12 @@
     <PackageReference Include="Xamarin.UITest" Version="3.0.15" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\AndroidApp\AndroidApp.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="ActivityTests\" />
+  </ItemGroup>
+
 </Project>
