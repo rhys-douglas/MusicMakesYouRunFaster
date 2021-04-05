@@ -2,6 +2,7 @@
 {
     using Android.App;
     using Android.Content;
+    using Android.Content.PM;
     using Android.OS;
     using Android.Runtime;
     using Android.Views;
@@ -17,11 +18,25 @@
     DataScheme = "myapp")]
     public class SpotifyAuthActivity : Activity
     {
-        protected override void OnCreate(Bundle savedInstanceState)
-        {
-            base.OnCreate(savedInstanceState);
+        Button spotifyLoginButton = null;
+        TextView infoText = null;
 
-            // Create your application here
+        /// <summary>
+        /// SpotifyAuthActivity OnCreate method.
+        /// </summary>
+        /// <param name="bundle"> Saved instance state. </param>
+        protected override void OnCreate(Bundle bundle)
+        {
+            base.OnCreate(bundle);
+            SetContentView(Resource.Layout.ConnectMusicServices);
+            spotifyLoginButton = FindViewById<Button>(Resource.Id.spotifyButton);
+            infoText = FindViewById<TextView>(Resource.Id.musicInfoText);
+            spotifyLoginButton.Click += SpotifyButton_Click;
+        }
+
+        private async void SpotifyButton_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

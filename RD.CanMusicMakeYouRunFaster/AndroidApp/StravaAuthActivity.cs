@@ -57,16 +57,15 @@
                 await StravaAuthServer.Stop();
                 var request = new OAuth2Request(
                     "GET",
-                    new Uri("https://www.strava.com/api/v3/athlete/activities" 
-                    + "&access_token=" + e.Account.Properties["access_token"]), 
+                    new Uri("https://www.strava.com/api/v3/athlete/activities"), 
                     null, 
                     e.Account);
 
                 var stravaResponse = await request.GetResponseAsync();
                 var json = stravaResponse.GetResponseText();
                 infoText.Text += json;
-                var stravaActivity = new Intent(this, typeof(StravaAuthActivity));
-                StartActivity(stravaActivity);
+                var spotifyActivity = new Intent(this, typeof(SpotifyAuthActivity));
+                StartActivity(spotifyActivity);
             }
         }
     }
