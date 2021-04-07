@@ -41,7 +41,7 @@
                 "a325e33f157345ca90d9477b5a7f2f7e",
                 "user-read-private,user-read-recently-played",
                 new Uri("https://accounts.spotify.com/authorize"),
-                new Uri("http://localhost:5000/spotifyToken"),
+                new Uri("http://localhost:5000/spotifytoken"),
                 new Uri("https://accounts.spotify.com/api/token"));
             auth.Completed += SpotifyAuth_Completed;
             var ui = auth.GetUI(this);
@@ -65,41 +65,4 @@
             }
         }
     }
-
-    /*
-     var authToken = string.Empty;
-
-            var (verifier, challenge) = PKCEUtil.GenerateCodes();
-            await SpotifyAuthServer.Start();
-
-            // Temporary auth server lsitens for Spotify callback.
-            SpotifyAuthServer.AuthorizationCodeReceived += async (sender, response) =>
-            {
-                await SpotifyAuthServer.Stop();
-                PKCETokenResponse token = await new OAuthClient().RequestToken(
-                  new PKCETokenRequest(SpotifyClientId, response.Code, SpotifyAuthServer.BaseUri, verifier));
-                authToken = JsonConvert.SerializeObject(token);
-            };
-
-            // Make spotify auth call.
-            var request = new LoginRequest(SpotifyAuthServer.BaseUri, SpotifyClientId, LoginRequest.ResponseType.Code)
-            {
-                CodeChallenge = challenge,
-                CodeChallengeMethod = "S256",
-                Scope = new List<string> { UserReadPrivate, UserReadRecentlyPlayed }
-            };
-
-            Uri uri = request.ToUri();
-            try
-            {
-                BrowserUtil.Open(uri);
-                Task.Delay(10000).Wait();
-            }
-            catch (Exception)
-            {
-                Console.WriteLine("Unable to open URL, manually open: {0}", uri);
-            }
-
-            return new JsonResult(authToken);
-    */
 }
