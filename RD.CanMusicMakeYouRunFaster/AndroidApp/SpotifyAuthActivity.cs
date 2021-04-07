@@ -62,6 +62,8 @@
                 var stravaResponse = await request.GetResponseAsync();
                 var json = stravaResponse.GetResponseText();
                 infoText.Text += json;
+                var datePickActivity = new Intent(this, typeof(PickDateActivity));
+                StartActivity(datePickActivity);
             }
         }
     }

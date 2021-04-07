@@ -22,14 +22,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/endDateInfoText" />
-    <Button
-        android:text="Continue"
-        android:layout_below="@id/endDateInfoText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:id="@+id/continueButton" />
     <RelativeLayout
         android:minWidth="25px"
         android:minHeight="25px"
@@ -38,27 +30,25 @@
         android:layout_above="@+id/endDateInfoText"
         android:layout_below="@+id/startDateInfoText"
         android:id="@+id/topLayout">
-        <EditText
-            android:inputType="date"
+        <Button
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:id="@+id/startDate" />
+            android:text="Click here to set a start date"
+            android:id="@+id/startDateButton" />
     </RelativeLayout>
     <RelativeLayout
         android:minWidth="25px"
         android:minHeight="25px"
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/continueButton"
         android:layout_below="@+id/endDateInfoText"
-        android:layout_toLeftOf="@id/startDateInfoText"
         android:id="@+id/BottomLayout">
-    <EditText
-        android:inputType="date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:id="@+id/endDate" />
+        <Button
+            android:text="Click here to set an end date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:id="@+id/endDateButton" />
     </RelativeLayout>
 </RelativeLayout>
