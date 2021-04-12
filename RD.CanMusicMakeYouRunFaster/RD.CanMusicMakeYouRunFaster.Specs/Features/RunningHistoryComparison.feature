@@ -50,11 +50,11 @@ Scenario: Compare Listening And Running History
 
 @EDF-0-DateRange-Comparison
 Scenario: Compare Listening and Running History with date range
-Given a user <user>
-	And their running history
-	And their listening history
-	When the user's recent running history is requested
-	And the user's recently played history based on their running history is requested
+	Given a user <user>
+	And their Strava running history
+	And their Spotify listening history
+	When the user's Strava recent running history is requested
+	And the user's Spotify recently played history based on their running history is requested
 	And the comparison between running and listening history is made using a specified date range
 	Then the user's top tracks for running faster are produced
 	|Song name							  |
@@ -62,3 +62,20 @@ Given a user <user>
 	| Can't Hold Us                       |
 	| Starboy		                      |
 	| Beautiful Day	                      |
+
+@EDS-1-Multiple-Data-Source-Comparisson
+Scenario: Compare Listening and Running History with date range AND multiple data sources.
+	Given a user <user>
+	And their Strava running history
+	And their FitBit running history
+	And their Spotify listening history
+	And their Last.FM listening history
+	When the user's Strava recent running history is requested
+	And the user's FitBit recent running history is requested
+	And the user's recently played history based on their running history is requested
+	And the comparison between running and listening history is made using a specified date range
+	Then the user's top tracks for running faster are produced
+	|Song name		|
+	|Superheroes	|
+	|Yesterday		|
+	|Mains			|

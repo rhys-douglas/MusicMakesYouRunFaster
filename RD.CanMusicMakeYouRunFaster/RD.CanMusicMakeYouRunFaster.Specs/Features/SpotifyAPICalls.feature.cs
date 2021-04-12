@@ -77,51 +77,51 @@ namespace RD.CanMusicMakeYouRunFaster.Specs.Features
         {
 #line 3
 #line hidden
-            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                         "user"});
-            table6.AddRow(new string[] {
+            table8.AddRow(new string[] {
                         "User1"});
 #line 4
-testRunner.Given("a list of users", ((string)(null)), table6, "Given ");
+testRunner.Given("a list of users", ((string)(null)), table8, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "user",
                         "Song name",
                         "Time of listening"});
-            table7.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "User1",
                         "The Chain - 2004 Remaster",
                         "15/02/2021 15:45:30"});
-            table7.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "User1",
                         "I Want To Break Free - Single Remix",
                         "15/02/2021 15:40:01"});
-            table7.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "User1",
                         "Good Vibrations - Remastered",
                         "15/02/2021 15:30:59"});
-            table7.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "User1",
                         "Dreams - 2004 Remaster",
                         "15/02/2021 00:05:00"});
-            table7.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "User1",
                         "Stayin Alive",
                         "14/02/2021 23:59:59"});
 #line 8
-testRunner.Given("a list of listening history", ((string)(null)), table7, "Given ");
+testRunner.Given("a list of Spotify listening history", ((string)(null)), table9, "Given ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Get User\'s listening history")]
+        [NUnit.Framework.DescriptionAttribute("Get User\'s Spotify listening history")]
         [NUnit.Framework.CategoryAttribute("MVP-0-Add-Spotify-API-Call")]
-        public virtual void GetUsersListeningHistory()
+        public virtual void GetUsersSpotifyListeningHistory()
         {
             string[] tagsOfScenario = new string[] {
                     "MVP-0-Add-Spotify-API-Call"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get User\'s listening history", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get User\'s Spotify listening history", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 18
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -149,13 +149,13 @@ this.FeatureBackground();
  testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 20
- testRunner.And("their listening history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("their Spotify listening history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 21
- testRunner.When("the user\'s recently played history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the user\'s Spotify recently played history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 22
- testRunner.Then("the user\'s recently played history is produced", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the user\'s Spotify recently played history is produced", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

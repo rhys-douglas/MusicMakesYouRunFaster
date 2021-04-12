@@ -77,49 +77,49 @@ namespace RD.CanMusicMakeYouRunFaster.Specs.Features
         {
 #line 3
 #line hidden
-            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "user"});
-            table8.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "User1"});
 #line 4
-testRunner.Given("a list of users", ((string)(null)), table8, "Given ");
+testRunner.Given("a list of users", ((string)(null)), table10, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
                         "user",
                         "Activity Name",
                         "Time of activity start",
                         "Elapsed Time of Activity (s)",
                         "Activity Id",
                         "Average Pace (m/s)"});
-            table9.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "User1",
                         "Cardiff Friday Morning Run",
                         "15/03/2021 12:00:00",
                         "4410",
                         "1",
                         "4.5"});
-            table9.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "User1",
                         "Oxford Half Marathon",
                         "14/03/2021 08:00:00",
                         "9000",
                         "2",
                         "4.6"});
-            table9.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "User1",
                         "Roath Lake Midnight Run",
                         "13/03/2021 23:39:59",
                         "4410",
                         "3",
                         "4.2"});
-            table9.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "User1",
                         "Late Night Run",
                         "10/03/2021 00:05:00",
                         "1280",
                         "4",
                         "1.6"});
-            table9.AddRow(new string[] {
+            table11.AddRow(new string[] {
                         "User1",
                         "Test Run",
                         "01/01/2021 23:59:59",
@@ -127,19 +127,19 @@ testRunner.Given("a list of users", ((string)(null)), table8, "Given ");
                         "5",
                         "0.0"});
 #line 8
-testRunner.Given("a list of running history", ((string)(null)), table9, "Given ");
+testRunner.Given("a list of Strava running history", ((string)(null)), table11, "Given ");
 #line hidden
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Get User\'s Running History")]
+        [NUnit.Framework.DescriptionAttribute("Get User\'s Strava Running History")]
         [NUnit.Framework.CategoryAttribute("MVP-4-Add-Strava-API-Call")]
-        public virtual void GetUsersRunningHistory()
+        public virtual void GetUsersStravaRunningHistory()
         {
             string[] tagsOfScenario = new string[] {
                     "MVP-4-Add-Strava-API-Call"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get User\'s Running History", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get User\'s Strava Running History", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 17
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
@@ -167,13 +167,13 @@ this.FeatureBackground();
  testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 19
- testRunner.And("their running history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("their Strava running history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 20
- testRunner.When("the user\'s recent running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+ testRunner.When("the user\'s recent Strava running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
 #line 21
- testRunner.Then("the user\'s recent running history is produced", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
+ testRunner.Then("the user\'s recent Strava running history is produced", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

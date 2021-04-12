@@ -9,19 +9,19 @@
     using NUnit.Framework;
 
     [Binding]
-    public class StravaHistorySteps
+    public class RunningHistorySteps
     {
         private readonly IClientDriver clientDriver;
         private readonly DataPort dataSource;
 
-        public StravaHistorySteps(IClientDriver clientDriver, DataPort dataSource)
+        public RunningHistorySteps(IClientDriver clientDriver, DataPort dataSource)
         {
             this.clientDriver = clientDriver;
             this.dataSource = dataSource;
         }
 
 
-        [Given(@"their running history")]
+        [Given(@"their FitBit running history")]
         public void GivenTheirRunningHistory()
         {
             // Do something
@@ -31,6 +31,19 @@
         public void WhenTheUsersRunningHistoryIsRequested()
         {
             clientDriver.GetRecentActivities();
+        }
+
+        [When(@"When the user's recent FitBit running history is requested")]
+        public void WhenTheUsersFitBitRunningHistoryIsRequested()
+        {
+            var acquiredItems = clientDriver.GetFoundItems();
+            var actualRunningHistory = new List<object>();
+        }
+
+        [Then(@"Then the user's recent FitBit running history is produced")]
+        public void ThenTheUsersFitBitRunningHistoryIsProduced()
+        {
+            Assert.Fail();
         }
 
         [Then(@"the user's recent running history is produced")]

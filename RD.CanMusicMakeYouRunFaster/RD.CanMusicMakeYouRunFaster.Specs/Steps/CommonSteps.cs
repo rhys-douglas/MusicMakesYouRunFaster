@@ -256,6 +256,12 @@
             dataSource.AddRunningHistory(fakeRunningHistory);
         }
 
+        [Given(@"a list of FitBit running history")]
+        public void GivenAListOfFitBitRunningHistory(Table table)
+        {
+
+        }
+
         [Given(@"a list of users")]
         public void GivenAListOfUsers(Table table)
         {
