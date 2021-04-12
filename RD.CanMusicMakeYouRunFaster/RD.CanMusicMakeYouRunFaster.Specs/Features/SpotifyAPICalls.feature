@@ -5,7 +5,7 @@ Given a list of users
 | user      |
 | User1		|
 
-Given a list of listening history
+Given a list of Spotify listening history
 | user  | Song name                           | Time of listening   |
 | User1 | The Chain - 2004 Remaster           | 15/02/2021 15:45:30 |
 | User1 | I Want To Break Free - Single Remix | 15/02/2021 15:40:01 |
@@ -15,8 +15,8 @@ Given a list of listening history
 
 
 @MVP-0-Add-Spotify-API-Call
-Scenario Outline: Get User's listening history
+Scenario Outline: Get User's Spotify listening history
 	Given a user <user>
-	And their listening history 
-	When the user's recently played history is requested
-	Then the user's recently played history is produced
+	And their Spotify listening history 
+	When the user's Spotify recently played history is requested
+	Then the user's Spotify recently played history is produced

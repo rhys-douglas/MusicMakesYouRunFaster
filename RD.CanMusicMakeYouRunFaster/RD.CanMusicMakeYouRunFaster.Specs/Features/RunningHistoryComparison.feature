@@ -5,7 +5,7 @@ Given a list of users
 | user      |
 | User1		|
 
-Given a list of running history
+Given a list of Strava running history
 | user  | Activity Name                           | Time of activity start | Elapsed Time of Activity (s)  | Activity Id | Average Pace (m/s) |
 | User1 | Cardiff Friday Morning Run			  | 15/03/2021 12:00:00	   | 4410						   | 1			 | 4.5				  |
 | User1 | Oxford Half Marathon					  | 14/03/2021 08:00:00	   | 9000						   | 2			 | 4.6                |
@@ -13,7 +13,7 @@ Given a list of running history
 | User1 | Late Night Run						  | 10/03/2021 00:05:00    | 1280						   | 4			 | 1.6				  |
 | User1 | Test Run								  | 01/01/2021 23:59:59    | 60							   | 5			 | 0.0				  |  
 
-Given a list of listening history
+Given a list of Spotify listening history
 | user  | Song name                           | Time of listening   |
 | User1 | The Chain - 2004 Remaster           | 15/03/2021 12:00:05 |
 | User1 | I Want To Break Free - Single Remix | 15/03/2021 12:03:30 |
@@ -35,10 +35,10 @@ Given a list of listening history
 @MVP-5-Single-Date-Comparison
 Scenario: Compare Listening And Running History
 	Given a user <user>
-	And their running history
-	And their listening history
-	When the user's recent running history is requested
-	And the user's recently played history based on their running history is requested
+	And their Strava running history
+	And their Spotify listening history
+	When the user's recent Strava running history is requested
+	And the user's Spotify recently played history based on their Strava running history is requested
 	And the comparison between running and listening history is made
 	Then the user's top tracks for running faster are produced
 	|Song name							|

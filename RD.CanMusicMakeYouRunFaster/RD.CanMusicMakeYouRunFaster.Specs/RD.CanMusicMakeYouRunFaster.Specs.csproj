@@ -48,6 +48,9 @@
     <Compile Update="Features\RunningHistoryComparison.feature.cs">
       <DependentUpon>RunningHistoryComparison.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\FitBitAPICalls.feature.cs">
+      <DependentUpon>FitBitAPICalls.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\StravaAPICalls.feature.cs">
       <DependentUpon>StravaAPICalls.feature</DependentUpon>
     </Compile>
@@ -55,6 +58,10 @@
 
   <ItemGroup>
     <SpecFlowFeatureFiles Update="Features\RunningHistoryComparison.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\FitBitAPICalls.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
