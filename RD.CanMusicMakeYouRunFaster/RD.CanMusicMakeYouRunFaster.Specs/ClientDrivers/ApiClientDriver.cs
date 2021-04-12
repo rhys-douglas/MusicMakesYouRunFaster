@@ -67,6 +67,17 @@
             }
         }
 
+        public void GetRecentFitBitActivities()
+        {
+            externalAPIGateway.GetFitBitAuthenticationToken();
+            var searchResult = externalAPIGateway.GetFitBitRecentActivities();
+            var activityHistoryContainer = (List<object>)searchResult.Value;
+            foreach (var activity in activityHistoryContainer)
+            {
+                searchResults.Add(activity);
+            }
+        }
+
         /// <inheritdoc/>
         public List<object> GetFoundItems()
         {

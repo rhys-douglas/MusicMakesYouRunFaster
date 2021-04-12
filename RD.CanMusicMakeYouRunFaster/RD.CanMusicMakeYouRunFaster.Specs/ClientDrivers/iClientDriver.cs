@@ -26,6 +26,11 @@
         void GetRecentActivities();
 
         /// <summary>
+        /// Request activity data from the FitBit API.
+        /// </summary>
+        void GetRecentFitBitActivities();
+
+        /// <summary>
         /// Returns a list of items found from previous queries.
         /// </summary>
         /// <returns> A list of found items. </returns>

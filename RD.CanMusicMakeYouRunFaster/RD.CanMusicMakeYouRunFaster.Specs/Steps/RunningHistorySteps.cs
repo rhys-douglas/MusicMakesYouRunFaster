@@ -36,8 +36,7 @@
         [When(@"When the user's recent FitBit running history is requested")]
         public void WhenTheUsersFitBitRunningHistoryIsRequested()
         {
-            var acquiredItems = clientDriver.GetFoundItems();
-            var actualRunningHistory = new List<object>();
+            clientDriver.GetRecentFitBitActivities();
         }
 
         [Then(@"Then the user's recent FitBit running history is produced")]
