@@ -140,6 +140,12 @@
       <SubType>Designer</SubType>
     </AndroidResource>
   </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\RD.CanMusicMakeYouRunFaster.Rest\RD.CanMusicMakeYouRunFaster.Rest.csproj">
+      <Project>{f6f11575-08e4-4112-af27-9b02801e32b3}</Project>
+      <Name>RD.CanMusicMakeYouRunFaster.Rest</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath)\Xamarin\Android\Xamarin.Android.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
     Other similar extension points exist, see Microsoft.Common.targets.
