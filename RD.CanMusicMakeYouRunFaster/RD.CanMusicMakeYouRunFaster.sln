@@ -17,9 +17,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster.Rest.UnitTests", "RD.CanMusicMakeYouRunFaster.Rest.UnitTests\RD.CanMusicMakeYouRunFaster.Rest.UnitTests.csproj", "{314C9E04-0826-4223-9F8A-63B31AC3AFEC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.CanMusicMakeYouRunFaster.ComparisonLogic", "RD.CanMusicMakeYouRunFaster.ComparisonLogic\RD.CanMusicMakeYouRunFaster.ComparisonLogic.csproj", "{4AD8C59C-1108-4A33-A8ED-9477CFCCD6EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster.ComparisonLogic", "RD.CanMusicMakeYouRunFaster.ComparisonLogic\RD.CanMusicMakeYouRunFaster.ComparisonLogic.csproj", "{4AD8C59C-1108-4A33-A8ED-9477CFCCD6EE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.CanMusicMakeYouRunFaster.ComparisonLogic.UnitTests", "RD.CanMusicMakeYouRunFaster.ComparisonLogic.UnitTests\RD.CanMusicMakeYouRunFaster.ComparisonLogic.UnitTests.csproj", "{AC1FC22D-359A-4EC4-9F67-C432ED98BA47}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster.ComparisonLogic.UnitTests", "RD.CanMusicMakeYouRunFaster.ComparisonLogic.UnitTests\RD.CanMusicMakeYouRunFaster.ComparisonLogic.UnitTests.csproj", "{AC1FC22D-359A-4EC4-9F67-C432ED98BA47}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

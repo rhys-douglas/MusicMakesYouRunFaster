@@ -34,16 +34,32 @@
             clientDriver.GetRecentlyPlayedMusicForActivities();
         }
 
+        [When(@"the comparison between running and listening history is made using a specified date range")]
+        public void WhenTheComparsionBetweenRunningAndListeningHistoryIsMadeWithASpecifiedDateRange()
+        {
+            var startDate = new DateTime(2021, 03, 13);
+            var endDate = new DateTime(2021, 03, 15);
+            clientDriver.MakeRunningAndListeningHistoryComparisonWithDateRange(startDate, endDate);
+        }
+
         [Then(@"the user's top tracks for running faster are produced")]
-        public void ThenTheUsersTopTracksForRunningFasterAreProduced()
+        public void ThenTheUsersTopTracksForRunningFasterAreProduced(Table table)
         {
             var resultAsDictionary = clientDriver.GetFastestTracks();
             var resultAsSinglePair = resultAsDictionary.First();
             resultAsSinglePair.Should().NotBeNull();
-            resultAsSinglePair.Key.name.Should().Be("Cardiff Friday Morning Run");
-            resultAsSinglePair.Key.average_speed.Should().Be(4.5);
-            resultAsSinglePair.Value.Count.Should().Be(5);
-            resultAsSinglePair.Value.First().Track.Name.Should().Be("The Chain - 2004 Remaster");
+            var listOfSongNames = new List<string>();
+            foreach (var item in resultAsSinglePair.Value)
+            {
+                listOfSongNames.Add(item.Track.Name);
+            }
+
+            var listOfExpectedSongNames = new List<string>();
+            foreach(var item in table.Rows)
+            {
+                listOfExpectedSongNames.Add(item[0]);
+            }
+            listOfSongNames.Should().BeEquivalentTo(listOfExpectedSongNames);
         }
     }
 }

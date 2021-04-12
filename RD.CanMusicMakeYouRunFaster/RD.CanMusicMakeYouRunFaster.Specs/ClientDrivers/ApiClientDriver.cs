@@ -87,6 +87,15 @@
         }
 
         /// <inheritdoc/>
+        public void MakeRunningAndListeningHistoryComparisonWithDateRange(DateTime startDate, DateTime endDate)
+        {
+            var subsetMappedSongsToActivities = activitiesAndSongs.Where(s => s.Key.start_date.Date >= startDate.Date && s.Key.start_date.Date <= endDate )
+                .ToDictionary(dict => dict.Key, dict => dict.Value);
+            var insightsManager = new InsightsManager();
+            fastestActivity = insightsManager.GetFastestActivityWithListeningHistory(subsetMappedSongsToActivities);
+        }
+
+        /// <inheritdoc/>
         public Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>> GetFastestTracks()
         {
             return fastestActivity;
