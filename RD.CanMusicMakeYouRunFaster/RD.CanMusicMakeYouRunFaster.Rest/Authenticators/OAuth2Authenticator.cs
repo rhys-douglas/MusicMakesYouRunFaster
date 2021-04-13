@@ -60,7 +60,7 @@
             {
                 await StravaAuthServer.Stop();
                 exchangeToken = response.Code;
-                var client = new RestClient("https://api.fitbit.com/oauth2/token?client_id=22CCZ8&grant_type=authorization_code");
+                var client = new RestClient("https://api.fitbit.com/oauth2/token?client_id=22CCZ8&grant_type=authorization_code&redirect_uri=http://localhost:5002/fitbittoken");
                 var request = new RestRequest(Method.POST);
                 request.AddHeader("Authorization", "Basic MjJDQ1o4OmQ3M2YzMzhiNzEyMWQzNDdkYTM2YmU5NTAwMGM5NTli");
                 request.AddParameter("code", exchangeToken);

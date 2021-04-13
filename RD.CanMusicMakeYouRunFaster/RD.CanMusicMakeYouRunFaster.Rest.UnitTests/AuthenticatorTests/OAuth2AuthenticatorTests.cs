@@ -36,7 +36,6 @@
             retrievedJsonResult.Result.Should().NotBeNull();
             retrievedJsonResult.Result.AccessToken.Should().NotBeNullOrEmpty();
             retrievedJsonResult.Result.RefreshToken.Should().NotBeNullOrEmpty();
-            retrievedJsonResult.Result.UserId.Should().NotBeNull();
         }
     }
 }
