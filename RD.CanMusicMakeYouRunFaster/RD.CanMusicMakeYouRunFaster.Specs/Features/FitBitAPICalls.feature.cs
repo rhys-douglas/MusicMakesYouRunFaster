@@ -127,7 +127,7 @@ testRunner.Given("a list of users", ((string)(null)), table1, "Given ");
                         "5",
                         "0.0"});
 #line 8
-testRunner.Given("a list of running history", ((string)(null)), table2, "Given ");
+testRunner.Given("a list of FitBit running history", ((string)(null)), table2, "Given ");
 #line hidden
         }
         

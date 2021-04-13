@@ -77,39 +77,39 @@ namespace RD.CanMusicMakeYouRunFaster.Specs.Features
         {
 #line 3
 #line hidden
-            TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                         "user"});
-            table8.AddRow(new string[] {
+            table9.AddRow(new string[] {
                         "User1"});
 #line 4
-testRunner.Given("a list of users", ((string)(null)), table8, "Given ");
+testRunner.Given("a list of users", ((string)(null)), table9, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                         "user",
                         "Song name",
                         "Time of listening"});
-            table9.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "User1",
                         "The Chain - 2004 Remaster",
                         "15/02/2021 15:45:30"});
-            table9.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "User1",
                         "I Want To Break Free - Single Remix",
                         "15/02/2021 15:40:01"});
-            table9.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "User1",
                         "Good Vibrations - Remastered",
                         "15/02/2021 15:30:59"});
-            table9.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "User1",
                         "Dreams - 2004 Remaster",
                         "15/02/2021 00:05:00"});
-            table9.AddRow(new string[] {
+            table10.AddRow(new string[] {
                         "User1",
                         "Stayin Alive",
                         "14/02/2021 23:59:59"});
 #line 8
-testRunner.Given("a list of Spotify listening history", ((string)(null)), table9, "Given ");
+testRunner.Given("a list of Spotify listening history", ((string)(null)), table10, "Given ");
 #line hidden
         }
         

@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
+    using System;
 
     /// <summary>
     /// Controller used to handle HTTP requests to the backend / external API's.
@@ -13,6 +14,7 @@
         private readonly IDataRetrievalSource dataSource;
         private SpotifyAuthenticationToken spotifyAuthToken;
         private StravaAuthenticationToken stravaAuthToken;
+        private FitBitAuthenticationToken fitBitAuthToken;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExternalAPIGateway"/> class.
@@ -46,10 +48,22 @@
         /// <returns> Strava authentication token</returns>
         public JsonResult GetStravaAuthenticationToken()
         {
-            var stravaAuthenticationTokenAsJson = this.dataSource.GetStravaAuthenticationToken().Result;
+            var stravaAuthenticationTokenAsJson = dataSource.GetStravaAuthenticationToken().Result;
             var temp = JsonConvert.SerializeObject(stravaAuthenticationTokenAsJson.Value);
             stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>(temp);
             return new JsonResult(stravaAuthToken);
+        }
+
+        /// <summary>
+        /// Gets the FitBit authentication token.
+        /// </summary>
+        /// <returns>A FitBit auth token.</returns>
+        public JsonResult GetFitBitAuthenticationToken()
+        {
+            var fitBitAuthenticationTokenAsJson = dataSource.GetFitBitAuthenticationToken().Result;
+            var tempSerialize = JsonConvert.SerializeObject(fitBitAuthenticationTokenAsJson.Value);
+            fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>(tempSerialize);
+            return new JsonResult(fitBitAuthToken);
         }
 
         /// <summary>
@@ -69,6 +83,11 @@
         public JsonResult GetSpotifyRecentlyPlayed(long? after = null)
         {
             return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken, after).Result;
+        }
+
+        public JsonResult GetFitBitRecentActivities()
+        {
+            throw new NotImplementedException();
         }
     }
 }

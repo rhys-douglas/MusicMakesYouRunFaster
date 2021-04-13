@@ -31,7 +31,7 @@
         public async Task<JsonResult> GetSpotifyAuthenticationToken()
         {
             var (challenge, verifier) = PKCEUtil.GenerateCodes();
-            await Task.Delay(1);
+            await Task.Delay(0);
             FakeResponseServer.DTO.Request.PKCETokenRequest tokenRequest = new FakeResponseServer.DTO.Request.PKCETokenRequest
             {
                 ClientId = "Some client id",
@@ -53,10 +53,16 @@
         /// <inheritdoc/>
         public async Task<JsonResult> GetStravaAuthenticationToken()
         {
-            await Task.Delay(1);
+            await Task.Delay(0);
             var exchangeTokenResponse = externalAPICaller.Get<FakeResponseServer.DTO.StravaExchangeTokenResponse>(new Uri("http://localhost:2222/oauth/authorize?client_id=1234&response_type=code&approval_prompt=force&scope=read,activity:read_all&redirect_uri=localhost:5000/callback"));
             var authTokenResponse = externalAPICaller.Get<FakeResponseServer.DTO.StravaAuthenticationTokenResponse>(new Uri("http://localhost:2222/oauth/token?client_id=1234&client_secret=23456&grant_type=authorization_code&code=" + exchangeTokenResponse.code));
             return new JsonResult(authTokenResponse);
+        }
+
+        public async Task<JsonResult> GetFitBitAuthenticationToken()
+        {
+            await Task.Delay(0);
+            throw new NotImplementedException();
         }
 
         /// <inheritdoc/>
@@ -114,7 +120,7 @@
         /// <inheritdoc/>
         public async Task<JsonResult> GetStravaActivityHistory(StravaAuthenticationToken authToken)
         {
-            await Task.Delay(1);
+            await Task.Delay(0);
             var activityHistory = externalAPICaller.Get<List<FakeResponseServer.DTO.Activity>>(new Uri("http://localhost:2222/v3/athlete/activities"));
             var correctActivityHistory = new List<Activity>();
             foreach (var item in activityHistory)
@@ -201,6 +207,12 @@
                 });
             }
             return new JsonResult(correctActivityHistory);
+        }
+
+        public async Task<JsonResult> GetFitBitRecentActivities(FitBitAuthenticationToken authToken)
+        {
+            await Task.Delay(0);
+            throw new NotImplementedException();
         }
     }
 }

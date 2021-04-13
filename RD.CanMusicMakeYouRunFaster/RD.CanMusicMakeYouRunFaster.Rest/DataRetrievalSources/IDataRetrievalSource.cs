@@ -12,7 +12,7 @@
         /// <summary>
         /// Gets the Spotify authentication token
         /// </summary>
-        /// <returns> Json of a valid Authentication Token</returns>
+        /// <returns> Json of a valid authentication token. </returns>
         Task<JsonResult> GetSpotifyAuthenticationToken();
 
         /// <summary>
@@ -26,7 +26,7 @@
         /// <summary>
         /// Gets the Strava authentication token
         /// </summary>
-        /// <returns> Json of a valid Authentication Token</returns>
+        /// <returns> Json of a valid authentication token. </returns>
         Task<JsonResult> GetStravaAuthenticationToken();
 
         /// <summary>
@@ -34,5 +34,11 @@
         /// </summary>
         /// <returns> Json of activity history </returns>
         Task<JsonResult> GetStravaActivityHistory(StravaAuthenticationToken authToken);
+
+        /// <summary>
+        /// Gets a FitBit authentication token
+        /// </summary>
+        /// <returns> Json of a valid authentication token. </returns>
+        Task<JsonResult> GetFitBitAuthenticationToken();
     }
 }

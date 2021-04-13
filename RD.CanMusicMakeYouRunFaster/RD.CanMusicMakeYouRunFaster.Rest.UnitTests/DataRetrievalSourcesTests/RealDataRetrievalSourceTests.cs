@@ -13,6 +13,7 @@
     {
         private SpotifyAuthenticationToken spotifyAuthenticationToken;
         private StravaAuthenticationToken stravaAuthenticationToken;
+        private FitBitAuthenticationToken fitBitAuthenticationToken;
         private IDataRetrievalSource sut;
 
         [OneTimeSetUp]
@@ -73,6 +74,25 @@
             runningHistory.Result.Value.Should().NotBe(string.Empty);
             var retrievedActivites = JsonConvert.DeserializeObject<List<Activity>>((string)runningHistory.Result.Value);
             retrievedActivites.Should().NotBeEmpty().And.Should().NotBeNull();
+            foreach( var activity in retrievedActivites)
+            {
+                activity.type.Should().Be("run");
+            }
+        }
+
+        [Test]
+        public void GetFitBitRecentActivities_RunningActivitiesRetrieved()
+        {
+            var fitBitTokenAsJsonResult = sut.GetFitBitAuthenticationToken();
+            fitBitTokenAsJsonResult.Result.Should().NotBeNull();
+            fitBitTokenAsJsonResult.Result.Value.Should().NotBe(string.Empty);
+            fitBitAuthenticationToken = new FitBitAuthenticationToken
+            {
+                AccessToken = (string)fitBitTokenAsJsonResult.Result.Value
+            };
+            fitBitAuthenticationToken.AccessToken.Should().NotBeNullOrEmpty();
+            // Get Activities
+
         }
     }
 }

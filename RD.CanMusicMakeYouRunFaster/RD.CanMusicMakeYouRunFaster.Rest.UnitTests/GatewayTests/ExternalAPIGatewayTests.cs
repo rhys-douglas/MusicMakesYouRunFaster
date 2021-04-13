@@ -380,7 +380,17 @@
             var actualListeningHistory = JsonConvert.DeserializeObject<CursorPaging<PlayHistoryItem>>(listeningHistoryExtracted);
             actualListeningHistory.Items.Should().HaveCount(3);
             actualListeningHistory.Items.Should().NotBeNull();
+        }
 
+        [Test]
+        public void GetFitBitAuthenticationToken_AuthenticationTokenReturned()
+        {
+            sut = MakeSut();
+            var tokenAsJson = sut.GetFitBitAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var extractedJsonToken = JsonConvert.SerializeObject(tokenAsJson.Value);
+            var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>(extractedJsonToken);
+            fitBitAuthToken.AccessToken.Should().NotBeNullOrEmpty();
         }
 
         private ExternalAPIGateway MakeSut()

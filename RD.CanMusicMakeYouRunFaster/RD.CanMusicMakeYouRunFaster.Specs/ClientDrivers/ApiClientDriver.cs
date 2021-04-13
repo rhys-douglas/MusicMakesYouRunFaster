@@ -67,6 +67,7 @@
             }
         }
 
+        /// <inheritdoc/>
         public void GetRecentFitBitActivities()
         {
             externalAPIGateway.GetFitBitAuthenticationToken();

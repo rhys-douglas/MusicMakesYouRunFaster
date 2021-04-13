@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using System.Threading.Tasks;
     using Entity;
+    using Fitbit.Api.Portable;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using RD.CanMusicMakeYouRunFaster.Rest.Authenticators;
@@ -63,9 +64,18 @@
         public async Task<JsonResult> GetStravaAuthenticationToken()
         {
             await Task.Delay(0);
-            var authenticator = new StravaAuthenticator();
-            var token = authenticator.GetAuthToken();
+            var authenticator = new OAuth2Authenticator();
+            var token = authenticator.GetStravaAuthToken();
             return new JsonResult(token.Result.access_token);
+        }
+
+        /// <inheritdoc/>
+        public async Task<JsonResult> GetFitBitAuthenticationToken()
+        {
+            await Task.Delay(0);
+            var authenticator = new OAuth2Authenticator();
+            var token = authenticator.GetFitBitAuthToken();
+            return new JsonResult(token.Result.AccessToken);
         }
 
         /// <inheritdoc/>
