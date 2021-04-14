@@ -209,7 +209,8 @@
             return new JsonResult(correctActivityHistory);
         }
 
-        public async Task<JsonResult> GetFitBitRecentActivities(FitBitAuthenticationToken authToken)
+        /// <inheritdoc/>
+        public async Task<JsonResult> GetFitBitActivityHistory(FitBitAuthenticationToken authToken)
         {
             await Task.Delay(0);
             throw new NotImplementedException();

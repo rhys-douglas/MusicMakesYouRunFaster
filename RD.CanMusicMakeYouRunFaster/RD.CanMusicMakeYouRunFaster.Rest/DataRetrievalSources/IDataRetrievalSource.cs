@@ -30,9 +30,10 @@
         Task<JsonResult> GetStravaAuthenticationToken();
 
         /// <summary>
-        /// Gets the Strava activity history
+        /// Gets a JSON list of Strava Activities
         /// </summary>
-        /// <returns> Json of activity history </returns>
+        /// <param name="authToken">Auth token to use to get activities</param>
+        /// <returns> A list of Strava activities in JSON format.</returns>
         Task<JsonResult> GetStravaActivityHistory(StravaAuthenticationToken authToken);
 
         /// <summary>
@@ -40,5 +41,12 @@
         /// </summary>
         /// <returns> Json of a valid authentication token. </returns>
         Task<JsonResult> GetFitBitAuthenticationToken();
+
+        /// <summary>
+        /// Gets a list of FitBit activities
+        /// </summary>
+        /// <param name="authToken"> Auth token to use to get activities </param>
+        /// <returns> A list of FitBit activities in JSON format.</returns>
+        Task<JsonResult> GetFitBitActivityHistory(FitBitAuthenticationToken authToken);
     }
 }

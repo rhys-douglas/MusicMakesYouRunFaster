@@ -85,6 +85,10 @@
             return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken, after).Result;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
         public JsonResult GetFitBitRecentActivities()
         {
             throw new NotImplementedException();

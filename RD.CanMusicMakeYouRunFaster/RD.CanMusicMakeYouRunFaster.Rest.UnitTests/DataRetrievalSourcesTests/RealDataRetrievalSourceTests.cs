@@ -2,12 +2,14 @@
 {
     using DataRetrievalSources;
     using FluentAssertions;
+    using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using NUnit.Framework;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
     using SpotifyAPI.Web;
     using System;
     using System.Collections.Generic;
+    using System.Threading.Tasks;
 
     public class RealDataRetrievalSourceTests
     {
@@ -20,17 +22,18 @@
         public void SetUpTests()
         {
             sut = new RealDataRetrievalSource();
+        }
+
+        [Test]
+        public void GetSpotifyListeningHistory_ListeningHistoryRetrieved()
+        {
             // Get spotify auth token
             var spotifyTokenAsJson = sut.GetSpotifyAuthenticationToken();
             spotifyTokenAsJson.Result.Should().NotBeNull();
             spotifyTokenAsJson.Result.Value.Should().NotBe(string.Empty);
             spotifyAuthenticationToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>((string)spotifyTokenAsJson.Result.Value);
             spotifyAuthenticationToken.AccessToken.Should().NotBeNullOrEmpty();
-        }
 
-        [Test]
-        public void GetSpotifyListeningHistory_ListeningHistoryRetrieved()
-        {
             // Get listening history
             var listeningHistory = sut.GetSpotifyRecentlyPlayed(spotifyAuthenticationToken);
             listeningHistory.Result.Value.Should().NotBeNull();
@@ -39,7 +42,14 @@
 
         [Test]
         public void GetSpotifyListeningHistoryWithAfterParameter_CorrectListeningHistoryReturned()
-        { 
+        {
+            // Get spotify auth token
+            var spotifyTokenAsJson = sut.GetSpotifyAuthenticationToken();
+            spotifyTokenAsJson.Result.Should().NotBeNull();
+            spotifyTokenAsJson.Result.Value.Should().NotBe(string.Empty);
+            spotifyAuthenticationToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>((string)spotifyTokenAsJson.Result.Value);
+            spotifyAuthenticationToken.AccessToken.Should().NotBeNullOrEmpty();
+
             // Get listening history with after parameter
             var listeningHistory0Task = sut.GetSpotifyRecentlyPlayed(spotifyAuthenticationToken);
             var listeningHistory0Json = JsonConvert.SerializeObject(listeningHistory0Task.Result.Value);
@@ -76,7 +86,7 @@
             retrievedActivites.Should().NotBeEmpty().And.Should().NotBeNull();
             foreach( var activity in retrievedActivites)
             {
-                activity.type.Should().Be("run");
+                activity.type.Should().Be("Run");
             }
         }
 
@@ -91,8 +101,13 @@
                 AccessToken = (string)fitBitTokenAsJsonResult.Result.Value
             };
             fitBitAuthenticationToken.AccessToken.Should().NotBeNullOrEmpty();
-            // Get Activities
 
+            // Get Activities
+            Task<JsonResult> activityHistoryResult = sut.GetFitBitActivityHistory(fitBitAuthenticationToken);
+            activityHistoryResult.Result.Value.Should().NotBeNull();
+            activityHistoryResult.Result.Value.Should().NotBe(string.Empty);
+            var actualActivities = activityHistoryResult.Result.Value;
+            actualActivities.Should().NotBeNull();
         }
     }
 }
