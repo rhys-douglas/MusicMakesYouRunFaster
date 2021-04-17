@@ -102,7 +102,7 @@
         /// <summary>
         /// Date of the activity.
         /// </summary>
-        public string DateOfActivity { get; }
+        public string DateOfActivity { get; set; }
 
         /// <summary>
         /// Calories burned throughout activity.

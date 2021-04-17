@@ -88,16 +88,65 @@
             convertedObject.Should().BeEquivalentTo(convertedPlayHistoryItem);
         }
 
-        public void ToDTOOfActivities_ConvertedToDTO()
+        [Test]
+        public void ToDTOOfFitBitActivities_ConvertedToDTO()
         {
+            var now = DateTime.Now;
+
             var sut = new Activities()
             {
-                
+                ActiveDuration = 5,
+                ActivityLevel = new List<ActivityLevel>(),
+                ActivityName = "Run 1",
+                ActivityTypeId = 5,
+                AverageHeartRate = 140,
+                Calories = 500,
+                DateOfActivity = "17/04/2021",
+                Distance = 3500,
+                DistanceUnit = "M",
+                Duration = 3600,
+                ElevationGain = 330,
+                HeartRateZones = new List<HeartRateZone>(),
+                LastModified = now,
+                LogId = 123253464353,
+                LogType = "logtype1",
+                ManualValuesSpecified = new ManualValuesSpecified(),
+                OriginalDuration = 3601,
+                OriginalStartTime = now,
+                Pace = 16.5,
+                Source = new ActivityLogSource(),
+                Speed = 18.5,
+                StartTime = now,
+                Steps = 14000,
+                TcxLink = "??"
             };
 
             var convertedActivity = new DTO.FitBitActivities()
             {
-
+                ActiveDuration = 5,
+                ActivityLevel = new List<DTO.ActivityLevel>(),
+                ActivityName = "Run 1",
+                ActivityTypeId = 5,
+                AverageHeartRate = 140,
+                Calories = 500,
+                DateOfActivity = "17/04/2021",
+                Distance = 3500,
+                DistanceUnit = "M",
+                Duration = 3600,
+                ElevationGain = 330,
+                HeartRateZones = new List<DTO.HeartRateZone>(),
+                LastModified = now,
+                LogId = 123253464353,
+                LogType = "logtype1",
+                ManualValuesSpecified = new DTO.ManualValuesSpecified(),
+                OriginalDuration = 3601,
+                OriginalStartTime = now,
+                Pace = 16.5,
+                Source = new DTO.ActivityLogSource(),
+                Speed = 18.5,
+                StartTime = now,
+                Steps = 14000,
+                TcxLink = "??"
             };
 
             var convertedObject = sut.ToDTO();
