@@ -1,6 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.DbContext
 {
     using Microsoft.EntityFrameworkCore;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.FitBit;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Spotify;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Strava;
 
@@ -34,5 +35,10 @@
         /// Gets or sets the ActivityHistoryItems data set.
         /// </summary>
         public DbSet<Activity> ActivityHistoryItems { get; set; }
+
+        /// <summary>
+        /// Gets or sets the FitBitActivityItems data set.
+        /// </summary>
+        public DbSet<Activities> FitBitActivityItems { get; set; }
     }
 }
