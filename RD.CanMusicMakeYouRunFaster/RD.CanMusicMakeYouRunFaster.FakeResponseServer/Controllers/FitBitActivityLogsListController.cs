@@ -3,6 +3,7 @@
     using Microsoft.AspNetCore.Mvc;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.DbContext;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.DTO;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models;
     using System.Threading.Tasks;
 
     [ApiController]

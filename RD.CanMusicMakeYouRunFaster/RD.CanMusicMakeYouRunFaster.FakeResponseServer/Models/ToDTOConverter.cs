@@ -10,7 +10,7 @@
         /// <summary>
         /// Converts context PlayHistoryItems to DTO.
         /// </summary>
-        /// <param name="playHistoryItem"></param>
+        /// <param name="playHistoryItem"> PlayHistoryItem from context.</param>
         /// <returns> DTO of PlayHistoryItem.</returns>
         public static DTO.PlayHistoryItem ToDTO(this Spotify.PlayHistoryItem playHistoryItem)
         {
@@ -53,6 +53,11 @@
             } : null;
         }
 
+        /// <summary>
+        /// Converts context Strava Activity objects to DTO counterparts.
+        /// </summary>
+        /// <param name="activity"> Activity from context.</param>
+        /// <returns>DTO of Strava activity</returns>
         public static DTO.Activity ToDTO(this Strava.Activity activity)
         {
             return activity != null ? new DTO.Activity
@@ -134,6 +139,19 @@
                 utc_offset = activity.utc_offset,
                 visibility = activity.visibility,
                 workout_type = activity.workout_type,
+            } : null;
+        }
+
+        /// <summary>
+        /// Converts context FitBit Activities to DTO counterparts.
+        /// </summary>
+        /// <param name="activity"> Activities object to convert.</param>
+        /// <returns> DTO of FitBit Activity.</returns>
+        public static DTO.FitBitActivities ToDTO(this FitBit.Activities activity)
+        {
+            return activity != null ? new DTO.FitBitActivities
+            {
+
             } : null;
         }
 

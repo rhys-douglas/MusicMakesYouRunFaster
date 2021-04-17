@@ -6,6 +6,7 @@
     using FluentAssertions;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Spotify;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.FitBit;
 
     public class ToDTOConverterTests
     {
@@ -85,6 +86,24 @@
             convertedObject.Should().NotBeNull();
             convertedObject.Should().BeOfType<DTO.PlayHistoryItem>();
             convertedObject.Should().BeEquivalentTo(convertedPlayHistoryItem);
+        }
+
+        public void ToDTOOfActivities_ConvertedToDTO()
+        {
+            var sut = new Activities()
+            {
+                
+            };
+
+            var convertedActivity = new DTO.FitBitActivities()
+            {
+
+            };
+
+            var convertedObject = sut.ToDTO();
+            convertedObject.Should().NotBeNull();
+            convertedObject.Should().BeOfType<DTO.FitBitActivities>();
+            convertedObject.Should().BeEquivalentTo(convertedActivity);
         }
     }
 }
