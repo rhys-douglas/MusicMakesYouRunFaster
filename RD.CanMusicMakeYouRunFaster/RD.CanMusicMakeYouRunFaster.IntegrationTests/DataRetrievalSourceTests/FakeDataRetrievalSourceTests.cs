@@ -462,8 +462,9 @@
             var runningHistoryTask = sut.GetFitBitActivityHistory(fitBitAuthToken);
             runningHistoryTask.Result.Value.Should().NotBeNull();
             runningHistoryTask.Result.Value.Should().NotBe(string.Empty);
-            var actualRunningHistory = runningHistoryTask.Result.Value;
-            actualRunningHistory.Should().BeOfType<List<Activities>>();
+            ActivityLogsList actualRunningHistory = (ActivityLogsList)runningHistoryTask.Result.Value;
+            actualRunningHistory.Should().BeOfType<ActivityLogsList>();
+            actualRunningHistory.Activities.Should().HaveCount(2);
         }
 
         private FakeDataRetrievalSource MakeSut()
