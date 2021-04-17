@@ -4,6 +4,7 @@
     using System.Collections.Generic;
     using DataRetrievalSources;
     using Entity;
+    using Fitbit.Api.Portable.Models;
     using FluentAssertions;
     using Newtonsoft.Json;
     using NUnit.Framework;
@@ -266,6 +267,86 @@
             }
         };
 
+        private readonly List<FakeResponseServer.Models.FitBit.Activities> FitBitActivityItems = new List<FakeResponseServer.Models.FitBit.Activities>
+        {
+            new FakeResponseServer.Models.FitBit.Activities
+            {
+               ActiveDuration = 5,
+                ActivityLevel = new List<FakeResponseServer.Models.FitBit.ActivityLevel>(),
+                ActivityName = "Run 1",
+                ActivityTypeId = 5,
+                AverageHeartRate = 140,
+                Calories = 500,
+                DateOfActivity = "17/04/2021",
+                Distance = 3500,
+                DistanceUnit = "M",
+                Duration = 3600,
+                ElevationGain = 330,
+                HeartRateZones = new List<FakeResponseServer.Models.FitBit.HeartRateZone>(),
+                LastModified = DateTime.Now,
+                LogId = 123253464353,
+                LogType = "logtype1",
+                ManualValuesSpecified = new FakeResponseServer.Models.FitBit.ManualValuesSpecified
+                {
+                    Distance = false,
+                    Calories = false,
+                    Steps = false,
+                },
+                OriginalDuration = 3601,
+                OriginalStartTime = DateTime.Now,
+                Pace = 16.5,
+                Source = new FakeResponseServer.Models.FitBit.ActivityLogSource
+                {
+                    Id = "1",
+                    Name = "1",
+                    Type = "type1",
+                    Url = "someurl"
+                },
+                Speed = 18.5,
+                StartTime = DateTime.Now,
+                Steps = 14000,
+                TcxLink = "??"
+            },
+            new FakeResponseServer.Models.FitBit.Activities
+            {
+                ActiveDuration = 5,
+                ActivityLevel = new List<FakeResponseServer.Models.FitBit.ActivityLevel>(),
+                ActivityName = "Run 2",
+                ActivityTypeId = 5,
+                AverageHeartRate = 140,
+                Calories = 500,
+                DateOfActivity = "18/04/2021",
+                Distance = 3500,
+                DistanceUnit = "M",
+                Duration = 3600,
+                ElevationGain = 330,
+                HeartRateZones = new List<FakeResponseServer.Models.FitBit.HeartRateZone>(),
+                LastModified = DateTime.Now,
+                LogId = 23456789,
+                LogType = "logtype2",
+                ManualValuesSpecified = new FakeResponseServer.Models.FitBit.ManualValuesSpecified
+                {
+                    Distance = true,
+                    Calories = false,
+                    Steps = false,
+                },
+                OriginalDuration = 3601,
+                OriginalStartTime = DateTime.Now,
+                Pace = 16.5,
+                Source = new FakeResponseServer.Models.FitBit.ActivityLogSource
+                {
+                    Id = "2",
+                    Name = "2",
+                    Type = "type2",
+                    Url = "url2"
+                },
+                Speed = 18.5,
+                StartTime = DateTime.Now,
+                Steps = 14000,
+                TcxLink = "??"
+            }
+        };
+
         [OneTimeSetUp]
         public void SetUpTests()
         {
@@ -284,9 +365,18 @@
                 item.start_date_local = now_local;
             }
 
+            foreach (var item in FitBitActivityItems)
+            {
+                item.StartTime = now;
+                item.OriginalStartTime = now;
+                item.LastModified = now;
+            }
+
             RegisterMusicHistory(PlayHistoryItems);
 
             RegisterActivityHistory(ActivityItems);
+
+            RegisterFitBitHistory(FitBitActivityItems);
 
             sut = MakeSut();
 
@@ -373,7 +463,7 @@
             runningHistoryTask.Result.Value.Should().NotBeNull();
             runningHistoryTask.Result.Value.Should().NotBe(string.Empty);
             var actualRunningHistory = runningHistoryTask.Result.Value;
-            actualRunningHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
+            actualRunningHistory.Should().BeOfType<List<Activities>>();
         }
 
         private FakeDataRetrievalSource MakeSut()

@@ -16,8 +16,8 @@
         /// </summary>
         /// <param name="request"> Request parameters</param>
         /// <returns> A FitBit Exchange token response</returns>
-        [Route("/oauth2/authorize")]
         [HttpGet]
+        [Route("/oauth2/authorize")]
         public async Task<DTO.FitBitExchangeTokenResponse> GetExchangeToken([FromQuery] DTO.Request.FitBitExchangeTokenRequest request)
         {
             await Task.Delay(0);

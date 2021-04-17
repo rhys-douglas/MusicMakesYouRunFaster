@@ -7,6 +7,7 @@
     using SpotifyAPI.Web;
     using System.Web;
     using System.Collections.Generic;
+    using Fitbit.Api.Portable.Models;
 
     /// <summary>
     /// Fake data source used for tests.
@@ -215,7 +216,52 @@
         public async Task<JsonResult> GetFitBitActivityHistory(FitBitAuthenticationToken authToken)
         {
             await Task.Delay(0);
-            throw new NotImplementedException();
+            var fitBitActivityHistory = externalAPICaller.Get<List<FakeResponseServer.DTO.FitBitActivities>>(new Uri("http://localhost:2222/1/user/-/activities"));
+            var correctActivityHistory = new Fitbit.Api.Portable.Models.ActivityLogsList();
+
+            foreach (var item in fitBitActivityHistory)
+            {
+                correctActivityHistory.Activities.Add(new Fitbit.Api.Portable.Models.Activities
+                {
+                    ActiveDuration = item.ActiveDuration,
+                    ActivityLevel = new List<ActivityLevel>(),
+                    ActivityName = item.ActivityName,
+                    ActivityTypeId = item.ActivityTypeId,
+                    AverageHeartRate = item.AverageHeartRate,
+                    Calories = item.Calories,
+                    // DateOfActivity = item.DateOfActivity,
+                    Distance = item.Distance,
+                    DistanceUnit = item.DistanceUnit,
+                    Duration = item.Duration,
+                    ElevationGain = item.ElevationGain,
+                    HeartRateZones = new List<Fitbit.Models.HeartRateZone>(),
+                    LastModified = item.LastModified,
+                    LogId = item.LogId,
+                    LogType = item.LogType,
+                    ManualValuesSpecified = new ManualValuesSpecified
+                    {
+                        Calories = item.ManualValuesSpecified.Calories,
+                        Distance = item.ManualValuesSpecified.Distance,
+                        Steps = item.ManualValuesSpecified.Steps
+                    },
+                    OriginalDuration = item.OriginalDuration,
+                    OriginalStartTime = item.OriginalStartTime,
+                    Pace = item.Pace,
+                    Source = new ActivityLogSource
+                    {
+                        Id = item.Source.Id,
+                        Name = item.Source.Name,
+                        Type = item.Source.Type,
+                        Url = item.Source.Url
+                    },
+                    Speed = item.Speed,
+                    StartTime = item.StartTime,
+                    Steps = item.Steps,
+                    TcxLink = item.TcxLink
+                });
+            }
+
+            return new JsonResult(correctActivityHistory);
         }
     }
 }

@@ -55,5 +55,13 @@
             context.ActivityHistoryItems.AddRange(activityHistory);
             context.SaveChanges();
         }
+
+        protected void RegisterFitBitHistory(List<FakeResponseServer.Models.FitBit.Activities> fitBitHistory)
+        {
+            using var context = new DataRetrievalContext(contextOptions);
+            context.FitBitActivityItems.RemoveRange(context.FitBitActivityItems);
+            context.FitBitActivityItems.AddRange(fitBitHistory);
+            context.SaveChanges();
+        }
     }
 }
