@@ -5,7 +5,7 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// Activity DTO.
+    /// Strava Activity DTO.
     /// </summary>
     public class Activity
     {

@@ -3,6 +3,7 @@
     using Newtonsoft.Json;
     using System;
     using System.Collections.Generic;
+    using System.ComponentModel.DataAnnotations;
     using System.ComponentModel.DataAnnotations.Schema;
 
     /// <summary>
@@ -62,6 +63,7 @@
         /// Id of the Log
         /// </summary>
         [JsonProperty(PropertyName = "logId")]
+        [Key]
         public long LogId { get; set; }
 
         /// <summary>

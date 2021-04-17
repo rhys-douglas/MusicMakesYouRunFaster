@@ -1,6 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.FitBit
 {
     using Newtonsoft.Json;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Manual values specified class.
@@ -17,6 +18,7 @@
         /// Distance covered.
         /// </summary>
         [JsonProperty(PropertyName = "distance")]
+        [Key]
         public bool Distance { get; set; }
 
         /// <summary>

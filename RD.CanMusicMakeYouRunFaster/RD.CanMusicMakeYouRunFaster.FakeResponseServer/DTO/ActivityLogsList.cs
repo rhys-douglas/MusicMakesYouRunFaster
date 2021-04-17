@@ -9,9 +9,16 @@
     public class ActivityLogsList
     {
         /// <summary>
+        /// Initializes a new instance of the <see cref="ActivityLogsList"/> class.
+        /// </summary>
+        public ActivityLogsList()
+        {
+            Activities = new List<FitBitActivities>();
+        }
+        /// <summary>
         /// List of Activities retrieved.
         /// </summary>
         [JsonProperty(PropertyName = "activities")]
-        public List<FitBitActivities> Activities { get; set; } = default!;
+        public List<FitBitActivities> Activities { get; set; }
     }
 }

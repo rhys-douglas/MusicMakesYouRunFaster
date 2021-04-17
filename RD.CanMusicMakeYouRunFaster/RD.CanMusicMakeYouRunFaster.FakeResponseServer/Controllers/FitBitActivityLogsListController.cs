@@ -22,11 +22,11 @@
         }
 
         /// <summary>
-        /// Gets the logged in users's activity logs list.
+        /// Gets the authenticated users's activity logs list.
         /// </summary>
         /// <returns>Gets a list of activities</returns>
         [HttpGet]
-        public async Task<DTO.ActivityLogsList> GetLoggedInAthleteActivities()
+        public async Task<ActivityLogsList> GetAuthenticatedUserLogList()
         {
             await Task.Delay(0);
             var fitBitActivities = context.FitBitActivityItems;

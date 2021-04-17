@@ -1,6 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.FitBit
 {
     using Newtonsoft.Json;
+    using System.ComponentModel.DataAnnotations;
 
     /// <summary>
     /// Activity Log Source.
@@ -11,6 +12,7 @@
         /// Activity log source ID
         /// </summary>
         [JsonProperty(PropertyName = "id")]
+        [Key]
         public string Id { get; set; }
 
         /// <summary>
