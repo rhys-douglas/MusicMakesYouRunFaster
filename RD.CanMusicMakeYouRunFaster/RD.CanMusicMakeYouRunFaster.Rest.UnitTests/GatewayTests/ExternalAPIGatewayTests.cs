@@ -1,4 +1,4 @@
-﻿namespace RD.CanMusicMakeYouRunFaster.Rest.UnitTests.ControllerTests
+﻿namespace RD.CanMusicMakeYouRunFaster.Rest.UnitTests.GatewayTests
 {
     using FluentAssertions;
     using Newtonsoft.Json;
@@ -391,6 +391,17 @@
             var extractedJsonToken = JsonConvert.SerializeObject(tokenAsJson.Value);
             var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>(extractedJsonToken);
             fitBitAuthToken.AccessToken.Should().NotBeNullOrEmpty();
+        }
+
+        [Test]
+        public void GetFitBitActivityHistory_ActivityHistoryReturned()
+        {
+            // Get activities
+            sut = MakeSut();
+            var activityHistory = sut.GetFitBitRecentActivities();
+            var actualHistory = activityHistory.Value;
+            actualHistory.Should().NotBeNull();
+            actualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
         }
 
         private ExternalAPIGateway MakeSut()

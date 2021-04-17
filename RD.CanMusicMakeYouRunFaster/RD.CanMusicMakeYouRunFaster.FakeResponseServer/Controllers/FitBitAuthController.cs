@@ -6,35 +6,33 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Strava Auth controller
+    /// FitBit Auth controller
     /// </summary>
     [ApiController]
-    public class StravaAuthController: ControllerBase
+    public class FitBitAuthController: ControllerBase
     {
         /// <summary>
         /// Gets the exchange token for authentication.
         /// </summary>
         /// <param name="request"> Request parameters</param>
-        /// <returns> A Strava Exchange token response</returns>
-        [Route("/oauth/authorize")]
+        /// <returns> A FitBit Exchange token response</returns>
+        [Route("/oauth2/authorize")]
         [HttpGet]
-        public async Task<DTO.StravaExchangeTokenResponse> GetExchangeToken([FromQuery] DTO.Request.StravaExchangeTokenRequest request)
+        public async Task<DTO.FitBitExchangeTokenResponse> GetExchangeToken([FromQuery] DTO.Request.FitBitExchangeTokenRequest request)
         {
             await Task.Delay(0);
-            if (request.client_id == null)
+            if (request.client_id == null || request.response_type == null || request.scope == null || request.redirect_uri == null)
             {
-                return new DTO.StravaExchangeTokenResponse();
+                return new DTO.FitBitExchangeTokenResponse();
             }
 
             RandomNumberGenerator rng = new RNGCryptoServiceProvider();
             byte[] buffer0 = new byte[100];
             rng.GetBytes(buffer0);
             var exchangeToken = Convert.ToBase64String(buffer0);
-            return new DTO.StravaExchangeTokenResponse
+            return new DTO.FitBitExchangeTokenResponse
             {
-                code = exchangeToken,
-                scope = request.scope,
-                state = null
+                Code = exchangeToken,
             };
         }
 
@@ -42,14 +40,14 @@
         /// Exchanges an exchange token for a request token.
         /// </summary>
         /// <param name="request"> Access token request parameters</param>
-        /// <returns> A Strava Access Token</returns>
-        [Route("/oauth/token")]
+        /// <returns> A FitBit Access Token</returns>
+        [Route("/oauth2/token")]
         [HttpGet]
-        public async Task<DTO.StravaAuthenticationTokenResponse> GetAccessToken([FromQuery] DTO.Request.StravaAccessTokenRequest request)
+        public async Task<DTO.FitBitAuthenticationTokenResponse> GetAccessToken([FromQuery] DTO.Request.FitBitAccessTokenRequest request)
         {
-            if (request.code == null || request.client_id == null || request.client_secret == null)
+            if (request.code == null || request.grant_type == null || request.redirect_uri == null)
             {
-                return new DTO.StravaAuthenticationTokenResponse();
+                return new DTO.FitBitAuthenticationTokenResponse();
             }
 
             RandomNumberGenerator rng = new RNGCryptoServiceProvider();
@@ -59,18 +57,13 @@
             rng.GetBytes(buffer1);
 
             await Task.Delay(0);
-            return new DTO.StravaAuthenticationTokenResponse
+            return new DTO.FitBitAuthenticationTokenResponse
             {
                 access_token = Convert.ToBase64String(buffer0),
                 refresh_token = Convert.ToBase64String(buffer1),
-                expires_at = 543773478,
                 expires_in = 3600,
                 token_type = "Bearer",
-                athlete = new DTO.Athlete
-                {
-                    id = 123456789,
-                    resource_state = 2
-                }
+                user_id = "1234"
             };
         }
     }

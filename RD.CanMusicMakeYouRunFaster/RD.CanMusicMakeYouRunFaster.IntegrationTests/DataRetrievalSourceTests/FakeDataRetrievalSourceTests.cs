@@ -14,6 +14,7 @@
     {
         private SpotifyAuthenticationToken spotifyAuthToken;
         private StravaAuthenticationToken stravaAuthToken;
+        private FitBitAuthenticationToken fitBitAuthToken;
         private FakeDataRetrievalSource sut;
         private readonly List<FakeResponseServer.Models.Spotify.PlayHistoryItem> PlayHistoryItems = new List<FakeResponseServer.Models.Spotify.PlayHistoryItem>
         {
@@ -304,6 +305,14 @@
             temp = JsonConvert.SerializeObject(stravaAuthTask.Result.Value);
             stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>(temp);
             stravaAuthToken.access_token.Should().NotBeNullOrEmpty();
+
+            // Get FitBit auth token.
+            var fitBitAuthTask = sut.GetFitBitAuthenticationToken();
+            fitBitAuthTask.Result.Should().NotBeNull();
+            fitBitAuthTask.Result.Value.Should().NotBeNull();
+            temp = JsonConvert.SerializeObject(fitBitAuthTask.Result.Value);
+            fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>(temp);
+            fitBitAuthToken.AccessToken.Should().NotBeNullOrEmpty();
         }
 
         [Test]
@@ -354,6 +363,17 @@
             var actualRunningHistory = JsonConvert.DeserializeObject<List<Activity>>(runningHistoryJson);
             actualRunningHistory.Count.Should().Be(2);
             actualRunningHistory[0].Should().BeOfType<Activity>();
+        }
+
+        [Test]
+        public void GetFitBitActivityHistoryWithValidAuthToken_ActivityHistoryRetrieved()
+        {
+            sut = MakeSut();
+            var runningHistoryTask = sut.GetFitBitActivityHistory(fitBitAuthToken);
+            runningHistoryTask.Result.Value.Should().NotBeNull();
+            runningHistoryTask.Result.Value.Should().NotBe(string.Empty);
+            var actualRunningHistory = runningHistoryTask.Result.Value;
+            actualRunningHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
         }
 
         private FakeDataRetrievalSource MakeSut()

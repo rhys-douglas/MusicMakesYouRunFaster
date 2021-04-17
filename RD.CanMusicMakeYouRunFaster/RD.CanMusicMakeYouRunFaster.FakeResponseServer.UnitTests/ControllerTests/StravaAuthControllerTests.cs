@@ -6,7 +6,6 @@
 
     public class StravaAuthControllerTests
     {
-        private const string ClientId = "1580ff80db9a43e589eee411deba30b0";
         StravaAuthController sut;
 
         [OneTimeSetUp]
@@ -18,7 +17,7 @@
         [Test]
         public void GetExchangeToken_ExchangeTokenIsValid()
         {
-            var exchangeTokenRequest = new DTO.Request.ExchangeTokenRequest
+            var exchangeTokenRequest = new DTO.Request.StravaExchangeTokenRequest
             {
                 client_id = 1234567,
                 approval_prompt = "force",
@@ -35,7 +34,7 @@
         [Test]
         public void GetExchangeTokenWithInvalidClientID_InvalidExchangeTokenReturned()
         {
-            var exchangeTokenRequest = new DTO.Request.ExchangeTokenRequest
+            var exchangeTokenRequest = new DTO.Request.StravaExchangeTokenRequest
             {
                 client_id = null,
                 approval_prompt = "force",
@@ -52,7 +51,7 @@
         [Test]
         public void GetAccessTokenWithValidExchangeToken_AccessTokenReturned()
         {
-            var exchangeTokenRequest = new DTO.Request.ExchangeTokenRequest
+            var exchangeTokenRequest = new DTO.Request.StravaExchangeTokenRequest
             {
                 client_id = 1234567,
                 approval_prompt = "force",
@@ -65,7 +64,7 @@
             retrievedExchangeToken.Result.scope.Should().Be(exchangeTokenRequest.scope);
             retrievedExchangeToken.Result.state.Should().Be(null);
 
-            var accessTokenRequest = new DTO.Request.AccessTokenRequest
+            var accessTokenRequest = new DTO.Request.StravaAccessTokenRequest
             {
                 client_id = 1234567,
                 client_secret = "something",
@@ -85,7 +84,7 @@
         [Test]
         public void GetAccessTokenWithInvalidExchangeToken_InvalidAccessTokenReturned()
         {
-            var exchangeTokenRequest = new DTO.Request.ExchangeTokenRequest
+            var exchangeTokenRequest = new DTO.Request.StravaExchangeTokenRequest
             {
                 client_id = 1234567,
                 approval_prompt = "force",
@@ -98,7 +97,7 @@
             retrievedExchangeToken.Result.scope.Should().Be(exchangeTokenRequest.scope);
             retrievedExchangeToken.Result.state.Should().Be(null);
 
-            var accessTokenRequest = new DTO.Request.AccessTokenRequest
+            var accessTokenRequest = new DTO.Request.StravaAccessTokenRequest
             {
                 client_id = 1234567,
                 client_secret = "something",

@@ -86,12 +86,12 @@
         }
 
         /// <summary>
-        /// 
+        /// Gets a <see cref="Fitbit.Api.Portable.Models.ActivityLogsList"/> object, containing FitBit runs.
         /// </summary>
-        /// <returns></returns>
+        /// <returns> A list of FitBit runs.</returns>
         public JsonResult GetFitBitRecentActivities()
         {
-            throw new NotImplementedException();
+            return this.dataSource.GetFitBitActivityHistory(this.fitBitAuthToken).Result;
         }
     }
 }

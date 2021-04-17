@@ -2,7 +2,10 @@
 {
     using Microsoft.AspNetCore.Mvc;
 
-    public class AccessTokenRequest
+    /// <summary>
+    /// Class for holding strava access token request parameters.
+    /// </summary>
+    public class StravaAccessTokenRequest
     {
         /// <summary>
         /// Client ID.

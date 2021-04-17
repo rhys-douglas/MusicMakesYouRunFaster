@@ -100,7 +100,16 @@
             var request = new RestRequest(Method.GET);
             request.AddParameter("access_token", authToken.access_token);
             IRestResponse response = client.Execute(request);
-            return new JsonResult(response.Content);
+            var retrievedActivites = JsonConvert.DeserializeObject<List<Activity>>((string)response.Content);
+            List<Activity> listOfRuns = new List<Activity>();
+            foreach (var activity in retrievedActivites)
+            {
+                if (activity.type == "Run")
+                {
+                    listOfRuns.Add(activity);
+                }
+            }
+            return new JsonResult(listOfRuns);
         }
 
         /// <inheritdoc/>

@@ -62,7 +62,9 @@
         public async Task<JsonResult> GetFitBitAuthenticationToken()
         {
             await Task.Delay(0);
-            throw new NotImplementedException();
+            var exchangeTokenResponse = externalAPICaller.Get<FakeResponseServer.DTO.FitBitExchangeTokenResponse>(new Uri("http://localhost:2222/oauth2/authorize?response_type=code&client_id=22CCZ8&redirect_uri=http://localhost:5002/fitbittoken&scope=activity%20heartrate"));
+            var authTokenResponse = externalAPICaller.Get<FakeResponseServer.DTO.FitBitAuthenticationTokenResponse>(new Uri("http://localhost:2222/oauth2/token?client_id=22CCZ8&grant_type=authorization_code&redirect_uri=http://localhost:5002/fitbittoken&code=" + exchangeTokenResponse.Code));
+            return new JsonResult(authTokenResponse);
         }
 
         /// <inheritdoc/>

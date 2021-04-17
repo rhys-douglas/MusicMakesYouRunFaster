@@ -82,7 +82,7 @@
             var runningHistory = sut.GetStravaActivityHistory(stravaAuthenticationToken);
             runningHistory.Result.Value.Should().NotBeNull();
             runningHistory.Result.Value.Should().NotBe(string.Empty);
-            var retrievedActivites = JsonConvert.DeserializeObject<List<Activity>>((string)runningHistory.Result.Value);
+            List<Activity> retrievedActivites = (List<Activity>)runningHistory.Result.Value;
             retrievedActivites.Should().NotBeEmpty().And.Should().NotBeNull();
             foreach( var activity in retrievedActivites)
             {
