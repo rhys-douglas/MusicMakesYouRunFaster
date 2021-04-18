@@ -4,7 +4,6 @@
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
-    using System;
 
     /// <summary>
     /// Controller used to handle HTTP requests to the backend / external API's.
@@ -13,6 +12,7 @@
     {
         private readonly IDataRetrievalSource dataSource;
         private SpotifyAuthenticationToken spotifyAuthToken;
+        private LastFMAuthenticationToken lastFMAuthToken;
         private StravaAuthenticationToken stravaAuthToken;
         private FitBitAuthenticationToken fitBitAuthToken;
 
@@ -67,12 +67,33 @@
         }
 
         /// <summary>
+        /// Gets the Last.FM authentication token.
+        /// </summary>
+        /// <returns>A Last.FM auth token.</returns>
+        public JsonResult GetLastFMAuthenticationToken()
+        {
+            var lastFMAuthenticationTokenAsJson = dataSource.GetLastFMAuthenticationToken().Result;
+            var tempSerialize = JsonConvert.SerializeObject(lastFMAuthenticationTokenAsJson.Value);
+            fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>(tempSerialize);
+            return new JsonResult(fitBitAuthToken);
+        }
+
+        /// <summary>
         /// Gets the strava recent activties
         /// </summary>
         /// <returns> Strava recent activities </returns>
         public JsonResult GetStravaRecentActivities()
         {
             return this.dataSource.GetStravaActivityHistory(this.stravaAuthToken).Result;
+        }
+
+        /// <summary>
+        /// Gets a <see cref="Fitbit.Api.Portable.Models.ActivityLogsList"/> object, containing FitBit runs.
+        /// </summary>
+        /// <returns> A list of FitBit runs.</returns>
+        public JsonResult GetFitBitRecentActivities()
+        {
+            return this.dataSource.GetFitBitActivityHistory(this.fitBitAuthToken).Result;
         }
 
         /// <summary>
@@ -85,13 +106,9 @@
             return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken, after).Result;
         }
 
-        /// <summary>
-        /// Gets a <see cref="Fitbit.Api.Portable.Models.ActivityLogsList"/> object, containing FitBit runs.
-        /// </summary>
-        /// <returns> A list of FitBit runs.</returns>
-        public JsonResult GetFitBitRecentActivities()
+        public JsonResult GetLastFMRecentlyPlayed(long? after = null)
         {
-            return this.dataSource.GetFitBitActivityHistory(this.fitBitAuthToken).Result;
+            return this.dataSource.GetLastFMRecentlyPlayed(this.lastFMAuthToken, after).Result;
         }
     }
 }

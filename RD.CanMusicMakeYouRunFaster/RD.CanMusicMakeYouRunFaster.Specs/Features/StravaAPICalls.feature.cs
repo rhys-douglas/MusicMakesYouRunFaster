@@ -77,49 +77,49 @@ namespace RD.CanMusicMakeYouRunFaster.Specs.Features
         {
 #line 3
 #line hidden
-            TechTalk.SpecFlow.Table table11 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
                         "user"});
-            table11.AddRow(new string[] {
+            table13.AddRow(new string[] {
                         "User1"});
 #line 4
-testRunner.Given("a list of users", ((string)(null)), table11, "Given ");
+testRunner.Given("a list of users", ((string)(null)), table13, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
                         "user",
                         "Activity Name",
                         "Time of activity start",
                         "Elapsed Time of Activity (s)",
                         "Activity Id",
                         "Average Pace (m/s)"});
-            table12.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "User1",
                         "Cardiff Friday Morning Run",
                         "15/03/2021 12:00:00",
                         "4410",
                         "1",
                         "4.5"});
-            table12.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "User1",
                         "Oxford Half Marathon",
                         "14/03/2021 08:00:00",
                         "9000",
                         "2",
                         "4.6"});
-            table12.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "User1",
                         "Roath Lake Midnight Run",
                         "13/03/2021 23:39:59",
                         "4410",
                         "3",
                         "4.2"});
-            table12.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "User1",
                         "Late Night Run",
                         "10/03/2021 00:05:00",
                         "1280",
                         "4",
                         "1.6"});
-            table12.AddRow(new string[] {
+            table14.AddRow(new string[] {
                         "User1",
                         "Test Run",
                         "01/01/2021 23:59:59",
@@ -127,7 +127,7 @@ testRunner.Given("a list of users", ((string)(null)), table11, "Given ");
                         "5",
                         "0.0"});
 #line 8
-testRunner.Given("a list of Strava running history", ((string)(null)), table12, "Given ");
+testRunner.Given("a list of Strava running history", ((string)(null)), table14, "Given ");
 #line hidden
         }
         

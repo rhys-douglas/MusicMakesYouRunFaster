@@ -19,7 +19,7 @@
         {
             var exchangeTokenRequest = new DTO.Request.FitBitExchangeTokenRequest
             {
-                client_id = 1234567,
+                client_id = "1234567",
                 redirect_uri = new System.Uri("localhost:5000/callback"),
                 scope = "activity",
                 response_type = "code"
@@ -48,7 +48,7 @@
         {
             var exchangeTokenRequest = new DTO.Request.FitBitExchangeTokenRequest
             {
-                client_id = 1234567,
+                client_id = "1234567",
                 response_type = null,
                 redirect_uri = new System.Uri("localhost:5000/callback"),
                 scope = "activity"
@@ -63,7 +63,7 @@
         {
             var exchangeTokenRequest = new DTO.Request.FitBitExchangeTokenRequest
             {
-                client_id = 1234567,
+                client_id = "1234567",
                 response_type = "code",
                 redirect_uri = new System.Uri("localhost:5000/callback"),
                 scope = null
@@ -78,7 +78,7 @@
         {
             var exchangeTokenRequest = new DTO.Request.FitBitExchangeTokenRequest
             {
-                client_id = 1234567,
+                client_id = "1234567",
                 response_type = "code",
                 redirect_uri = null,
                 scope = "activity"
@@ -93,7 +93,7 @@
         {
             var exchangeTokenRequest = new DTO.Request.FitBitExchangeTokenRequest
             {
-                client_id = 1234567,
+                client_id = "1234567",
                 redirect_uri = new System.Uri("localhost:5000/callback"),
                 scope = "activity",
                 response_type = "code"
@@ -104,7 +104,7 @@
 
             var accessTokenRequest = new DTO.Request.FitBitAccessTokenRequest
             {
-                client_id = 1234567,
+                client_id = "1234567",
                 code = retrievedExchangeToken.Result.Code,
                 grant_type = "authorization_code",
                 redirect_uri = new System.Uri("localhost:5000/callback")
@@ -123,7 +123,7 @@
         {
             var exchangeTokenRequest = new DTO.Request.FitBitExchangeTokenRequest
             {
-                client_id = 1234567,
+                client_id = "1234567",
                 redirect_uri = new System.Uri("localhost:5000/callback"),
                 scope = "activity",
                 response_type = "code"
@@ -133,7 +133,7 @@
 
             var accessTokenRequest = new DTO.Request.FitBitAccessTokenRequest
             {
-                client_id = 1234567,
+                client_id = "1234567",
                 code = null,
                 grant_type = "authorization_code",
                 redirect_uri = new System.Uri("localhost:5000/callback")

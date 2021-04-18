@@ -25,7 +25,7 @@
         }
 
         /// <inheritdoc/>
-        public void GetRecentlyPlayedMusic()
+        public void GetSpotifyRecentlyPlayedMusic()
         {
             externalAPIGateway.GetSpotifyAuthenticationToken();
             var searchResult = externalAPIGateway.GetSpotifyRecentlyPlayed();
@@ -37,26 +37,19 @@
         }
 
         /// <inheritdoc/>
-        public void GetRecentlyPlayedMusicForActivities()
+        public void GetLastFMRecentlyPlayedMusic()
         {
-            externalAPIGateway.GetSpotifyAuthenticationToken();
-            foreach (var item in searchResults)
+            externalAPIGateway.GetLastFMAuthenticationToken();
+            var searchResult = externalAPIGateway.GetLastFMRecentlyPlayed();
+            var playHistoryContainer = (CursorPaging<PlayHistoryItem>)searchResult.Value;
+            foreach (var song in playHistoryContainer.Items)
             {
-                if (item is Rest.Entity.Activity activity)
-                {
-                    var startDateAsDateTime = activity.start_date;
-                    var startDateAsUnixTime = ((DateTimeOffset)startDateAsDateTime).ToUnixTimeMilliseconds();
-                    var searchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
-                    var playHistoryContainer = (CursorPaging<PlayHistoryItem>)searchResult.Value;
-                    var listOfSongs = playHistoryContainer.Items.ToList();
-                    var tempDict = SongsToActivityMapper.MapSongsToActivity(activity, listOfSongs);
-                    tempDict.ToList().ForEach(x => activitiesAndSongs.Add(x.Key, x.Value));
-                }
+                searchResults.Add(song);
             }
         }
 
         /// <inheritdoc/>
-        public void GetRecentActivities()
+        public void GetRecentStravaActivities()
         {
             externalAPIGateway.GetStravaAuthenticationToken();
             var searchresult = externalAPIGateway.GetStravaRecentActivities();
@@ -76,6 +69,25 @@
             foreach (var activity in activityHistoryContainer)
             {
                 searchResults.Add(activity);
+            }
+        }
+
+        /// <inheritdoc/>
+        public void GetRecentlyPlayedMusicForActivities()
+        {
+            externalAPIGateway.GetSpotifyAuthenticationToken();
+            foreach (var item in searchResults)
+            {
+                if (item is Rest.Entity.Activity activity)
+                {
+                    var startDateAsDateTime = activity.start_date;
+                    var startDateAsUnixTime = ((DateTimeOffset)startDateAsDateTime).ToUnixTimeMilliseconds();
+                    var searchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
+                    var playHistoryContainer = (CursorPaging<PlayHistoryItem>)searchResult.Value;
+                    var listOfSongs = playHistoryContainer.Items.ToList();
+                    var tempDict = SongsToActivityMapper.MapSongsToActivity(activity, listOfSongs);
+                    tempDict.ToList().ForEach(x => activitiesAndSongs.Add(x.Key, x.Value));
+                }
             }
         }
 

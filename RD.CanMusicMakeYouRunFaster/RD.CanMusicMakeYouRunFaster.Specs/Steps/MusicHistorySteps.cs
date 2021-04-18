@@ -27,10 +27,22 @@
             // Do something
         }
 
-        [When(@"the user's recently played history is requested")]
-        public void WhenTheUserSRecentlyPlayedHistoryIsRequested()
+        [When(@"the user's Spotify recently played history is requested")]
+        public void WhenTheUsersSpotifyRecentlyPlayedHistoryIsRequested()
         {
-            clientDriver.GetRecentlyPlayedMusic();
+            clientDriver.GetSpotifyRecentlyPlayedMusic();
+        }
+
+        [When(@"the user's Last.FM recently played history is requested")]
+        public void WhenTheUsersLastFMRecentlyPlayedHistoryIsRequested()
+        {
+            clientDriver.GetLastFMRecentlyPlayedMusic();
+        }
+
+        [Then(@"Then the user's Last.FM recently played history is produced")]
+        public void ThenTheUsersLastFMRecentlyPlayedHistoryIsProduced()
+        {
+            Assert.Fail();
         }
 
         [Then(@"the user's recently played history is produced")]

@@ -262,6 +262,12 @@
 
         }
 
+        [Given(@"Given a list of Last.FM listening history")]
+        public void GivenAListOfLastFMListeningHistory(Table table)
+        {
+
+        }
+
         [Given(@"a list of users")]
         public void GivenAListOfUsers(Table table)
         {

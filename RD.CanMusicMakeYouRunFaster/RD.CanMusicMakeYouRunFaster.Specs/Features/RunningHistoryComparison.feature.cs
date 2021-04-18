@@ -77,49 +77,49 @@ namespace RD.CanMusicMakeYouRunFaster.Specs.Features
         {
 #line 3
 #line hidden
-            TechTalk.SpecFlow.Table table3 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
                         "user"});
-            table3.AddRow(new string[] {
+            table5.AddRow(new string[] {
                         "User1"});
 #line 4
-testRunner.Given("a list of users", ((string)(null)), table3, "Given ");
+testRunner.Given("a list of users", ((string)(null)), table5, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table4 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
                         "user",
                         "Activity Name",
                         "Time of activity start",
                         "Elapsed Time of Activity (s)",
                         "Activity Id",
                         "Average Pace (m/s)"});
-            table4.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "User1",
                         "Cardiff Friday Morning Run",
                         "15/03/2021 12:00:00",
                         "4410",
                         "1",
                         "4.5"});
-            table4.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "User1",
                         "Oxford Half Marathon",
                         "14/03/2021 08:00:00",
                         "9000",
                         "2",
                         "4.6"});
-            table4.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "User1",
                         "Roath Lake Midnight Run",
                         "13/03/2021 23:39:59",
                         "4410",
                         "3",
                         "4.2"});
-            table4.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "User1",
                         "Late Night Run",
                         "10/03/2021 00:05:00",
                         "1280",
                         "4",
                         "1.6"});
-            table4.AddRow(new string[] {
+            table6.AddRow(new string[] {
                         "User1",
                         "Test Run",
                         "01/01/2021 23:59:59",
@@ -127,66 +127,66 @@ testRunner.Given("a list of users", ((string)(null)), table3, "Given ");
                         "5",
                         "0.0"});
 #line 8
-testRunner.Given("a list of Strava running history", ((string)(null)), table4, "Given ");
+testRunner.Given("a list of Strava running history", ((string)(null)), table6, "Given ");
 #line hidden
-            TechTalk.SpecFlow.Table table5 = new TechTalk.SpecFlow.Table(new string[] {
+            TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
                         "user",
                         "Song name",
                         "Time of listening"});
-            table5.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "The Chain - 2004 Remaster",
                         "15/03/2021 12:00:05"});
-            table5.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "I Want To Break Free - Single Remix",
                         "15/03/2021 12:03:30"});
-            table5.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Good Vibrations - Remastered",
                         "15/03/2021 12:04:59"});
-            table5.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Dreams - 2004 Remaster",
                         "15/03/2021 12:05:30"});
-            table5.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Stayin Alive",
                         "15/03/2021 12:07:20"});
-            table5.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Junk Song",
                         "15/03/2021 23:59:20"});
-            table5.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Riptide",
                         "14/03/2021 08:00:01"});
-            table5.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Can\'t Hold Us",
                         "14/03/2021 08:03:30"});
-            table5.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Starboy",
                         "14/03/2021 08:09:40"});
-            table5.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Beautiful Day",
                         "14/03/2021 08:30:00"});
-            table5.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Starman",
                         "13/03/2021 00:02:00"});
-            table5.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Kickstarts",
                         "13/03/2021 00:05:00"});
-            table5.AddRow(new string[] {
+            table7.AddRow(new string[] {
                         "User1",
                         "Sugar",
                         "10/03/2021 00:05:01"});
 #line 16
-testRunner.Given("a list of Spotify listening history", ((string)(null)), table5, "Given ");
+testRunner.Given("a list of Spotify listening history", ((string)(null)), table7, "Given ");
 #line hidden
         }
         
@@ -241,20 +241,20 @@ this.FeatureBackground();
 #line 42
  testRunner.And("the comparison between running and listening history is made", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-                TechTalk.SpecFlow.Table table6 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
                             "Song name"});
-                table6.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "The Chain - 2004 Remaster"});
-                table6.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "I Want To Break Free - Single Remix"});
-                table6.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "Good Vibrations - Remastered"});
-                table6.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "Dreams - 2004 Remaster"});
-                table6.AddRow(new string[] {
+                table8.AddRow(new string[] {
                             "Stayin Alive"});
 #line 43
- testRunner.Then("the user\'s top tracks for running faster are produced", ((string)(null)), table6, "Then ");
+ testRunner.Then("the user\'s top tracks for running faster are produced", ((string)(null)), table8, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -312,18 +312,18 @@ this.FeatureBackground();
  testRunner.And("the comparison between running and listening history is made using a specified da" +
                         "te range", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-                TechTalk.SpecFlow.Table table7 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table9 = new TechTalk.SpecFlow.Table(new string[] {
                             "Song name"});
-                table7.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Riptide"});
-                table7.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Can\'t Hold Us"});
-                table7.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Starboy"});
-                table7.AddRow(new string[] {
+                table9.AddRow(new string[] {
                             "Beautiful Day"});
 #line 59
- testRunner.Then("the user\'s top tracks for running faster are produced", ((string)(null)), table7, "Then ");
+ testRunner.Then("the user\'s top tracks for running faster are produced", ((string)(null)), table9, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -389,16 +389,16 @@ this.FeatureBackground();
  testRunner.And("the comparison between running and listening history is made using a specified da" +
                         "te range", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-                TechTalk.SpecFlow.Table table8 = new TechTalk.SpecFlow.Table(new string[] {
+                TechTalk.SpecFlow.Table table10 = new TechTalk.SpecFlow.Table(new string[] {
                             "Song name"});
-                table8.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "Superheroes"});
-                table8.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "Yesterday"});
-                table8.AddRow(new string[] {
+                table10.AddRow(new string[] {
                             "Mains"});
 #line 77
- testRunner.Then("the user\'s top tracks for running faster are produced", ((string)(null)), table8, "Then ");
+ testRunner.Then("the user\'s top tracks for running faster are produced", ((string)(null)), table10, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

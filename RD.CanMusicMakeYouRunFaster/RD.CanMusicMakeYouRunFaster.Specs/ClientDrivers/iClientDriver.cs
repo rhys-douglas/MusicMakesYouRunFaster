@@ -16,14 +16,19 @@
         void SetUp(ExternalAPIGateway externalApiGateway);
 
         /// <summary>
-        /// Request music data from the relevant API.
+        /// Request music data from the Spotify API.
         /// </summary>
-        void GetRecentlyPlayedMusic();
+        void GetSpotifyRecentlyPlayedMusic();
 
         /// <summary>
-        /// Request activity data from the relevant API.
+        /// Request music data from the LastFM API.
         /// </summary>
-        void GetRecentActivities();
+        void GetLastFMRecentlyPlayedMusic();
+
+        /// <summary>
+        /// Request activity data from the Strava API.
+        /// </summary>
+        void GetRecentStravaActivities();
 
         /// <summary>
         /// Request activity data from the FitBit API.

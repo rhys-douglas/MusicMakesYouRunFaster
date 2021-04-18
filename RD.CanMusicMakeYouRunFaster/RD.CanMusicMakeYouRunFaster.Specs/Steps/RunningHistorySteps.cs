@@ -30,7 +30,7 @@
         [When(@"the user's recent running history is requested")]
         public void WhenTheUsersRunningHistoryIsRequested()
         {
-            clientDriver.GetRecentActivities();
+            clientDriver.GetRecentStravaActivities();
         }
 
         [When(@"When the user's recent FitBit running history is requested")]

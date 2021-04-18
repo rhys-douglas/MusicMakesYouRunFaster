@@ -51,6 +51,9 @@
     <Compile Update="Features\FitBitAPICalls.feature.cs">
       <DependentUpon>FitBitAPICalls.feature</DependentUpon>
     </Compile>
+    <Compile Update="Features\LastFMAPICalls.feature.cs">
+      <DependentUpon>LastFMAPICalls.feature</DependentUpon>
+    </Compile>
     <Compile Update="Features\StravaAPICalls.feature.cs">
       <DependentUpon>StravaAPICalls.feature</DependentUpon>
     </Compile>
@@ -62,6 +65,10 @@
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>
     <SpecFlowFeatureFiles Update="Features\FitBitAPICalls.feature">
+      <Visible>$(UsingMicrosoftNETSdk)</Visible>
+      <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
+    </SpecFlowFeatureFiles>
+    <SpecFlowFeatureFiles Update="Features\LastFMAPICalls.feature">
       <Visible>$(UsingMicrosoftNETSdk)</Visible>
       <CodeBehindFile>%(RelativeDir)%(Filename).feature$(DefaultLanguageSourceExtension)</CodeBehindFile>
     </SpecFlowFeatureFiles>

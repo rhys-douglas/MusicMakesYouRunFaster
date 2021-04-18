@@ -18,7 +18,7 @@
         /// Client ID.
         /// </summary>
         [FromQuery(Name = "client_id")]
-        public int? client_id { get; set; }
+        public string client_id { get; set; }
 
 
         /// <summary>
