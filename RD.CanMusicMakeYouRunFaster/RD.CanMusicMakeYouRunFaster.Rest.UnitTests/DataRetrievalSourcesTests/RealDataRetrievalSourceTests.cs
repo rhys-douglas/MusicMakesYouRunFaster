@@ -16,6 +16,7 @@
         private SpotifyAuthenticationToken spotifyAuthenticationToken;
         private StravaAuthenticationToken stravaAuthenticationToken;
         private FitBitAuthenticationToken fitBitAuthenticationToken;
+        private LastFMAuthenticationToken lastFMAuthenticationToken;
         private IDataRetrievalSource sut;
 
         [OneTimeSetUp]
@@ -63,6 +64,43 @@
             var listeningHistory1 = JsonConvert.DeserializeObject<CursorPaging<PlayHistoryItem>>(listeningHistory1Json);
             listeningHistory1.Items.Should().NotBeNull();
             listeningHistory1.Items.Should().NotBeEquivalentTo(listeningHistory0.Items);
+        }
+
+        [Test]
+        public void GetLastFMListeningHistory_ListeningHistoryRetrieved()
+        {
+            // Get lastFM auth token
+            var lastFMTokenAsJson = sut.GetSpotifyAuthenticationToken();
+            lastFMTokenAsJson.Result.Should().NotBeNull();
+            lastFMTokenAsJson.Result.Value.Should().NotBe(string.Empty);
+            lastFMAuthenticationToken = JsonConvert.DeserializeObject<LastFMAuthenticationToken>((string)lastFMTokenAsJson.Result.Value);
+            lastFMAuthenticationToken.SessionKey.Should().NotBeNullOrEmpty();
+
+            // Get listening history
+            var listeningHistory = sut.GetSpotifyRecentlyPlayed(spotifyAuthenticationToken);
+            listeningHistory.Result.Value.Should().NotBeNull();
+            listeningHistory.Result.Value.Should().NotBe(string.Empty);
+        }
+
+        [Test]
+        public void GetLastFMListeningHistoryWithAfterParameter_CorrectListeningHIstoryReturned()
+        {
+            Assert.Fail();
+            var fitBitTokenAsJsonResult = sut.GetFitBitAuthenticationToken();
+            fitBitTokenAsJsonResult.Result.Should().NotBeNull();
+            fitBitTokenAsJsonResult.Result.Value.Should().NotBe(string.Empty);
+            fitBitAuthenticationToken = new FitBitAuthenticationToken
+            {
+                AccessToken = (string)fitBitTokenAsJsonResult.Result.Value
+            };
+            fitBitAuthenticationToken.AccessToken.Should().NotBeNullOrEmpty();
+
+            // Get Activities
+            Task<JsonResult> activityHistoryResult = sut.GetFitBitActivityHistory(fitBitAuthenticationToken);
+            activityHistoryResult.Result.Value.Should().NotBeNull();
+            activityHistoryResult.Result.Value.Should().NotBe(string.Empty);
+            var actualActivities = activityHistoryResult.Result.Value;
+            actualActivities.Should().NotBeNull();
         }
 
         [Test]

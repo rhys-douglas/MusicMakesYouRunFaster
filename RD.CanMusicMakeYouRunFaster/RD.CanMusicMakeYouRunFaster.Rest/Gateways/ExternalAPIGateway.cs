@@ -74,7 +74,7 @@
         {
             var lastFMAuthenticationTokenAsJson = dataSource.GetLastFMAuthenticationToken().Result;
             var tempSerialize = JsonConvert.SerializeObject(lastFMAuthenticationTokenAsJson.Value);
-            fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>(tempSerialize);
+            lastFMAuthToken = JsonConvert.DeserializeObject<LastFMAuthenticationToken>(tempSerialize);
             return new JsonResult(fitBitAuthToken);
         }
 

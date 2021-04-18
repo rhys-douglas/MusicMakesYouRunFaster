@@ -219,5 +219,19 @@
             var fitBitActivityHistory = externalAPICaller.Get<ActivityLogsList>(new Uri("http://localhost:2222/1/user/-/activities"));
             return new JsonResult(fitBitActivityHistory);
         }
+
+        /// <inheritdoc/>
+        public async Task<JsonResult> GetLastFMAuthenticationToken()
+        {
+            await Task.Delay(0);
+            throw new NotImplementedException();
+        }
+
+        /// <inheritdoc/>
+        public async Task<JsonResult> GetLastFMRecentlyPlayed(LastFMAuthenticationToken authToken, long? after = null)
+        {
+            await Task.Delay(0);
+            throw new NotImplementedException();
+        }
     }
 }

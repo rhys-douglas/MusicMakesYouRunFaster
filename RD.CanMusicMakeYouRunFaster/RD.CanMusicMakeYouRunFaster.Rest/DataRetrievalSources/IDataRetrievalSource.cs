@@ -19,9 +19,23 @@
         /// Gets the spotify recently played history.
         /// </summary>
         /// <param name="authToken">Authentication token to use.</param>
-        /// <param name="after">Ticks to search after.</param>
+        /// <param name="after">UNIX ms to search after.</param>
         /// <returns> Json of recently played music. </returns>
         Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken, long? after = null);
+
+        /// <summary>
+        /// Gets the LastFM Authentication Token
+        /// </summary>
+        /// <returns> Json of a valid authentication token. </returns>
+        Task<JsonResult> GetLastFMAuthenticationToken();
+
+        /// <summary>
+        /// Gets a list of LastFM recently played songs.
+        /// </summary>
+        /// <param name="authToken">Authentication token to use.</param>
+        /// <param name="after"> UNIX ms to search after.</param>
+        /// <returns> A list of songs</returns>
+        Task<JsonResult> GetLastFMRecentlyPlayed(LastFMAuthenticationToken authToken, long? after=null);
 
         /// <summary>
         /// Gets the Strava authentication token
@@ -30,7 +44,7 @@
         Task<JsonResult> GetStravaAuthenticationToken();
 
         /// <summary>
-        /// Gets a JSON list of Strava Activities
+        /// Gets a list of Strava Activities
         /// </summary>
         /// <param name="authToken">Auth token to use to get activities</param>
         /// <returns> A list of Strava activities in JSON format.</returns>

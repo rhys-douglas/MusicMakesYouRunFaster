@@ -37,5 +37,17 @@
             retrievedJsonResult.Result.AccessToken.Should().NotBeNullOrEmpty();
             retrievedJsonResult.Result.RefreshToken.Should().NotBeNullOrEmpty();
         }
+
+        [Test]
+        public void GetLastFMAuthToken_AuthTokenReturned()
+        {
+            var sut = new OAuth2Authenticator();
+            var retrievedJsonResult = sut.GetLastFMAuthToken();
+            retrievedJsonResult.Should().NotBeNull();
+            retrievedJsonResult.IsFaulted.Should().BeFalse();
+            retrievedJsonResult.Result.Should().NotBeNull();
+            retrievedJsonResult.Result.SessionKey.Should().NotBeNullOrEmpty();
+            retrievedJsonResult.Result.Name.Should().NotBeNullOrEmpty();
+        }
     }
 }

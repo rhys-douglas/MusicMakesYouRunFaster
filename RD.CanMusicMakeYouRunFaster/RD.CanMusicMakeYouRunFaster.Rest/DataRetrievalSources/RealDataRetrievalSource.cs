@@ -137,5 +137,21 @@
             var retrievedActivities = await client.GetActivityLogsListAsync(null,lastWeek,20);
             return new JsonResult(retrievedActivities);
         }
+
+        /// <inheritdoc/>
+        public async Task<JsonResult> GetLastFMAuthenticationToken()
+        {
+            await Task.Delay(0);
+            var authenticator = new OAuth2Authenticator();
+            var token = authenticator.GetLastFMAuthToken();
+            return new JsonResult(token.Result.SessionKey);
+        }
+
+        /// <inheritdoc/>
+        public async Task<JsonResult> GetLastFMRecentlyPlayed(LastFMAuthenticationToken authToken, long? after = null)
+        {
+            await Task.Delay(0);
+            throw new NotImplementedException();
+        }
     }
 }
