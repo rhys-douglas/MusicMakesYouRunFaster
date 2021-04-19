@@ -5,10 +5,7 @@
     using RestSharp;
     using SpotifyAPI.Web.Auth;
     using System;
-    using System.IO;
-    using System.Security.Cryptography;
     using System.Threading.Tasks;
-    using System.Xml.Serialization;
 
     /// <summary>
     /// Authenticator class used for acquiring OAuth2 access tokens from various APIs.
@@ -17,10 +14,8 @@
     {
         private static readonly EmbedIOAuthServer StravaAuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5001/stravatoken"), 5001);
         private static readonly EmbedIOAuthServer FitBitAuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5002/fitbittoken"), 5002);
-        private static readonly LastFMEmbedIOAuthServer.LastFMEmbedIOAuthServer LastFMAuthServer = new LastFMEmbedIOAuthServer.LastFMEmbedIOAuthServer(new Uri("http://localhost:5003/lastfmtoken/"), 5003);
         private StravaAuthenticationToken stravaAuthToken = new StravaAuthenticationToken();
         private FitBitAuthenticationToken fitBitAuthToken = new FitBitAuthenticationToken();
-        private LastFMAuthenticationToken lastFMAuthToken = new LastFMAuthenticationToken();
 
         /// <summary>
         /// Gets an authentication token from the strava API.
@@ -77,43 +72,6 @@
             BrowserUtil.Open(authTokenUri);
             Task.Delay(20000).Wait();
             return fitBitAuthToken;
-        }
-
-        /// <summary>
-        /// Authenticates a LastFM user using the LastFM web api.
-        /// </summary>
-        /// <returns> A LastFM authentication Token. </returns>
-        public async Task<LastFMAuthenticationToken> GetLastFMAuthToken()
-        {
-            await LastFMAuthServer.Start();
-            var exchangeToken = string.Empty;
-            var authTokenAsString = string.Empty;
-
-            FitBitAuthServer.ImplictGrantReceived += async (sender, response) =>
-            {
-                await StravaAuthServer.Stop();
-                exchangeToken = response.AccessToken;
-                var client = new RestClient("http://www.last.fm/api/auth?api_key=d3cf196e63d20375eb8d6729ebb982b3&api_sig=");
-                var request = new RestRequest(Method.POST);
-                string concatenatedParams = "api_keyd3cf196e63d20375eb8d6729ebb982b3methodauth.getSessiontoken" + exchangeToken + "3b2dd16f5d94f119aa724dd3efe3b393";
-                var md5 = MD5.Create();
-                byte[] inputBytes = System.Text.Encoding.UTF8.GetBytes(concatenatedParams);
-                byte[] api_sigAsBytes = md5.ComputeHash(inputBytes);
-                md5.Dispose();
-                request.AddParameter("token", exchangeToken);
-                request.AddParameter("api_sig", api_sigAsBytes);
-                IRestResponse accessTokenResponse = client.Execute(request);
-                XmlSerializer xmlSerializer = new XmlSerializer(typeof(LastFMAuthenticationToken));
-                using (TextReader reader = new StringReader(accessTokenResponse.Content))
-                {
-                    lastFMAuthToken = (LastFMAuthenticationToken)xmlSerializer.Deserialize(reader);
-                }
-            };
-
-            var authTokenUri = new Uri("http://www.last.fm/api/auth/?api_key=d3cf196e63d20375eb8d6729ebb982b3&cb=http://localhost:5003/lastfmtoken");
-            BrowserUtil.Open(authTokenUri);
-            Task.Delay(20000).Wait();
-            return lastFMAuthToken;
         }
     }
 }

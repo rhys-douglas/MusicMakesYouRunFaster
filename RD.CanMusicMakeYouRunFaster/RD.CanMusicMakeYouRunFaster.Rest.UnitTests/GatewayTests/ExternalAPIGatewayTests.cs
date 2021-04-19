@@ -404,17 +404,6 @@
             actualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
         }
 
-        [Test]
-        public void GetLastFMAuthenticationToken_AuthenticationTokenReturned()
-        {
-            sut = MakeSut();
-            var tokenAsJson = sut.GetLastFMAuthenticationToken();
-            tokenAsJson.Value.Should().NotBeNull();
-            var extractedJsonToken = JsonConvert.SerializeObject(tokenAsJson.Value);
-            var lastFMAuthToken = JsonConvert.DeserializeObject<LastFMAuthenticationToken>(extractedJsonToken);
-            lastFMAuthToken.SessionKey.Should().NotBeNullOrEmpty();
-        }
-
         private ExternalAPIGateway MakeSut()
         {
             return new ExternalAPIGateway(fakeDataRetrievalSource);

@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Entity;
     using Fitbit.Api.Portable;
+    using IF.Lastfm.Core.Api;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using RD.CanMusicMakeYouRunFaster.Rest.Authenticators;
@@ -139,19 +140,12 @@
         }
 
         /// <inheritdoc/>
-        public async Task<JsonResult> GetLastFMAuthenticationToken()
+        public async Task<JsonResult> GetLastFMRecentlyPlayed(string username, DateTimeOffset? after = null)
         {
-            await Task.Delay(0);
-            var authenticator = new OAuth2Authenticator();
-            var token = authenticator.GetLastFMAuthToken();
-            return new JsonResult(token.Result.SessionKey);
+            var client = new LastfmClient("d3cf196e63d20375eb8d6729ebb982b3", "3b2dd16f5d94f119aa724dd3efe3b393");
+            var recentTracks = await client.User.GetRecentScrobbles(username,after);
+            return new JsonResult(recentTracks.Content);
         }
-
-        /// <inheritdoc/>
-        public async Task<JsonResult> GetLastFMRecentlyPlayed(LastFMAuthenticationToken authToken, long? after = null)
-        {
-            await Task.Delay(0);
-            throw new NotImplementedException();
-        }
+            
     }
 }

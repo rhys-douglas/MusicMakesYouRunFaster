@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
+    using System;
 
     /// <summary>
     /// Controller used to handle HTTP requests to the backend / external API's.
@@ -12,7 +13,6 @@
     {
         private readonly IDataRetrievalSource dataSource;
         private SpotifyAuthenticationToken spotifyAuthToken;
-        private LastFMAuthenticationToken lastFMAuthToken;
         private StravaAuthenticationToken stravaAuthToken;
         private FitBitAuthenticationToken fitBitAuthToken;
 
@@ -67,18 +67,6 @@
         }
 
         /// <summary>
-        /// Gets the Last.FM authentication token.
-        /// </summary>
-        /// <returns>A Last.FM auth token.</returns>
-        public JsonResult GetLastFMAuthenticationToken()
-        {
-            var lastFMAuthenticationTokenAsJson = dataSource.GetLastFMAuthenticationToken().Result;
-            var tempSerialize = JsonConvert.SerializeObject(lastFMAuthenticationTokenAsJson.Value);
-            lastFMAuthToken = JsonConvert.DeserializeObject<LastFMAuthenticationToken>(tempSerialize);
-            return new JsonResult(fitBitAuthToken);
-        }
-
-        /// <summary>
         /// Gets the strava recent activties
         /// </summary>
         /// <returns> Strava recent activities </returns>
@@ -106,9 +94,9 @@
             return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken, after).Result;
         }
 
-        public JsonResult GetLastFMRecentlyPlayed(long? after = null)
+        public JsonResult GetLastFMRecentlyPlayed(string username, DateTimeOffset? after = null)
         {
-            return this.dataSource.GetLastFMRecentlyPlayed(this.lastFMAuthToken, after).Result;
+            return this.dataSource.GetLastFMRecentlyPlayed(username, after).Result;
         }
     }
 }

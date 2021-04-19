@@ -16,7 +16,6 @@
         private SpotifyAuthenticationToken spotifyAuthenticationToken;
         private StravaAuthenticationToken stravaAuthenticationToken;
         private FitBitAuthenticationToken fitBitAuthenticationToken;
-        private LastFMAuthenticationToken lastFMAuthenticationToken;
         private IDataRetrievalSource sut;
 
         [OneTimeSetUp]
@@ -69,15 +68,10 @@
         [Test]
         public void GetLastFMListeningHistory_ListeningHistoryRetrieved()
         {
-            // Get lastFM auth token
-            var lastFMTokenAsJson = sut.GetSpotifyAuthenticationToken();
-            lastFMTokenAsJson.Result.Should().NotBeNull();
-            lastFMTokenAsJson.Result.Value.Should().NotBe(string.Empty);
-            lastFMAuthenticationToken = JsonConvert.DeserializeObject<LastFMAuthenticationToken>((string)lastFMTokenAsJson.Result.Value);
-            lastFMAuthenticationToken.SessionKey.Should().NotBeNullOrEmpty();
-
+            var now = DateTime.UtcNow;
+            now = now.AddDays(-7);
             // Get listening history
-            var listeningHistory = sut.GetSpotifyRecentlyPlayed(spotifyAuthenticationToken);
+            var listeningHistory = sut.GetLastFMRecentlyPlayed("TheRealDougie1",now);
             listeningHistory.Result.Value.Should().NotBeNull();
             listeningHistory.Result.Value.Should().NotBe(string.Empty);
         }

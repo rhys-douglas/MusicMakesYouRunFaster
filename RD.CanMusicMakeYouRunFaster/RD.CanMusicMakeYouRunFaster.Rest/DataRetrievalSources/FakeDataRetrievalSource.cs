@@ -221,14 +221,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<JsonResult> GetLastFMAuthenticationToken()
-        {
-            await Task.Delay(0);
-            throw new NotImplementedException();
-        }
-
-        /// <inheritdoc/>
-        public async Task<JsonResult> GetLastFMRecentlyPlayed(LastFMAuthenticationToken authToken, long? after = null)
+        public async Task<JsonResult> GetLastFMRecentlyPlayed(string username, DateTimeOffset? after = null)
         {
             await Task.Delay(0);
             throw new NotImplementedException();

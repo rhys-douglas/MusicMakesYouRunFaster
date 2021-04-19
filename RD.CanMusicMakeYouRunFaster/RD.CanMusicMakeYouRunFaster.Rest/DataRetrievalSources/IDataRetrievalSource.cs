@@ -1,5 +1,6 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources
 {
+    using System;
     using System.Threading.Tasks;
     using Entity;
     using Microsoft.AspNetCore.Mvc;
@@ -24,18 +25,11 @@
         Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken, long? after = null);
 
         /// <summary>
-        /// Gets the LastFM Authentication Token
-        /// </summary>
-        /// <returns> Json of a valid authentication token. </returns>
-        Task<JsonResult> GetLastFMAuthenticationToken();
-
-        /// <summary>
         /// Gets a list of LastFM recently played songs.
         /// </summary>
-        /// <param name="authToken">Authentication token to use.</param>
-        /// <param name="after"> UNIX ms to search after.</param>
+        /// <param name="username"> Username to search for.</param>
         /// <returns> A list of songs</returns>
-        Task<JsonResult> GetLastFMRecentlyPlayed(LastFMAuthenticationToken authToken, long? after=null);
+        Task<JsonResult> GetLastFMRecentlyPlayed(string username, DateTimeOffset? after=null);
 
         /// <summary>
         /// Gets the Strava authentication token
