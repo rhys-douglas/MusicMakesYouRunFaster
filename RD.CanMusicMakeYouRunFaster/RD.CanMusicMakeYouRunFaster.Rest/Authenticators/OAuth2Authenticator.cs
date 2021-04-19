@@ -17,7 +17,7 @@
     {
         private static readonly EmbedIOAuthServer StravaAuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5001/stravatoken"), 5001);
         private static readonly EmbedIOAuthServer FitBitAuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5002/fitbittoken"), 5002);
-        private static readonly EmbedIOAuthServer LastFMAuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5003/lastfmtoken"), 5003);
+        private static readonly EmbedIOAuthServer LastFMAuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5003/lastfmtoken/"), 5003);
         private StravaAuthenticationToken stravaAuthToken = new StravaAuthenticationToken();
         private FitBitAuthenticationToken fitBitAuthToken = new FitBitAuthenticationToken();
         private LastFMAuthenticationToken lastFMAuthToken = new LastFMAuthenticationToken();
@@ -110,7 +110,7 @@
                 }
             };
 
-            var authTokenUri = new Uri("http://www.last.fm/api/auth/?api_key=d3cf196e63d20375eb8d6729ebb982b3");
+            var authTokenUri = new Uri("http://www.last.fm/api/auth/?api_key=d3cf196e63d20375eb8d6729ebb982b3&cb=http://localhost:5003/lastfmtoken");
             BrowserUtil.Open(authTokenUri);
             Task.Delay(20000).Wait();
             return lastFMAuthToken;
