@@ -40,5 +40,10 @@
         /// Gets or sets the FitBitActivityItems data set.
         /// </summary>
         public DbSet<Activities> FitBitActivityItems { get; set; }
+
+        /// <summary>
+        /// Gets or sets the LastFM LastTracks data set.
+        /// </summary>
+        public DbSet<LastTrack> LastTracks { get; set; }
     }
 }

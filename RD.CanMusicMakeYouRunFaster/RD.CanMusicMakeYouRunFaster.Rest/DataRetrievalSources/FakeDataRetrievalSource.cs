@@ -224,8 +224,12 @@
         public async Task<JsonResult> GetLastFMRecentlyPlayed(string username, DateTimeOffset? after = null)
         {
             await Task.Delay(0);
-            var fakeObjectRecentlyPlayed  = externalAPICaller.Get<FakeResponseServer.DTO.PageResponse<FakeResponseServer.DTO.Activity>>(new Uri("http://localhost:2222/v3/athlete/activities"));
-            return new JsonResult(null);
+            var fakeObjectRecentlyPlayed  = externalAPICaller.Get<FakeResponseServer.DTO.PageResponse<FakeResponseServer.DTO.Activity>>(new Uri("http://localhost:2222/2.0/?method=user.getrecenttracks&user=RD123&api_key=d3cf196e63d20375eb8d6729ebb982b3&format=json"));
+            var listOfActualTracks = new List<IF.Lastfm.Core.Objects.LastTrack>();
+            // convert tracks
+
+            var actualRecentlyPlayed = new IF.Lastfm.Core.Api.Helpers.PageResponse<IF.Lastfm.Core.Objects.LastTrack>(listOfActualTracks);
+            return new JsonResult(actualRecentlyPlayed);
         }
     }
 }
