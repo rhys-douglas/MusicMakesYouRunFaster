@@ -11,13 +11,13 @@
     using System.Xml.Serialization;
 
     /// <summary>
-    /// Authenticator class used for acquiring OAUTH2 access tokens from various APIs.
+    /// Authenticator class used for acquiring OAuth2 access tokens from various APIs.
     /// </summary>
     public class OAuth2Authenticator
     {
         private static readonly EmbedIOAuthServer StravaAuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5001/stravatoken"), 5001);
         private static readonly EmbedIOAuthServer FitBitAuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5002/fitbittoken"), 5002);
-        private static readonly EmbedIOAuthServer LastFMAuthServer = new EmbedIOAuthServer(new Uri("http://localhost:5003/lastfmtoken/"), 5003);
+        private static readonly LastFMEmbedIOAuthServer.LastFMEmbedIOAuthServer LastFMAuthServer = new LastFMEmbedIOAuthServer.LastFMEmbedIOAuthServer(new Uri("http://localhost:5003/lastfmtoken/"), 5003);
         private StravaAuthenticationToken stravaAuthToken = new StravaAuthenticationToken();
         private FitBitAuthenticationToken fitBitAuthToken = new FitBitAuthenticationToken();
         private LastFMAuthenticationToken lastFMAuthToken = new LastFMAuthenticationToken();
@@ -89,10 +89,10 @@
             var exchangeToken = string.Empty;
             var authTokenAsString = string.Empty;
 
-            FitBitAuthServer.AuthorizationCodeReceived += async (sender, response) =>
+            FitBitAuthServer.ImplictGrantReceived += async (sender, response) =>
             {
                 await StravaAuthServer.Stop();
-                exchangeToken = response.Code;
+                exchangeToken = response.AccessToken;
                 var client = new RestClient("http://www.last.fm/api/auth?api_key=d3cf196e63d20375eb8d6729ebb982b3&api_sig=");
                 var request = new RestRequest(Method.POST);
                 string concatenatedParams = "api_keyd3cf196e63d20375eb8d6729ebb982b3methodauth.getSessiontoken" + exchangeToken + "3b2dd16f5d94f119aa724dd3efe3b393";

@@ -24,5 +24,9 @@
     <ProjectReference Include="..\RD.CanMusicMakeYouRunFaster.FakeResponseServer\RD.CanMusicMakeYouRunFaster.FakeResponseServer.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Authenticators\LastFMEmbedIOAuthServer\Models\Response\" />
+  </ItemGroup>
+
 
 </Project>
