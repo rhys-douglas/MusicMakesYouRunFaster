@@ -2,6 +2,7 @@
 {
     using Microsoft.EntityFrameworkCore;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.FitBit;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.LastFM;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Spotify;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Strava;
 
