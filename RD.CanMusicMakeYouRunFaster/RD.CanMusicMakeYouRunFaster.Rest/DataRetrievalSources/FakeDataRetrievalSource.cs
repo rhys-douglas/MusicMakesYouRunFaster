@@ -10,7 +10,7 @@
     using Fitbit.Api.Portable.Models;
 
     /// <summary>
-    /// Fake data source used for tests.
+    /// Fake data source used for testing and proof of concept, mimicking the functionality of the <see cref="RealDataRetrievalSource"/> class.
     /// </summary>
     public class FakeDataRetrievalSource : IDataRetrievalSource
     {

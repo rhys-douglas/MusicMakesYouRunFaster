@@ -396,12 +396,20 @@
         [Test]
         public void GetFitBitActivityHistory_ActivityHistoryReturned()
         {
-            // Get activities
             sut = MakeSut();
             var activityHistory = sut.GetFitBitRecentActivities();
             var actualHistory = activityHistory.Value;
             actualHistory.Should().NotBeNull();
             actualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
+        }
+
+        [Test]
+        public void GetLastFMRecentlyPlayedWithoutAfterParam_CorrectResponseReturned()
+        {
+            sut = MakeSut();
+            var listeningHistory = sut.GetLastFMRecentlyPlayed("SomeUser");
+            listeningHistory.Should().NotBeNull();
+            listeningHistory.Should().BeOfType<IF.Lastfm.Core.Api.Helpers.PageResponse<IF.Lastfm.Core.Objects.LastTrack>>();
         }
 
         private ExternalAPIGateway MakeSut()

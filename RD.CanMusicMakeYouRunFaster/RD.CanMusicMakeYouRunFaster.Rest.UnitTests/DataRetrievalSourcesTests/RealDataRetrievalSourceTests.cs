@@ -16,7 +16,7 @@
         private SpotifyAuthenticationToken spotifyAuthenticationToken;
         private StravaAuthenticationToken stravaAuthenticationToken;
         private FitBitAuthenticationToken fitBitAuthenticationToken;
-        private IDataRetrievalSource sut;
+        private RealDataRetrievalSource sut;
 
         [OneTimeSetUp]
         public void SetUpTests()
