@@ -17,7 +17,7 @@
         /// </summary>
         /// <param name="activityAndMusicHistory"></param>
         /// <returns></returns>
-        public Dictionary<Activity,List<PlayHistoryItem>> GetFastestActivityWithListeningHistory(Dictionary<Activity, List<PlayHistoryItem>> activityAndMusicHistory)
+        public Dictionary<StravaActivity,List<PlayHistoryItem>> GetFastestActivityWithListeningHistory(Dictionary<StravaActivity, List<PlayHistoryItem>> activityAndMusicHistory)
         {
             if (activityAndMusicHistory.Count == 0)
             {
@@ -25,7 +25,7 @@
             }
 
             var fastestActivity = ActivityComparer.FindFastestActivity(activityAndMusicHistory.Keys.ToList());
-            return new Dictionary<Activity, List<PlayHistoryItem>>
+            return new Dictionary<StravaActivity, List<PlayHistoryItem>>
             {
                 {fastestActivity, activityAndMusicHistory[fastestActivity] }
             };

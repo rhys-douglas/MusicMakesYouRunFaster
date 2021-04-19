@@ -18,7 +18,7 @@
         {
             var now = DateTime.UtcNow;
 
-            var activity1 = new Activity
+            var activity1 = new StravaActivity
             {
                 type = "Run",
                 average_speed = 3.5,
@@ -58,7 +58,7 @@
                 }
             };
 
-            var activity2 = new Activity
+            var activity2 = new StravaActivity
             {
                 type = "Run",
                 average_speed = 4.5,
@@ -109,7 +109,7 @@
                 },
             };
 
-            var sampleData = new Dictionary<Activity, List<PlayHistoryItem>>
+            var sampleData = new Dictionary<StravaActivity, List<PlayHistoryItem>>
             {
                 { activity1, listOfActivity1PlayHistory },
                 { activity2, listOfActivity2PlayHistory }
@@ -126,7 +126,7 @@
         public void GetFastestActivitySongsWithNoActivitiesOrSongs_ExceptionThrown()
         {
             sut = new InsightsManager();
-            Action exceptionAction = () => sut.GetFastestActivityWithListeningHistory(new Dictionary<Activity, List<PlayHistoryItem>>());
+            Action exceptionAction = () => sut.GetFastestActivityWithListeningHistory(new Dictionary<StravaActivity, List<PlayHistoryItem>>());
             exceptionAction.Should().Throw<IndexOutOfRangeException>().WithMessage("No activities in parsed array dictionary.");
         }
     }

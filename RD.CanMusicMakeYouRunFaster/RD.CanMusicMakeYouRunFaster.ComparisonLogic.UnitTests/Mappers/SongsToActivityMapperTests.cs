@@ -19,10 +19,10 @@
             var endTime = startTime.AddMinutes(20);
 
             sut = new SongsToActivityMapper();
-            var fakeActivity = new Activity
+            var fakeActivity = new StravaActivity
             {
                 achievement_count = 2,
-                athlete = new Athlete
+                athlete = new StravaAthlete
                 {
                     id = 1,
                     resource_state = 2
@@ -53,7 +53,7 @@
                 location_country = "UK",
                 location_state = "OXF",
                 manual = false,
-                map = new Map
+                map = new StravaMap
                 {
                     id = "Map 1",
                     resource_state = 2,

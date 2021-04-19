@@ -15,7 +15,7 @@
         private readonly IClientDriver clientDriver;
         private readonly DataPort dataSource;
         private readonly List<PlayHistoryItem> listeningHistory = new List<PlayHistoryItem>();
-        private readonly List<Rest.Entity.Activity> runningHistory = new List<Rest.Entity.Activity>();
+        private readonly List<Rest.Entity.StravaActivity> runningHistory = new List<Rest.Entity.StravaActivity>();
 
         public CommonSteps(IClientDriver clientDriver, DataPort dataSource)
         {
@@ -184,11 +184,11 @@
                     workout_type = 1,
                 };
 
-                var realHistoryItem = new Rest.Entity.Activity
+                var realHistoryItem = new Rest.Entity.StravaActivity
                 {
                     achievement_count = 1,
                     athlete_count = 1,
-                    athlete = new Rest.Entity.Athlete
+                    athlete = new Rest.Entity.StravaAthlete
                     {
                         id = idcounter + 5,
                         resource_state = 2
@@ -218,7 +218,7 @@
                     location_country = "UK",
                     location_state = "CDF",
                     manual = false,
-                    map = new Rest.Entity.Map
+                    map = new Rest.Entity.StravaMap
                     {
                         id = idcounter.ToString(),
                         resource_state = 2,

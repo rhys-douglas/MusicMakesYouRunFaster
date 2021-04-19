@@ -450,9 +450,9 @@
             runningHistoryTask.Result.Value.Should().NotBeNull();
             runningHistoryTask.Result.Value.Should().NotBe(string.Empty);
             var runningHistoryJson = JsonConvert.SerializeObject(runningHistoryTask.Result.Value);
-            var actualRunningHistory = JsonConvert.DeserializeObject<List<Activity>>(runningHistoryJson);
+            var actualRunningHistory = JsonConvert.DeserializeObject<List<StravaActivity>>(runningHistoryJson);
             actualRunningHistory.Count.Should().Be(2);
-            actualRunningHistory[0].Should().BeOfType<Activity>();
+            actualRunningHistory[0].Should().BeOfType<StravaActivity>();
         }
 
         [Test]

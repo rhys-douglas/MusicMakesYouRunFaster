@@ -356,7 +356,7 @@
             var activityHistory = sut.GetStravaRecentActivities();
             activityHistory.Value.Should().NotBeNull();
             var activityHistoryExtracted = JsonConvert.SerializeObject(activityHistory.Value);
-            var actualActivityHistory = JsonConvert.DeserializeObject<List<Activity>>(activityHistoryExtracted);
+            var actualActivityHistory = JsonConvert.DeserializeObject<List<StravaActivity>>(activityHistoryExtracted);
             actualActivityHistory.Count.Should().Be(2);
             actualActivityHistory[0].average_speed.Should().Be(12.35);
         }

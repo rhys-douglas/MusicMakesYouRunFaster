@@ -125,13 +125,13 @@
         {
             await Task.Delay(0);
             var activityHistory = externalAPICaller.Get<List<FakeResponseServer.DTO.Activity>>(new Uri("http://localhost:2222/v3/athlete/activities"));
-            var correctActivityHistory = new List<Activity>();
+            var correctActivityHistory = new List<StravaActivity>();
             foreach (var item in activityHistory)
             {
-                correctActivityHistory.Add(new Activity
+                correctActivityHistory.Add(new StravaActivity
                 {
                     achievement_count = item.achievement_count,
-                    athlete = new Athlete
+                    athlete = new StravaAthlete
                     {
                         badge_type_id = item.athlete.badge_type_id,
                         city = item.athlete.city,
@@ -178,7 +178,7 @@
                     location_country = item.location_country,
                     location_state = item.location_state,
                     manual = item.manual,
-                    map = new Map
+                    map = new StravaMap
                     {
                         id = item.map.id,
                         resource_state = item.map.resource_state,
@@ -224,7 +224,8 @@
         public async Task<JsonResult> GetLastFMRecentlyPlayed(string username, DateTimeOffset? after = null)
         {
             await Task.Delay(0);
-            throw new NotImplementedException();
+            var fakeObjectRecentlyPlayed  = externalAPICaller.Get<FakeResponseServer.DTO.PageResponse<FakeResponseServer.DTO.Activity>>(new Uri("http://localhost:2222/v3/athlete/activities"));
+            return new JsonResult(null);
         }
     }
 }

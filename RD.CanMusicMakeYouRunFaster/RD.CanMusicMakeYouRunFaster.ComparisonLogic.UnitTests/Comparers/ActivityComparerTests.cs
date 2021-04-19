@@ -13,23 +13,23 @@
         public void FindFastestActivity_FastestActivityReturned()
         {
             var now_UTC = DateTime.UtcNow;
-            var sampleActivities = new List<Activity>
+            var sampleActivities = new List<StravaActivity>
             {
-                new Activity
+                new StravaActivity
                 {
                     id = "1",
                     start_date = now_UTC,
                     elapsed_time = 500,
                     average_speed = 3
                 },
-                new Activity
+                new StravaActivity
                 {
                     id = "2",
                     start_date = now_UTC.AddDays(1),
                     elapsed_time = 700,
                     average_speed = 4.5
                 },
-                new Activity
+                new StravaActivity
                 {
                     id = "3",
                     start_date = now_UTC.AddDays(-7),
@@ -45,7 +45,7 @@
         [Test]
         public void FindFastestActivityWithEmptyList_ExceptionThrown()
         {
-            var emptyActivityList = new List<Activity>();
+            var emptyActivityList = new List<StravaActivity>();
             Action a = () => ActivityComparer.FindFastestActivity(emptyActivityList);
             a.Should().Throw<IndexOutOfRangeException>().WithMessage("Empty activity list");
         }

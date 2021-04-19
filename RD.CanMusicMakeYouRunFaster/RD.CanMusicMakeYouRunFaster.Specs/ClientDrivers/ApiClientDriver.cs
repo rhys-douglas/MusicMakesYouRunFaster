@@ -14,8 +14,8 @@
     public class ApiClientDriver : IClientDriver
     {
         private readonly List<object> searchResults = new List<object>();
-        private Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>> activitiesAndSongs = new Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>>();
-        private Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>> fastestActivity = new Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>>();
+        private Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>> activitiesAndSongs = new Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>>();
+        private Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>> fastestActivity = new Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>>();
         private ExternalAPIGateway externalAPIGateway;
 
         /// <inheritdoc/>
@@ -53,7 +53,7 @@
         {
             externalAPIGateway.GetStravaAuthenticationToken();
             var searchresult = externalAPIGateway.GetStravaRecentActivities();
-            var activityHistoryContainer = (List<Rest.Entity.Activity>)searchresult.Value;
+            var activityHistoryContainer = (List<Rest.Entity.StravaActivity>)searchresult.Value;
             foreach (var activity in activityHistoryContainer)
             {
                 searchResults.Add(activity);
@@ -78,7 +78,7 @@
             externalAPIGateway.GetSpotifyAuthenticationToken();
             foreach (var item in searchResults)
             {
-                if (item is Rest.Entity.Activity activity)
+                if (item is Rest.Entity.StravaActivity activity)
                 {
                     var startDateAsDateTime = activity.start_date;
                     var startDateAsUnixTime = ((DateTimeOffset)startDateAsDateTime).ToUnixTimeMilliseconds();
@@ -120,7 +120,7 @@
         }
 
         /// <inheritdoc/>
-        public Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>> GetFastestTracks()
+        public Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>> GetFastestTracks()
         {
             return fastestActivity;
         }

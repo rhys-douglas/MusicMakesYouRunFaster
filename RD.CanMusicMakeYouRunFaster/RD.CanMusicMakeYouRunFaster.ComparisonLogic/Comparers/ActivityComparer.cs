@@ -5,7 +5,7 @@
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
 
     /// <summary>
-    /// Activity comparer class, used for finding differences between <see cref="Activity"/> objects.
+    /// Activity comparer class, used for finding differences between <see cref="StravaActivity"/> objects.
     /// </summary>
     public static class ActivityComparer
     {
@@ -14,7 +14,7 @@
         /// </summary>
         /// <param name="listOfActivities">List of activities to compare</param>
         /// <returns>The activity with the fastest average pace.</returns>
-        public static Activity FindFastestActivity(List<Activity> listOfActivities)
+        public static StravaActivity FindFastestActivity(List<StravaActivity> listOfActivities)
         {
             if (listOfActivities.Count == 0)
             {

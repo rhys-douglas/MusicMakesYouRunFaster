@@ -114,7 +114,7 @@
             var runningHistory = sut.GetStravaActivityHistory(stravaAuthenticationToken);
             runningHistory.Result.Value.Should().NotBeNull();
             runningHistory.Result.Value.Should().NotBe(string.Empty);
-            List<Activity> retrievedActivites = (List<Activity>)runningHistory.Result.Value;
+            List<StravaActivity> retrievedActivites = (List<StravaActivity>)runningHistory.Result.Value;
             retrievedActivites.Should().NotBeEmpty().And.Should().NotBeNull();
             foreach( var activity in retrievedActivites)
             {

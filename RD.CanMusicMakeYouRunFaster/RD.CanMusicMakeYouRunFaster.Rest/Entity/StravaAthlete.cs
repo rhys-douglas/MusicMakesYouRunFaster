@@ -4,7 +4,7 @@
     /// <summary>
     /// Athlete entity, held within a Strava Auth Token.
     /// </summary>
-    public class Athlete
+    public class StravaAthlete
     {
         /// <summary>
         /// Athlete Id

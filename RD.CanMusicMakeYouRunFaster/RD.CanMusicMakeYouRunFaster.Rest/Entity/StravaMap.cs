@@ -1,9 +1,9 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.Entity
 {
     /// <summary>
-    /// Map used in an <see cref="Activity"/>
+    /// Map used in an <see cref="StravaActivity"/>
     /// </summary>
-    public class Map
+    public class StravaMap
     {
         /// <summary>
         /// Id of the map.

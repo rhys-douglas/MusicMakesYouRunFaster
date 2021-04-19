@@ -49,11 +49,11 @@
         public void ThenTheUsersRunningHistoryIsProduced()
         {
             var acquiredItems = clientDriver.GetFoundItems();
-            var actualRunningHistory = new List<Rest.Entity.Activity>();
+            var actualRunningHistory = new List<Rest.Entity.StravaActivity>();
 
             foreach (var item in acquiredItems)
             {
-                if (item is Rest.Entity.Activity run)
+                if (item is Rest.Entity.StravaActivity run)
                 {
                     actualRunningHistory.Add(run);
                 }
