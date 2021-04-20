@@ -8,6 +8,7 @@
     using System.Web;
     using System.Collections.Generic;
     using Fitbit.Api.Portable.Models;
+    using IF.Lastfm.Core.Objects;
 
     /// <summary>
     /// Fake data source used for testing and proof of concept, mimicking the functionality of the <see cref="RealDataRetrievalSource"/> class.
@@ -224,11 +225,50 @@
         public async Task<JsonResult> GetLastFMRecentlyPlayed(string username, DateTimeOffset? after = null)
         {
             await Task.Delay(0);
-            var fakeObjectRecentlyPlayed  = externalAPICaller.Get<FakeResponseServer.DTO.PageResponse<FakeResponseServer.DTO.Activity>>(new Uri("http://localhost:2222/2.0/?method=user.getrecenttracks&user=RD123&api_key=d3cf196e63d20375eb8d6729ebb982b3&format=json"));
-            var listOfActualTracks = new List<IF.Lastfm.Core.Objects.LastTrack>();
+            var fakeObjectRecentlyPlayed  = externalAPICaller.Get<FakeResponseServer.DTO.PageResponse<FakeResponseServer.DTO.LastTrack>>(new Uri("http://localhost:2222/2.0/?method=user.getrecenttracks&user=RD123&api_key=d3cf196e63d20375eb8d6729ebb982b3&format=json"));
+            var listOfActualTracks = new List<LastTrack>();
             // convert tracks
+            foreach(var lastTrack in fakeObjectRecentlyPlayed.Content)
+            {
+                listOfActualTracks.Add(new LastTrack
+                {
+                    AlbumName = lastTrack.AlbumName,
+                    ArtistImages = new LastImageSet
+                    {
+                        Small = lastTrack.ArtistImages.Small,
+                        Medium = lastTrack.ArtistImages.Medium,
+                        Large = lastTrack.ArtistImages.Large,
+                        ExtraLarge = lastTrack.ArtistImages.ExtraLarge,
+                        Mega = lastTrack.ArtistImages.Mega,
+                    },
+                    ArtistMbid = lastTrack.ArtistMbid,
+                    ArtistName = lastTrack.ArtistName,
+                    ArtistUrl = lastTrack.ArtistUrl,
+                    Duration = lastTrack.Duration,
+                    Id = lastTrack.Id,
+                    Images = new LastImageSet
+                    {
+                        Small = lastTrack.Images.Small,
+                        Medium = lastTrack.Images.Medium,
+                        Large = lastTrack.Images.Large,
+                        ExtraLarge = lastTrack.Images.ExtraLarge,
+                        Mega = lastTrack.Images.Mega,
+                    },
+                    IsLoved = lastTrack.IsLoved,
+                    IsNowPlaying = lastTrack.IsNowPlaying,
+                    ListenerCount = lastTrack.ListenerCount,
+                    Mbid = lastTrack.Mbid,
+                    Name = lastTrack.Name,
+                    PlayCount = lastTrack.PlayCount,
+                    Rank = lastTrack.Rank,
+                    TimePlayed = lastTrack.TimePlayed,
+                    TopTags = new List<LastTag>(),
+                    Url = lastTrack.Url,
+                    UserPlayCount = lastTrack.UserPlayCount,
+                });
+            }
 
-            var actualRecentlyPlayed = new IF.Lastfm.Core.Api.Helpers.PageResponse<IF.Lastfm.Core.Objects.LastTrack>(listOfActualTracks);
+            var actualRecentlyPlayed = new IF.Lastfm.Core.Api.Helpers.PageResponse<LastTrack>(listOfActualTracks);
             return new JsonResult(actualRecentlyPlayed);
         }
     }

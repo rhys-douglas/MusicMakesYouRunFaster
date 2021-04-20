@@ -29,12 +29,12 @@
         /// </summary>
         /// <returns> A PageResponse of LastTrack objects</returns>
         [HttpGet]
-        public async Task<PageResponse<LastTrack>> GetRecentTracks([FromQuery] DTO.Request.LastFMGetRecentTracksRequest request)
+        public async Task<IF.Lastfm.Core.Api.Helpers.PageResponse<LastTrack>> GetRecentTracks([FromQuery] DTO.Request.LastFMGetRecentTracksRequest request)
         {
             await Task.Delay(0);
             if (request.User == null || request.ApiKey == null || request.User == string.Empty || request.ApiKey == string.Empty)
             {
-                return new PageResponse<LastTrack>();
+                return new IF.Lastfm.Core.Api.Helpers.PageResponse<LastTrack>();
             }
 
             var musicHistory = context.LastTracks;
@@ -60,11 +60,7 @@
                     }
                 }
             }
-
-            var listeningHistory = new PageResponse<LastTrack>
-            {
-                Content = listOfRecentlyPlayed
-            };
+            var listeningHistory = new IF.Lastfm.Core.Api.Helpers.PageResponse<LastTrack>(listOfRecentlyPlayed);
 
             return listeningHistory;
         }

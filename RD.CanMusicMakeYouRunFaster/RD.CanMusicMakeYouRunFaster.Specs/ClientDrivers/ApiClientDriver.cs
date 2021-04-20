@@ -39,7 +39,6 @@
         /// <inheritdoc/>
         public void GetLastFMRecentlyPlayedMusic()
         {
-            externalAPIGateway.GetLastFMAuthenticationToken();
             var searchResult = externalAPIGateway.GetLastFMRecentlyPlayed();
             var playHistoryContainer = (CursorPaging<PlayHistoryItem>)searchResult.Value;
             foreach (var song in playHistoryContainer.Items)

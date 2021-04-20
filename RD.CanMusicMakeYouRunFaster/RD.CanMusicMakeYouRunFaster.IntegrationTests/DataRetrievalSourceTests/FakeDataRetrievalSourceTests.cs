@@ -10,6 +10,9 @@
     using NUnit.Framework;
     using RD.CanMusicMakeYouRunFaster.Rest.IntegrationTests.TestUtils;
     using SpotifyAPI.Web;
+    using IF.Lastfm.Core;
+    using IF.Lastfm.Core.Api.Helpers;
+    using IF.Lastfm.Core.Objects;
 
     public class FakeDataRetrievalSourceTests : TestsBase
     {
@@ -347,6 +350,82 @@
             }
         };
 
+        private readonly List<FakeResponseServer.Models.LastFM.LastTrack> LastFMTrackItems = new List<FakeResponseServer.Models.LastFM.LastTrack>
+        {
+            new FakeResponseServer.Models.LastFM.LastTrack
+            {
+                AlbumName = "Some Album Name",
+                ArtistImages = new FakeResponseServer.Models.LastFM.LastImageSet()
+                {
+                    Small = new Uri("http://localhost/Small"),
+                    Medium = new Uri("http://localhost/Medium"),
+                    Large = new Uri("http://localhost/Large"),
+                    ExtraLarge = new Uri("http://localhost/XL"),
+                    Mega = new Uri("http://localhost/Mega"),
+                },
+                ArtistMbid = "123456789",
+                ArtistName = "Some Artist",
+                ArtistUrl = new Uri("http://localhost/ArtistURI"),
+                Duration = new TimeSpan(0, 2, 30),
+                Id = "23456789",
+                Images = new FakeResponseServer.Models.LastFM.LastImageSet
+                {
+                    Small = new Uri("http://localhost/Small1"),
+                    Medium = new Uri("http://localhost/Medium1"),
+                    Large = new Uri("http://localhost/Large1"),
+                    ExtraLarge = new Uri("http://localhost/XL1"),
+                    Mega = new Uri("http://localhost/Mega1"),
+                },
+                IsLoved = true,
+                IsNowPlaying = false,
+                ListenerCount = 1500,
+                Mbid = "3456789",
+                Name = "Some Track",
+                PlayCount = 300,
+                Rank = 1,
+                TimePlayed = DateTime.UtcNow,
+                TopTags = new List<FakeResponseServer.Models.LastFM.LastTag>(),
+                Url = new Uri("http://localhost/TrackURI"),
+                UserPlayCount = 20
+            },
+            new FakeResponseServer.Models.LastFM.LastTrack
+            {
+                AlbumName = "Some Album Name 2",
+                ArtistImages = new FakeResponseServer.Models.LastFM.LastImageSet()
+                {
+                    Small = new Uri("http://localhost/Small2"),
+                    Medium = new Uri("http://localhost/Medium2"),
+                    Large = new Uri("http://localhost/Large2"),
+                    ExtraLarge = new Uri("http://localhost/XL2"),
+                    Mega = new Uri("http://localhost/Mega2"),
+                },
+                ArtistMbid = "abcdefghi",
+                ArtistName = "Some Artist 2",
+                ArtistUrl = new Uri("http://localhost/ArtistURI2"),
+                Duration = new TimeSpan(0, 3, 0),
+                Id = "bcdefghij",
+                Images = new FakeResponseServer.Models.LastFM.LastImageSet
+                {
+                    Small = new Uri("http://localhost/Small3"),
+                    Medium = new Uri("http://localhost/Medium3"),
+                    Large = new Uri("http://localhost/Large3"),
+                    ExtraLarge = new Uri("http://localhost/XL3"),
+                    Mega = new Uri("http://localhost/Mega3"),
+                },
+                IsLoved = false,
+                IsNowPlaying = true,
+                ListenerCount = 53478763,
+                Mbid = "cdefghijk",
+                Name = "Some Track 2",
+                PlayCount = 573847389,
+                Rank = 2,
+                TimePlayed = DateTime.UtcNow,
+                TopTags = new List<FakeResponseServer.Models.LastFM.LastTag>(),
+                Url = new Uri("http://localhost/TrackURI2"),
+                UserPlayCount = 30,
+            }
+        };
+
         [OneTimeSetUp]
         public void SetUpTests()
         {
@@ -372,11 +451,20 @@
                 item.LastModified = now;
             }
 
+            offset = -2;
+            foreach (var item in LastFMTrackItems)
+            {
+                item.TimePlayed = now;
+                offset++;
+            }
+
             RegisterMusicHistory(PlayHistoryItems);
 
             RegisterActivityHistory(ActivityItems);
 
             RegisterFitBitHistory(FitBitActivityItems);
+
+            RegisterLastFMTracks(LastFMTrackItems);
 
             sut = MakeSut();
 
@@ -465,6 +553,18 @@
             ActivityLogsList actualRunningHistory = (ActivityLogsList)runningHistoryTask.Result.Value;
             actualRunningHistory.Should().BeOfType<ActivityLogsList>();
             actualRunningHistory.Activities.Should().HaveCount(2);
+        }
+
+        [Test]
+        public void GetLastFMListeniningHistory_ListeningHistoryReturned()
+        {
+            sut = MakeSut();
+            var listeningHistoryTask = sut.GetLastFMRecentlyPlayed("RD");
+            listeningHistoryTask.Result.Value.Should().NotBeNull();
+            listeningHistoryTask.Result.Value.Should().NotBe(string.Empty);
+            PageResponse<LastTrack> actualPageResponse = (PageResponse<LastTrack>)listeningHistoryTask.Result.Value;
+            actualPageResponse.Content.Should().NotBeEmpty();
+            actualPageResponse.Content.Should().HaveCount(2);
         }
 
         private FakeDataRetrievalSource MakeSut()
