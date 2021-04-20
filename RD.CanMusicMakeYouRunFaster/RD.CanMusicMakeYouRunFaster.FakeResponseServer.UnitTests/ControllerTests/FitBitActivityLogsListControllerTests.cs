@@ -177,7 +177,7 @@
         public void SetUp()
         {
             contextOptions = new DbContextOptionsBuilder<DataRetrievalContext>()
-                .UseInMemoryDatabase("StravaActivityControllerDatabase")
+                .UseInMemoryDatabase("FitBitActivityControllerDatabase")
                 .Options;
 
             using var context = new DataRetrievalContext(contextOptions);
