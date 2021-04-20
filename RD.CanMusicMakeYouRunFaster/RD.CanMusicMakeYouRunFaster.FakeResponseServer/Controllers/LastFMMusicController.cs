@@ -32,6 +32,11 @@
         public async Task<PageResponse<LastTrack>> GetRecentTracks([FromQuery] DTO.Request.LastFMGetRecentTracksRequest request)
         {
             await Task.Delay(0);
+            if (request.User == null || request.ApiKey == null || request.User == string.Empty || request.ApiKey == string.Empty)
+            {
+                return new PageResponse<LastTrack>();
+            }
+
             var musicHistory = context.LastTracks;
             List<LastTrack> listOfRecentlyPlayed = new List<LastTrack>();
 

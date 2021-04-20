@@ -276,9 +276,9 @@
                 User = "RD"
             };
             var getResult = sut.GetRecentTracks(request);
-            var retrievedSongs = getResult.Result.Content.ToList();
-            retrievedSongs.Should().HaveCount(3);
-            retrievedSongs.Should().BeEquivalentTo(listeningHistory);
+            var retrievedTracks = getResult.Result.Content.ToList();
+            retrievedTracks.Should().HaveCount(3);
+            retrievedTracks.Should().BeEquivalentTo(listeningHistory);
         }
 
         [Test]
@@ -295,9 +295,40 @@
 
             sut = new LastFMMusicController(new DataRetrievalContext(contextOptions));
             var getResult = sut.GetRecentTracks(request);
-            var retrievedSongs = getResult.Result.Content.ToList();
-            retrievedSongs.Should().HaveCount(1);
-            retrievedSongs.Should().NotBeEquivalentTo(listeningHistory);
+            var retrievedTracks = getResult.Result.Content.ToList();
+            retrievedTracks.Should().HaveCount(1);
+            retrievedTracks.Should().NotBeEquivalentTo(listeningHistory);
+            retrievedTracks[0].Should().BeEquivalentTo(DTOItem3);
+        }
+
+        [Test]
+        public void GetRecentTracksWithNullParams_EmptyResponseReturned()
+        {
+            var request = new LastFMGetRecentTracksRequest
+            {
+                ApiKey = null,
+                User = null,
+                From = null
+            };
+
+            sut = new LastFMMusicController(new DataRetrievalContext(contextOptions));
+            var getResult = sut.GetRecentTracks(request);
+            getResult.Result.Content.Should().BeNull();
+        }
+
+        [Test]
+        public void GetRecentTracksWithEmptyParams_EmptyResponseReturned()
+        {
+            var request = new LastFMGetRecentTracksRequest
+            {
+                ApiKey = string.Empty,
+                User = string.Empty,
+                From = null
+            };
+
+            sut = new LastFMMusicController(new DataRetrievalContext(contextOptions));
+            var getResult = sut.GetRecentTracks(request);
+            getResult.Result.Content.Should().BeNull();
         }
     }
 }
