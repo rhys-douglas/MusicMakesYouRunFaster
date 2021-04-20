@@ -189,6 +189,51 @@
             } : null;
         }
 
+        /// <summary>
+        /// Converts context LastFM tracks to DTO counterparts.
+        /// </summary>
+        /// <param name="lastTrack"> LastTrack object to convert.</param>
+        /// <returns>DTO of the LastTrack object.</returns>
+        public static DTO.LastTrack ToDTO(this LastFM.LastTrack lastTrack)
+        {
+            return lastTrack != null ? new DTO.LastTrack
+            {
+                AlbumName = lastTrack.AlbumName,
+                ArtistImages = new DTO.LastImageSet 
+                {
+                    Small = lastTrack.ArtistImages.Small,
+                    Medium = lastTrack.ArtistImages.Medium,
+                    Large = lastTrack.ArtistImages.Large,
+                    ExtraLarge = lastTrack.ArtistImages.ExtraLarge,
+                    Mega = lastTrack.ArtistImages.Mega,
+                },
+                ArtistMbid = lastTrack.ArtistMbid,
+                ArtistName = lastTrack.ArtistName,
+                ArtistUrl = lastTrack.ArtistUrl,
+                Duration = lastTrack.Duration,
+                Id = lastTrack.Id,
+                Images = new DTO.LastImageSet
+                {
+                    Small = lastTrack.Images.Small,
+                    Medium = lastTrack.Images.Medium,
+                    Large = lastTrack.Images.Large,
+                    ExtraLarge = lastTrack.Images.ExtraLarge,
+                    Mega = lastTrack.Images.Mega,
+                },
+                IsLoved = lastTrack.IsLoved,
+                IsNowPlaying = lastTrack.IsNowPlaying,
+                ListenerCount = lastTrack.ListenerCount,
+                Mbid = lastTrack.Mbid,
+                Name = lastTrack.Name,
+                PlayCount = lastTrack.PlayCount,
+                Rank = lastTrack.Rank,
+                TimePlayed = lastTrack.TimePlayed,
+                TopTags = ConvertTags(lastTrack.TopTags),
+                Url = lastTrack.Url,
+                UserPlayCount = lastTrack.UserPlayCount,
+            } : null;
+        }
+
         private static List<DTO.SimpleArtist> ConvertArtists(List<Spotify.SimpleArtist> listOfModels)
         {
             if (listOfModels == null)
@@ -254,6 +299,30 @@
             }
 
             return listofDTOHeartRateZones;
+        }
+
+        private static List<DTO.LastTag> ConvertTags(IEnumerable<LastFM.LastTag> listOfTags)
+        {
+            if (listOfTags == null)
+            {
+                return null;
+            }
+
+            List<DTO.LastTag> listOfDTOTags = new List<DTO.LastTag>();
+            foreach (var item in listOfTags)
+            {
+                listOfDTOTags.Add(new DTO.LastTag
+                {
+                    Count = item.Count,
+                    Name = item.Name,
+                    Reach = item.Reach,
+                    RelatedTo = item.RelatedTo,
+                    Streamable = item.Streamable,
+                    Url = item.Url
+                });
+            }
+
+            return listOfDTOTags;
         }
     }
 }

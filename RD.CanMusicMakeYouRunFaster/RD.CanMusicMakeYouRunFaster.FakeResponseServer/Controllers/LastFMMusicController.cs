@@ -29,13 +29,13 @@
         /// </summary>
         /// <returns> A PageResponse of LastTrack objects</returns>
         [HttpGet]
-        public async Task<PageResponse<LastTrack>> GetRecentTracks([FromQuery] DateTimeOffset? after = null)
+        public async Task<PageResponse<LastTrack>> GetRecentTracks([FromQuery] DTO.Request.LastFMGetRecentTracksRequest request)
         {
             await Task.Delay(0);
             var musicHistory = context.LastTracks;
             List<LastTrack> listOfRecentlyPlayed = new List<LastTrack>();
 
-            if (after == null)
+            if (request.From == null)
             {
                 foreach (var item in musicHistory)
                 {
@@ -44,9 +44,12 @@
             }
             else
             {
+                var afterAsDateTime = new DateTime(1970, 1, 1, 0, 0, 0, 0, DateTimeKind.Utc);
+                afterAsDateTime = afterAsDateTime.AddMilliseconds((double)request.From);
+
                 foreach (var item in musicHistory)
                 {
-                    if (item.PlayedAt >= after)
+                    if (item.TimePlayed >= afterAsDateTime)
                     {
                         listOfRecentlyPlayed.Add(item.ToDTO());
                     }
