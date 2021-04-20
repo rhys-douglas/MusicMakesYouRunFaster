@@ -33,11 +33,11 @@
             Id = "23456789",
             Images = new Models.LastFM.LastImageSet
             {
-                Small = new Uri("http://localhost/Small"),
-                Medium = new Uri("http://localhost/Medium"),
-                Large = new Uri("http://localhost/Large"),
-                ExtraLarge = new Uri("http://localhost/XL"),
-                Mega = new Uri("http://localhost/Mega"),
+                Small = new Uri("http://localhost/Small1"),
+                Medium = new Uri("http://localhost/Medium1"),
+                Large = new Uri("http://localhost/Large1"),
+                ExtraLarge = new Uri("http://localhost/XL1"),
+                Mega = new Uri("http://localhost/Mega1"),
             },
             IsLoved = true,
             IsNowPlaying = false,
@@ -94,24 +94,24 @@
             AlbumName = "Some Album Name 3",
             ArtistImages = new Models.LastFM.LastImageSet()
             {
-                Small = new Uri("http://localhost/Small3"),
-                Medium = new Uri("http://localhost/Medium3"),
-                Large = new Uri("http://localhost/Large3"),
-                ExtraLarge = new Uri("http://localhost/XL3"),
-                Mega = new Uri("http://localhost/Mega3"),
-            },
-            ArtistMbid = "1a2b3c4d5e",
-            ArtistName = "Some Artist 3",
-            ArtistUrl = new Uri("http://localhost/ArtistURI3"),
-            Duration = new TimeSpan(0, 6, 0),
-            Id = "bcdefghij",
-            Images = new Models.LastFM.LastImageSet
-            {
                 Small = new Uri("http://localhost/Small4"),
                 Medium = new Uri("http://localhost/Medium4"),
                 Large = new Uri("http://localhost/Large4"),
                 ExtraLarge = new Uri("http://localhost/XL4"),
                 Mega = new Uri("http://localhost/Mega4"),
+            },
+            ArtistMbid = "1a2b3c4d5e",
+            ArtistName = "Some Artist 3",
+            ArtistUrl = new Uri("http://localhost/ArtistURI3"),
+            Duration = new TimeSpan(0, 6, 0),
+            Id = "cdefghijkl",
+            Images = new Models.LastFM.LastImageSet
+            {
+                Small = new Uri("http://localhost/Small5"),
+                Medium = new Uri("http://localhost/Medium5"),
+                Large = new Uri("http://localhost/Large5"),
+                ExtraLarge = new Uri("http://localhost/XL5"),
+                Mega = new Uri("http://localhost/Mega5"),
             },
             IsLoved = false,
             IsNowPlaying = true,
@@ -144,11 +144,11 @@
             Id = "23456789",
             Images = new DTO.LastImageSet
             {
-                Small = new Uri("http://localhost/Small"),
-                Medium = new Uri("http://localhost/Medium"),
-                Large = new Uri("http://localhost/Large"),
-                ExtraLarge = new Uri("http://localhost/XL"),
-                Mega = new Uri("http://localhost/Mega"),
+                Small = new Uri("http://localhost/Small1"),
+                Medium = new Uri("http://localhost/Medium1"),
+                Large = new Uri("http://localhost/Large1"),
+                ExtraLarge = new Uri("http://localhost/XL1"),
+                Mega = new Uri("http://localhost/Mega1"),
             },
             IsLoved = true,
             IsNowPlaying = false,
@@ -158,7 +158,7 @@
             PlayCount = 300,
             Rank = 1,
             TimePlayed = DateTime.UtcNow,
-            TopTags = new List<DTO.LastTag>(),
+            TopTags = null,
             Url = new Uri("http://localhost/TrackURI"),
             UserPlayCount = 20
         };
@@ -195,7 +195,7 @@
             PlayCount = 573847389,
             Rank = 2,
             TimePlayed = DateTime.UtcNow,
-            TopTags = new List<DTO.LastTag>(),
+            TopTags = null,
             Url = new Uri("http://localhost/TrackURI2"),
             UserPlayCount = 30,
         };
@@ -205,24 +205,24 @@
             AlbumName = "Some Album Name 3",
             ArtistImages = new DTO.LastImageSet()
             {
-                Small = new Uri("http://localhost/Small3"),
-                Medium = new Uri("http://localhost/Medium3"),
-                Large = new Uri("http://localhost/Large3"),
-                ExtraLarge = new Uri("http://localhost/XL3"),
-                Mega = new Uri("http://localhost/Mega3"),
-            },
-            ArtistMbid = "1a2b3c4d5e",
-            ArtistName = "Some Artist 3",
-            ArtistUrl = new Uri("http://localhost/ArtistURI3"),
-            Duration = new TimeSpan(0, 6, 0),
-            Id = "bcdefghij",
-            Images = new DTO.LastImageSet
-            {
                 Small = new Uri("http://localhost/Small4"),
                 Medium = new Uri("http://localhost/Medium4"),
                 Large = new Uri("http://localhost/Large4"),
                 ExtraLarge = new Uri("http://localhost/XL4"),
                 Mega = new Uri("http://localhost/Mega4"),
+            },
+            ArtistMbid = "1a2b3c4d5e",
+            ArtistName = "Some Artist 3",
+            ArtistUrl = new Uri("http://localhost/ArtistURI3"),
+            Duration = new TimeSpan(0, 6, 0),
+            Id = "cdefghijkl",
+            Images = new DTO.LastImageSet
+            {
+                Small = new Uri("http://localhost/Small5"),
+                Medium = new Uri("http://localhost/Medium5"),
+                Large = new Uri("http://localhost/Large5"),
+                ExtraLarge = new Uri("http://localhost/XL5"),
+                Mega = new Uri("http://localhost/Mega5"),
             },
             IsLoved = false,
             IsNowPlaying = true,
@@ -232,7 +232,7 @@
             PlayCount = 573847389,
             Rank = 2,
             TimePlayed = DateTime.UtcNow,
-            TopTags = new List<DTO.LastTag>(),
+            TopTags = null,
             Url = new Uri("http://localhost/TrackURI3"),
             UserPlayCount = 30,
         };
