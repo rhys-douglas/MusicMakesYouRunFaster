@@ -16,6 +16,12 @@
         void SetUp(ExternalAPIGateway externalApiGateway);
 
         /// <summary>
+        /// Registers a username.
+        /// </summary>
+        /// <param name="user">username to register</param>
+        void RegisterUser(string user);
+
+        /// <summary>
         /// Request music data from the Spotify API.
         /// </summary>
         void GetSpotifyRecentlyPlayedMusic();

@@ -17,12 +17,20 @@
         private Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>> activitiesAndSongs = new Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>>();
         private Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>> fastestActivity = new Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>>();
         private ExternalAPIGateway externalAPIGateway;
+        private string userName;
 
         /// <inheritdoc/>
         public void SetUp(ExternalAPIGateway externalAPIGateway)
         {
             this.externalAPIGateway = externalAPIGateway;
         }
+
+        /// <inheritdoc/>
+        public void RegisterUser(string user)
+        {
+            userName = user;
+        }
+
 
         /// <inheritdoc/>
         public void GetSpotifyRecentlyPlayedMusic()
@@ -39,7 +47,7 @@
         /// <inheritdoc/>
         public void GetLastFMRecentlyPlayedMusic()
         {
-            var searchResult = externalAPIGateway.GetLastFMRecentlyPlayed();
+            var searchResult = externalAPIGateway.GetLastFMRecentlyPlayed(userName);
             var playHistoryContainer = (CursorPaging<PlayHistoryItem>)searchResult.Value;
             foreach (var song in playHistoryContainer.Items)
             {

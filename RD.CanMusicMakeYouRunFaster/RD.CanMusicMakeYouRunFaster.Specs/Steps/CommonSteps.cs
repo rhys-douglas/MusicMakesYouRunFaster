@@ -277,6 +277,7 @@
         [Given(@"a user [""]?([^""]*)[""]?")]
         public void GivenAUser(string user)
         {
+            clientDriver.RegisterUser(user);
             // Does nothing.
         }
     }
