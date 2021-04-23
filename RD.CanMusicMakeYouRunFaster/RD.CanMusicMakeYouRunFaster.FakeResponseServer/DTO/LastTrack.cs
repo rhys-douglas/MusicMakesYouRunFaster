@@ -2,9 +2,7 @@
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
     using Newtonsoft.Json;
-    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.DTO.Utils;
 
     /// <summary>
     /// Last track DTO, used for holding track information from Last.FM

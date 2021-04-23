@@ -451,10 +451,10 @@
                 item.LastModified = now;
             }
 
-            offset = -2;
+            offset = -1;
             foreach (var item in LastFMTrackItems)
             {
-                item.TimePlayed = now;
+                item.TimePlayed = now.AddDays(offset);
                 offset++;
             }
 
@@ -566,6 +566,21 @@
             actualPageResponse.Content.Should().NotBeEmpty();
             actualPageResponse.Content.Should().HaveCount(2);
             actualPageResponse.Content[0].Duration.Should().Be(new TimeSpan(0, 2, 30));
+            actualPageResponse.Content[0].Should().BeOfType<LastTrack>();
+        }
+
+        [Test]
+        public void GetLastFMListeningHistoryWithAfterParam_CorrectListeningHistoryReturned()
+        {
+            sut = MakeSut();
+            var after = DateTime.UtcNow.AddDays(-1);
+            var listeningHistoryTask = sut.GetLastFMRecentlyPlayed("RD", after);
+            listeningHistoryTask.Result.Value.Should().NotBeNull();
+            listeningHistoryTask.Result.Value.Should().NotBe(string.Empty);
+            PageResponse<LastTrack> actualPageResponse = (PageResponse<LastTrack>)listeningHistoryTask.Result.Value;
+            actualPageResponse.Content.Should().NotBeEmpty();
+            actualPageResponse.Content.Should().HaveCount(1);
+            actualPageResponse.Content[0].Should().BeOfType<LastTrack>();
         }
 
         private FakeDataRetrievalSource MakeSut()
