@@ -21,10 +21,10 @@
             this.dataSource = dataSource;
         }
 
-        [Given(@"their listening history")]
-        public void GivenTheirListeningHistory()
+        [Given(@"their Spotify listening history")]
+        public void GivenTheirSpotifyListeningHistory()
         {
-            // Do something
+            // Do nothing.
         }
 
         [When(@"the user's Spotify recently played history is requested")]
@@ -45,8 +45,8 @@
             Assert.Fail();
         }
 
-        [Then(@"the user's recently played history is produced")]
-        public void ThenTheUserSRecentlyPlayedHistoryIsProduced()
+        [Then(@"the user's Spotify recently played history is produced")]
+        public void ThenTheUsersSpotifyRecentlyPlayedHistoryIsProduced()
         {
             var acquiredItems = clientDriver.GetFoundItems();
             var actualListeningHistory = new List<PlayHistoryItem>();

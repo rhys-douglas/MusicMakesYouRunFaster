@@ -23,8 +23,8 @@
             this.dataSource = dataSource;
         }
 
-        [Given(@"a list of listening history")]
-        public void GivenAListOfListeningHistory(Table table)
+        [Given(@"a list of Spotify listening history")]
+        public void GivenAListOfSpotifyListeningHistory(Table table)
         {
             var fakeListeningHistory = new List<FakeResponseServer.Models.Spotify.PlayHistoryItem>();
             var count = 0;
@@ -111,8 +111,9 @@
             dataSource.AddListeningHistory(fakeListeningHistory);
         }
 
+
         [Given(@"a list of Strava running history")]
-        public void GivenAListOfRunningHistory(Table table)
+        public void GivenAListOfStravaRunningHistory(Table table)
         {
             var fakeRunningHistory = new List<FakeResponseServer.Models.Strava.Activity>();
             int idcounter = 0;
