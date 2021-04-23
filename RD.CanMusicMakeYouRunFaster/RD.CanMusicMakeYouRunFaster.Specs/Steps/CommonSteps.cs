@@ -4,6 +4,8 @@
     using System.Collections.Generic;
     using ClientDrivers;
     using DataSource;
+    using Fitbit.Api.Portable.Models;
+    using Fitbit.Models;
     using FluentAssertions;
     using IF.Lastfm.Core.Objects;
     using SpotifyAPI.Web;
@@ -16,8 +18,9 @@
         private readonly IClientDriver clientDriver;
         private readonly DataPort dataSource;
         private readonly List<PlayHistoryItem> spotifyListeningHistory = new List<PlayHistoryItem>();
-        private readonly List<Rest.Entity.StravaActivity> runningHistory = new List<Rest.Entity.StravaActivity>();
+        private readonly List<Rest.Entity.StravaActivity> stravaRunningHistory = new List<Rest.Entity.StravaActivity>();
         private readonly List<LastTrack> lastFMListeningHistory = new List<LastTrack>();
+        private readonly List<Activities> fitBitRunningHistory = new List<Activities>();
 
         public CommonSteps(IClientDriver clientDriver, DataPort dataSource)
         {
@@ -201,7 +204,6 @@
             dataSource.AddLastFMListeningHistory(fakeListeningHistory);
         }
 
-
         [Given(@"a list of Strava running history")]
         public void GivenAListOfStravaRunningHistory(Table table)
         {
@@ -341,10 +343,90 @@
                 };
 
                 fakeRunningHistory.Add(fakeHistoryItem);
-                runningHistory.Add(realHistoryItem);
+                stravaRunningHistory.Add(realHistoryItem);
                 idcounter++;
             }
-            dataSource.AddRunningHistory(fakeRunningHistory);
+            dataSource.AddStravaRunningHistory(fakeRunningHistory);
+        }
+
+        [Given(@"a list of FitBit running history")]
+        public void GivenAListOfFitBitRunningHistory(Table table)
+        {
+            var fakeRunningHistory = new List<FakeResponseServer.Models.FitBit.Activities>();
+            int counter = 0;
+            var now_UTC = DateTime.UtcNow;
+            foreach (var row in table.Rows)
+            {
+                var fakeHistoryItem = new FakeResponseServer.Models.FitBit.Activities
+                {
+                    ActiveDuration = 5,
+                    ActivityLevel = new List<FakeResponseServer.Models.FitBit.ActivityLevel>(),
+                    ActivityName = row["Activity Name"],
+                    ActivityTypeId = 5,
+                    AverageHeartRate = 140,
+                    Calories = 500,
+                    Distance = 3500,
+                    DistanceUnit = "M",
+                    Duration = 3600,
+                    ElevationGain = 330,
+                    HeartRateZones = new List<FakeResponseServer.Models.FitBit.HeartRateZone>(),
+                    LastModified = now_UTC,
+                    LogId = long.Parse(row["Activity Id"]),
+                    LogType = "logtype1",
+                    ManualValuesSpecified = null,
+                    OriginalDuration = int.Parse(row["Elapsed Time of Activity (s)"]),
+                    OriginalStartTime = DateTime.ParseExact(row["Time of activity start"], "dd'/'MM'/'yyyy HH:mm:ss", null),
+                    Pace = double.Parse(row["Average Pace (m/s)"]),
+                    Source = new FakeResponseServer.Models.FitBit.ActivityLogSource
+                    {
+                        Id = counter.ToString(),
+                        Name = "1",
+                        Type = "type1",
+                        Url = "someurl"
+                    },
+                    Speed = 18.5,
+                    StartTime = DateTime.ParseExact(row["Time of activity start"], "dd'/'MM'/'yyyy HH:mm:ss", null),
+                    Steps = 14000,
+                    TcxLink = "??"
+                };
+
+                var realHistoryItem = new Activities
+                {
+                    ActiveDuration = 5,
+                    ActivityLevel = new List<ActivityLevel>(),
+                    ActivityName = row["Activity Name"],
+                    ActivityTypeId = 5,
+                    AverageHeartRate = 140,
+                    Calories = 500,
+                    Distance = 3500,
+                    DistanceUnit = "M",
+                    Duration = 3600,
+                    ElevationGain = 330,
+                    HeartRateZones = new List<HeartRateZone>(),
+                    LastModified = now_UTC,
+                    LogId = long.Parse(row["Activity Id"]),
+                    LogType = "logtype1",
+                    ManualValuesSpecified = null,
+                    OriginalDuration = int.Parse(row["Elapsed Time of Activity (s)"]),
+                    OriginalStartTime = DateTime.ParseExact(row["Time of activity start"], "dd'/'MM'/'yyyy HH:mm:ss", null),
+                    Pace = double.Parse(row["Average Pace (m/s)"]),
+                    Source = new ActivityLogSource
+                    {
+                        Id = counter.ToString(),
+                        Name = "1",
+                        Type = "type1",
+                        Url = "someurl"
+                    },
+                    Speed = 18.5,
+                    StartTime = DateTime.ParseExact(row["Time of activity start"], "dd'/'MM'/'yyyy HH:mm:ss", null),
+                    Steps = 14000,
+                    TcxLink = "??"
+                };
+                fakeRunningHistory.Add(fakeHistoryItem);
+                fitBitRunningHistory.Add(realHistoryItem);
+                counter++;
+            }
+            dataSource.AddFitBitRunningHistory(fakeRunningHistory);
         }
 
         [Given(@"a list of users")]
@@ -357,7 +439,6 @@
         public void GivenAUser(string user)
         {
             clientDriver.RegisterUser(user);
-            // Does nothing.
         }
     }
 }

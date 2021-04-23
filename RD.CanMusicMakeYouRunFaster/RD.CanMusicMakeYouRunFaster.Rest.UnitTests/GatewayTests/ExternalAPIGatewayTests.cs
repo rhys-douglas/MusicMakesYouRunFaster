@@ -277,7 +277,7 @@
         {
             new FakeResponseServer.Models.FitBit.Activities
             {
-               ActiveDuration = 5,
+                ActiveDuration = 5,
                 ActivityLevel = new List<FakeResponseServer.Models.FitBit.ActivityLevel>(),
                 ActivityName = "Run 1",
                 ActivityTypeId = 5,
