@@ -225,10 +225,20 @@
         /// <inheritdoc/>
         public async Task<JsonResult> GetLastFMRecentlyPlayed(string username, DateTimeOffset? after = null)
         {
+            string requestUriString;
             await Task.Delay(0);
-            long afterAsUnix = ((DateTimeOffset)after).ToUnixTimeMilliseconds();
-            string requestUriString = string.Format("http://localhost:2222/2.0/?method=user.getrecenttracks&user=RD&format=json&api_key=d3cf196e63d20375eb8d6729ebb982b3&from={0}", afterAsUnix);
-            var fakeObjectRecentlyPlayed  = externalAPICaller.Get<FakeResponseServer.DTO.PageResponse<FakeResponseServer.DTO.LastTrack>>(new Uri(requestUriString));
+            if (after != null)
+            {
+                long afterAsUnix = ((DateTimeOffset)after).ToUnixTimeMilliseconds();
+                requestUriString = string.Format("http://localhost:2222/2.0/?method=user.getrecenttracks&user=RD&format=json&api_key=d3cf196e63d20375eb8d6729ebb982b3&from={0}", afterAsUnix);
+            }
+
+            else
+            {
+                requestUriString = "http://localhost:2222/2.0/?method=user.getrecenttracks&user=RD&format=json&api_key=d3cf196e63d20375eb8d6729ebb982b3";
+            }
+
+            var fakeObjectRecentlyPlayed = externalAPICaller.Get<FakeResponseServer.DTO.PageResponse<FakeResponseServer.DTO.LastTrack>>(new Uri(requestUriString));
             var listOfActualTracks = new List<LastTrack>();
             // convert tracks
             foreach(var lastTrack in fakeObjectRecentlyPlayed.Content)

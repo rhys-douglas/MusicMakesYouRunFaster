@@ -85,7 +85,7 @@
         }
 
         /// <summary>
-        /// Gets the spotify recently played tracks
+        /// Gets the Spotify recently played tracks
         /// </summary>
         /// <param name="after"> UNIX timestamp to search after </param>
         /// <returns>Spotify recently played tracks</returns>
@@ -94,6 +94,12 @@
             return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken, after).Result;
         }
 
+        /// <summary>
+        /// Gets the Last.FM recently played tracks.
+        /// </summary>
+        /// <param name="username">Username to query for. </param>
+        /// <param name="after"> DateTime to search after.</param>
+        /// <returns></returns>
         public JsonResult GetLastFMRecentlyPlayed(string username, DateTimeOffset? after = null)
         {
             return this.dataSource.GetLastFMRecentlyPlayed(username, after).Result;
