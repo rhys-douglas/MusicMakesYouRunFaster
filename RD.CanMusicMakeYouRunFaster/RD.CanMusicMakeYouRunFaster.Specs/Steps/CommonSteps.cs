@@ -111,7 +111,7 @@
             dataSource.AddListeningHistory(fakeListeningHistory);
         }
 
-        [Given(@"a list of running history")]
+        [Given(@"a list of Strava running history")]
         public void GivenAListOfRunningHistory(Table table)
         {
             var fakeRunningHistory = new List<FakeResponseServer.Models.Strava.Activity>();
