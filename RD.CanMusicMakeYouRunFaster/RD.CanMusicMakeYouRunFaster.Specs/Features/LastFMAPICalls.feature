@@ -15,7 +15,7 @@ Given a list of Last.FM listening history
 
 
 @EDS-1-Add-Secondary-Data-Sources
-Scenario Outline: Get User's Last.FM listening history
+Scenario Outline: Get User's Last/.FM listening history
 	Given a user <user>
 	And their Last.FM listening history 
 	When the user's Last.FM recently played history is requested

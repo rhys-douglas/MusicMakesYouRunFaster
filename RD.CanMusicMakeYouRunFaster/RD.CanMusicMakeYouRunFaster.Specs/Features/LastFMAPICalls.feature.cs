@@ -114,14 +114,14 @@ testRunner.Given("a list of Last.FM listening history", ((string)(null)), table4
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Get User\'s Last.FM listening history")]
+        [NUnit.Framework.DescriptionAttribute("Get User\'s Last/.FM listening history")]
         [NUnit.Framework.CategoryAttribute("EDS-1-Add-Secondary-Data-Sources")]
         public virtual void GetUsersLast_FMListeningHistory()
         {
             string[] tagsOfScenario = new string[] {
                     "EDS-1-Add-Secondary-Data-Sources"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get User\'s Last.FM listening history", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Get User\'s Last/.FM listening history", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
 #line 18
 this.ScenarioInitialize(scenarioInfo);
 #line hidden

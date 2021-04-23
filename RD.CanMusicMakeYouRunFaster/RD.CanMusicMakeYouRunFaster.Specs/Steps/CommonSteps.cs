@@ -5,6 +5,7 @@
     using ClientDrivers;
     using DataSource;
     using FluentAssertions;
+    using IF.Lastfm.Core.Objects;
     using SpotifyAPI.Web;
     using TechTalk.SpecFlow;
 
@@ -14,8 +15,9 @@
 
         private readonly IClientDriver clientDriver;
         private readonly DataPort dataSource;
-        private readonly List<PlayHistoryItem> listeningHistory = new List<PlayHistoryItem>();
+        private readonly List<PlayHistoryItem> spotifyListeningHistory = new List<PlayHistoryItem>();
         private readonly List<Rest.Entity.StravaActivity> runningHistory = new List<Rest.Entity.StravaActivity>();
+        private readonly List<LastTrack> lastFMListeningHistory = new List<LastTrack>();
 
         public CommonSteps(IClientDriver clientDriver, DataPort dataSource)
         {
@@ -104,11 +106,99 @@
                     }
                 };
 
-                listeningHistory.Add(listeningHistoryItem);
+                spotifyListeningHistory.Add(listeningHistoryItem);
                 fakeListeningHistory.Add(fakeHistoryItem);
                 count++;
             }
-            dataSource.AddListeningHistory(fakeListeningHistory);
+            dataSource.AddSpotifyListeningHistory(fakeListeningHistory);
+        }
+
+        [Given(@"a list of Last\.FM listening history")]
+        public void GivenAListOfLast_FMListeningHistory(Table table)
+        {
+            var fakeListeningHistory = new List<FakeResponseServer.Models.LastFM.LastTrack>();
+            var count = 0;
+            foreach (var row in table.Rows)
+            {
+                var actualLastTrack = new LastTrack
+                {
+                    AlbumName = "Some Album Name",
+                    ArtistImages = new LastImageSet
+                    {
+                        Small = new Uri("http://localhost/Small" + count),
+                        Medium = new Uri("http://localhost/Medium"),
+                        Large = new Uri("http://localhost/Large"),
+                        ExtraLarge = new Uri("http://localhost/XL"),
+                        Mega = new Uri("http://localhost/Mega"),
+                    },
+                    ArtistMbid = "123456789",
+                    ArtistName = "Some Artist",
+                    ArtistUrl = new Uri("http://localhost/ArtistURI"),
+                    Duration = new TimeSpan(0, 2, 30),
+                    Id = count.ToString(),
+                    Images = new LastImageSet
+                    {
+                        Small = new Uri("http://localhost/Small" + count + 1),
+                        Medium = new Uri("http://localhost/Medium1"),
+                        Large = new Uri("http://localhost/Large1"),
+                        ExtraLarge = new Uri("http://localhost/XL1"),
+                        Mega = new Uri("http://localhost/Mega1"),
+                    },
+                    IsLoved = true,
+                    IsNowPlaying = false,
+                    ListenerCount = 1500,
+                    Mbid = "1",
+                    Name = row["Song name"],
+                    PlayCount = 300,
+                    Rank = 1,
+                    TimePlayed = DateTime.ParseExact(row["Time of listening"], "dd'/'MM'/'yyyy HH:mm:ss", null),
+                    TopTags = new List<LastTag>(),
+                    Url = new Uri("http://localhost/TrackURI"),
+                    UserPlayCount = 20
+                };
+
+                var fakeLastTrack = new FakeResponseServer.Models.LastFM.LastTrack
+                {
+                    AlbumName = "Some Album Name",
+                    ArtistImages = new FakeResponseServer.Models.LastFM.LastImageSet
+                    {
+                        Small = new Uri("http://localhost/Small" + count),
+                        Medium = new Uri("http://localhost/Medium"),
+                        Large = new Uri("http://localhost/Large"),
+                        ExtraLarge = new Uri("http://localhost/XL"),
+                        Mega = new Uri("http://localhost/Mega"),
+                    },
+                    ArtistMbid = "123456789",
+                    ArtistName = "Some Artist",
+                    ArtistUrl = new Uri("http://localhost/ArtistURI"),
+                    Duration = new TimeSpan(0, 2, 30),
+                    Id = count.ToString(),
+                    Images = new FakeResponseServer.Models.LastFM.LastImageSet
+                    {
+                        Small = new Uri("http://localhost/Small" + count + 1),
+                        Medium = new Uri("http://localhost/Medium1"),
+                        Large = new Uri("http://localhost/Large1"),
+                        ExtraLarge = new Uri("http://localhost/XL1"),
+                        Mega = new Uri("http://localhost/Mega1"),
+                    },
+                    IsLoved = true,
+                    IsNowPlaying = false,
+                    ListenerCount = 1500,
+                    Mbid = "1",
+                    Name = row["Song name"],
+                    PlayCount = 300,
+                    Rank = 1,
+                    TimePlayed = DateTime.ParseExact(row["Time of listening"], "dd'/'MM'/'yyyy HH:mm:ss", null),
+                    TopTags = new List<FakeResponseServer.Models.LastFM.LastTag>(),
+                    Url = new Uri("http://localhost/TrackURI"),
+                    UserPlayCount = 20
+                };
+
+                count += 2;
+                lastFMListeningHistory.Add(actualLastTrack);
+                fakeListeningHistory.Add(fakeLastTrack);
+            }
+            dataSource.AddLastFMListeningHistory(fakeListeningHistory);
         }
 
 
@@ -255,18 +345,6 @@
                 idcounter++;
             }
             dataSource.AddRunningHistory(fakeRunningHistory);
-        }
-
-        [Given(@"a list of FitBit running history")]
-        public void GivenAListOfFitBitRunningHistory(Table table)
-        {
-
-        }
-
-        [Given(@"Given a list of Last.FM listening history")]
-        public void GivenAListOfLastFMListeningHistory(Table table)
-        {
-
         }
 
         [Given(@"a list of users")]

@@ -4,6 +4,7 @@
     using FakeResponseServer.DbContext;
     using Microsoft.EntityFrameworkCore;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.LastFM;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Spotify;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Strava;
     using RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources;
@@ -37,11 +38,23 @@
         /// Adds listening history from feature files to the backend.
         /// </summary>
         /// <param name="listOfListeningHistory"> Listening history to add. </param>
-        public void AddListeningHistory(List<PlayHistoryItem> listOfListeningHistory)
+        public void AddSpotifyListeningHistory(List<PlayHistoryItem> listOfListeningHistory)
         {
             using var context = new DataRetrievalContext(contextOptions);
             context.PlayHistoryItems.RemoveRange(context.PlayHistoryItems);
             context.PlayHistoryItems.AddRange(listOfListeningHistory);
+            context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Adds listening history from feature files to the backend DB.
+        /// </summary>
+        /// <param name="listOfListeningHistory">Listening history to add.</param>
+        public void AddLastFMListeningHistory(List<LastTrack> listOfListeningHistory)
+        {
+            using var context = new DataRetrievalContext(contextOptions);
+            context.LastTracks.RemoveRange(context.LastTracks);
+            context.LastTracks.AddRange(listOfListeningHistory);
             context.SaveChanges();
         }
 

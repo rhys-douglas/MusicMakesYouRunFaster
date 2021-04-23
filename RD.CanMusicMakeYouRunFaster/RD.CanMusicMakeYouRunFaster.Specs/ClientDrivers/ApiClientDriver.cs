@@ -7,6 +7,8 @@
     using RD.CanMusicMakeYouRunFaster.ComparisonLogic.Mappers;
     using RD.CanMusicMakeYouRunFaster.ComparisonLogic.Managers;
     using System;
+    using IF.Lastfm.Core.Objects;
+    using IF.Lastfm.Core.Api.Helpers;
 
     /// <summary>
     /// Client driver for testing without a front-end.
@@ -48,8 +50,8 @@
         public void GetLastFMRecentlyPlayedMusic()
         {
             var searchResult = externalAPIGateway.GetLastFMRecentlyPlayed(userName);
-            var playHistoryContainer = (CursorPaging<PlayHistoryItem>)searchResult.Value;
-            foreach (var song in playHistoryContainer.Items)
+            var playHistoryContainer = (PageResponse<LastTrack>)searchResult.Value;
+            foreach (var song in playHistoryContainer.Content)
             {
                 searchResults.Add(song);
             }
