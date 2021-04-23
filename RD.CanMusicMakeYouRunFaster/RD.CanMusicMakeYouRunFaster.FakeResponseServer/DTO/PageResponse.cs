@@ -1,5 +1,6 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.DTO
 {
+    using Newtonsoft.Json;
     using System.Collections.Generic;
 
     /// <summary>
@@ -10,26 +11,31 @@
         /// <summary>
         /// Content of the Page.
         /// </summary>
+        [JsonProperty("content")]
         public List<T> Content { get; internal set; }
 
         /// <summary>
         /// Page number
         /// </summary>
+        [JsonProperty("page")]
         public int Page { get; set; }
 
         /// <summary>
         /// Page size
         /// </summary>
+        [JsonProperty("pagesize")]
         public int PageSize { get; set; }
 
         /// <summary>
         /// Total page count
         /// </summary>
-        public int TotalPages { get; set;  }
+        [JsonProperty("totalpages")]
+        public int TotalPages { get; set; }
 
         /// <summary>
         /// Total items.
         /// </summary>
+        [JsonProperty("totalitems")]
         public int TotalItems { get; set; }
     }
 }

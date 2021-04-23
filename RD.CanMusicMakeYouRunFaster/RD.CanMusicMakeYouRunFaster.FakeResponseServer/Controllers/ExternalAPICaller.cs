@@ -33,10 +33,16 @@
         {
             var result = httpClient.GetAsync(endpoint).Result;
             var jsonResult = result.Content.ReadAsStringAsync().Result;
-            
-            return JsonConvert.DeserializeObject<TResponse>(
+            try
+            {
+                return JsonConvert.DeserializeObject<TResponse>(
                 jsonResult,
                 new JsonSerializerSettings { MissingMemberHandling = MissingMemberHandling.Ignore });
+            }
+            catch(Exception e)
+            {
+                throw e;
+            }
         }
     }
 }

@@ -7,7 +7,7 @@
     using System.Threading.Tasks;
 
     [ApiController]
-    [Route("/2.0/")]
+    [Route("/1/user/-/activities")]
     public class FitBitActivityLogsListController : ControllerBase
     {
         private readonly DataRetrievalContext context;

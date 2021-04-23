@@ -11,6 +11,7 @@
     /// <summary>
     /// LastFM Music Controller
     /// </summary>
+    [Route("/2.0/")]
     public class LastFMMusicController : ControllerBase
     {
         private readonly DataRetrievalContext context;
@@ -29,12 +30,12 @@
         /// </summary>
         /// <returns> A PageResponse of LastTrack objects</returns>
         [HttpGet]
-        public async Task<IF.Lastfm.Core.Api.Helpers.PageResponse<LastTrack>> GetRecentTracks([FromQuery] DTO.Request.LastFMGetRecentTracksRequest request)
+        public async Task<PageResponse<LastTrack>> GetRecentTracks([FromQuery] DTO.Request.LastFMGetRecentTracksRequest request)
         {
             await Task.Delay(0);
             if (request.User == null || request.ApiKey == null || request.User == string.Empty || request.ApiKey == string.Empty)
             {
-                return new IF.Lastfm.Core.Api.Helpers.PageResponse<LastTrack>();
+                return new PageResponse<LastTrack>();
             }
 
             var musicHistory = context.LastTracks;
@@ -60,7 +61,10 @@
                     }
                 }
             }
-            var listeningHistory = new IF.Lastfm.Core.Api.Helpers.PageResponse<LastTrack>(listOfRecentlyPlayed);
+            var listeningHistory = new PageResponse<LastTrack>
+            {
+                Content = listOfRecentlyPlayed
+            };
 
             return listeningHistory;
         }

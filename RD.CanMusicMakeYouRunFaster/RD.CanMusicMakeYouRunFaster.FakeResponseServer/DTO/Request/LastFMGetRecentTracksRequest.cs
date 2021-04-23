@@ -1,19 +1,19 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.FakeResponseServer.DTO.Request
 {
-    using Newtonsoft.Json;
+    using Microsoft.AspNetCore.Mvc;
 
     /// <summary>
     /// Request class for holding params to the Last FM "Get recent tracks" controller.
     /// </summary>
     public class LastFMGetRecentTracksRequest
     {
-        [JsonProperty("api_key")]
+        [FromQuery(Name = "api_key")]
         public string ApiKey { get; set; }
 
-        [JsonProperty("user")]
+        [FromQuery(Name = "user")]
         public string User { get; set; }
 
-        [JsonProperty("from")]
+        [FromQuery(Name = "from")]
         public long? From { get; set; } = default!;
     }
 }

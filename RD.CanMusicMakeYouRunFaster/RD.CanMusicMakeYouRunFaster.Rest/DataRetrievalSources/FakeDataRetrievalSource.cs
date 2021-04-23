@@ -9,6 +9,7 @@
     using System.Collections.Generic;
     using Fitbit.Api.Portable.Models;
     using IF.Lastfm.Core.Objects;
+    using IF.Lastfm.Core.Api.Helpers;
 
     /// <summary>
     /// Fake data source used for testing and proof of concept, mimicking the functionality of the <see cref="RealDataRetrievalSource"/> class.
@@ -225,7 +226,7 @@
         public async Task<JsonResult> GetLastFMRecentlyPlayed(string username, DateTimeOffset? after = null)
         {
             await Task.Delay(0);
-            var fakeObjectRecentlyPlayed  = externalAPICaller.Get<FakeResponseServer.DTO.PageResponse<FakeResponseServer.DTO.LastTrack>>(new Uri("http://localhost:2222/2.0/?method=user.getrecenttracks&user=RD123&api_key=d3cf196e63d20375eb8d6729ebb982b3&format=json"));
+            var fakeObjectRecentlyPlayed  = externalAPICaller.Get<FakeResponseServer.DTO.PageResponse<FakeResponseServer.DTO.LastTrack>>(new Uri("http://localhost:2222/2.0/?method=user.getrecenttracks&user=RD&format=json&api_key=d3cf196e63d20375eb8d6729ebb982b3"));
             var listOfActualTracks = new List<LastTrack>();
             // convert tracks
             foreach(var lastTrack in fakeObjectRecentlyPlayed.Content)
@@ -268,7 +269,7 @@
                 });
             }
 
-            var actualRecentlyPlayed = new IF.Lastfm.Core.Api.Helpers.PageResponse<LastTrack>(listOfActualTracks);
+            var actualRecentlyPlayed = new PageResponse<LastTrack>(listOfActualTracks);
             return new JsonResult(actualRecentlyPlayed);
         }
     }
