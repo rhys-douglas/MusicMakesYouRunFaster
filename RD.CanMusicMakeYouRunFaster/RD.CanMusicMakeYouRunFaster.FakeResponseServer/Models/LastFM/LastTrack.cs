@@ -25,7 +25,7 @@
         /// <summary>
         /// Duration of the song.
         /// </summary>
-        public TimeSpan? Duration { get; set; }
+        public TimeSpan Duration { get; set; }
 
         /// <summary>
         /// Mbid.

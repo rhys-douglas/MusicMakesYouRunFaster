@@ -245,7 +245,7 @@
                     ArtistMbid = lastTrack.ArtistMbid,
                     ArtistName = lastTrack.ArtistName,
                     ArtistUrl = lastTrack.ArtistUrl,
-                    Duration = lastTrack.Duration,
+                    Duration = new TimeSpan((long)lastTrack.Duration),
                     Id = lastTrack.Id,
                     Images = new LastImageSet
                     {

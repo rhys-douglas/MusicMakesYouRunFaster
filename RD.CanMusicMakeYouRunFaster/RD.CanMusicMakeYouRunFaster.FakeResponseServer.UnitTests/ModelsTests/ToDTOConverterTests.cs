@@ -212,7 +212,7 @@
                 ArtistMbid = "123456789",
                 ArtistName = "Some Artist",
                 ArtistUrl = new Uri("http://localhost/ArtistURI"),
-                Duration = new TimeSpan(0, 2, 30),
+                Duration = new TimeSpan(0, 2, 30).Ticks,
                 Id = "23456789",
                 Images = new DTO.LastImageSet
                 {

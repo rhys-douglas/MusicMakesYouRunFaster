@@ -210,7 +210,7 @@
                 ArtistMbid = lastTrack.ArtistMbid,
                 ArtistName = lastTrack.ArtistName,
                 ArtistUrl = lastTrack.ArtistUrl,
-                Duration = lastTrack.Duration,
+                Duration = lastTrack.Duration.Ticks,
                 Id = lastTrack.Id,
                 Images = new DTO.LastImageSet
                 {

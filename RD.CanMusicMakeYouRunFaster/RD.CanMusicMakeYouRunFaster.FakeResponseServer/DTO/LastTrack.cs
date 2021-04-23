@@ -26,9 +26,8 @@
         /// <summary>
         /// Duration of the song.
         /// </summary>
-        [JsonConverter(typeof(TimeSpanConverter))]
-        [JsonProperty(TypeNameHandling = TypeNameHandling.All)]
-        public TimeSpan? Duration { get; set; }
+        [JsonProperty(PropertyName = "duration")]
+        public long? Duration { get; set; }
 
         /// <summary>
         /// Mbid.

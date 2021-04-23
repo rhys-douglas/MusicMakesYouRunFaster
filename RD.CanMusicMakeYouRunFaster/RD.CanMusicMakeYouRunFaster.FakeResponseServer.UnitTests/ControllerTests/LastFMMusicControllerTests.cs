@@ -140,7 +140,7 @@
             ArtistMbid = "123456789",
             ArtistName = "Some Artist",
             ArtistUrl = new Uri("http://localhost/ArtistURI"),
-            Duration = new TimeSpan(0, 2, 30),
+            Duration = new TimeSpan(0, 2, 30).Ticks,
             Id = "23456789",
             Images = new DTO.LastImageSet
             {
@@ -177,7 +177,7 @@
             ArtistMbid = "abcdefghi",
             ArtistName = "Some Artist 2",
             ArtistUrl = new Uri("http://localhost/ArtistURI2"),
-            Duration = new TimeSpan(0, 3, 0),
+            Duration = new TimeSpan(0, 3, 0).Ticks,
             Id = "bcdefghij",
             Images = new DTO.LastImageSet
             {
@@ -214,7 +214,7 @@
             ArtistMbid = "1a2b3c4d5e",
             ArtistName = "Some Artist 3",
             ArtistUrl = new Uri("http://localhost/ArtistURI3"),
-            Duration = new TimeSpan(0, 6, 0),
+            Duration = new TimeSpan(0, 6, 0).Ticks,
             Id = "cdefghijkl",
             Images = new DTO.LastImageSet
             {

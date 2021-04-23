@@ -565,6 +565,7 @@
             PageResponse<LastTrack> actualPageResponse = (PageResponse<LastTrack>)listeningHistoryTask.Result.Value;
             actualPageResponse.Content.Should().NotBeEmpty();
             actualPageResponse.Content.Should().HaveCount(2);
+            actualPageResponse.Content[0].Duration.Should().Be(new TimeSpan(0, 2, 30));
         }
 
         private FakeDataRetrievalSource MakeSut()
