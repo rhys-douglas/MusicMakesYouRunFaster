@@ -74,8 +74,8 @@
         {
             externalAPIGateway.GetFitBitAuthenticationToken();
             var searchResult = externalAPIGateway.GetFitBitRecentActivities();
-            var activityHistoryContainer = (List<object>)searchResult.Value;
-            foreach (var activity in activityHistoryContainer)
+            var activityHistoryContainer = (Fitbit.Api.Portable.Models.ActivityLogsList)searchResult.Value;
+            foreach (var activity in activityHistoryContainer.Activities)
             {
                 searchResults.Add(activity);
             }

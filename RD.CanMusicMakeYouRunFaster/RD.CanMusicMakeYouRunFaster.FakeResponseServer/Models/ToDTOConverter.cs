@@ -166,12 +166,7 @@
                 LastModified = activity.LastModified,
                 LogId = activity.LogId,
                 LogType = activity.LogType,
-                ManualValuesSpecified = new DTO.ManualValuesSpecified 
-                {
-                    Calories = activity.ManualValuesSpecified.Calories,
-                    Distance = activity.ManualValuesSpecified.Distance,
-                    Steps = activity.ManualValuesSpecified.Steps
-                },
+                ManualValuesSpecified = ConvertManualValuesSpecified(activity.ManualValuesSpecified),
                 OriginalDuration = activity.OriginalDuration,
                 OriginalStartTime = activity.OriginalStartTime,
                 Pace = activity.Pace,
@@ -323,6 +318,23 @@
             }
 
             return listOfDTOTags;
+        }
+
+        private static DTO.ManualValuesSpecified ConvertManualValuesSpecified(FitBit.ManualValuesSpecified mvs)
+        {
+            if (mvs == null)
+            {
+                return null;
+            }
+            else
+            {
+                return new DTO.ManualValuesSpecified
+                {
+                    Calories = mvs.Calories,
+                    Distance = mvs.Distance,
+                    Steps = mvs.Steps
+                };
+            }
         }
     }
 }
