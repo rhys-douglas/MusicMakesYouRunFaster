@@ -47,13 +47,13 @@
                         Explicit = false,
                         ExternalUrls = new Dictionary<string, string>(),
                         Href = "https://api.spotify.com/v1/albums/SomeHref",
-                        Id = count.ToString(),
+                        Id = count.ToString() + "SPOTIFY",
                         IsPlayable = true,
                         LinkedFrom = new LinkedTrack
                         {
                             ExternalUrls = new Dictionary<string, string>(),
                             Href = "https://api.spotify.com/v1/albums/SomeOtherHref",
-                            Id = count.ToString(),
+                            Id = count.ToString() + "SPOTIFY",
                             Type = "Track",
                             Uri = "spotify:album:SomeOtherURI"
                         },
@@ -68,7 +68,7 @@
                         ExternalUrls = new Dictionary<string, string>(),
                         Href = "https://api.spotify.com/v1/albums/SomeURI",
                         Type = "Album",
-                        Uri = "spotify:album:SomeURI" + count.ToString()
+                        Uri = "spotify:album:SomeURI" + count.ToString() + "SPOTIFY"
                     }
                 };
                 var fakeHistoryItem = new FakeResponseServer.Models.Spotify.PlayHistoryItem
@@ -84,13 +84,13 @@
                         Explicit = false,
                         ExternalUrls = new Dictionary<string, string>(),
                         Href = "https://api.spotify.com/v1/albums/SomeHref",
-                        Id = count.ToString(),
+                        Id = count.ToString() + "SPOTIFY",
                         IsPlayable = true,
                         LinkedFrom = new FakeResponseServer.Models.Spotify.LinkedTrack
                         {
                             ExternalUrls = new Dictionary<string, string>(),
                             Href = "https://api.spotify.com/v1/albums/SomeOtherHref",
-                            Id = count.ToString(),
+                            Id = count.ToString() + "SPOTIFY",
                             Type = "Track",
                             Uri = "spotify:album:SomeOtherURI"
                         },
@@ -105,7 +105,7 @@
                         ExternalUrls = new Dictionary<string, string>(),
                         Href = "https://api.spotify.com/v1/albums/SomeURI",
                         Type = "Album",
-                        Uri = "spotify:album:SomeURI" + count.ToString()
+                        Uri = "spotify:album:SomeURI" + count.ToString() + "SPOTIFY"
                     }
                 };
 
@@ -128,7 +128,7 @@
                     AlbumName = "Some Album Name",
                     ArtistImages = new LastImageSet
                     {
-                        Small = new Uri("http://localhost/Small" + count),
+                        Small = new Uri("http://localhost/Small" + count +"LAST.FM"),
                         Medium = new Uri("http://localhost/Medium"),
                         Large = new Uri("http://localhost/Large"),
                         ExtraLarge = new Uri("http://localhost/XL"),
@@ -138,10 +138,10 @@
                     ArtistName = "Some Artist",
                     ArtistUrl = new Uri("http://localhost/ArtistURI"),
                     Duration = new TimeSpan(0, 2, 30),
-                    Id = count.ToString(),
+                    Id = count.ToString() + "LAST.FM",
                     Images = new LastImageSet
                     {
-                        Small = new Uri("http://localhost/Small" + count + 1),
+                        Small = new Uri("http://localhost/Small" + count + 1 + "LAST.FM"),
                         Medium = new Uri("http://localhost/Medium1"),
                         Large = new Uri("http://localhost/Large1"),
                         ExtraLarge = new Uri("http://localhost/XL1"),
@@ -165,7 +165,7 @@
                     AlbumName = "Some Album Name",
                     ArtistImages = new FakeResponseServer.Models.LastFM.LastImageSet
                     {
-                        Small = new Uri("http://localhost/Small" + count),
+                        Small = new Uri("http://localhost/Small" + count + "LAST.FM"),
                         Medium = new Uri("http://localhost/Medium"),
                         Large = new Uri("http://localhost/Large"),
                         ExtraLarge = new Uri("http://localhost/XL"),
@@ -175,10 +175,10 @@
                     ArtistName = "Some Artist",
                     ArtistUrl = new Uri("http://localhost/ArtistURI"),
                     Duration = new TimeSpan(0, 2, 30),
-                    Id = count.ToString(),
+                    Id = count.ToString() + "LAST.FM",
                     Images = new FakeResponseServer.Models.LastFM.LastImageSet
                     {
-                        Small = new Uri("http://localhost/Small" + count + 1),
+                        Small = new Uri("http://localhost/Small" + count + 1 + "LAST.FM"),
                         Medium = new Uri("http://localhost/Medium1"),
                         Large = new Uri("http://localhost/Large1"),
                         ExtraLarge = new Uri("http://localhost/XL1"),
@@ -233,14 +233,14 @@
                     elev_high = 95,
                     elev_low = 90,
                     end_latlng = new List<double>(),
-                    external_id = idcounter.ToString(),
+                    external_id = idcounter.ToString() + "STRAVA",
                     flagged = false,
                     from_accepted_tag = false,
                     gear_id = "123456",
                     has_heartrate = true,
                     has_kudoed = false,
                     heartrate_opt_out = false,
-                    id = row["Activity Id"],
+                    id = row["Activity Id"] + "STRAVA",
                     kudos_count = 5,
                     location_city = "Cardiff",
                     location_country = "UK",
@@ -248,7 +248,7 @@
                     manual = false,
                     map = new FakeResponseServer.Models.Strava.Map
                     {
-                        id = idcounter.ToString(),
+                        id = idcounter.ToString() + "STRAVA",
                         resource_state = 2,
                         summary_polyline = "some summary"
                     },
@@ -298,7 +298,7 @@
                     elev_high = 95,
                     elev_low = 90,
                     end_latlng = null,
-                    external_id = idcounter.ToString(),
+                    external_id = idcounter.ToString() + "STRAVA",
                     flagged = false,
                     from_accepted_tag = false,
                     gear_id = "123456",
@@ -313,7 +313,7 @@
                     manual = false,
                     map = new Rest.Entity.StravaMap
                     {
-                        id = idcounter.ToString(),
+                        id = idcounter.ToString() + "STRAVA",
                         resource_state = 2,
                         summary_polyline = "some summary"
                     },
@@ -379,7 +379,7 @@
                     Pace = double.Parse(row["Average Pace (m/s)"]),
                     Source = new FakeResponseServer.Models.FitBit.ActivityLogSource
                     {
-                        Id = counter.ToString(),
+                        Id = counter.ToString() + "FITBIT",
                         Name = "1",
                         Type = "type1",
                         Url = "someurl"
@@ -412,7 +412,7 @@
                     Pace = double.Parse(row["Average Pace (m/s)"]),
                     Source = new ActivityLogSource
                     {
-                        Id = counter.ToString(),
+                        Id = counter.ToString() + "FITBIT",
                         Name = "1",
                         Type = "type1",
                         Url = "someurl"

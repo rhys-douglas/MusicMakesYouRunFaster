@@ -50,5 +50,11 @@
 
             Thread.Sleep(TimeSpan.FromSeconds(1));
         }
+
+        [AfterScenario]
+        public static void TearDown(DbContextOptions<DataRetrievalContext> contextOptions)
+        {
+            using var context = new DataRetrievalContext(contextOptions);
+        }
     }
 }
