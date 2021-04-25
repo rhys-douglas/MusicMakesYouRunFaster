@@ -80,6 +80,19 @@ Scenario: Compare Listening and Running History with date range
 	| Starboy		                      |
 	| Beautiful Day	                      |
 
+@EDS-1-Multiple-Date-Source-Comparison
+Scenario: Compare Listening and Running History on singular date with alternative data sources
+Given a user <user>
+	And their FitBit running history
+	And their Last.FM listening history
+	When the user's recent FitBit running history is requested
+	And the user's recently played history based on their running history is requested
+	And the comparison between running and listening history is made using a specified date range
+	Then the user's top tracks for running faster are produced
+	|Song name							|
+	| Superheroes						|
+	| Stepping Stone					|
+
 
 @EDS-1-Multiple-Date-Source-Comparison
 Scenario: Compare Listening and Running History on singular date AND multiple data sources.

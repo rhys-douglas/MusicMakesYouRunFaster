@@ -408,17 +408,17 @@ this.FeatureBackground();
         }
         
         [NUnit.Framework.TestAttribute()]
-        [NUnit.Framework.DescriptionAttribute("Compare Listening and Running History on singular date AND multiple data sources." +
-            "")]
+        [NUnit.Framework.DescriptionAttribute("Compare Listening and Running History on singular date with alternative data sour" +
+            "ces")]
         [NUnit.Framework.CategoryAttribute("EDS-1-Multiple-Date-Source-Comparison")]
-        public virtual void CompareListeningAndRunningHistoryOnSingularDateANDMultipleDataSources_()
+        public virtual void CompareListeningAndRunningHistoryOnSingularDateWithAlternativeDataSources()
         {
             string[] tagsOfScenario = new string[] {
                     "EDS-1-Multiple-Date-Source-Comparison"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
-            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Compare Listening and Running History on singular date AND multiple data sources." +
-                    "", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 85
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Compare Listening and Running History on singular date with alternative data sour" +
+                    "ces", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 84
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);
@@ -441,33 +441,24 @@ this.ScenarioInitialize(scenarioInfo);
 #line 3
 this.FeatureBackground();
 #line hidden
-#line 86
+#line 85
 testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
-#line 87
+#line 86
  testRunner.And("their FitBit running history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 88
- testRunner.And("their Strava running history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 89
+#line 87
  testRunner.And("their Last.FM listening history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 90
- testRunner.And("their Spotify listening history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
-#line hidden
-#line 91
- testRunner.When("the user\'s recent Strava running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
-#line hidden
-#line 92
+#line 88
  testRunner.When("the user\'s recent FitBit running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
 #line hidden
-#line 93
- testRunner.And("the user\'s recently played history based on their running history is requested us" +
-                        "ing multiple data sources", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 89
+ testRunner.And("the user\'s recently played history based on their running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
-#line 94
- testRunner.And("the comparison between running and listening history is made", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line 90
+ testRunner.And("the comparison between running and listening history is made using a specified da" +
+                        "te range", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
                             "Song name"});
@@ -475,8 +466,83 @@ testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(n
                             "Superheroes"});
                 table12.AddRow(new string[] {
                             "Stepping Stone"});
-#line 95
+#line 91
  testRunner.Then("the user\'s top tracks for running faster are produced", ((string)(null)), table12, "Then ");
+#line hidden
+            }
+            this.ScenarioCleanup();
+        }
+        
+        [NUnit.Framework.TestAttribute()]
+        [NUnit.Framework.DescriptionAttribute("Compare Listening and Running History on singular date AND multiple data sources." +
+            "")]
+        [NUnit.Framework.CategoryAttribute("EDS-1-Multiple-Date-Source-Comparison")]
+        public virtual void CompareListeningAndRunningHistoryOnSingularDateANDMultipleDataSources_()
+        {
+            string[] tagsOfScenario = new string[] {
+                    "EDS-1-Multiple-Date-Source-Comparison"};
+            System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
+            TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Compare Listening and Running History on singular date AND multiple data sources." +
+                    "", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
+#line 98
+this.ScenarioInitialize(scenarioInfo);
+#line hidden
+            bool isScenarioIgnored = default(bool);
+            bool isFeatureIgnored = default(bool);
+            if ((tagsOfScenario != null))
+            {
+                isScenarioIgnored = tagsOfScenario.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((this._featureTags != null))
+            {
+                isFeatureIgnored = this._featureTags.Where(__entry => __entry != null).Where(__entry => String.Equals(__entry, "ignore", StringComparison.CurrentCultureIgnoreCase)).Any();
+            }
+            if ((isScenarioIgnored || isFeatureIgnored))
+            {
+                testRunner.SkipScenario();
+            }
+            else
+            {
+                this.ScenarioStart();
+#line 3
+this.FeatureBackground();
+#line hidden
+#line 99
+testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 100
+ testRunner.And("their FitBit running history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 101
+ testRunner.And("their Strava running history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 102
+ testRunner.And("their Last.FM listening history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 103
+ testRunner.And("their Spotify listening history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 104
+ testRunner.When("the user\'s recent Strava running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 105
+ testRunner.When("the user\'s recent FitBit running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 106
+ testRunner.And("the user\'s recently played history based on their running history is requested us" +
+                        "ing multiple data sources", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 107
+ testRunner.And("the comparison between running and listening history is made", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table13 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Song name"});
+                table13.AddRow(new string[] {
+                            "Superheroes"});
+                table13.AddRow(new string[] {
+                            "Stepping Stone"});
+#line 108
+ testRunner.Then("the user\'s top tracks for running faster are produced", ((string)(null)), table13, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();
@@ -491,7 +557,7 @@ testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(n
                     "EDS-1-Multiple-Data-Source-Comparison"};
             System.Collections.Specialized.OrderedDictionary argumentsOfScenario = new System.Collections.Specialized.OrderedDictionary();
             TechTalk.SpecFlow.ScenarioInfo scenarioInfo = new TechTalk.SpecFlow.ScenarioInfo("Compare Listening and Running History with date range AND multiple data sources.", null, tagsOfScenario, argumentsOfScenario, this._featureTags);
-#line 102
+#line 115
 this.ScenarioInitialize(scenarioInfo);
 #line hidden
             bool isScenarioIgnored = default(bool);

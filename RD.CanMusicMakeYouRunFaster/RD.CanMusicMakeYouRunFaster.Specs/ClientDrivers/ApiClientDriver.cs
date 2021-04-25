@@ -16,7 +16,7 @@
     public class ApiClientDriver : IClientDriver
     {
         private readonly List<object> searchResults = new List<object>();
-        private Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>> activitiesAndSongs = new Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>>();
+        private readonly Dictionary<object, List<object>> activitiesAndSongs = new Dictionary<object, List<object>>();
         private Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>> fastestActivity = new Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>>();
         private ExternalAPIGateway externalAPIGateway;
         private string userName;
@@ -91,10 +91,33 @@
                 {
                     var startDateAsDateTime = activity.start_date;
                     var startDateAsUnixTime = ((DateTimeOffset)startDateAsDateTime).ToUnixTimeMilliseconds();
-                    var searchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
-                    var playHistoryContainer = (CursorPaging<PlayHistoryItem>)searchResult.Value;
-                    var listOfSongs = playHistoryContainer.Items.ToList();
-                    var tempDict = SongsToActivityMapper.MapSongsToActivity(activity, listOfSongs);
+
+                    // Get Spotify songs
+                    var spotifySearchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
+                    CursorPaging<PlayHistoryItem> playHistoryContainer = (CursorPaging<PlayHistoryItem>)spotifySearchResult.Value;
+                    List<PlayHistoryItem> spotifyFoundSongs = playHistoryContainer.Items.ToList();
+                    // Get Last.FM songs
+                    var lastFMSearchResult = externalAPIGateway.GetLastFMRecentlyPlayed(userName, startDateAsDateTime);
+                    PageResponse<LastTrack> lastTrackHistoryContainer = (PageResponse<LastTrack>)lastFMSearchResult.Value;
+                    List<LastTrack> lastFMFoundSongs = lastTrackHistoryContainer.Content.ToList();
+                    // Map songs to activity
+                    var tempDict = SongsToActivityMapper.MapSongsToActivity(activity, spotifyFoundSongs, lastFMFoundSongs);
+                    tempDict.ToList().ForEach(x => activitiesAndSongs.Add(x.Key, x.Value));
+                }
+
+                if (item is Fitbit.Api.Portable.Models.Activities fitbitActivity)
+                {
+                    long startDateAsUnixTime = fitbitActivity.OriginalStartTime.ToUnixTimeMilliseconds();
+                    // Get Spotify songs
+                    var spotifySearchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
+                    CursorPaging<PlayHistoryItem> playHistoryContainer = (CursorPaging<PlayHistoryItem>)spotifySearchResult.Value;
+                    List<PlayHistoryItem> spotifyFoundSongs = playHistoryContainer.Items.ToList();
+                    // Get Last.FM songs
+                    var lastFMSearchResult = externalAPIGateway.GetLastFMRecentlyPlayed(userName, fitbitActivity.OriginalStartTime);
+                    PageResponse<LastTrack> lastTrackHistoryContainer = (PageResponse<LastTrack>)lastFMSearchResult.Value;
+                    List<LastTrack> lastFMFoundSongs = lastTrackHistoryContainer.Content.ToList();
+                    // Map songs to activity
+                    var tempDict = SongsToActivityMapper.MapSongsToActivity(activity, spotifyFoundSongs, lastFMFoundSongs);
                     tempDict.ToList().ForEach(x => activitiesAndSongs.Add(x.Key, x.Value));
                 }
             }
@@ -103,7 +126,20 @@
         /// <inheritdoc/>
         public void GetRecentlyPlayedMusicForActivitiesWithMultipleSources()
         {
-
+            externalAPIGateway.GetSpotifyAuthenticationToken();
+            foreach (var item in searchResults)
+            {
+                if (item is Rest.Entity.StravaActivity activity)
+                {
+                    var startDateAsDateTime = activity.start_date;
+                    var startDateAsUnixTime = ((DateTimeOffset)startDateAsDateTime).ToUnixTimeMilliseconds();
+                    var searchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
+                    var playHistoryContainer = (CursorPaging<PlayHistoryItem>)searchResult.Value;
+                    var listOfSongs = playHistoryContainer.Items.ToList();
+                    var tempDict = SongsToActivityMapper.MapSongsToActivity(activity, listOfSongs);
+                    tempDict.ToList().ForEach(x => activitiesAndSongs.Add(x.Key, x.Value));
+                }
+            }
         }
 
         /// <inheritdoc/>
