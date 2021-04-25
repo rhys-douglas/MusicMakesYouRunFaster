@@ -101,6 +101,12 @@
         }
 
         /// <inheritdoc/>
+        public void GetRecentlyPlayedMusicForActivitiesWithMultipleSources()
+        {
+
+        }
+
+        /// <inheritdoc/>
         public List<object> GetFoundItems()
         {
             return searchResults;

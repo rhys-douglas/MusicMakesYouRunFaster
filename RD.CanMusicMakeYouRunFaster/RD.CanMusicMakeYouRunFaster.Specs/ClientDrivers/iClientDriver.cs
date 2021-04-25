@@ -69,5 +69,10 @@
         /// Request music data from the relevant API, specifically for mapping to activities.
         /// </summary>
         void GetRecentlyPlayedMusicForActivities();
+
+        /// <summary>
+        /// Request music data from the relevant APIs, specifically for mapping to activities.
+        /// </summary>
+        void GetRecentlyPlayedMusicForActivitiesWithMultipleSources();
     }
 }

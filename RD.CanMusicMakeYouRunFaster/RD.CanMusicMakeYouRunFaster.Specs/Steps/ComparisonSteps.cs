@@ -34,6 +34,12 @@
             clientDriver.GetRecentlyPlayedMusicForActivities();
         }
 
+        [When(@"the user's recently played history based on their running history is requested using multiple data sources")]
+        public void WhenTheUsersRecentlyPlayedHistoryBasedOnTheirRunningHistoryIsRequestedUsingMultipleDataSources()
+        {
+            clientDriver.GetRecentlyPlayedMusicForActivitiesWithMultipleSources();
+        }
+
         [When(@"the comparison between running and listening history is made using a specified date range")]
         public void WhenTheComparsionBetweenRunningAndListeningHistoryIsMadeWithASpecifiedDateRange()
         {
