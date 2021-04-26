@@ -4,16 +4,21 @@
     using System.Collections.Generic;
     using DataRetrievalSources;
     using Entity;
+    using Fitbit.Api.Portable.Models;
     using FluentAssertions;
     using Newtonsoft.Json;
     using NUnit.Framework;
     using RD.CanMusicMakeYouRunFaster.Rest.IntegrationTests.TestUtils;
     using SpotifyAPI.Web;
+    using IF.Lastfm.Core;
+    using IF.Lastfm.Core.Api.Helpers;
+    using IF.Lastfm.Core.Objects;
 
     public class FakeDataRetrievalSourceTests : TestsBase
     {
         private SpotifyAuthenticationToken spotifyAuthToken;
         private StravaAuthenticationToken stravaAuthToken;
+        private FitBitAuthenticationToken fitBitAuthToken;
         private FakeDataRetrievalSource sut;
         private readonly List<FakeResponseServer.Models.Spotify.PlayHistoryItem> PlayHistoryItems = new List<FakeResponseServer.Models.Spotify.PlayHistoryItem>
         {
@@ -265,6 +270,162 @@
             }
         };
 
+        private readonly List<FakeResponseServer.Models.FitBit.Activities> FitBitActivityItems = new List<FakeResponseServer.Models.FitBit.Activities>
+        {
+            new FakeResponseServer.Models.FitBit.Activities
+            {
+               ActiveDuration = 5,
+                ActivityLevel = new List<FakeResponseServer.Models.FitBit.ActivityLevel>(),
+                ActivityName = "Run 1",
+                ActivityTypeId = 5,
+                AverageHeartRate = 140,
+                Calories = 500,
+                DateOfActivity = "17/04/2021",
+                Distance = 3500,
+                DistanceUnit = "M",
+                Duration = 3600,
+                ElevationGain = 330,
+                HeartRateZones = new List<FakeResponseServer.Models.FitBit.HeartRateZone>(),
+                LastModified = DateTime.Now,
+                LogId = 123253464353,
+                LogType = "logtype1",
+                ManualValuesSpecified = new FakeResponseServer.Models.FitBit.ManualValuesSpecified
+                {
+                    Distance = false,
+                    Calories = false,
+                    Steps = false,
+                },
+                OriginalDuration = 3601,
+                OriginalStartTime = DateTime.Now,
+                Pace = 16.5,
+                Source = new FakeResponseServer.Models.FitBit.ActivityLogSource
+                {
+                    Id = "1",
+                    Name = "1",
+                    Type = "type1",
+                    Url = "someurl"
+                },
+                Speed = 18.5,
+                StartTime = DateTime.Now,
+                Steps = 14000,
+                TcxLink = "??"
+            },
+            new FakeResponseServer.Models.FitBit.Activities
+            {
+                ActiveDuration = 5,
+                ActivityLevel = new List<FakeResponseServer.Models.FitBit.ActivityLevel>(),
+                ActivityName = "Run 2",
+                ActivityTypeId = 5,
+                AverageHeartRate = 140,
+                Calories = 500,
+                DateOfActivity = "18/04/2021",
+                Distance = 3500,
+                DistanceUnit = "M",
+                Duration = 3600,
+                ElevationGain = 330,
+                HeartRateZones = new List<FakeResponseServer.Models.FitBit.HeartRateZone>(),
+                LastModified = DateTime.Now,
+                LogId = 23456789,
+                LogType = "logtype2",
+                ManualValuesSpecified = new FakeResponseServer.Models.FitBit.ManualValuesSpecified
+                {
+                    Distance = true,
+                    Calories = false,
+                    Steps = false,
+                },
+                OriginalDuration = 3601,
+                OriginalStartTime = DateTime.Now,
+                Pace = 16.5,
+                Source = new FakeResponseServer.Models.FitBit.ActivityLogSource
+                {
+                    Id = "2",
+                    Name = "2",
+                    Type = "type2",
+                    Url = "url2"
+                },
+                Speed = 18.5,
+                StartTime = DateTime.Now,
+                Steps = 14000,
+                TcxLink = "??"
+            }
+        };
+
+        private readonly List<FakeResponseServer.Models.LastFM.LastTrack> LastFMTrackItems = new List<FakeResponseServer.Models.LastFM.LastTrack>
+        {
+            new FakeResponseServer.Models.LastFM.LastTrack
+            {
+                AlbumName = "Some Album Name",
+                ArtistImages = new FakeResponseServer.Models.LastFM.LastImageSet()
+                {
+                    Small = new Uri("http://localhost/Small"),
+                    Medium = new Uri("http://localhost/Medium"),
+                    Large = new Uri("http://localhost/Large"),
+                    ExtraLarge = new Uri("http://localhost/XL"),
+                    Mega = new Uri("http://localhost/Mega"),
+                },
+                ArtistMbid = "123456789",
+                ArtistName = "Some Artist",
+                ArtistUrl = new Uri("http://localhost/ArtistURI"),
+                Duration = new TimeSpan(0, 2, 30),
+                Id = "23456789",
+                Images = new FakeResponseServer.Models.LastFM.LastImageSet
+                {
+                    Small = new Uri("http://localhost/Small1"),
+                    Medium = new Uri("http://localhost/Medium1"),
+                    Large = new Uri("http://localhost/Large1"),
+                    ExtraLarge = new Uri("http://localhost/XL1"),
+                    Mega = new Uri("http://localhost/Mega1"),
+                },
+                IsLoved = true,
+                IsNowPlaying = false,
+                ListenerCount = 1500,
+                Mbid = "1",
+                Name = "Some Track",
+                PlayCount = 300,
+                Rank = 1,
+                TimePlayed = DateTime.UtcNow,
+                TopTags = new List<FakeResponseServer.Models.LastFM.LastTag>(),
+                Url = new Uri("http://localhost/TrackURI"),
+                UserPlayCount = 20
+            },
+            new FakeResponseServer.Models.LastFM.LastTrack
+            {
+                AlbumName = "Some Album Name 2",
+                ArtistImages = new FakeResponseServer.Models.LastFM.LastImageSet()
+                {
+                    Small = new Uri("http://localhost/Small2"),
+                    Medium = new Uri("http://localhost/Medium2"),
+                    Large = new Uri("http://localhost/Large2"),
+                    ExtraLarge = new Uri("http://localhost/XL2"),
+                    Mega = new Uri("http://localhost/Mega2"),
+                },
+                ArtistMbid = "abcdefghi",
+                ArtistName = "Some Artist 2",
+                ArtistUrl = new Uri("http://localhost/ArtistURI2"),
+                Duration = new TimeSpan(0, 3, 0),
+                Id = "bcdefghij",
+                Images = new FakeResponseServer.Models.LastFM.LastImageSet
+                {
+                    Small = new Uri("http://localhost/Small3"),
+                    Medium = new Uri("http://localhost/Medium3"),
+                    Large = new Uri("http://localhost/Large3"),
+                    ExtraLarge = new Uri("http://localhost/XL3"),
+                    Mega = new Uri("http://localhost/Mega3"),
+                },
+                IsLoved = false,
+                IsNowPlaying = true,
+                ListenerCount = 53478763,
+                Mbid = "2",
+                Name = "Some Track 2",
+                PlayCount = 573847389,
+                Rank = 2,
+                TimePlayed = DateTime.UtcNow,
+                TopTags = new List<FakeResponseServer.Models.LastFM.LastTag>(),
+                Url = new Uri("http://localhost/TrackURI2"),
+                UserPlayCount = 30,
+            }
+        };
+
         [OneTimeSetUp]
         public void SetUpTests()
         {
@@ -283,9 +444,27 @@
                 item.start_date_local = now_local;
             }
 
+            foreach (var item in FitBitActivityItems)
+            {
+                item.StartTime = now;
+                item.OriginalStartTime = now;
+                item.LastModified = now;
+            }
+
+            offset = -1;
+            foreach (var item in LastFMTrackItems)
+            {
+                item.TimePlayed = now.AddDays(offset);
+                offset++;
+            }
+
             RegisterMusicHistory(PlayHistoryItems);
 
             RegisterActivityHistory(ActivityItems);
+
+            RegisterFitBitHistory(FitBitActivityItems);
+
+            RegisterLastFMTracks(LastFMTrackItems);
 
             sut = MakeSut();
 
@@ -304,6 +483,14 @@
             temp = JsonConvert.SerializeObject(stravaAuthTask.Result.Value);
             stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>(temp);
             stravaAuthToken.access_token.Should().NotBeNullOrEmpty();
+
+            // Get FitBit auth token.
+            var fitBitAuthTask = sut.GetFitBitAuthenticationToken();
+            fitBitAuthTask.Result.Should().NotBeNull();
+            fitBitAuthTask.Result.Value.Should().NotBeNull();
+            temp = JsonConvert.SerializeObject(fitBitAuthTask.Result.Value);
+            fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>(temp);
+            fitBitAuthToken.AccessToken.Should().NotBeNullOrEmpty();
         }
 
         [Test]
@@ -351,9 +538,49 @@
             runningHistoryTask.Result.Value.Should().NotBeNull();
             runningHistoryTask.Result.Value.Should().NotBe(string.Empty);
             var runningHistoryJson = JsonConvert.SerializeObject(runningHistoryTask.Result.Value);
-            var actualRunningHistory = JsonConvert.DeserializeObject<List<Activity>>(runningHistoryJson);
+            var actualRunningHistory = JsonConvert.DeserializeObject<List<StravaActivity>>(runningHistoryJson);
             actualRunningHistory.Count.Should().Be(2);
-            actualRunningHistory[0].Should().BeOfType<Activity>();
+            actualRunningHistory[0].Should().BeOfType<StravaActivity>();
+        }
+
+        [Test]
+        public void GetFitBitActivityHistoryWithValidAuthToken_ActivityHistoryRetrieved()
+        {
+            sut = MakeSut();
+            var runningHistoryTask = sut.GetFitBitActivityHistory(fitBitAuthToken);
+            runningHistoryTask.Result.Value.Should().NotBeNull();
+            runningHistoryTask.Result.Value.Should().NotBe(string.Empty);
+            ActivityLogsList actualRunningHistory = (ActivityLogsList)runningHistoryTask.Result.Value;
+            actualRunningHistory.Should().BeOfType<ActivityLogsList>();
+            actualRunningHistory.Activities.Should().HaveCount(2);
+        }
+
+        [Test]
+        public void GetLastFMListeniningHistory_ListeningHistoryReturned()
+        {
+            sut = MakeSut();
+            var listeningHistoryTask = sut.GetLastFMRecentlyPlayed("RD");
+            listeningHistoryTask.Result.Value.Should().NotBeNull();
+            listeningHistoryTask.Result.Value.Should().NotBe(string.Empty);
+            PageResponse<LastTrack> actualPageResponse = (PageResponse<LastTrack>)listeningHistoryTask.Result.Value;
+            actualPageResponse.Content.Should().NotBeEmpty();
+            actualPageResponse.Content.Should().HaveCount(2);
+            actualPageResponse.Content[0].Duration.Should().Be(new TimeSpan(0, 2, 30));
+            actualPageResponse.Content[0].Should().BeOfType<LastTrack>();
+        }
+
+        [Test]
+        public void GetLastFMListeningHistoryWithAfterParam_CorrectListeningHistoryReturned()
+        {
+            sut = MakeSut();
+            var after = DateTime.UtcNow.AddDays(-1);
+            var listeningHistoryTask = sut.GetLastFMRecentlyPlayed("RD", after);
+            listeningHistoryTask.Result.Value.Should().NotBeNull();
+            listeningHistoryTask.Result.Value.Should().NotBe(string.Empty);
+            PageResponse<LastTrack> actualPageResponse = (PageResponse<LastTrack>)listeningHistoryTask.Result.Value;
+            actualPageResponse.Content.Should().NotBeEmpty();
+            actualPageResponse.Content.Should().HaveCount(1);
+            actualPageResponse.Content[0].Should().BeOfType<LastTrack>();
         }
 
         private FakeDataRetrievalSource MakeSut()

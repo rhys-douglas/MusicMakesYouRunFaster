@@ -3,10 +3,10 @@
     using ClientDrivers;
     using DataSource;
     using FluentAssertions;
+    using IF.Lastfm.Core.Objects;
     using NUnit.Framework;
     using SpotifyAPI.Web;
     using System.Collections.Generic;
-    using System.Linq;
     using TechTalk.SpecFlow;
 
     [Binding]
@@ -21,20 +21,55 @@
             this.dataSource = dataSource;
         }
 
-        [Given(@"their listening history")]
-        public void GivenTheirListeningHistory()
+        [Given(@"their Spotify listening history")]
+        public void GivenTheirSpotifyListeningHistory()
         {
-            // Do something
+            // Do nothing.
         }
 
-        [When(@"the user's recently played history is requested")]
-        public void WhenTheUserSRecentlyPlayedHistoryIsRequested()
+        [Given(@"their Last\.FM listening history")]
+        public void GivenTheirLast_FMListeningHistory()
         {
-            clientDriver.GetRecentlyPlayedMusic();
+            // Do nothing.
         }
 
-        [Then(@"the user's recently played history is produced")]
-        public void ThenTheUserSRecentlyPlayedHistoryIsProduced()
+
+        [When(@"the user's Spotify recently played history is requested")]
+        public void WhenTheUsersSpotifyRecentlyPlayedHistoryIsRequested()
+        {
+            clientDriver.GetSpotifyRecentlyPlayedMusic();
+        }
+
+        [When(@"the user's Last.FM recently played history is requested")]
+        public void WhenTheUsersLastFMRecentlyPlayedHistoryIsRequested()
+        {
+            clientDriver.GetLastFMRecentlyPlayedMusic();
+        }
+
+        [Then(@"the user's Last\.FM recently played history is produced")]
+        public void ThenTheUsersLast_FMRecentlyPlayedHistoryIsProduced()
+        {
+            var acquiredItems = clientDriver.GetFoundItems();
+            var actualListeningHistory = new List<LastTrack>();
+
+            foreach (var item in acquiredItems)
+            {
+                if (item is LastTrack song)
+                {
+                    actualListeningHistory.Add(song);
+                }
+            }
+
+            actualListeningHistory.Should().HaveCount(5);
+            actualListeningHistory[0].Name.Should().Be("The Chain - 2004 Remaster");
+            actualListeningHistory[1].Name.Should().Be("I Want To Break Free - Single Remix");
+            actualListeningHistory[2].Name.Should().Be("Good Vibrations - Remastered");
+            actualListeningHistory[3].Name.Should().Be("Dreams - 2004 Remaster");
+            actualListeningHistory[4].Name.Should().Be("Stayin Alive");
+        }
+
+        [Then(@"the user's Spotify recently played history is produced")]
+        public void ThenTheUsersSpotifyRecentlyPlayedHistoryIsProduced()
         {
             var acquiredItems = clientDriver.GetFoundItems();
             var actualListeningHistory = new List<PlayHistoryItem>();

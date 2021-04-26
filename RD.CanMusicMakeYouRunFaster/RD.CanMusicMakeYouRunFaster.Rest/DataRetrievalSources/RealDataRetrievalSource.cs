@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Entity;
     using Fitbit.Api.Portable;
+    using IF.Lastfm.Core.Api;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using RD.CanMusicMakeYouRunFaster.Rest.Authenticators;
@@ -100,7 +101,51 @@
             var request = new RestRequest(Method.GET);
             request.AddParameter("access_token", authToken.access_token);
             IRestResponse response = client.Execute(request);
-            return new JsonResult(response.Content);
+            var retrievedActivites = JsonConvert.DeserializeObject<List<StravaActivity>>((string)response.Content);
+            List<StravaActivity> listOfRuns = new List<StravaActivity>();
+            foreach (var activity in retrievedActivites)
+            {
+                if (activity.type == "Run")
+                {
+                    listOfRuns.Add(activity);
+                }
+            }
+            return new JsonResult(listOfRuns);
         }
+
+        /// <inheritdoc/>
+        public async Task<JsonResult> GetFitBitActivityHistory(FitBitAuthenticationToken authToken)
+        {
+            await Task.Delay(0);
+            FitbitAppCredentials credentials = new FitbitAppCredentials() 
+            { 
+                ClientId= "22CCZ8", 
+                ClientSecret= "d73f338b7121d347da36be95000c959b" 
+            };
+
+            Fitbit.Api.Portable.OAuth2.OAuth2AccessToken accessToken = new Fitbit.Api.Portable.OAuth2.OAuth2AccessToken()
+            {
+                Token = authToken.AccessToken,
+                ExpiresIn = authToken.ExpiresIn,
+                RefreshToken = authToken.RefreshToken,
+                TokenType = authToken.TokenType,
+                UserId = authToken.UserId,
+            };
+
+            var client = new FitbitClient(credentials, accessToken);
+            var lastWeek = DateTime.UtcNow;
+            lastWeek.AddDays(-7);
+            var retrievedActivities = await client.GetActivityLogsListAsync(null,lastWeek,20);
+            return new JsonResult(retrievedActivities);
+        }
+
+        /// <inheritdoc/>
+        public async Task<JsonResult> GetLastFMRecentlyPlayed(string username, DateTimeOffset? after = null)
+        {
+            var client = new LastfmClient("d3cf196e63d20375eb8d6729ebb982b3", "3b2dd16f5d94f119aa724dd3efe3b393");
+            var recentTracks = await client.User.GetRecentScrobbles(username,after);
+            return new JsonResult(recentTracks.Content);
+        }
+            
     }
 }

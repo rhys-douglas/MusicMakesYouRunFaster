@@ -2,8 +2,6 @@
 {
     using System.Collections.Generic;
     using System.Linq;
-    using SpotifyAPI.Web;
-    using RD.CanMusicMakeYouRunFaster.Rest.Entity;
     using RD.CanMusicMakeYouRunFaster.ComparisonLogic.Comparers;
     using System;
 
@@ -17,7 +15,7 @@
         /// </summary>
         /// <param name="activityAndMusicHistory"></param>
         /// <returns></returns>
-        public Dictionary<Activity,List<PlayHistoryItem>> GetFastestActivityWithListeningHistory(Dictionary<Activity, List<PlayHistoryItem>> activityAndMusicHistory)
+        public Dictionary<object,List<object>> GetFastestActivityWithListeningHistory(Dictionary<object, List<object>> activityAndMusicHistory)
         {
             if (activityAndMusicHistory.Count == 0)
             {
@@ -25,7 +23,7 @@
             }
 
             var fastestActivity = ActivityComparer.FindFastestActivity(activityAndMusicHistory.Keys.ToList());
-            return new Dictionary<Activity, List<PlayHistoryItem>>
+            return new Dictionary<object, List<object>>
             {
                 {fastestActivity, activityAndMusicHistory[fastestActivity] }
             };

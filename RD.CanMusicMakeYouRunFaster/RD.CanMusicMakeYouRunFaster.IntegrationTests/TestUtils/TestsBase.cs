@@ -55,5 +55,21 @@
             context.ActivityHistoryItems.AddRange(activityHistory);
             context.SaveChanges();
         }
+
+        protected void RegisterFitBitHistory(List<FakeResponseServer.Models.FitBit.Activities> fitBitHistory)
+        {
+            using var context = new DataRetrievalContext(contextOptions);
+            context.FitBitActivityItems.RemoveRange(context.FitBitActivityItems);
+            context.FitBitActivityItems.AddRange(fitBitHistory);
+            context.SaveChanges();
+        }
+
+        protected void RegisterLastFMTracks (List<FakeResponseServer.Models.LastFM.LastTrack> trackHistory)
+        {
+            using var context = new DataRetrievalContext(contextOptions);
+            context.LastTracks.RemoveRange(context.LastTracks);
+            context.LastTracks.AddRange(trackHistory);
+            context.SaveChanges();
+        }
     }
 }

@@ -5,9 +5,9 @@
     using System.Collections.Generic;
 
     /// <summary>
-    /// Activity from Strava.
+    /// Activity entity from Strava.
     /// </summary>
-    public class Activity
+    public class StravaActivity
     {
         /// <summary>
         /// Resource state of the activity.
@@ -17,7 +17,7 @@
         /// <summary>
         /// Athlete from the activity.
         /// </summary>
-        public Athlete athlete { get; set; }
+        public StravaAthlete athlete { get; set; }
 
         /// <summary>
         /// Name of the activity.
@@ -152,7 +152,7 @@
         /// <summary>
         /// Map representation of the activity.
         /// </summary>
-        public Map map { get; set; }
+        public StravaMap map { get; set; }
 
         /// <summary>
         /// Trainer used?

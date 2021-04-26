@@ -33,6 +33,6 @@
         /// <summary>
         /// Athlete 
         /// </summary>
-        public Athlete athlete { get; set; }
+        public StravaAthlete athlete { get; set; }
     }
 }

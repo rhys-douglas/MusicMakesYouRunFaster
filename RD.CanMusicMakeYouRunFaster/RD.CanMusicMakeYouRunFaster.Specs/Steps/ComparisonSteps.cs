@@ -3,6 +3,7 @@
     using ClientDrivers;
     using DataSource;
     using FluentAssertions;
+    using IF.Lastfm.Core.Objects;
     using NUnit.Framework;
     using SpotifyAPI.Web;
     using System;
@@ -34,6 +35,12 @@
             clientDriver.GetRecentlyPlayedMusicForActivities();
         }
 
+        [When(@"the user's recently played history based on their running history is requested using multiple data sources")]
+        public void WhenTheUsersRecentlyPlayedHistoryBasedOnTheirRunningHistoryIsRequestedUsingMultipleDataSources()
+        {
+            clientDriver.GetRecentlyPlayedMusicForActivitiesWithMultipleSources();
+        }
+
         [When(@"the comparison between running and listening history is made using a specified date range")]
         public void WhenTheComparsionBetweenRunningAndListeningHistoryIsMadeWithASpecifiedDateRange()
         {
@@ -51,7 +58,14 @@
             var listOfSongNames = new List<string>();
             foreach (var item in resultAsSinglePair.Value)
             {
-                listOfSongNames.Add(item.Track.Name);
+                if (item is LastTrack lt)
+                {
+                    listOfSongNames.Add(lt.Name);
+                }
+                if (item is PlayHistoryItem phi) 
+                {
+                    listOfSongNames.Add(phi.Track.Name);
+                }
             }
 
             var listOfExpectedSongNames = new List<string>();
@@ -60,6 +74,7 @@
                 listOfExpectedSongNames.Add(item[0]);
             }
             listOfSongNames.Should().BeEquivalentTo(listOfExpectedSongNames);
+            clientDriver.TearDown();
         }
     }
 }

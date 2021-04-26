@@ -18,7 +18,7 @@
         /// <returns> A Strava Exchange token response</returns>
         [Route("/oauth/authorize")]
         [HttpGet]
-        public async Task<DTO.StravaExchangeTokenResponse> GetExchangeToken([FromQuery] DTO.Request.ExchangeTokenRequest request)
+        public async Task<DTO.StravaExchangeTokenResponse> GetExchangeToken([FromQuery] DTO.Request.StravaExchangeTokenRequest request)
         {
             await Task.Delay(0);
             if (request.client_id == null)
@@ -45,7 +45,7 @@
         /// <returns> A Strava Access Token</returns>
         [Route("/oauth/token")]
         [HttpGet]
-        public async Task<DTO.StravaAuthenticationTokenResponse> GetAccessToken([FromQuery] DTO.Request.AccessTokenRequest request)
+        public async Task<DTO.StravaAuthenticationTokenResponse> GetAccessToken([FromQuery] DTO.Request.StravaAccessTokenRequest request)
         {
             if (request.code == null || request.client_id == null || request.client_secret == null)
             {

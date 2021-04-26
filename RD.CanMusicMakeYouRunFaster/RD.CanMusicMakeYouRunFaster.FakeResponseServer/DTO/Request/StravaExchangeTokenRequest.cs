@@ -3,7 +3,7 @@
     using Microsoft.AspNetCore.Mvc;
     using System;
 
-    public class ExchangeTokenRequest
+    public class StravaExchangeTokenRequest
     {
         /// <summary>
         /// ClientID

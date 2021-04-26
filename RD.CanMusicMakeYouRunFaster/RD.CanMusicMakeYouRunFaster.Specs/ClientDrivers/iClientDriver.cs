@@ -16,14 +16,30 @@
         void SetUp(ExternalAPIGateway externalApiGateway);
 
         /// <summary>
-        /// Request music data from the relevant API.
+        /// Tears down the client driver.
         /// </summary>
-        void GetRecentlyPlayedMusic();
+        void TearDown();
 
         /// <summary>
-        /// Request activity data from the relevant API.
+        /// Registers a username.
         /// </summary>
-        void GetRecentActivities();
+        /// <param name="user">username to register</param>
+        void RegisterUser(string user);
+
+        /// <summary>
+        /// Request music data from the Spotify API.
+        /// </summary>
+        void GetSpotifyRecentlyPlayedMusic();
+
+        /// <summary>
+        /// Request music data from the LastFM API.
+        /// </summary>
+        void GetLastFMRecentlyPlayedMusic();
+
+        /// <summary>
+        /// Request activity data from the Strava API.
+        /// </summary>
+        void GetRecentStravaActivities();
 
         /// <summary>
         /// Request activity data from the FitBit API.
@@ -45,7 +61,7 @@
         /// Returns the dictionary of fastest tracks, and the paired activity.
         /// </summary>
         /// <returns>A dictionary with songs that make you run faster.</returns>
-        Dictionary<Rest.Entity.Activity, List<PlayHistoryItem>> GetFastestTracks();
+        Dictionary<object, List<object>> GetFastestTracks();
 
         /// <summary>
         /// Makes the comparison between running and listening history using a range to search between.
@@ -58,5 +74,10 @@
         /// Request music data from the relevant API, specifically for mapping to activities.
         /// </summary>
         void GetRecentlyPlayedMusicForActivities();
+
+        /// <summary>
+        /// Request music data from the relevant APIs, specifically for mapping to activities.
+        /// </summary>
+        void GetRecentlyPlayedMusicForActivitiesWithMultipleSources();
     }
 }

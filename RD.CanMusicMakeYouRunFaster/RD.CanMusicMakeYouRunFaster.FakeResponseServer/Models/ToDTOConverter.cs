@@ -10,7 +10,7 @@
         /// <summary>
         /// Converts context PlayHistoryItems to DTO.
         /// </summary>
-        /// <param name="playHistoryItem"></param>
+        /// <param name="playHistoryItem"> PlayHistoryItem from context.</param>
         /// <returns> DTO of PlayHistoryItem.</returns>
         public static DTO.PlayHistoryItem ToDTO(this Spotify.PlayHistoryItem playHistoryItem)
         {
@@ -26,7 +26,7 @@
                 PlayedAt = playHistoryItem.PlayedAt,
                 Track = new DTO.SimpleTrack 
                 { 
-                    Artists = ConvertArtsits(playHistoryItem.Track.Artists),
+                    Artists = ConvertArtists(playHistoryItem.Track.Artists),
                     AvailableMarkets = playHistoryItem.Track.AvailableMarkets,
                     DiscNumber = playHistoryItem.Track.DiscNumber,
                     DurationMs = playHistoryItem.Track.DurationMs,
@@ -53,6 +53,11 @@
             } : null;
         }
 
+        /// <summary>
+        /// Converts context Strava Activity objects to DTO counterparts.
+        /// </summary>
+        /// <param name="activity"> Activity from context.</param>
+        /// <returns>DTO of Strava activity</returns>
         public static DTO.Activity ToDTO(this Strava.Activity activity)
         {
             return activity != null ? new DTO.Activity
@@ -137,7 +142,94 @@
             } : null;
         }
 
-        private static List<DTO.SimpleArtist> ConvertArtsits(List<Spotify.SimpleArtist> listOfModels)
+        /// <summary>
+        /// Converts context FitBit Activities to DTO counterparts.
+        /// </summary>
+        /// <param name="activity"> Activities object to convert.</param>
+        /// <returns> DTO of FitBit Activity.</returns>
+        public static DTO.FitBitActivities ToDTO(this FitBit.Activities activity)
+        {
+            return activity != null ? new DTO.FitBitActivities
+            {
+                ActiveDuration = activity.ActiveDuration,
+                ActivityLevel = ConvertActivityLevels(activity.ActivityLevel),
+                ActivityName = activity.ActivityName,
+                ActivityTypeId = activity.ActivityTypeId,
+                AverageHeartRate = activity.AverageHeartRate,
+                Calories = activity.Calories,
+                DateOfActivity = activity.DateOfActivity,
+                Distance = activity.Distance,
+                DistanceUnit = activity.DistanceUnit,
+                Duration = activity.Duration,
+                ElevationGain = activity.ElevationGain,
+                HeartRateZones = ConvertHeartRateZones(activity.HeartRateZones),
+                LastModified = activity.LastModified,
+                LogId = activity.LogId,
+                LogType = activity.LogType,
+                ManualValuesSpecified = ConvertManualValuesSpecified(activity.ManualValuesSpecified),
+                OriginalDuration = activity.OriginalDuration,
+                OriginalStartTime = activity.OriginalStartTime,
+                Pace = activity.Pace,
+                Source = new DTO.ActivityLogSource
+                {
+                    Id = activity.Source.Id,
+                    Name = activity.Source.Name,
+                    Type = activity.Source.Type,
+                    Url = activity.Source.Url
+                },
+                Speed = activity.Speed,
+                StartTime = activity.StartTime,
+                Steps = activity.Steps,
+                TcxLink = activity.TcxLink
+            } : null;
+        }
+
+        /// <summary>
+        /// Converts context LastFM tracks to DTO counterparts.
+        /// </summary>
+        /// <param name="lastTrack"> LastTrack object to convert.</param>
+        /// <returns>DTO of the LastTrack object.</returns>
+        public static DTO.LastTrack ToDTO(this LastFM.LastTrack lastTrack)
+        {
+            return lastTrack != null ? new DTO.LastTrack
+            {
+                AlbumName = lastTrack.AlbumName,
+                ArtistImages = new DTO.LastImageSet 
+                {
+                    Small = lastTrack.ArtistImages.Small,
+                    Medium = lastTrack.ArtistImages.Medium,
+                    Large = lastTrack.ArtistImages.Large,
+                    ExtraLarge = lastTrack.ArtistImages.ExtraLarge,
+                    Mega = lastTrack.ArtistImages.Mega,
+                },
+                ArtistMbid = lastTrack.ArtistMbid,
+                ArtistName = lastTrack.ArtistName,
+                ArtistUrl = lastTrack.ArtistUrl,
+                Duration = lastTrack.Duration.Ticks,
+                Id = lastTrack.Id,
+                Images = new DTO.LastImageSet
+                {
+                    Small = lastTrack.Images.Small,
+                    Medium = lastTrack.Images.Medium,
+                    Large = lastTrack.Images.Large,
+                    ExtraLarge = lastTrack.Images.ExtraLarge,
+                    Mega = lastTrack.Images.Mega,
+                },
+                IsLoved = lastTrack.IsLoved,
+                IsNowPlaying = lastTrack.IsNowPlaying,
+                ListenerCount = lastTrack.ListenerCount,
+                Mbid = lastTrack.Mbid,
+                Name = lastTrack.Name,
+                PlayCount = lastTrack.PlayCount,
+                Rank = lastTrack.Rank,
+                TimePlayed = lastTrack.TimePlayed,
+                TopTags = ConvertTags(lastTrack.TopTags),
+                Url = lastTrack.Url,
+                UserPlayCount = lastTrack.UserPlayCount,
+            } : null;
+        }
+
+        private static List<DTO.SimpleArtist> ConvertArtists(List<Spotify.SimpleArtist> listOfModels)
         {
             if (listOfModels == null)
             {
@@ -159,6 +251,90 @@
             }
 
             return listOfDTOArtists;
+        }
+
+        private static List<DTO.ActivityLevel> ConvertActivityLevels(List<FitBit.ActivityLevel> listOfActivityLevels)
+        {
+            if (listOfActivityLevels == null)
+            {
+                return null;
+            }
+
+            List<DTO.ActivityLevel> listOfDTOActivityLevels = new List<DTO.ActivityLevel>();
+            foreach (var item in listOfActivityLevels)
+            {
+                listOfDTOActivityLevels.Add(new DTO.ActivityLevel
+                {
+                    Minutes = item.Minutes,
+                    Name = item.Name
+                });
+            }
+
+            return listOfDTOActivityLevels;
+        }
+
+        private static List<DTO.HeartRateZone> ConvertHeartRateZones(List<FitBit.HeartRateZone> listOfHeartRateZones)
+        {
+            if (listOfHeartRateZones == null)
+            {
+                return null;
+            }
+
+            List<DTO.HeartRateZone> listofDTOHeartRateZones = new List<DTO.HeartRateZone>();
+            foreach (var item in listOfHeartRateZones)
+            {
+                listofDTOHeartRateZones.Add(new DTO.HeartRateZone
+                {
+                    Minutes = item.Minutes,
+                    Name = item.Name,
+                    CaloriesOut = item.CaloriesOut,
+                    Max = item.Max,
+                    Min = item.Min
+                });
+            }
+
+            return listofDTOHeartRateZones;
+        }
+
+        private static List<DTO.LastTag> ConvertTags(IEnumerable<LastFM.LastTag> listOfTags)
+        {
+            if (listOfTags == null)
+            {
+                return null;
+            }
+
+            List<DTO.LastTag> listOfDTOTags = new List<DTO.LastTag>();
+            foreach (var item in listOfTags)
+            {
+                listOfDTOTags.Add(new DTO.LastTag
+                {
+                    Count = item.Count,
+                    Name = item.Name,
+                    Reach = item.Reach,
+                    RelatedTo = item.RelatedTo,
+                    Streamable = item.Streamable,
+                    Url = item.Url
+                });
+            }
+
+            return listOfDTOTags;
+        }
+
+        private static DTO.ManualValuesSpecified ConvertManualValuesSpecified(FitBit.ManualValuesSpecified mvs)
+        {
+            if (mvs == null)
+            {
+                return null;
+            }
+            else
+            {
+                return new DTO.ManualValuesSpecified
+                {
+                    Calories = mvs.Calories,
+                    Distance = mvs.Distance,
+                    Steps = mvs.Steps
+                };
+            }
         }
     }
 }

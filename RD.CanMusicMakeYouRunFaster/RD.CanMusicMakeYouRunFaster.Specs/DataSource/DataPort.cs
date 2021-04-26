@@ -4,6 +4,8 @@
     using FakeResponseServer.DbContext;
     using Microsoft.EntityFrameworkCore;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Controllers;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.FitBit;
+    using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.LastFM;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Spotify;
     using RD.CanMusicMakeYouRunFaster.FakeResponseServer.Models.Strava;
     using RD.CanMusicMakeYouRunFaster.Rest.DataRetrievalSources;
@@ -34,10 +36,10 @@
                 "http://localhost:2222"));
 
         /// <summary>
-        /// Adds listening history from feature files to the backend.
+        /// Adds listening history from feature files to the backend DB.
         /// </summary>
         /// <param name="listOfListeningHistory"> Listening history to add. </param>
-        public void AddListeningHistory(List<PlayHistoryItem> listOfListeningHistory)
+        public void AddSpotifyListeningHistory(List<PlayHistoryItem> listOfListeningHistory)
         {
             using var context = new DataRetrievalContext(contextOptions);
             context.PlayHistoryItems.RemoveRange(context.PlayHistoryItems);
@@ -45,11 +47,39 @@
             context.SaveChanges();
         }
 
-        public void AddRunningHistory(List<Activity> listOfRunningHistory)
+        /// <summary>
+        /// Adds listening history from feature files to the backend DB.
+        /// </summary>
+        /// <param name="listOfListeningHistory">Listening history to add.</param>
+        public void AddLastFMListeningHistory(List<LastTrack> listOfListeningHistory)
+        {
+            using var context = new DataRetrievalContext(contextOptions);
+            context.LastTracks.RemoveRange(context.LastTracks);
+            context.LastTracks.AddRange(listOfListeningHistory);
+            context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Adds running history from feature files to the backend DB.
+        /// </summary>
+        /// <param name="listOfRunningHistory"> Running history to add. </param>
+        public void AddStravaRunningHistory(List<Activity> listOfRunningHistory)
         {
             using var context = new DataRetrievalContext(contextOptions);
             context.ActivityHistoryItems.RemoveRange(context.ActivityHistoryItems);
             context.ActivityHistoryItems.AddRange(listOfRunningHistory);
+            context.SaveChanges();
+        }
+
+        /// <summary>
+        /// Adds running history from feature files to the backend DB.
+        /// </summary>
+        /// <param name="listOfRunningHistory"> Running history to add. </param>
+        public void AddFitBitRunningHistory(List<Activities> listOfRunningHistory)
+        {
+            using var context = new DataRetrievalContext(contextOptions);
+            context.FitBitActivityItems.RemoveRange(context.FitBitActivityItems);
+            context.FitBitActivityItems.AddRange(listOfRunningHistory);
             context.SaveChanges();
         }
     }

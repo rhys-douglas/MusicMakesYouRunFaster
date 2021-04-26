@@ -7,9 +7,12 @@
     using SpotifyAPI.Web;
     using System.Web;
     using System.Collections.Generic;
+    using Fitbit.Api.Portable.Models;
+    using IF.Lastfm.Core.Objects;
+    using IF.Lastfm.Core.Api.Helpers;
 
     /// <summary>
-    /// Fake data source used for tests.
+    /// Fake data source used for testing and proof of concept, mimicking the functionality of the <see cref="RealDataRetrievalSource"/> class.
     /// </summary>
     public class FakeDataRetrievalSource : IDataRetrievalSource
     {
@@ -62,7 +65,9 @@
         public async Task<JsonResult> GetFitBitAuthenticationToken()
         {
             await Task.Delay(0);
-            throw new NotImplementedException();
+            var exchangeTokenResponse = externalAPICaller.Get<FakeResponseServer.DTO.FitBitExchangeTokenResponse>(new Uri("http://localhost:2222/oauth2/authorize?response_type=code&client_id=22CCZ8&redirect_uri=http://localhost:5002/fitbittoken&scope=activity%20heartrate"));
+            var authTokenResponse = externalAPICaller.Get<FakeResponseServer.DTO.FitBitAuthenticationTokenResponse>(new Uri("http://localhost:2222/oauth2/token?client_id=22CCZ8&grant_type=authorization_code&redirect_uri=http://localhost:5002/fitbittoken&code=" + exchangeTokenResponse.Code));
+            return new JsonResult(authTokenResponse);
         }
 
         /// <inheritdoc/>
@@ -122,13 +127,13 @@
         {
             await Task.Delay(0);
             var activityHistory = externalAPICaller.Get<List<FakeResponseServer.DTO.Activity>>(new Uri("http://localhost:2222/v3/athlete/activities"));
-            var correctActivityHistory = new List<Activity>();
+            var correctActivityHistory = new List<StravaActivity>();
             foreach (var item in activityHistory)
             {
-                correctActivityHistory.Add(new Activity
+                correctActivityHistory.Add(new StravaActivity
                 {
                     achievement_count = item.achievement_count,
-                    athlete = new Athlete
+                    athlete = new StravaAthlete
                     {
                         badge_type_id = item.athlete.badge_type_id,
                         city = item.athlete.city,
@@ -175,7 +180,7 @@
                     location_country = item.location_country,
                     location_state = item.location_state,
                     manual = item.manual,
-                    map = new Map
+                    map = new StravaMap
                     {
                         id = item.map.id,
                         resource_state = item.map.resource_state,
@@ -209,10 +214,75 @@
             return new JsonResult(correctActivityHistory);
         }
 
-        public async Task<JsonResult> GetFitBitRecentActivities(FitBitAuthenticationToken authToken)
+        /// <inheritdoc/>
+        public async Task<JsonResult> GetFitBitActivityHistory(FitBitAuthenticationToken authToken)
         {
             await Task.Delay(0);
-            throw new NotImplementedException();
+            var fitBitActivityHistory = externalAPICaller.Get<ActivityLogsList>(new Uri("http://localhost:2222/1/user/-/activities"));
+            return new JsonResult(fitBitActivityHistory);
+        }
+
+        /// <inheritdoc/>
+        public async Task<JsonResult> GetLastFMRecentlyPlayed(string username, DateTimeOffset? after = null)
+        {
+            string requestUriString;
+            await Task.Delay(0);
+            if (after != null)
+            {
+                long afterAsUnix = ((DateTimeOffset)after).ToUnixTimeMilliseconds();
+                requestUriString = string.Format("http://localhost:2222/2.0/?method=user.getrecenttracks&user=RD&format=json&api_key=d3cf196e63d20375eb8d6729ebb982b3&from={0}", afterAsUnix);
+            }
+
+            else
+            {
+                requestUriString = "http://localhost:2222/2.0/?method=user.getrecenttracks&user=RD&format=json&api_key=d3cf196e63d20375eb8d6729ebb982b3";
+            }
+
+            var fakeObjectRecentlyPlayed = externalAPICaller.Get<FakeResponseServer.DTO.PageResponse<FakeResponseServer.DTO.LastTrack>>(new Uri(requestUriString));
+            var listOfActualTracks = new List<LastTrack>();
+            // convert tracks
+            foreach(var lastTrack in fakeObjectRecentlyPlayed.Content)
+            {
+                listOfActualTracks.Add(new LastTrack
+                {
+                    AlbumName = lastTrack.AlbumName,
+                    ArtistImages = new LastImageSet
+                    {
+                        Small = lastTrack.ArtistImages.Small,
+                        Medium = lastTrack.ArtistImages.Medium,
+                        Large = lastTrack.ArtistImages.Large,
+                        ExtraLarge = lastTrack.ArtistImages.ExtraLarge,
+                        Mega = lastTrack.ArtistImages.Mega,
+                    },
+                    ArtistMbid = lastTrack.ArtistMbid,
+                    ArtistName = lastTrack.ArtistName,
+                    ArtistUrl = lastTrack.ArtistUrl,
+                    Duration = new TimeSpan((long)lastTrack.Duration),
+                    Id = lastTrack.Id,
+                    Images = new LastImageSet
+                    {
+                        Small = lastTrack.Images.Small,
+                        Medium = lastTrack.Images.Medium,
+                        Large = lastTrack.Images.Large,
+                        ExtraLarge = lastTrack.Images.ExtraLarge,
+                        Mega = lastTrack.Images.Mega,
+                    },
+                    IsLoved = lastTrack.IsLoved,
+                    IsNowPlaying = lastTrack.IsNowPlaying,
+                    ListenerCount = lastTrack.ListenerCount,
+                    Mbid = lastTrack.Mbid,
+                    Name = lastTrack.Name,
+                    PlayCount = lastTrack.PlayCount,
+                    Rank = lastTrack.Rank,
+                    TimePlayed = lastTrack.TimePlayed,
+                    TopTags = new List<LastTag>(),
+                    Url = lastTrack.Url,
+                    UserPlayCount = lastTrack.UserPlayCount,
+                });
+            }
+
+            var actualRecentlyPlayed = new PageResponse<LastTrack>(listOfActualTracks);
+            return new JsonResult(actualRecentlyPlayed);
         }
     }
 }

@@ -8,7 +8,7 @@
     using System.Threading.Tasks;
 
     /// <summary>
-    /// Authenticator class used for acquiring OAUTH2 access tokens from various APIs.
+    /// Authenticator class used for acquiring OAuth2 access tokens from various APIs.
     /// </summary>
     public class OAuth2Authenticator
     {

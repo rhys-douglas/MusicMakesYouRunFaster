@@ -76,7 +76,16 @@
         }
 
         /// <summary>
-        /// Gets the spotify recently played tracks
+        /// Gets a <see cref="Fitbit.Api.Portable.Models.ActivityLogsList"/> object, containing FitBit runs.
+        /// </summary>
+        /// <returns> A list of FitBit runs.</returns>
+        public JsonResult GetFitBitRecentActivities()
+        {
+            return this.dataSource.GetFitBitActivityHistory(this.fitBitAuthToken).Result;
+        }
+
+        /// <summary>
+        /// Gets the Spotify recently played tracks
         /// </summary>
         /// <param name="after"> UNIX timestamp to search after </param>
         /// <returns>Spotify recently played tracks</returns>
@@ -85,9 +94,15 @@
             return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken, after).Result;
         }
 
-        public JsonResult GetFitBitRecentActivities()
+        /// <summary>
+        /// Gets the Last.FM recently played tracks.
+        /// </summary>
+        /// <param name="username">Username to query for. </param>
+        /// <param name="after"> DateTime to search after.</param>
+        /// <returns></returns>
+        public JsonResult GetLastFMRecentlyPlayed(string username, DateTimeOffset? after = null)
         {
-            throw new NotImplementedException();
+            return this.dataSource.GetLastFMRecentlyPlayed(username, after).Result;
         }
     }
 }
