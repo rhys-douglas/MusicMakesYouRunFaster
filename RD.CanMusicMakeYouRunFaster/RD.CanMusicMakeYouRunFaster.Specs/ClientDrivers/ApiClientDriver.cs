@@ -16,8 +16,8 @@
     /// </summary>
     public class ApiClientDriver : IClientDriver
     {
-        private readonly List<object> searchResults = new List<object>();
-        private readonly Dictionary<object, List<object>> activitiesAndSongs = new Dictionary<object, List<object>>();
+        private List<object> searchResults = new List<object>();
+        private Dictionary<object, List<object>> activitiesAndSongs = new Dictionary<object, List<object>>();
         private Dictionary<object, List<object>> fastestActivityAndSongs = new Dictionary<object, List<object>>();
         private ExternalAPIGateway externalAPIGateway;
         private string userName;
@@ -26,6 +26,14 @@
         public void SetUp(ExternalAPIGateway externalAPIGateway)
         {
             this.externalAPIGateway = externalAPIGateway;
+        }
+
+        /// <inheritdoc/>
+        public void TearDown()
+        {
+            searchResults = new List<object>();
+            activitiesAndSongs = new Dictionary<object, List<object>>();
+            fastestActivityAndSongs = new Dictionary<object, List<object>>();
         }
 
         /// <inheritdoc/>

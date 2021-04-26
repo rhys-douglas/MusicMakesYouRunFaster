@@ -102,7 +102,7 @@ testRunner.Given("a list of users", ((string)(null)), table5, "Given ");
                         "User1",
                         "Oxford Half Marathon",
                         "14/03/2021 08:00:00",
-                        "9000",
+                        "5000",
                         "2",
                         "4.6"});
             table6.AddRow(new string[] {
@@ -135,7 +135,7 @@ testRunner.Given("a list of Strava running history", ((string)(null)), table6, "
                         "Time of activity start",
                         "Elapsed Time of Activity (s)",
                         "Activity Id",
-                        "Average Pace (m/s)"});
+                        "Average Speed (m/s)"});
             table7.AddRow(new string[] {
                         "User1",
                         "1% Better test",
@@ -146,10 +146,10 @@ testRunner.Given("a list of Strava running history", ((string)(null)), table6, "
             table7.AddRow(new string[] {
                         "User1",
                         "Cardiff Half Marathon",
-                        "23/03/2021 08:00:00",
+                        "14/03/2021 18:00:00",
                         "9500",
                         "2",
-                        "4.6"});
+                        "7.0"});
             table7.AddRow(new string[] {
                         "User1",
                         "Bute Midnight Run",
@@ -255,8 +255,8 @@ testRunner.Given("a list of Spotify listening history", ((string)(null)), table8
                         "15/02/2021 00:05:00"});
             table9.AddRow(new string[] {
                         "User1",
-                        "Stayin Alive",
-                        "14/02/2021 23:59:59"});
+                        "Last Day on Earth",
+                        "14/03/2021 18:00:00"});
             table9.AddRow(new string[] {
                         "User1",
                         "Superheroes",
@@ -442,7 +442,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 85
-testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 86
  testRunner.And("their FitBit running history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -457,8 +457,7 @@ testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(n
  testRunner.And("the user\'s recently played history based on their running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
 #line 90
- testRunner.And("the comparison between running and listening history is made using a specified da" +
-                        "te range", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+ testRunner.And("the comparison between running and listening history is made", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
 #line hidden
                 TechTalk.SpecFlow.Table table12 = new TechTalk.SpecFlow.Table(new string[] {
                             "Song name"});
@@ -508,7 +507,7 @@ this.ScenarioInitialize(scenarioInfo);
 this.FeatureBackground();
 #line hidden
 #line 99
-testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+ testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
 #line hidden
 #line 100
  testRunner.And("their FitBit running history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
@@ -579,6 +578,42 @@ this.ScenarioInitialize(scenarioInfo);
                 this.ScenarioStart();
 #line 3
 this.FeatureBackground();
+#line hidden
+#line 116
+testRunner.Given("a user <user>", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Given ");
+#line hidden
+#line 117
+ testRunner.And("their FitBit running history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 118
+ testRunner.And("their Strava running history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 119
+ testRunner.And("their Last.FM listening history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 120
+ testRunner.And("their Spotify listening history", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 121
+ testRunner.When("the user\'s recent Strava running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 122
+ testRunner.When("the user\'s recent FitBit running history is requested", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "When ");
+#line hidden
+#line 123
+ testRunner.And("the user\'s recently played history based on their running history is requested us" +
+                        "ing multiple data sources", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+#line 124
+ testRunner.And("the comparison between running and listening history is made using a specified da" +
+                        "te range", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "And ");
+#line hidden
+                TechTalk.SpecFlow.Table table14 = new TechTalk.SpecFlow.Table(new string[] {
+                            "Song name"});
+                table14.AddRow(new string[] {
+                            "Last Day on Earth"});
+#line 125
+ testRunner.Then("the user\'s top tracks for running faster are produced", ((string)(null)), table14, "Then ");
 #line hidden
             }
             this.ScenarioCleanup();

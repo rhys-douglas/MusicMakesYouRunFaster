@@ -74,6 +74,7 @@
                 listOfExpectedSongNames.Add(item[0]);
             }
             listOfSongNames.Should().BeEquivalentTo(listOfExpectedSongNames);
+            clientDriver.TearDown();
         }
     }
 }

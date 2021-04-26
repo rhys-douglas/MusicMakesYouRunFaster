@@ -375,7 +375,7 @@
                     ManualValuesSpecified = null,
                     OriginalDuration = int.Parse(row["Elapsed Time of Activity (s)"]),
                     OriginalStartTime = DateTime.ParseExact(row["Time of activity start"], "dd'/'MM'/'yyyy HH:mm:ss", null),
-                    Pace = double.Parse(row["Average Pace (m/s)"]),
+                    Pace = 30,
                     Source = new FakeResponseServer.Models.FitBit.ActivityLogSource
                     {
                         Id = counter.ToString() + "FITBIT",
@@ -383,7 +383,7 @@
                         Type = "type1",
                         Url = "someurl"
                     },
-                    Speed = 18.5,
+                    Speed = double.Parse(row["Average Speed (m/s)"]),
                     StartTime = DateTime.ParseExact(row["Time of activity start"], "dd'/'MM'/'yyyy HH:mm:ss", null),
                     Steps = 14000,
                     TcxLink = "??"
@@ -408,7 +408,7 @@
                     ManualValuesSpecified = null,
                     OriginalDuration = int.Parse(row["Elapsed Time of Activity (s)"]),
                     OriginalStartTime = DateTime.ParseExact(row["Time of activity start"], "dd'/'MM'/'yyyy HH:mm:ss", null),
-                    Pace = double.Parse(row["Average Pace (m/s)"]),
+                    Pace = 30,
                     Source = new ActivityLogSource
                     {
                         Id = counter.ToString() + "FITBIT",
@@ -416,7 +416,7 @@
                         Type = "type1",
                         Url = "someurl"
                     },
-                    Speed = 18.5,
+                    Speed = double.Parse(row["Average Speed (m/s)"]),
                     StartTime = DateTime.ParseExact(row["Time of activity start"], "dd'/'MM'/'yyyy HH:mm:ss", null),
                     Steps = 14000,
                     TcxLink = "??"

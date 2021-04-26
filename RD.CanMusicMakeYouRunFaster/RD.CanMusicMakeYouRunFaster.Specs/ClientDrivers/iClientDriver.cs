@@ -16,6 +16,11 @@
         void SetUp(ExternalAPIGateway externalApiGateway);
 
         /// <summary>
+        /// Tears down the client driver.
+        /// </summary>
+        void TearDown();
+
+        /// <summary>
         /// Registers a username.
         /// </summary>
         /// <param name="user">username to register</param>
