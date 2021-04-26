@@ -209,7 +209,6 @@
         {
             var fakeRunningHistory = new List<FakeResponseServer.Models.Strava.Activity>();
             int idcounter = 0;
-            var now_local = DateTime.Now;
             foreach (var row in table.Rows)
             {
                 var fakeHistoryItem = new FakeResponseServer.Models.Strava.Activity
@@ -260,7 +259,7 @@
                     Private = true,
                     pr_count = 0,
                     resource_state = 2,
-                    start_date_local = now_local,
+                    start_date_local = DateTime.ParseExact(row["Time of activity start"], "dd'/'MM'/'yyyy HH:mm:ss", null),
                     start_date = DateTime.ParseExact(row["Time of activity start"], "dd'/'MM'/'yyyy HH:mm:ss", null),
                     start_latitude = 50.52342,
                     start_latlng = new List<double>(),
@@ -325,7 +324,7 @@
                     Private = true,
                     pr_count = 0,
                     resource_state = 2,
-                    start_date_local = now_local,
+                    start_date_local = DateTime.ParseExact(row["Time of activity start"], "dd'/'MM'/'yyyy HH:mm:ss", null),
                     start_date = DateTime.ParseExact(row["Time of activity start"], "dd'/'MM'/'yyyy HH:mm:ss", null),
                     start_latitude = 50.52342,
                     start_latlng = null,

@@ -108,13 +108,13 @@
 
                 if (item is Fitbit.Api.Portable.Models.Activities fitbitActivity)
                 {
-                    long startDateAsUnixTime = fitbitActivity.OriginalStartTime.ToUnixTimeMilliseconds();
+                    long startDateAsUnixTime = fitbitActivity.StartTime.ToUnixTimeMilliseconds();
                     // Get Spotify songs
                     var spotifySearchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
                     CursorPaging<PlayHistoryItem> playHistoryContainer = (CursorPaging<PlayHistoryItem>)spotifySearchResult.Value;
                     List<PlayHistoryItem> spotifyFoundSongs = playHistoryContainer.Items.ToList();
                     // Get Last.FM songs
-                    var lastFMSearchResult = externalAPIGateway.GetLastFMRecentlyPlayed(userName, fitbitActivity.OriginalStartTime);
+                    var lastFMSearchResult = externalAPIGateway.GetLastFMRecentlyPlayed(userName, fitbitActivity.StartTime);
                     PageResponse<LastTrack> lastTrackHistoryContainer = (PageResponse<LastTrack>)lastFMSearchResult.Value;
                     List<LastTrack> lastFMFoundSongs = lastTrackHistoryContainer.Content.ToList();
                     // Map songs to activity
@@ -150,13 +150,13 @@
 
                 if (item is Fitbit.Api.Portable.Models.Activities fitbitActivity)
                 {
-                    long startDateAsUnixTime = fitbitActivity.OriginalStartTime.ToUnixTimeMilliseconds();
+                    long startDateAsUnixTime = fitbitActivity.StartTime.ToUnixTimeMilliseconds();
                     // Get Spotify songs
                     var spotifySearchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
                     CursorPaging<PlayHistoryItem> playHistoryContainer = (CursorPaging<PlayHistoryItem>)spotifySearchResult.Value;
                     List<PlayHistoryItem> spotifyFoundSongs = playHistoryContainer.Items.ToList();
                     // Get Last.FM songs
-                    var lastFMSearchResult = externalAPIGateway.GetLastFMRecentlyPlayed(userName, fitbitActivity.OriginalStartTime);
+                    var lastFMSearchResult = externalAPIGateway.GetLastFMRecentlyPlayed(userName, fitbitActivity.StartTime);
                     PageResponse<LastTrack> lastTrackHistoryContainer = (PageResponse<LastTrack>)lastFMSearchResult.Value;
                     List<LastTrack> lastFMFoundSongs = lastTrackHistoryContainer.Content.ToList();
                     // Map songs to activity
@@ -192,14 +192,14 @@
             {
                 if (item is StravaActivity stravaRun)
                 {
-                    if (stravaRun.start_date == dateToSearchOn)
+                    if (stravaRun.start_date.Date == dateToSearchOn.Date)
                     {
                         subsetMappedSongsToActivities.Add(stravaRun, activitiesAndSongs[stravaRun]);
                     }
                 }
                 else if (item is Fitbit.Api.Portable.Models.Activities fitBitRun)
                 {
-                    if (fitBitRun.StartTime == dateToSearchOn)
+                    if (fitBitRun.StartTime.DateTime.Date == dateToSearchOn.Date)
                     {
                         subsetMappedSongsToActivities.Add(fitBitRun, activitiesAndSongs[fitBitRun]);
                     }

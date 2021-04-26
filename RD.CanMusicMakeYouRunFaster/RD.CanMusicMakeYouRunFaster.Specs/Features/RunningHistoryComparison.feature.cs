@@ -139,10 +139,10 @@ testRunner.Given("a list of Strava running history", ((string)(null)), table6, "
             table7.AddRow(new string[] {
                         "User1",
                         "1% Better test",
-                        "25/03/2021 12:00:00",
+                        "15/03/2021 15:00:00",
                         "4410",
                         "1",
-                        "6"});
+                        "6.7"});
             table7.AddRow(new string[] {
                         "User1",
                         "Cardiff Half Marathon",
@@ -260,11 +260,11 @@ testRunner.Given("a list of Spotify listening history", ((string)(null)), table8
             table9.AddRow(new string[] {
                         "User1",
                         "Superheroes",
-                        "25/03/2021 12:00:05"});
+                        "15/03/2021 15:00:05"});
             table9.AddRow(new string[] {
                         "User1",
                         "Stepping Stone",
-                        "25/03/2021 12:03:30"});
+                        "15/03/2021 15:03:30"});
 #line 40
 testRunner.Given("a list of Last.FM listening history", ((string)(null)), table9, "Given ");
 #line hidden

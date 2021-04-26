@@ -15,7 +15,7 @@ Given a list of Strava running history
 
 Given a list of FitBit running history
 | user  | Activity Name                           | Time of activity start | Elapsed Time of Activity (s)  | Activity Id | Average Pace (m/s) |
-| User1 | 1% Better test						  | 25/03/2021 12:00:00	   | 4410						   | 1			 | 6				  |
+| User1 | 1% Better test						  | 15/03/2021 15:00:00	   | 4410						   | 1			 | 6.7				  |
 | User1 | Cardiff Half Marathon					  | 23/03/2021 08:00:00	   | 9500						   | 2			 | 4.6                |
 | User1 | Bute Midnight Run						  | 22/03/2021 23:39:59    | 3700						   | 3			 | 3.9				  |
 | User1 | Late Night Run 2						  | 21/03/2021 00:05:00    | 1280						   | 4			 | 1.6				  |
@@ -44,8 +44,8 @@ Given a list of Last.FM listening history
 | User1 | Good Vibrations - Remastered        | 15/02/2021 15:30:59 |
 | User1 | Dreams - 2004 Remaster              | 15/02/2021 00:05:00 |
 | User1 | Stayin Alive                        | 14/02/2021 23:59:59 |
-| User1 | Superheroes				          | 25/03/2021 12:00:05 |
-| User1 | Stepping Stone					  |	25/03/2021 12:03:30	|
+| User1 | Superheroes				          | 15/03/2021 15:00:05 |
+| User1 | Stepping Stone					  |	15/03/2021 15:03:30	|
 
 
 
