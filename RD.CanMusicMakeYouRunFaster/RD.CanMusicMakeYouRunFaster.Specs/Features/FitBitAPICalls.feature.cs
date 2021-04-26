@@ -90,7 +90,7 @@ testRunner.Given("a list of users", ((string)(null)), table1, "Given ");
                         "Time of activity start",
                         "Elapsed Time of Activity (s)",
                         "Activity Id",
-                        "Average Pace (m/s)"});
+                        "Average Speed (m/s)"});
             table2.AddRow(new string[] {
                         "User1",
                         "Cardiff Friday Morning Run",
