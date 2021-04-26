@@ -15,6 +15,7 @@
     {
         private SongsToActivityMapper sut;
 
+
         [Test]
         public void MapWithStravaActivityAndSpotifySongs_CorrectResultsReturned()
         {

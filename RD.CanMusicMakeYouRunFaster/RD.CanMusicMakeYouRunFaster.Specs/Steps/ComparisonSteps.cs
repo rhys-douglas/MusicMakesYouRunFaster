@@ -3,6 +3,7 @@
     using ClientDrivers;
     using DataSource;
     using FluentAssertions;
+    using IF.Lastfm.Core.Objects;
     using NUnit.Framework;
     using SpotifyAPI.Web;
     using System;
@@ -57,7 +58,14 @@
             var listOfSongNames = new List<string>();
             foreach (var item in resultAsSinglePair.Value)
             {
-                listOfSongNames.Add(item.Track.Name);
+                if (item is LastTrack lt)
+                {
+                    listOfSongNames.Add(lt.Name);
+                }
+                if (item is PlayHistoryItem phi) 
+                {
+                    listOfSongNames.Add(phi.Track.Name);
+                }
             }
 
             var listOfExpectedSongNames = new List<string>();

@@ -56,7 +56,7 @@
         /// Returns the dictionary of fastest tracks, and the paired activity.
         /// </summary>
         /// <returns>A dictionary with songs that make you run faster.</returns>
-        Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>> GetFastestTracks();
+        Dictionary<object, List<object>> GetFastestTracks();
 
         /// <summary>
         /// Makes the comparison between running and listening history using a range to search between.

@@ -9,6 +9,7 @@
     using System;
     using IF.Lastfm.Core.Objects;
     using IF.Lastfm.Core.Api.Helpers;
+    using RD.CanMusicMakeYouRunFaster.Rest.Entity;
 
     /// <summary>
     /// Client driver for testing without a front-end.
@@ -17,7 +18,7 @@
     {
         private readonly List<object> searchResults = new List<object>();
         private readonly Dictionary<object, List<object>> activitiesAndSongs = new Dictionary<object, List<object>>();
-        private Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>> fastestActivity = new Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>>();
+        private Dictionary<object, List<object>> fastestActivityAndSongs = new Dictionary<object, List<object>>();
         private ExternalAPIGateway externalAPIGateway;
         private string userName;
 
@@ -87,7 +88,7 @@
             externalAPIGateway.GetSpotifyAuthenticationToken();
             foreach (var item in searchResults)
             {
-                if (item is Rest.Entity.StravaActivity activity)
+                if (item is StravaActivity activity)
                 {
                     var startDateAsDateTime = activity.start_date;
                     var startDateAsUnixTime = ((DateTimeOffset)startDateAsDateTime).ToUnixTimeMilliseconds();
@@ -117,7 +118,7 @@
                     PageResponse<LastTrack> lastTrackHistoryContainer = (PageResponse<LastTrack>)lastFMSearchResult.Value;
                     List<LastTrack> lastFMFoundSongs = lastTrackHistoryContainer.Content.ToList();
                     // Map songs to activity
-                    var tempDict = SongsToActivityMapper.MapSongsToActivity(activity, spotifyFoundSongs, lastFMFoundSongs);
+                    var tempDict = SongsToActivityMapper.MapSongsToActivity(fitbitActivity, spotifyFoundSongs, lastFMFoundSongs);
                     tempDict.ToList().ForEach(x => activitiesAndSongs.Add(x.Key, x.Value));
                 }
             }
@@ -129,14 +130,37 @@
             externalAPIGateway.GetSpotifyAuthenticationToken();
             foreach (var item in searchResults)
             {
-                if (item is Rest.Entity.StravaActivity activity)
+                if (item is StravaActivity activity)
                 {
                     var startDateAsDateTime = activity.start_date;
                     var startDateAsUnixTime = ((DateTimeOffset)startDateAsDateTime).ToUnixTimeMilliseconds();
-                    var searchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
-                    var playHistoryContainer = (CursorPaging<PlayHistoryItem>)searchResult.Value;
-                    var listOfSongs = playHistoryContainer.Items.ToList();
-                    var tempDict = SongsToActivityMapper.MapSongsToActivity(activity, listOfSongs);
+
+                    // Get Spotify songs
+                    var spotifySearchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
+                    CursorPaging<PlayHistoryItem> playHistoryContainer = (CursorPaging<PlayHistoryItem>)spotifySearchResult.Value;
+                    List<PlayHistoryItem> spotifyFoundSongs = playHistoryContainer.Items.ToList();
+                    // Get Last.FM songs
+                    var lastFMSearchResult = externalAPIGateway.GetLastFMRecentlyPlayed(userName, startDateAsDateTime);
+                    PageResponse<LastTrack> lastTrackHistoryContainer = (PageResponse<LastTrack>)lastFMSearchResult.Value;
+                    List<LastTrack> lastFMFoundSongs = lastTrackHistoryContainer.Content.ToList();
+                    // Map songs to activity
+                    var tempDict = SongsToActivityMapper.MapSongsToActivity(activity, spotifyFoundSongs, lastFMFoundSongs);
+                    tempDict.ToList().ForEach(x => activitiesAndSongs.Add(x.Key, x.Value));
+                }
+
+                if (item is Fitbit.Api.Portable.Models.Activities fitbitActivity)
+                {
+                    long startDateAsUnixTime = fitbitActivity.OriginalStartTime.ToUnixTimeMilliseconds();
+                    // Get Spotify songs
+                    var spotifySearchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
+                    CursorPaging<PlayHistoryItem> playHistoryContainer = (CursorPaging<PlayHistoryItem>)spotifySearchResult.Value;
+                    List<PlayHistoryItem> spotifyFoundSongs = playHistoryContainer.Items.ToList();
+                    // Get Last.FM songs
+                    var lastFMSearchResult = externalAPIGateway.GetLastFMRecentlyPlayed(userName, fitbitActivity.OriginalStartTime);
+                    PageResponse<LastTrack> lastTrackHistoryContainer = (PageResponse<LastTrack>)lastFMSearchResult.Value;
+                    List<LastTrack> lastFMFoundSongs = lastTrackHistoryContainer.Content.ToList();
+                    // Map songs to activity
+                    var tempDict = SongsToActivityMapper.MapSongsToActivity(fitbitActivity, spotifyFoundSongs, lastFMFoundSongs);
                     tempDict.ToList().ForEach(x => activitiesAndSongs.Add(x.Key, x.Value));
                 }
             }
@@ -152,28 +176,70 @@
         public void MakeRunningAndListeningHistoryComparison()
         {
             // Determine what date to search on...
-            var dateToSearchOn = activitiesAndSongs.Keys.First().start_date;
-            var subsetMappedSongsToActivities = activitiesAndSongs.Where(s => s.Key.start_date.Date == dateToSearchOn.Date)
-                .ToDictionary(dict => dict.Key, dict => dict.Value);
+            DateTime dateToSearchOn = new DateTime();
+            if (activitiesAndSongs.Keys.First() is StravaActivity stravaActivity)
+            {
+                dateToSearchOn = stravaActivity.start_date;
+            }
+            else if (activitiesAndSongs.Keys.First() is Fitbit.Api.Portable.Models.Activities fitBitActivity)
+            {
+                dateToSearchOn = fitBitActivity.StartTime.DateTime;
+            }
 
+            Dictionary<object, List<object>> subsetMappedSongsToActivities = new Dictionary<object, List<object>>();
+
+            foreach (var item in activitiesAndSongs.Keys)
+            {
+                if (item is StravaActivity stravaRun)
+                {
+                    if (stravaRun.start_date == dateToSearchOn)
+                    {
+                        subsetMappedSongsToActivities.Add(stravaRun, activitiesAndSongs[stravaRun]);
+                    }
+                }
+                else if (item is Fitbit.Api.Portable.Models.Activities fitBitRun)
+                {
+                    if (fitBitRun.StartTime == dateToSearchOn)
+                    {
+                        subsetMappedSongsToActivities.Add(fitBitRun, activitiesAndSongs[fitBitRun]);
+                    }
+                }
+            }
             // Then make comparison
             var insightsManager = new InsightsManager();
-            fastestActivity = insightsManager.GetFastestActivityWithListeningHistory(subsetMappedSongsToActivities);
+            fastestActivityAndSongs = insightsManager.GetFastestActivityWithListeningHistory(subsetMappedSongsToActivities);
         }
 
         /// <inheritdoc/>
         public void MakeRunningAndListeningHistoryComparisonWithDateRange(DateTime startDate, DateTime endDate)
         {
-            var subsetMappedSongsToActivities = activitiesAndSongs.Where(s => s.Key.start_date.Date >= startDate.Date && s.Key.start_date.Date <= endDate )
-                .ToDictionary(dict => dict.Key, dict => dict.Value);
+            var subsetMappedSongsToActivities = new Dictionary<object, List<object>>();
+            foreach (var item in activitiesAndSongs.Keys)
+            {
+                if (item is StravaActivity stravaRun)
+                {
+                    if (stravaRun.start_date.Date >= startDate.Date && stravaRun.start_date.Date <= endDate)
+                    {
+                        subsetMappedSongsToActivities.Add(stravaRun, activitiesAndSongs[stravaRun]);
+                    }
+                }
+                else if (item is Fitbit.Api.Portable.Models.Activities fitBitRun)
+                {
+                    if (fitBitRun.StartTime.Date >= startDate.Date && fitBitRun.StartTime.Date <= endDate)
+                    {
+                        subsetMappedSongsToActivities.Add(fitBitRun, activitiesAndSongs[fitBitRun]);
+                    }
+                }
+            }
+
             var insightsManager = new InsightsManager();
-            fastestActivity = insightsManager.GetFastestActivityWithListeningHistory(subsetMappedSongsToActivities);
+            fastestActivityAndSongs = insightsManager.GetFastestActivityWithListeningHistory(subsetMappedSongsToActivities);
         }
 
         /// <inheritdoc/>
-        public Dictionary<Rest.Entity.StravaActivity, List<PlayHistoryItem>> GetFastestTracks()
+        public Dictionary<object, List<object>> GetFastestTracks()
         {
-            return fastestActivity;
+            return fastestActivityAndSongs;
         }
     }
 }
