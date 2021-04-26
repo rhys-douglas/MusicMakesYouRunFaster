@@ -66,7 +66,7 @@
         }
 
         [Test]
-        public void GetLastFMListeningHistory_ListeningHistoryRetrieved()
+        public void GetLastFMListeningHistoryWithAfterParam_ListeningHistoryRetrieved()
         {
             var now = DateTime.UtcNow;
             now = now.AddDays(-7);
@@ -74,27 +74,6 @@
             var listeningHistory = sut.GetLastFMRecentlyPlayed("TheRealDougie1",now);
             listeningHistory.Result.Value.Should().NotBeNull();
             listeningHistory.Result.Value.Should().NotBe(string.Empty);
-        }
-
-        [Test]
-        public void GetLastFMListeningHistoryWithAfterParameter_CorrectListeningHIstoryReturned()
-        {
-            Assert.Fail();
-            var fitBitTokenAsJsonResult = sut.GetFitBitAuthenticationToken();
-            fitBitTokenAsJsonResult.Result.Should().NotBeNull();
-            fitBitTokenAsJsonResult.Result.Value.Should().NotBe(string.Empty);
-            fitBitAuthenticationToken = new FitBitAuthenticationToken
-            {
-                AccessToken = (string)fitBitTokenAsJsonResult.Result.Value
-            };
-            fitBitAuthenticationToken.AccessToken.Should().NotBeNullOrEmpty();
-
-            // Get Activities
-            Task<JsonResult> activityHistoryResult = sut.GetFitBitActivityHistory(fitBitAuthenticationToken);
-            activityHistoryResult.Result.Value.Should().NotBeNull();
-            activityHistoryResult.Result.Value.Should().NotBe(string.Empty);
-            var actualActivities = activityHistoryResult.Result.Value;
-            actualActivities.Should().NotBeNull();
         }
 
         [Test]
