@@ -7,7 +7,7 @@ namespace RD.CanMusicMakeYouRunFaster.Rest
     using Microsoft.Extensions.Hosting;
 
     /// <summary>
-    /// Filler text
+    /// Startup class for the publicly facing REST Api.
     /// </summary>
     public class Startup
     {

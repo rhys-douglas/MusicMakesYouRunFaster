@@ -9,6 +9,7 @@
     /// <summary>
     /// Controller used to handle HTTP requests to the backend / external API's.
     /// </summary>
+    [ApiController]
     public class ExternalAPIGateway : ControllerBase
     {
         private readonly IDataRetrievalSource dataSource;
@@ -34,6 +35,8 @@
         /// Gets the spotify authentication token
         /// </summary>
         /// <returns>Spotify authentication token</returns>
+        [HttpGet]
+        [Route("/getSpotifyAuthToken")]
         public JsonResult GetSpotifyAuthenticationToken()
         {
             var retrievedTokenJson = this.dataSource.GetSpotifyAuthenticationToken().Result;

@@ -11,4 +11,10 @@
     <None Remove="WebApplication\**" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Include="web-application\package-lock.json" />
+    <Content Include="web-application\package.json" />
+    <Content Include="web-application\tsconfig.json" />
+  </ItemGroup>
+
 </Project>
