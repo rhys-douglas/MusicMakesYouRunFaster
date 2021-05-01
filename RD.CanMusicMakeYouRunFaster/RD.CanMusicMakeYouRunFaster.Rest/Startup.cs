@@ -60,8 +60,6 @@ namespace RD.CanMusicMakeYouRunFaster.Rest
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
             app.UseAuthorization();
