@@ -31,7 +31,7 @@ class SpotifyLoginButton extends React.Component<IProps,IState>
   GetSpotifyAuthToken = async function()
   {
     try{
-      const authToken = await axios.get("http://localhost:5000/CMMYRF/getSpotifyAuthToken");
+      const authToken = await axios.get("http://localhost:8080/CMMYRF/getSpotifyAuthToken");
       console.log("authToken: " + authToken);
     }
     catch (exception)
