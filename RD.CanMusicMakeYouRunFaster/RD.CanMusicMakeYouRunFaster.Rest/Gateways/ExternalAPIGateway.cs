@@ -43,8 +43,7 @@
         public JsonResult GetSpotifyAuthenticationToken()
         {
             var retrievedTokenJson = this.dataSource.GetSpotifyAuthenticationToken().Result;
-            var temp = JsonConvert.SerializeObject(retrievedTokenJson.Value);
-            spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>(temp);
+            spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>((string)retrievedTokenJson.Value);
             return retrievedTokenJson;
         }
 

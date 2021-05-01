@@ -495,8 +495,7 @@
             sut = MakeSut();
             var tokenAsJson = sut.GetSpotifyAuthenticationToken();
             tokenAsJson.Value.Should().NotBeNull();
-            var tokenAsExtractedJson = JsonConvert.SerializeObject(tokenAsJson.Value);
-            var spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>(tokenAsExtractedJson);
+            var spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>((string)tokenAsJson.Value);
             spotifyAuthToken.AccessToken.Should().NotBeNullOrEmpty();
         }
 

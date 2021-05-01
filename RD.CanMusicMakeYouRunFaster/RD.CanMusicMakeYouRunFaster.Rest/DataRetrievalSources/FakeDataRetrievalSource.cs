@@ -10,6 +10,7 @@
     using Fitbit.Api.Portable.Models;
     using IF.Lastfm.Core.Objects;
     using IF.Lastfm.Core.Api.Helpers;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Fake data source used for testing and proof of concept, mimicking the functionality of the <see cref="RealDataRetrievalSource"/> class.
@@ -50,7 +51,8 @@
             query["RedirectUri"] = tokenRequest.RedirectUri.ToString();
             builder.Query = query.ToString();
             var authTokenResponse = externalAPICaller.Get<SpotifyAuthenticationToken>(new Uri("http://localhost:2222/authorize?ClientId=Some+client+id&Code=200&CodeVerifier=KmS_2IQWRizX1bXF5G508LjlbdO2P9432WFf7gKEfD4&RedirectUri=http%3a%2f%2flocalhost%3a2000%2fcallback%2f"));
-            return new JsonResult(authTokenResponse);
+            string returnMe = JsonConvert.SerializeObject(authTokenResponse);
+            return new JsonResult(returnMe);
         }
 
         /// <inheritdoc/>
