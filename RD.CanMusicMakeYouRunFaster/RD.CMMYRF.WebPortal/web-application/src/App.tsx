@@ -1,5 +1,7 @@
+import axios from 'axios';
 import React from 'react';
 import './App.css';
+import Axios, { AxiosError, AxiosResponse } from "axios";
 
 class App extends React.Component{
   render(){
@@ -26,9 +28,29 @@ class SpotifyLoginButton extends React.Component<IProps,IState>
     this.state = {};
   }
 
+  GetSpotifyAuthToken = async function()
+  {
+    try{
+      const authToken = await axios.get("http://localhost:5000/CMMYRF/getSpotifyAuthToken");
+      console.log("authToken: " + authToken);
+    }
+    catch (exception)
+    {
+      console.log(exception);
+    }
+  }
+
+
   handleClick = () => 
   {
-    console.log("Clicked!");
+    try
+    {
+      this.GetSpotifyAuthToken();
+    }
+    catch (exception)
+    {
+      console.log("EXCEPTION:" + exception)
+    }
   }
 
   render()
