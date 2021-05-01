@@ -54,6 +54,7 @@ namespace RD.CanMusicMakeYouRunFaster.Rest
         /// <param name="env">Web host environment. </param>
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors("CorsPolicy");
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -69,6 +70,7 @@ namespace RD.CanMusicMakeYouRunFaster.Rest
             {
                 endpoints.MapControllers();
             });
+            app.UseMvc();
         }
     }
 }

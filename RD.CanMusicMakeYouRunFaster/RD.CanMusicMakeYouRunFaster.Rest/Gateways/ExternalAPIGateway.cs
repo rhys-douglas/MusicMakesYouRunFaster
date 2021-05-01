@@ -1,6 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.Gateways
 {
     using DataRetrievalSources;
+    using Microsoft.AspNetCore.Cors;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
@@ -38,6 +39,7 @@
         /// <returns>Spotify authentication token</returns>
         [HttpGet]
         [Route("getSpotifyAuthToken")]
+        [EnableCors("CorsPolicy")]
         public JsonResult GetSpotifyAuthenticationToken()
         {
             var retrievedTokenJson = this.dataSource.GetSpotifyAuthenticationToken().Result;
