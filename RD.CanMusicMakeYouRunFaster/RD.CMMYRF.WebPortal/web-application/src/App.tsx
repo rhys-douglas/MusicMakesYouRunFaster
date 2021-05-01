@@ -21,10 +21,6 @@ type IState = {
 }
 
 interface SpotifyAccessTokenResponse{
-  AccessTokenObject: SpotifyAccessToken
-}
-
-interface SpotifyAccessToken{
   AccessToken : string,
   TokenType : string,
   ExpiresIn : number,
@@ -45,10 +41,11 @@ class SpotifyLoginButton extends React.Component<IProps,IState>
   GetSpotifyAuthToken = async function()
   {
     try{
-      const authToken = await axios.get<SpotifyAccessTokenResponse>("http://localhost:8080/CMMYRF/getSpotifyAuthToken");
-      console.log("authToken: " + authToken.data.AccessTokenObject.AccessToken);
-    }
-    catch (exception)
+      const authToken = await axios.get<SpotifyAccessTokenResponse>("http://localhost:8080/CMMYRF/getSpotifyAuthToken")
+      .then(response => {
+      console.log(response.data)});
+      console.log("authToken: " + authToken);
+    }catch (exception)
     {
       console.log(exception);
     }
