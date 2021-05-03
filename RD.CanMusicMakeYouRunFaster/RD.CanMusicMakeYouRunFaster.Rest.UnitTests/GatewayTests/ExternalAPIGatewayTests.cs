@@ -517,8 +517,7 @@
             sut = MakeSut();
             var tokenAsJson = sut.GetStravaAuthenticationToken();
             tokenAsJson.Value.Should().NotBeNull();
-            var tokenAsExtractedJson = JsonConvert.SerializeObject(tokenAsJson.Value);
-            var stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>(tokenAsExtractedJson);
+            var stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>((string)tokenAsJson.Value);
             stravaAuthToken.access_token.Should().NotBeNullOrEmpty();
         }
 
@@ -602,7 +601,7 @@
 
         private ExternalAPIGateway MakeSut()
         {
-            return new ExternalAPIGateway(fakeDataRetrievalSource);
+            return new ExternalAPIGateway(new RealDataRetrievalSource());
         }
     }
 }

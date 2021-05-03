@@ -1,14 +1,19 @@
-import axios from 'axios';
 import React from 'react';
 import './App.css';
 import Axios, { AxiosError, AxiosResponse } from "axios";
+import {StravaButton} from './Components/StravaButton'
 
 class App extends React.Component{
   render(){
     return(
       <div className = "App">
         <h1>Can Music Make You Run Faster?</h1>
+        <h2> Add your running history using the buttons below.</h2>
+        <StravaButton/>
+        <h2> Add your listening history using the buttons below.</h2>
         <SpotifyLoginButton/>
+        <h2> Pick a date range </h2>
+        <h2> Click the button below to find out what music made you run faster. </h2>
       </div>
     )
   }
@@ -42,7 +47,7 @@ class SpotifyLoginButton extends React.Component<IProps,IState>
   GetSpotifyAuthToken = async function()
   {
     try{
-      var getSpotifyTokenPromise = await axios.get("http://localhost:8080/CMMYRF/getSpotifyAuthToken")
+      var getSpotifyTokenPromise = await Axios.get("http://localhost:8080/CMMYRF/getSpotifyAuthToken")
       .then((response: AxiosResponse) => Promise.resolve(response.data))
             .catch((error: AxiosError) => Promise.reject(error));
       return getSpotifyTokenPromise

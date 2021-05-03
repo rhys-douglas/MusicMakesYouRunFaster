@@ -6,6 +6,7 @@
     using Newtonsoft.Json;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Controller used to handle HTTP requests to the backend / external API's.
@@ -51,12 +52,14 @@
         /// Gets the strava authentication token
         /// </summary>
         /// <returns> Strava authentication token</returns>
+        [HttpGet]
+        [Route("getStravaAuthToken")]
+        [EnableCors("CorsPolicy")]
         public JsonResult GetStravaAuthenticationToken()
         {
             var stravaAuthenticationTokenAsJson = dataSource.GetStravaAuthenticationToken().Result;
-            var temp = JsonConvert.SerializeObject(stravaAuthenticationTokenAsJson.Value);
-            stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>(temp);
-            return new JsonResult(stravaAuthToken);
+            stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>((string)stravaAuthenticationTokenAsJson.Value);
+            return stravaAuthenticationTokenAsJson;
         }
 
         /// <summary>
@@ -72,9 +75,12 @@
         }
 
         /// <summary>
-        /// Gets the strava recent activties
+        /// Gets the strava recent activties.
         /// </summary>
         /// <returns> Strava recent activities </returns>
+        [HttpGet]
+        [Route("getStravaActivities")]
+        [EnableCors("CorsPolicy")]
         public JsonResult GetStravaRecentActivities()
         {
             return this.dataSource.GetStravaActivityHistory(this.stravaAuthToken).Result;
