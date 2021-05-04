@@ -37,17 +37,15 @@ export class StravaButton extends React.Component
     handleClick = () => {
         try 
         {
-            var stravaAccessTokenPromise = this.getStravaAuthToken()
+            this.getStravaAuthToken()
             .then(response => 
                 {
-                    console.log(response);
                     var accessToken = JSON.parse(response);
                     console.log(accessToken);
                     var stravaHistoryPromise = this.getStravaHistory(accessToken.access_token)
                         .then(response => 
                         {
-                            console.log(response);
-                            this.setState(response)
+                            this.setState(response);
                             console.log(this.state);
                             Promise.resolve(response);
                         });
