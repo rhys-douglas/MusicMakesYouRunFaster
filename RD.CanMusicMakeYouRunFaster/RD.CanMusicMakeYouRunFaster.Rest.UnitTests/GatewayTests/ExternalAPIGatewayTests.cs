@@ -525,7 +525,13 @@
         public void GetStravaActivityHistory_ActivityHistoryReturned()
         {
             sut = MakeSut();
-            var activityHistory = sut.GetStravaRecentActivities();
+            var tokenAsJson = sut.GetStravaAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>((string)tokenAsJson.Value);
+            stravaAuthToken.access_token.Should().NotBeNullOrEmpty();
+
+            sut = MakeSut();
+            var activityHistory = sut.GetStravaRecentActivities(stravaAuthToken.access_token);
             activityHistory.Value.Should().NotBeNull();
             var activityHistoryExtracted = JsonConvert.SerializeObject(activityHistory.Value);
             var actualActivityHistory = JsonConvert.DeserializeObject<List<StravaActivity>>(activityHistoryExtracted);

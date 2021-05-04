@@ -70,7 +70,7 @@
         public void GetRecentStravaActivities()
         {
             externalAPIGateway.GetStravaAuthenticationToken();
-            var searchresult = externalAPIGateway.GetStravaRecentActivities();
+            var searchresult = externalAPIGateway.GetStravaRecentActivities(null);
             var activityHistoryContainer = (List<Rest.Entity.StravaActivity>)searchresult.Value;
             foreach (var activity in activityHistoryContainer)
             {

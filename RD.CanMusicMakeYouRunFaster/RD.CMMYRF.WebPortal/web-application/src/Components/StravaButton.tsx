@@ -3,6 +3,7 @@ import Axios, { AxiosError, AxiosResponse } from "axios";
 
 export class StravaButton extends React.Component
 {
+    state = {stravaHistory : JSON}
     getStravaAuthToken = async function()
     {
         try
@@ -18,11 +19,11 @@ export class StravaButton extends React.Component
           }
     }
 
-    getStravaHistory = async function()
+    getStravaHistory = async function(access_token : string)
     {
         try 
         {
-            var getStravaHistoryPromise = await Axios.get("http://localhost:8080/CMMYRF/getStravaActivities")
+            var getStravaHistoryPromise = await Axios.get("http://localhost:8080/CMMYRF/getStravaActivities?access_token=" + access_token)
             .then((response: AxiosResponse) => Promise.resolve(response.data))
                   .catch((error: AxiosError) => Promise.reject(error));
             return getStravaHistoryPromise;
@@ -34,26 +35,27 @@ export class StravaButton extends React.Component
     }
 
     handleClick = () => {
-        try {
+        try 
+        {
             var stravaAccessTokenPromise = this.getStravaAuthToken()
             .then(response => 
                 {
-                    Promise.resolve(JSON.parse(response));
-                })
-                .then(accessTokenJson =>
-                    {
-                        console.log("SECOND THEN. ACCESS TOKEN: " + accessTokenJson);
-                        var stravaHistoryPromise = this.getStravaHistory()
+                    console.log(response);
+                    var accessToken = JSON.parse(response);
+                    console.log(accessToken);
+                    var stravaHistoryPromise = this.getStravaHistory(accessToken.access_token)
                         .then(response => 
                         {
-                            Promise.resolve(JSON.parse(response))
-                            console.log("RESPONSE " + JSON.parse(response))
+                            console.log(response);
+                            this.setState(response)
+                            console.log(this.state);
+                            Promise.resolve(response);
                         });
-                        Promise.resolve(stravaHistoryPromise);
-                        console.log(stravaHistoryPromise);
-                    })
+                    Promise.resolve(stravaHistoryPromise);
+                });
         }
-        catch (exception){
+        catch (exception)
+        {
             console.log(exception)
         }
     }

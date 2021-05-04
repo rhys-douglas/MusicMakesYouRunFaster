@@ -81,9 +81,10 @@
         [HttpGet]
         [Route("getStravaActivities")]
         [EnableCors("CorsPolicy")]
-        public JsonResult GetStravaRecentActivities()
+        public JsonResult GetStravaRecentActivities(string access_token)
         {
-            return this.dataSource.GetStravaActivityHistory(this.stravaAuthToken).Result;
+            var tempToken = new StravaAuthenticationToken { access_token = access_token };
+            return this.dataSource.GetStravaActivityHistory(tempToken).Result;
         }
 
         /// <summary>

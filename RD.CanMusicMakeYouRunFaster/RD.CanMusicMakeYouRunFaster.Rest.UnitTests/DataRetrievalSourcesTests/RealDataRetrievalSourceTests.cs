@@ -83,10 +83,7 @@
             var stravaTokenAsJson = sut.GetStravaAuthenticationToken();
             stravaTokenAsJson.Result.Should().NotBeNull();
             stravaTokenAsJson.Result.Value.Should().NotBe(string.Empty);
-            stravaAuthenticationToken = new StravaAuthenticationToken
-            {
-                access_token = (string)stravaTokenAsJson.Result.Value
-            };
+            stravaAuthenticationToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>((string)stravaTokenAsJson.Result.Value);
             stravaAuthenticationToken.access_token.Should().NotBeNullOrEmpty();
 
             // Get activities
