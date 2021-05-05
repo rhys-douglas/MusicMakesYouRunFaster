@@ -66,11 +66,13 @@
         /// Gets the FitBit authentication token.
         /// </summary>
         /// <returns>A FitBit auth token.</returns>
+        [HttpGet]
+        [Route("getFitBitAuthToken")]
+        [EnableCors("CorsPolicy")]
         public JsonResult GetFitBitAuthenticationToken()
         {
             var fitBitAuthenticationTokenAsJson = dataSource.GetFitBitAuthenticationToken().Result;
-            var tempSerialize = JsonConvert.SerializeObject(fitBitAuthenticationTokenAsJson.Value);
-            fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>(tempSerialize);
+            fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>((string)fitBitAuthenticationTokenAsJson.Value);
             return new JsonResult(fitBitAuthToken);
         }
 

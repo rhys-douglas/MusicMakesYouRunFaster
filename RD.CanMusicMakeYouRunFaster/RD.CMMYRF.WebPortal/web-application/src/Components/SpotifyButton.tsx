@@ -19,11 +19,12 @@ export class SpotifyButton extends React.Component
         }
     }
 
-    GetSpotifyListeningHistoryForActivities = async function(access_token : string)
+    GetSpotifyListeningHistoryForActivities = async function(AccessToken : string)
     {
         try 
         {
-            var getSpotifyListeningHistoryPromise = await Axios.get("SOMEURL")
+            // CHANGE THIS - USE THE 
+            var getSpotifyListeningHistoryPromise = await Axios.get("SOMEURL?AccessToken=" + AccessToken +"&after=")
                 .then((response: AxiosResponse) => Promise.resolve(response.data))
                 .catch((error: AxiosError) => Promise.reject(error));
             return getSpotifyListeningHistoryPromise;
@@ -46,8 +47,11 @@ export class SpotifyButton extends React.Component
                 var spotifyHistoryPromise = this.GetSpotifyListeningHistoryForActivities(accessToken.AccessToken)
                     .then(response =>
                         {
-                           console.log(response); 
+                           console.log(response);
+                           // DO SOMETHING
+                           Promise.resolve(response); 
                         });
+                Promise.resolve(spotifyHistoryPromise);
             });
     }
     catch (exception)

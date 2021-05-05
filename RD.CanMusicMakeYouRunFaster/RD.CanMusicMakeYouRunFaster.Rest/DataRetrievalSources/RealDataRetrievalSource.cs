@@ -77,7 +77,8 @@
             await Task.Delay(0);
             var authenticator = new OAuth2Authenticator();
             var token = authenticator.GetFitBitAuthToken();
-            return new JsonResult(token.Result.AccessToken);
+            string authToken = JsonConvert.SerializeObject(token.Result);
+            return new JsonResult(authToken);
         }
 
         /// <inheritdoc/>
