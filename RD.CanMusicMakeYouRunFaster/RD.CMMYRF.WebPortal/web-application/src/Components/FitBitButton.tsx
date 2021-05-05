@@ -19,14 +19,14 @@ export class FitBitButton extends React.Component
           }
     }
 
-    getStravaHistory = async function(access_token : string)
+    getFitBitHistory = async function(access_token : string)
     {
         try 
         {
-            var getStravaHistoryPromise = await Axios.get("http://localhost:8080/CMMYRF/getStravaActivities?access_token=" + access_token)
+            var getFitBitHistoryPromise = await Axios.get("http://localhost:8080/CMMYRF/getFitBitActivities?access_token=" + access_token)
             .then((response: AxiosResponse) => Promise.resolve(response.data))
                   .catch((error: AxiosError) => Promise.reject(error));
-            return getStravaHistoryPromise;
+            return getFitBitHistoryPromise;
         }
         catch (exception)
         {

@@ -93,9 +93,13 @@
         /// Gets a <see cref="Fitbit.Api.Portable.Models.ActivityLogsList"/> object, containing FitBit runs.
         /// </summary>
         /// <returns> A list of FitBit runs.</returns>
-        public JsonResult GetFitBitRecentActivities()
+        [HttpGet]
+        [Route("getFitBitActivities")]
+        [EnableCors("CorsPolicy")]
+        public JsonResult GetFitBitRecentActivities(string access_token)
         {
-            return this.dataSource.GetFitBitActivityHistory(this.fitBitAuthToken).Result;
+            var tempToken = new FitBitAuthenticationToken { AccessToken = access_token };
+            return this.dataSource.GetFitBitActivityHistory(tempToken).Result;
         }
 
         /// <summary>

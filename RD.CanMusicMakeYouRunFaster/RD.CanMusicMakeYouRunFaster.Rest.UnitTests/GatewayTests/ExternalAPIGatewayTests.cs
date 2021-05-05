@@ -575,7 +575,14 @@
         public void GetFitBitActivityHistory_ActivityHistoryReturned()
         {
             sut = MakeSut();
-            var activityHistory = sut.GetFitBitRecentActivities();
+            var tokenAsJson = sut.GetFitBitAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var extractedJsonToken = JsonConvert.SerializeObject(tokenAsJson.Value);
+            var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>(extractedJsonToken);
+            fitBitAuthToken.AccessToken.Should().NotBeNullOrEmpty();
+
+            sut = MakeSut();
+            var activityHistory = sut.GetFitBitRecentActivities(fitBitAuthToken.AccessToken);
             Fitbit.Api.Portable.Models.ActivityLogsList actualHistory = (Fitbit.Api.Portable.Models.ActivityLogsList)activityHistory.Value;
             actualHistory.Should().NotBeNull();
             actualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
@@ -607,7 +614,7 @@
 
         private ExternalAPIGateway MakeSut()
         {
-            return new ExternalAPIGateway(new RealDataRetrievalSource());
+            return new ExternalAPIGateway(fakeDataRetrievalSource);
         }
     }
 }

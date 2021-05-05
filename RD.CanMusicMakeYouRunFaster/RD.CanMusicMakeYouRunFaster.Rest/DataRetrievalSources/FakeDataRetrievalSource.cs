@@ -61,7 +61,8 @@
             await Task.Delay(0);
             var exchangeTokenResponse = externalAPICaller.Get<FakeResponseServer.DTO.StravaExchangeTokenResponse>(new Uri("http://localhost:2222/oauth/authorize?client_id=1234&response_type=code&approval_prompt=force&scope=read,activity:read_all&redirect_uri=localhost:5000/callback"));
             var authTokenResponse = externalAPICaller.Get<FakeResponseServer.DTO.StravaAuthenticationTokenResponse>(new Uri("http://localhost:2222/oauth/token?client_id=1234&client_secret=23456&grant_type=authorization_code&code=" + exchangeTokenResponse.code));
-            return new JsonResult(authTokenResponse);
+            string returnMe = JsonConvert.SerializeObject(authTokenResponse);
+            return new JsonResult(returnMe);
         }
 
         public async Task<JsonResult> GetFitBitAuthenticationToken()
@@ -69,7 +70,8 @@
             await Task.Delay(0);
             var exchangeTokenResponse = externalAPICaller.Get<FakeResponseServer.DTO.FitBitExchangeTokenResponse>(new Uri("http://localhost:2222/oauth2/authorize?response_type=code&client_id=22CCZ8&redirect_uri=http://localhost:5002/fitbittoken&scope=activity%20heartrate"));
             var authTokenResponse = externalAPICaller.Get<FakeResponseServer.DTO.FitBitAuthenticationTokenResponse>(new Uri("http://localhost:2222/oauth2/token?client_id=22CCZ8&grant_type=authorization_code&redirect_uri=http://localhost:5002/fitbittoken&code=" + exchangeTokenResponse.Code));
-            return new JsonResult(authTokenResponse);
+            string returnMe = JsonConvert.SerializeObject(authTokenResponse);
+            return new JsonResult(returnMe);
         }
 
         /// <inheritdoc/>

@@ -10,6 +10,7 @@
     using IF.Lastfm.Core.Objects;
     using IF.Lastfm.Core.Api.Helpers;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Client driver for testing without a front-end.
@@ -69,9 +70,10 @@
         /// <inheritdoc/>
         public void GetRecentStravaActivities()
         {
-            externalAPIGateway.GetStravaAuthenticationToken();
-            var searchresult = externalAPIGateway.GetStravaRecentActivities(null);
-            var activityHistoryContainer = (List<Rest.Entity.StravaActivity>)searchresult.Value;
+            var authToken = externalAPIGateway.GetStravaAuthenticationToken().Value;
+            var actualToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>((string)authToken);
+            var searchresult = externalAPIGateway.GetStravaRecentActivities(actualToken.access_token);
+            var activityHistoryContainer = (List<StravaActivity>)searchresult.Value;
             foreach (var activity in activityHistoryContainer)
             {
                 searchResults.Add(activity);
@@ -81,8 +83,9 @@
         /// <inheritdoc/>
         public void GetRecentFitBitActivities()
         {
-            externalAPIGateway.GetFitBitAuthenticationToken();
-            var searchResult = externalAPIGateway.GetFitBitRecentActivities();
+            var authToken = externalAPIGateway.GetFitBitAuthenticationToken().Value;
+            var actualToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>((string)authToken);
+            var searchResult = externalAPIGateway.GetFitBitRecentActivities(actualToken.AccessToken);
             var activityHistoryContainer = (Fitbit.Api.Portable.Models.ActivityLogsList)searchResult.Value;
             foreach (var activity in activityHistoryContainer.Activities)
             {
