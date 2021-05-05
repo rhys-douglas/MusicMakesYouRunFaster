@@ -1,7 +1,11 @@
 import React from 'react';
 import Axios, { AxiosError, AxiosResponse } from "axios";
 
-export class FitBitButton extends React.Component
+interface IFitBitButtonProps {
+    handleActivitiesCallback: ((stravaHistory: JSON) => void)
+};
+
+export class FitBitButton extends React.Component<IFitBitButtonProps>
 {
     state = {stravaHistory : JSON}
     getFitBitAuthToken = async function()
@@ -41,15 +45,13 @@ export class FitBitButton extends React.Component
             .then(response => 
                 {
                     var accessToken = JSON.parse(response);
-                    console.log(accessToken);
-                    var stravaHistoryPromise = this.getFitBitHistory(accessToken.access_token)
+                    var fitBitHistoryPromise = this.getFitBitHistory(accessToken.access_token)
                         .then(response => 
                         {
-                            this.setState(response);
-                            console.log(this.state);
+                            this.props.handleActivitiesCallback(response);
                             Promise.resolve(response);
                         });
-                    Promise.resolve(stravaHistoryPromise);
+                    Promise.resolve(fitBitHistoryPromise);
                 });
         }
         catch (exception)

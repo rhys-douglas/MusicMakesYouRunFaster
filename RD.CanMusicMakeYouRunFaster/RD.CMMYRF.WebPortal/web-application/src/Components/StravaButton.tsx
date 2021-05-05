@@ -1,15 +1,12 @@
 import React from 'react';
 import Axios, { AxiosError, AxiosResponse } from "axios";
 
-export interface IStravaButtonProps {
-    handleActivities: ((stravaHistory: JSON) => void)
+interface IStravaButtonProps {
+    handleActivitiesCallback: ((stravaHistory: JSON) => void)
 };
 
-export class StravaButton extends React.Component<IStravaButtonProps,any>
+export class StravaButton extends React.Component<IStravaButtonProps>
 {
-    constructor(props: IStravaButtonProps){
-        super(props)
-    }
     state = {stravaHistory : JSON}
     getStravaAuthToken = async function()
     {
@@ -48,13 +45,10 @@ export class StravaButton extends React.Component<IStravaButtonProps,any>
             .then(response => 
                 {
                     var accessToken = JSON.parse(response);
-                    console.log(accessToken);
                     var stravaHistoryPromise = this.getStravaHistory(accessToken.access_token)
                         .then(response => 
                         {
-                            this.setState(response);
-                            this.props.handleActivities(response);
-                            console.log(this.state);
+                            this.props.handleActivitiesCallback(response);
                             Promise.resolve(response);
                         });
                     Promise.resolve(stravaHistoryPromise);

@@ -73,7 +73,7 @@
         {
             var fitBitAuthenticationTokenAsJson = dataSource.GetFitBitAuthenticationToken().Result;
             fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>((string)fitBitAuthenticationTokenAsJson.Value);
-            return new JsonResult(fitBitAuthToken);
+            return fitBitAuthenticationTokenAsJson;
         }
 
         /// <summary>
