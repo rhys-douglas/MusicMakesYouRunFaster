@@ -14,20 +14,18 @@ interface AppState{
   fitbitHistory: JSON
 }
 
-class App extends React.Component<AppProps,AppState>{
+class App extends React.Component<AppProps, AppState>{
 
   handleStravaHistoryCallback = (stravaHistoryUpdate: JSON) => {
     this.setState({
       stravaHistory: stravaHistoryUpdate
     });
-    console.log(this.state.stravaHistory);
   }
 
   handleFitBitHistoryCallback = (fitBitHistoryUpdate : JSON) => {
     this.setState({
       fitbitHistory: fitBitHistoryUpdate
     });
-    console.log(this.state.fitbitHistory);
   }
 
   render(){

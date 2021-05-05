@@ -17,8 +17,6 @@
     {
         private readonly IDataRetrievalSource dataSource;
         private SpotifyAuthenticationToken spotifyAuthToken;
-        private StravaAuthenticationToken stravaAuthToken;
-        private FitBitAuthenticationToken fitBitAuthToken;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExternalAPIGateway"/> class.
@@ -35,7 +33,7 @@
         }
 
         /// <summary>
-        /// Gets the spotify authentication token
+        /// Gets the spotify authentication token.
         /// </summary>
         /// <returns>Spotify authentication token</returns>
         [HttpGet]
@@ -49,7 +47,7 @@
         }
 
         /// <summary>
-        /// Gets the strava authentication token
+        /// Gets the strava authentication token.
         /// </summary>
         /// <returns> Strava authentication token</returns>
         [HttpGet]
@@ -58,7 +56,6 @@
         public JsonResult GetStravaAuthenticationToken()
         {
             var stravaAuthenticationTokenAsJson = dataSource.GetStravaAuthenticationToken().Result;
-            stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>((string)stravaAuthenticationTokenAsJson.Value);
             return stravaAuthenticationTokenAsJson;
         }
 
@@ -72,7 +69,6 @@
         public JsonResult GetFitBitAuthenticationToken()
         {
             var fitBitAuthenticationTokenAsJson = dataSource.GetFitBitAuthenticationToken().Result;
-            fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>((string)fitBitAuthenticationTokenAsJson.Value);
             return fitBitAuthenticationTokenAsJson;
         }
 
