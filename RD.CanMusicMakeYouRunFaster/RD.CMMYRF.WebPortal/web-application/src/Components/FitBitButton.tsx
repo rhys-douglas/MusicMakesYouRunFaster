@@ -37,12 +37,12 @@ export class FitBitButton extends React.Component
     handleClick = () => {
         try 
         {
-            this.getStravaAuthToken()
+            this.getFitBitAuthToken()
             .then(response => 
                 {
                     var accessToken = JSON.parse(response);
                     console.log(accessToken);
-                    var stravaHistoryPromise = this.getStravaHistory(accessToken.access_token)
+                    var stravaHistoryPromise = this.getFitBitHistory(accessToken.access_token)
                         .then(response => 
                         {
                             this.setState(response);
@@ -60,7 +60,7 @@ export class FitBitButton extends React.Component
     public render()
     {
         return (
-            <button onClick={this.handleClick}>Click here to get your Strava History</button>
+            <button onClick={this.handleClick}>Click here to connect your FitBit History</button>
         );
     }
 }
