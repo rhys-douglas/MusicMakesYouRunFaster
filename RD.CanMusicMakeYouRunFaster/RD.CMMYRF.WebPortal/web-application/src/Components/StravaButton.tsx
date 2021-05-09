@@ -63,9 +63,11 @@ export class StravaButton extends React.Component<IStravaButtonProps>
                     var stravaHistoryPromise = this.getStravaHistory(accessToken.access_token)
                         .then(response => 
                         {
+                            console.log(response)
                             this.getFastestActivity(response)
                             .then(fastestActivity =>{
-                                
+                                console.log(fastestActivity);
+                                Promise.resolve(fastestActivity);
                             })
                             this.props.handleActivitiesCallback(response);
                             Promise.resolve(response);

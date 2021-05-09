@@ -5,7 +5,6 @@
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
     using System.Collections.Generic;
     using System;
-    using Newtonsoft.Json;
     using NUnit.Framework;
 
     public class InferenceAPIGatewayTests
@@ -149,6 +148,14 @@
             var fastestActivity = sut.PostFastestStravaActivity(StravaActivityHistory).Value;
             StravaActivity fastestAct = (StravaActivity)fastestActivity;
             fastestAct.name.Should().Be("Activity 1");
+        }
+
+        [Test]
+        public void GetFastestStravaActivityWithEmptyList_NullReturned()
+        {
+            var sut = MakeSut();
+            var nullActivity = sut.PostFastestStravaActivity(new List<StravaActivity>()).Value;
+            nullActivity.Should().BeNull();
         }
 
         private InferenceAPIGateway MakeSut()
