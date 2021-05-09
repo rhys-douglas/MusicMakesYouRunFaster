@@ -61,8 +61,6 @@ export class StravaButton extends React.Component<IStravaButtonProps>
     }
     public render()
     {
-        return (
-            <button onClick={this.handleClick}>Click here to connect your Strava History</button>
-        );
+        return (<button onClick={this.handleClick}>Click here to connect your Strava History</button>)
     }
 }

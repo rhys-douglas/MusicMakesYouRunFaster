@@ -2,7 +2,12 @@ import React from 'react';
 
 import Axios, { AxiosError, AxiosResponse } from "axios";
 
-export class SpotifyButton extends React.Component
+interface ISpotifyButtonProps
+{
+    handleAuthTokenCallback : ((authToken:JSON) => void);
+};
+
+export class SpotifyButton extends React.Component<ISpotifyButtonProps>
 {
     GetSpotifyAuthToken = async function()
     {
@@ -19,22 +24,6 @@ export class SpotifyButton extends React.Component
         }
     }
 
-    GetSpotifyListeningHistoryForActivities = async function(AccessToken : string)
-    {
-        try 
-        {
-            // CHANGE THIS - USE THE 
-            var getSpotifyListeningHistoryPromise = await Axios.get("SOMEURL?AccessToken=" + AccessToken +"&after=")
-                .then((response: AxiosResponse) => Promise.resolve(response.data))
-                .catch((error: AxiosError) => Promise.reject(error));
-            return getSpotifyListeningHistoryPromise;
-        }
-        catch (exception)
-        {
-            console.log(exception);
-        }
-    }
-
     handleClick = () => 
     {
         try
@@ -43,15 +32,8 @@ export class SpotifyButton extends React.Component
             .then(response => 
             {
                 var accessToken = JSON.parse(response);
-                console.log(accessToken);
-                var spotifyHistoryPromise = this.GetSpotifyListeningHistoryForActivities(accessToken.AccessToken)
-                    .then(response =>
-                        {
-                           console.log(response);
-                           // DO SOMETHING
-                           Promise.resolve(response); 
-                        });
-                Promise.resolve(spotifyHistoryPromise);
+                this.props.handleAuthTokenCallback(accessToken)
+                Promise.resolve(accessToken);
             });
     }
     catch (exception)
@@ -62,8 +44,6 @@ export class SpotifyButton extends React.Component
 
   render()
   {
-    return <div>
-      <button onClick={this.handleClick}>Log in to spotify</button>
-    </div>
+    return (<button onClick={this.handleClick}>Log in to spotify</button>)
   }
 }
