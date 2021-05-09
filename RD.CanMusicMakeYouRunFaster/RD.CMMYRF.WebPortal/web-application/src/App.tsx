@@ -1,13 +1,13 @@
 import React from 'react';
 import './App.css';
+import { StartDateInput, EndDateInput } from './Components/DateInput'
 import { StravaButton } from './Components/StravaButton'
 import { FitBitButton } from './Components/FitBitButton'
 import { SpotifyButton } from './Components/SpotifyButton'
 import { LastFMButton } from './Components/LastFMButton'
-import { StartDateInput, EndDateInput } from './Components/DateInput'
+import { FastestSongsButton } from './Components/FastestSongsButton'
 
 interface AppProps{
-
 }
 
 interface AppState{
@@ -17,33 +17,39 @@ interface AppState{
   lastFMUsername: string
 }
 
-class App extends React.Component<AppProps, AppState>{
+class App extends React.Component<AppProps, AppState>
+{
 
-  handleStravaHistoryCallback = (stravaHistoryUpdate: JSON) => {
+  handleStravaHistoryCallback = (stravaHistoryUpdate: JSON) => 
+  {
     this.setState({
       stravaHistory: stravaHistoryUpdate
     });
   }
 
-  handleFitBitHistoryCallback = (fitBitHistoryUpdate : JSON) => {
+  handleFitBitHistoryCallback = (fitBitHistoryUpdate : JSON) => 
+  {
     this.setState({
       fitbitHistory: fitBitHistoryUpdate
     });
   }
 
-  handleSpotifyTokenCallback = (spotifyTokenUpdate: JSON) => {
+  handleSpotifyTokenCallback = (spotifyTokenUpdate: JSON) => 
+  {
     this.setState({
       spotifyAuthToken: spotifyTokenUpdate
     });
   }
 
-  handleLastFMUsernameCallback = (lastFMUsernameUpdate: string ) => {
+  handleLastFMUsernameCallback = (lastFMUsernameUpdate: string ) => 
+  {
     this.setState({
       lastFMUsername: lastFMUsernameUpdate
     });
   }
 
-  render(){
+  render()
+  {
     return(
       <div className = "App">
         <h1>Can Music Make You Run Faster?</h1>
@@ -53,6 +59,7 @@ class App extends React.Component<AppProps, AppState>{
         <h2> Add your listening history using the buttons below.</h2>
         <SpotifyButton handleAuthTokenCallback={this.handleSpotifyTokenCallback}/> <LastFMButton handleUsernameCallback = {this.handleLastFMUsernameCallback}/>
         <h2> Click the button below to find out what music made you run faster. </h2>
+        <FastestSongsButton/>
       </div>
     )
   }

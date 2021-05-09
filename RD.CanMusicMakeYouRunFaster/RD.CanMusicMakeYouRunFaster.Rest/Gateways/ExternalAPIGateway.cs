@@ -6,7 +6,6 @@
     using Newtonsoft.Json;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
     using System;
-    using System.Collections.Generic;
 
     /// <summary>
     /// Controller used to handle HTTP requests to the backend / external API's.
