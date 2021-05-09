@@ -38,6 +38,21 @@ export class StravaButton extends React.Component<IStravaButtonProps>
         }
     }
 
+    getFastestActivity = async function(stravaHistory: JSON)
+    {
+        try 
+        {
+            var getStravaHistoryPromise = await Axios.post("http://localhost:8080/CMMYRFI/postStravaActivities",stravaHistory)
+            .then((response: AxiosResponse) => Promise.resolve(response.data))
+                  .catch((error: AxiosError) => Promise.reject(error));
+            return getStravaHistoryPromise;
+        }
+        catch (exception)
+        {
+            console.log(exception)
+        }
+    }
+
     handleClick = () => {
         try 
         {
@@ -48,6 +63,10 @@ export class StravaButton extends React.Component<IStravaButtonProps>
                     var stravaHistoryPromise = this.getStravaHistory(accessToken.access_token)
                         .then(response => 
                         {
+                            this.getFastestActivity(response)
+                            .then(fastestActivity =>{
+                                
+                            })
                             this.props.handleActivitiesCallback(response);
                             Promise.resolve(response);
                         });
