@@ -11,8 +11,8 @@ interface AppProps{
 }
 
 interface AppState{
-  fastestStravaHistory: JSON,
-  fitbitHistory: JSON,
+  fastestStravaActivity: JSON,
+  fastestFitBitActivity: JSON,
   spotifyAuthToken: JSON,
   lastFMUsername: string
 }
@@ -20,18 +20,19 @@ interface AppState{
 class App extends React.Component<AppProps, AppState>
 {
 
-  handleFastestStravaActivityCallback = (fastestStravaHistoryUpdate: JSON) => 
+  handleFastestStravaActivityCallback = (fastestStravaActivityUpdate: JSON) => 
   {
-    console.log(fastestStravaHistoryUpdate);
+    console.log(fastestStravaActivityUpdate);
     this.setState({
-      fastestStravaHistory: fastestStravaHistoryUpdate
+      fastestStravaActivity: fastestStravaActivityUpdate
     });
   }
 
-  handleFastestFitBitActivityCallback = (fitBitHistoryUpdate : JSON) => 
+  handleFastestFitBitActivityCallback = (fastestFitBitActivityUpdate : JSON) => 
   {
+    console.log(fastestFitBitActivityUpdate);
     this.setState({
-      fitbitHistory: fitBitHistoryUpdate
+      fastestFitBitActivity: fastestFitBitActivityUpdate
     });
   }
 

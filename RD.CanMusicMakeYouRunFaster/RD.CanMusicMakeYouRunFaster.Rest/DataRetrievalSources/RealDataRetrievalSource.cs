@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Entity;
     using Fitbit.Api.Portable;
+    using Fitbit.Api.Portable.Models;
     using IF.Lastfm.Core.Api;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
@@ -135,10 +136,20 @@
             };
 
             var client = new FitbitClient(credentials, accessToken);
-            var lastWeek = DateTime.UtcNow;
-            lastWeek.AddDays(-7);
-            var retrievedActivities = await client.GetActivityLogsListAsync(null,lastWeek,20);
-            return new JsonResult(retrievedActivities);
+            var lastMonth = DateTime.UtcNow;
+            lastMonth.AddMonths(-1);
+            var retrievedActivities = await client.GetActivityLogsListAsync(null,lastMonth,20);
+            List<Activities> listOfRuns = new List<Activities>();
+            foreach (var activity in retrievedActivities.Activities)
+            {
+                // 90009
+                if (activity.ActivityTypeId == 90009)
+                {
+                    listOfRuns.Add(activity);
+                }
+            }
+
+            return new JsonResult(new ActivityLogsList { Activities = listOfRuns });
         }
 
         /// <inheritdoc/>
