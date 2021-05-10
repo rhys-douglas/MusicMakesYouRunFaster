@@ -1,5 +1,6 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.Gateways
 {
+    using Fitbit.Api.Portable.Models;
     using Microsoft.AspNetCore.Cors;
     using Microsoft.AspNetCore.Mvc;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
@@ -12,7 +13,11 @@
     [Route("/CMMYRFI")]
     public class InferenceAPIGateway : ControllerBase
     {
-
+        /// <summary>
+        /// Returns the fastest Strava activity posted to this endpoint.
+        /// </summary>
+        /// <param name="stravaActivityList">Strava activity list, read from the body of the post request in JSON format.</param>
+        /// <returns>Fastest activity in the list.</returns>
         [HttpPost]
         [Route("postStravaActivities")]
         [EnableCors("CorsPolicy")]
@@ -33,6 +38,32 @@
                 }
             }
 
+            return new JsonResult(kingOfTheHill);
+        }
+
+        /// <summary>
+        /// Returns the fastest FitBitActivity posted to this endpoint.
+        /// </summary>
+        /// <param name="activityLogsList"> FitBit ActivityLogsList, read from the body of the post request in JSON format. </param>
+        /// <returns></returns>
+        [HttpPost]
+        [Route("postFitBitActivities")]
+        [EnableCors("CorsPolicy")]
+        public JsonResult PostFastestFitBitActivity([FromBody] ActivityLogsList activityLogsList)
+        {
+            if (activityLogsList == null || activityLogsList.Activities == null || activityLogsList.Activities.Count == 0)
+            {
+                return new JsonResult(null);
+            }
+
+            Activities kingOfTheHill = activityLogsList.Activities[0];
+            foreach (Activities activity in activityLogsList.Activities)
+            {
+                if (activity.Speed > kingOfTheHill.Speed)
+                {
+                    kingOfTheHill = activity;
+                }
+            }
             return new JsonResult(kingOfTheHill);
         }
     }

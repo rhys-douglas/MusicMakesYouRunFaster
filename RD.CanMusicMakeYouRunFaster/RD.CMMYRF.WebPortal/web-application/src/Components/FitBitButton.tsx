@@ -2,7 +2,7 @@ import React from 'react';
 import Axios, { AxiosError, AxiosResponse } from "axios";
 
 interface IFitBitButtonProps {
-    handleActivitiesCallback: ((stravaHistory: JSON) => void)
+    handleFastestFitBitActivityCallback: ((fitBitActivity: JSON) => void)
 };
 
 export class FitBitButton extends React.Component<IFitBitButtonProps>
@@ -38,6 +38,21 @@ export class FitBitButton extends React.Component<IFitBitButtonProps>
         }
     }
 
+    getFastestActivity = async function(fitBitHistory : JSON)
+    {
+        try 
+        {
+            var getFastestActivityPromise = await Axios.post("http://localhost:8080/CMMYRFI/postFitBitActivities",fitBitHistory)
+            .then((response: AxiosResponse) => Promise.resolve(response.data))
+                  .catch((error: AxiosError) => Promise.reject(error));
+            return getFastestActivityPromise;
+        }
+        catch (exception)
+        {
+            console.log(exception)
+        }
+    }
+
     handleClick = () => {
         try 
         {
@@ -48,7 +63,7 @@ export class FitBitButton extends React.Component<IFitBitButtonProps>
                     var fitBitHistoryPromise = this.getFitBitHistory(accessToken.access_token)
                         .then(response => 
                         {
-                            this.props.handleActivitiesCallback(response);
+                            this.props.handleFastestFitBitActivityCallback(response);
                             Promise.resolve(response);
                         });
                     Promise.resolve(fitBitHistoryPromise);

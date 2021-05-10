@@ -6,6 +6,8 @@
     using System.Collections.Generic;
     using System;
     using NUnit.Framework;
+    using Fitbit.Api.Portable.Models;
+    using Fitbit.Models;
 
     public class InferenceAPIGatewayTests
     {
@@ -140,6 +142,86 @@
                 has_kudoed = false,
             }
         };
+        private readonly ActivityLogsList FitBitActivityHistory = new ActivityLogsList
+        {
+            Activities = new List<Activities>
+            {
+                new Activities
+                {
+                    ActiveDuration = 5,
+                    ActivityLevel = new List<ActivityLevel>(),
+                    ActivityName = "Run 1",
+                    ActivityTypeId = 5,
+                    AverageHeartRate = 140,
+                    Calories = 500,
+                    Distance = 3500,
+                    DistanceUnit = "M",
+                    Duration = 3600,
+                    ElevationGain = 330,
+                    HeartRateZones = new List<HeartRateZone>(),
+                    LastModified = DateTime.Now,
+                    LogId = 123253464353,
+                    LogType = "logtype1",
+                    ManualValuesSpecified = new ManualValuesSpecified
+                    {
+                        Distance = false,
+                        Calories = false,
+                        Steps = false,
+                    },
+                    OriginalDuration = 3601,
+                    OriginalStartTime = DateTime.Now,
+                    Pace = 16.5,
+                    Source = new ActivityLogSource
+                    {
+                        Id = "1",
+                        Name = "1",
+                        Type = "type1",
+                        Url = "someurl"
+                    },
+                    Speed = 18.5,
+                    StartTime = DateTime.Now,
+                    Steps = 14000,
+                    TcxLink = "??"
+                },
+                new Activities
+                {
+                    ActiveDuration = 5,
+                    ActivityLevel = new List<ActivityLevel>(),
+                    ActivityName = "Run 2",
+                    ActivityTypeId = 5,
+                    AverageHeartRate = 140,
+                    Calories = 500,
+                    Distance = 3500,
+                    DistanceUnit = "M",
+                    Duration = 3600,
+                    ElevationGain = 330,
+                    HeartRateZones = new List<HeartRateZone>(),
+                    LastModified = DateTime.Now,
+                    LogId = 23456789,
+                    LogType = "logtype2",
+                    ManualValuesSpecified = new ManualValuesSpecified
+                    {
+                        Distance = true,
+                        Calories = false,
+                        Steps = false,
+                    },
+                    OriginalDuration = 3601,
+                    OriginalStartTime = DateTime.Now,
+                    Pace = 16.3,
+                    Source = new ActivityLogSource
+                    {
+                        Id = "2",
+                        Name = "2",
+                        Type = "type2",
+                        Url = "url2"
+                    },
+                    Speed = 20,
+                    StartTime = DateTime.Now,
+                    Steps = 14000,
+                    TcxLink = "??"
+                }
+            }
+        };
 
         [Test]
         public void GetFastestStravaActivity_FastestActivityReturned()
@@ -155,6 +237,31 @@
         {
             var sut = MakeSut();
             var nullActivity = sut.PostFastestStravaActivity(new List<StravaActivity>()).Value;
+            nullActivity.Should().BeNull();
+        }
+
+        [Test]
+        public void GetFastestFitBitActivity_FastestActivityReturned()
+        {
+            var sut = MakeSut();
+            var fastestActivity = sut.PostFastestFitBitActivity(FitBitActivityHistory).Value;
+            Activities fastestAct = (Activities)fastestActivity;
+            fastestAct.ActivityName.Should().Be("Run 2");
+        }
+
+        [Test]
+        public void GetFastestFitBitActivityWithEmptyList_NullReturned()
+        {
+            var sut = MakeSut();
+            var nullActivity = sut.PostFastestFitBitActivity(new ActivityLogsList()).Value;
+            nullActivity.Should().BeNull();
+        }
+
+        [Test]
+        public void GetFastestFitBitActivityWithNullList_NullReturned()
+        {
+            var sut = MakeSut();
+            var nullActivity = sut.PostFastestFitBitActivity(new ActivityLogsList { Activities = null }).Value;
             nullActivity.Should().BeNull();
         }
 
