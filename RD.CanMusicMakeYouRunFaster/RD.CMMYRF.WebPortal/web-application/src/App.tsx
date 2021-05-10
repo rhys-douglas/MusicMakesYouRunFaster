@@ -19,7 +19,18 @@ interface AppState{
 
 class App extends React.Component<AppProps, AppState>
 {
+  constructor(AppProps: AppProps)
+  {
+    super(AppProps);
+    this.state = 
+    {
+      lastFMUsername : "",
+      fastestStravaActivity : {} as any,
+      fastestFitBitActivity : {} as any,
+      spotifyAuthToken : {} as any
+    }
 
+  }
   handleFastestStravaActivityCallback = (fastestStravaActivityUpdate: JSON) => 
   {
     console.log(fastestStravaActivityUpdate);
@@ -61,7 +72,12 @@ class App extends React.Component<AppProps, AppState>
         <h2> Add your listening history using the buttons below.</h2>
         <SpotifyButton handleAuthTokenCallback={this.handleSpotifyTokenCallback}/> <LastFMButton handleUsernameCallback = {this.handleLastFMUsernameCallback}/>
         <h2> Click the button below to find out what music made you run faster. </h2>
-        <FastestSongsButton/>
+        <FastestSongsButton 
+          fastestStravaActivity = {this.state.fastestStravaActivity}
+          fastestFitBitActivity = {this.state.fastestFitBitActivity}
+          spotifyAccessToken = {this.state.spotifyAuthToken}
+          lastFMUserName = {this.state.lastFMUsername}
+        />
       </div>
     )
   }

@@ -45,7 +45,7 @@
         /// Returns the fastest FitBitActivity posted to this endpoint.
         /// </summary>
         /// <param name="activityLogsList"> FitBit ActivityLogsList, read from the body of the post request in JSON format. </param>
-        /// <returns></returns>
+        /// <returns> Fastest activity in the list </returns>
         [HttpPost]
         [Route("postFitBitActivities")]
         [EnableCors("CorsPolicy")]
