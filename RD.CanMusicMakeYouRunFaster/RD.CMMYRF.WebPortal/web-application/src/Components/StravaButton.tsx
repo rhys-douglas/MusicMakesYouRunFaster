@@ -2,7 +2,7 @@ import React from 'react';
 import Axios, { AxiosError, AxiosResponse } from "axios";
 
 interface IStravaButtonProps {
-    handleActivitiesCallback: ((stravaHistory: JSON) => void)
+    handleFastestStravaHistoryCallback: ((stravaHistory: JSON) => void)
 };
 
 export class StravaButton extends React.Component<IStravaButtonProps>
@@ -63,13 +63,11 @@ export class StravaButton extends React.Component<IStravaButtonProps>
                     var stravaHistoryPromise = this.getStravaHistory(accessToken.access_token)
                         .then(response => 
                         {
-                            console.log(response)
                             this.getFastestActivity(response)
                             .then(fastestActivity =>{
-                                console.log(fastestActivity);
+                                this.props.handleFastestStravaHistoryCallback(fastestActivity);
                                 Promise.resolve(fastestActivity);
                             })
-                            this.props.handleActivitiesCallback(response);
                             Promise.resolve(response);
                         });
                     Promise.resolve(stravaHistoryPromise);
