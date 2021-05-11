@@ -102,14 +102,21 @@
         /// </summary>
         /// <param name="access_token"> Access token </param>
         /// <param name="after"> UNIX timestamp to search after </param>
+        /// <param name="activityDuration"> Duration of activity </param>
         /// <returns>Spotify recently played tracks</returns>
         [HttpGet]
         [Route("getSpotifyRecentlyPlayed")]
         [EnableCors("CorsPolicy")]
-        public JsonResult GetSpotifyRecentlyPlayed(string access_token, long? after = null)
+        public JsonResult GetSpotifyRecentlyPlayed(string access_token, DateTimeOffset? after = null, long? activityDuration = null)
         {
             var tempToken = new SpotifyAuthenticationToken { AccessToken = access_token };
-            return this.dataSource.GetSpotifyRecentlyPlayed(tempToken, after).Result;
+            if (after != null)
+            {
+                DateTimeOffset actualAfter = (DateTimeOffset)after;
+                var afterAsUnix = actualAfter.ToUnixTimeMilliseconds();
+                return this.dataSource.GetSpotifyRecentlyPlayed(tempToken, afterAsUnix, activityDuration).Result;
+            }
+            return this.dataSource.GetSpotifyRecentlyPlayed(tempToken, null, activityDuration).Result;
         }
 
         /// <summary>
