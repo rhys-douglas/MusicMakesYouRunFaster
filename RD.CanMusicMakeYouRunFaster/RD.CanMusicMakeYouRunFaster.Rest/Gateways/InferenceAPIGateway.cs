@@ -4,6 +4,7 @@
     using Microsoft.AspNetCore.Cors;
     using Microsoft.AspNetCore.Mvc;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
+    using System;
     using System.Collections.Generic;
 
     /// <summary>
@@ -65,6 +66,24 @@
                 }
             }
             return new JsonResult(kingOfTheHill);
+        }
+
+        [HttpGet]
+        [Route("findFastestActivity")]
+        [EnableCors("CorsPolicy")]
+        public JsonResult FindFastestActivity(double stravaSpeed, DateTime stravaStartTime, double fitBitSpeed, DateTimeOffset fitBitDateTime)
+        {
+            if (stravaSpeed == 0 || fitBitSpeed > stravaSpeed)
+            {
+                return new JsonResult(fitBitDateTime.UtcDateTime);
+            }
+
+            if (fitBitSpeed == 0 || stravaSpeed >= fitBitSpeed)
+            {
+                return new JsonResult(stravaStartTime);
+            }
+
+            return new JsonResult(null);
         }
     }
 }

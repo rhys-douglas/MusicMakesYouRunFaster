@@ -265,6 +265,12 @@
             nullActivity.Should().BeNull();
         }
 
+        [Test]
+        public void FindFastestActivity_DateTimeOfFastestActivityReturned()
+        {
+
+        }
+
         private InferenceAPIGateway MakeSut()
         {
             return new InferenceAPIGateway();

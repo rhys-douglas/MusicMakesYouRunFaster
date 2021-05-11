@@ -100,11 +100,16 @@
         /// <summary>
         /// Gets the Spotify recently played tracks
         /// </summary>
+        /// <param name="access_token"> Access token </param>
         /// <param name="after"> UNIX timestamp to search after </param>
         /// <returns>Spotify recently played tracks</returns>
-        public JsonResult GetSpotifyRecentlyPlayed(long? after = null)
+        [HttpGet]
+        [Route("getSpotifyRecentlyPlayed")]
+        [EnableCors("CorsPolicy")]
+        public JsonResult GetSpotifyRecentlyPlayed(string access_token, long? after = null)
         {
-            return this.dataSource.GetSpotifyRecentlyPlayed(this.spotifyAuthToken, after).Result;
+            var tempToken = new SpotifyAuthenticationToken { AccessToken = access_token };
+            return this.dataSource.GetSpotifyRecentlyPlayed(tempToken, after).Result;
         }
 
         /// <summary>

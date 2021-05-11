@@ -138,11 +138,11 @@
             var client = new FitbitClient(credentials, accessToken);
             var lastMonth = DateTime.UtcNow;
             lastMonth.AddMonths(-1);
-            var retrievedActivities = await client.GetActivityLogsListAsync(null,lastMonth,20);
+            var retrievedActivities = await client.GetActivityLogsListAsync(null,lastMonth);
             List<Activities> listOfRuns = new List<Activities>();
             foreach (var activity in retrievedActivities.Activities)
             {
-                // 90009
+                // 90009 is a run.
                 if (activity.ActivityTypeId == 90009)
                 {
                     listOfRuns.Add(activity);
