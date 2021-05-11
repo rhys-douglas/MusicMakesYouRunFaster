@@ -5,7 +5,7 @@ interface IFastestSongsButtonProps
 {
     fastestStravaActivity: any,
     fastestFitBitActivity: any,
-    spotifyAccessToken: JSON,
+    spotifyAccessToken: any,
     lastFMUserName: string
 }
 
@@ -36,6 +36,21 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
         }
     }
 
+    getSpotifyTracks = async function(spotifyAccessToken: string, after: string, duration: number){
+        try 
+        {
+            var getFastestActivityPromise = await Axios.get("http://localhost:8080/CMMYRF/getSpotifyRecentlyPlayed?access_token=" 
+            + spotifyAccessToken + "&after=" + after + "&duration=")
+            .then((response: AxiosResponse) => Promise.resolve(response.data))
+                  .catch((error: AxiosError) => Promise.reject(error));
+            return getFastestActivityPromise;
+        }
+        catch (exception)
+        {
+            console.log(exception)
+        }
+    }
+
     handleClick = () =>
     {
         try 
@@ -43,18 +58,36 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
             console.log(this.props.fastestStravaActivity);
             console.log(this.props.fastestFitBitActivity);
             this.findFastestDate(this.props.fastestStravaActivity, this.props.fastestFitBitActivity)
-            .then(fastestDate => {
-                console.log("Fastest Date: " + fastestDate);
-                if (fastestDate === this.props.fastestStravaActivity.start_date)
+            .then(fastestDateResponse => {
+                var fastestDateAsDate = new Date(fastestDateResponse);
+                var stravaDate = new Date(this.props.fastestStravaActivity.start_date);
+                var fitbitDate = new Date(this.props.fastestFitBitActivity.startTime);
+                console.log(fastestDateAsDate);
+                console.log(stravaDate);
+                console.log(fitbitDate);
+                if (fastestDateAsDate.toString() === stravaDate.toString())
                 {
+                    console.log("Strava activity");
+                    // Strava activity = duration in seconds.
+                    this.getSpotifyTracks(this.props.spotifyAccessToken.AccessToken, fastestDateResponse, this.props.fastestStravaActivity.elapsed_time)
+                    .then(spotifyTracks => {
+                        console.log(spotifyTracks);
+                    });
                     
                 }
-                else if (fastestDate === this.props.fastestFitBitActivity.start_date)
+                else if (fastestDateAsDate.toString() === fitbitDate.toString())
                 {
-                    
+                    console.log("FitBit Activity");
+                    console.log(this.props.spotifyAccessToken);
+                    // Fitbit activity = duration in MS.
+                    var end = this.props.fastestFitBitActivity.duration / 100;
+                    this.getSpotifyTracks(this.props.spotifyAccessToken.AccessToken,fastestDateResponse,end)
+                    .then(spotifyTracks => {
+                        console.log(spotifyTracks);
+                    });
                 }
                 else {
-                    console.log("error.")
+                    console.log("Dates not matching.")
                 }
             });
         }

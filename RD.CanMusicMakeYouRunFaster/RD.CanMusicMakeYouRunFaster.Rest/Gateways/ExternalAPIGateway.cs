@@ -5,7 +5,9 @@
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
+    using SpotifyAPI.Web;
     using System;
+    using System.Collections.Generic;
 
     /// <summary>
     /// Controller used to handle HTTP requests to the backend / external API's.
@@ -107,16 +109,39 @@
         [HttpGet]
         [Route("getSpotifyRecentlyPlayed")]
         [EnableCors("CorsPolicy")]
-        public JsonResult GetSpotifyRecentlyPlayed(string access_token, DateTimeOffset? after = null, long? activityDuration = null)
+        public JsonResult GetSpotifyRecentlyPlayed(string access_token, DateTimeOffset? after = null, double? duration = null)
         {
+            CursorPaging<PlayHistoryItem> playHistory = new CursorPaging<PlayHistoryItem>();
             var tempToken = new SpotifyAuthenticationToken { AccessToken = access_token };
             if (after != null)
             {
                 DateTimeOffset actualAfter = (DateTimeOffset)after;
                 var afterAsUnix = actualAfter.ToUnixTimeMilliseconds();
-                return this.dataSource.GetSpotifyRecentlyPlayed(tempToken, afterAsUnix, activityDuration).Result;
+                playHistory = (CursorPaging<PlayHistoryItem>)this.dataSource.GetSpotifyRecentlyPlayed(tempToken, afterAsUnix).Result.Value;
+
+                if (duration != null)
+                {
+                    var actualDuration = (double)duration;
+                    var end = actualAfter.AddSeconds(actualDuration);
+                    var validSongs = new List<PlayHistoryItem>();
+                    foreach (var track in playHistory.Items)
+                    {
+                        if (track.PlayedAt >= actualAfter && track.PlayedAt < end)
+                        {
+                            validSongs.Add(track);
+                        }
+                    }
+                    playHistory.Items = validSongs;
+                    return new JsonResult(playHistory);
+                }
+
+                return new JsonResult(playHistory);
             }
-            return this.dataSource.GetSpotifyRecentlyPlayed(tempToken, null, activityDuration).Result;
+            else
+            {
+                playHistory = (CursorPaging<PlayHistoryItem>)this.dataSource.GetSpotifyRecentlyPlayed(tempToken, null).Result.Value;
+                return new JsonResult(playHistory);
+            }
         }
 
         /// <summary>

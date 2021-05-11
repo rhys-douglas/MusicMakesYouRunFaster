@@ -59,16 +59,13 @@ export class FitBitButton extends React.Component<IFitBitButtonProps>
             this.getFitBitAuthToken()
             .then(response => 
                 {
-                    console.log(response);
                     var accessToken = JSON.parse(response);
                     var fitBitHistoryPromise = this.getFitBitHistory(accessToken.access_token)
                         .then(activityList => 
                         {
-                            console.log(activityList);
                             var fastestActivityPromise = this.getFastestActivity(activityList)
                             .then(fastestActivity => 
                                 {
-                                    console.log(activityList);
                                     this.props.handleFastestFitBitActivityCallback(fastestActivity);
                                     Promise.resolve(fastestActivity);
                                 });

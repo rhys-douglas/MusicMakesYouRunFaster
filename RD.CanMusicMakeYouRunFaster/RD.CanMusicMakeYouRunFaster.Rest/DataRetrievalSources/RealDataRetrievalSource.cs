@@ -83,7 +83,7 @@
         }
 
         /// <inheritdoc/>
-        public async Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken, long? after = null, long? activityDuration = null)
+        public async Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken, long? after = null)
         {
             var request = new PlayerRecentlyPlayedRequest
             {

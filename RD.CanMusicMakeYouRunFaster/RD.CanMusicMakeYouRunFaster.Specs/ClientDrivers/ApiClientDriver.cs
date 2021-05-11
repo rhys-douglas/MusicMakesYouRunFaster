@@ -47,8 +47,8 @@
         /// <inheritdoc/>
         public void GetSpotifyRecentlyPlayedMusic()
         {
-            externalAPIGateway.GetSpotifyAuthenticationToken();
-            var searchResult = externalAPIGateway.GetSpotifyRecentlyPlayed();
+            string authToken = (string)externalAPIGateway.GetSpotifyAuthenticationToken().Value;
+            var searchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(authToken);
             var playHistoryContainer = (CursorPaging<PlayHistoryItem>)searchResult.Value;
             foreach (var song in playHistoryContainer.Items)
             {

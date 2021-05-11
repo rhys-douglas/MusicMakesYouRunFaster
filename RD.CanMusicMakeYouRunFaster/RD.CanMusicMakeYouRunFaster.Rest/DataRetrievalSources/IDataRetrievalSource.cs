@@ -22,7 +22,7 @@
         /// <param name="authToken">Authentication token to use.</param>
         /// <param name="after">UNIX ms to search after.</param>
         /// <returns> Json of recently played music. </returns>
-        Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken, long? after = null, long? activityDuration = null);
+        Task<JsonResult> GetSpotifyRecentlyPlayed(SpotifyAuthenticationToken authToken, long? after = null);
 
         /// <summary>
         /// Gets a list of LastFM recently played songs.

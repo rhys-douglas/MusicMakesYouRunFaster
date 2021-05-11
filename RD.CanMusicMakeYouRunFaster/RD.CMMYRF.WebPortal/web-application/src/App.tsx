@@ -49,6 +49,7 @@ class App extends React.Component<AppProps, AppState>
 
   handleSpotifyTokenCallback = (spotifyTokenUpdate: JSON) => 
   {
+    console.log(spotifyTokenUpdate);
     this.setState({
       spotifyAuthToken: spotifyTokenUpdate
     });
@@ -56,6 +57,7 @@ class App extends React.Component<AppProps, AppState>
 
   handleLastFMUsernameCallback = (lastFMUsernameUpdate: string ) => 
   {
+    console.log(lastFMUsernameUpdate);
     this.setState({
       lastFMUsername: lastFMUsernameUpdate
     });
