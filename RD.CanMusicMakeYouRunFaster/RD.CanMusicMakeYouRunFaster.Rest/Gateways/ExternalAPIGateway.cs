@@ -104,7 +104,7 @@
         /// </summary>
         /// <param name="access_token"> Access token </param>
         /// <param name="after"> UNIX timestamp to search after </param>
-        /// <param name="activityDuration"> Duration of activity </param>
+        /// <param name="duration"> Duration of activity </param>
         /// <returns>Spotify recently played tracks</returns>
         [HttpGet]
         [Route("getSpotifyRecentlyPlayed")]
@@ -147,15 +147,36 @@
         /// <summary>
         /// Gets the Last.FM recently played tracks.
         /// </summary>
-        /// <param name="username">Username to query for. </param>
+        /// <param name="username">Username to query for.</param>
         /// <param name="after"> DateTime to search after.</param>
-        /// <returns></returns>
+        /// <param name="duration"> Duration of activity.</param>
+        /// <returns> Recently played LastFM tracks.</returns>
         [HttpGet]
         [Route("getLastFMRecentlyPlayed")]
         [EnableCors("CorsPolicy")]
-        public JsonResult GetLastFMRecentlyPlayed(string username, DateTimeOffset? after = null)
+        public JsonResult GetLastFMRecentlyPlayed(string user_name, DateTimeOffset? after = null, double duration = 0)
         {
-            return this.dataSource.GetLastFMRecentlyPlayed(username, after).Result;
+            List<IF.Lastfm.Core.Objects.LastTrack> validListeningHistory = new List<IF.Lastfm.Core.Objects.LastTrack>();
+            IF.Lastfm.Core.Api.Helpers.PageResponse<IF.Lastfm.Core.Objects.LastTrack> returnedHistory = (IF.Lastfm.Core.Api.Helpers.PageResponse<IF.Lastfm.Core.Objects.LastTrack>)this.dataSource.GetLastFMRecentlyPlayed(user_name, after).Result.Value;
+            if (duration != 0)
+            {
+                double actualDuration = (double)duration;
+                var actualAfter = (DateTimeOffset)after;
+                var end = actualAfter.AddSeconds(actualDuration);
+                foreach (var item in returnedHistory.Content)
+                {
+                    if (item.TimePlayed >= actualAfter && item.TimePlayed < end)
+                    {
+                        validListeningHistory.Add(item);
+                    }
+                }
+                return new JsonResult(new IF.Lastfm.Core.Api.Helpers.PageResponse<IF.Lastfm.Core.Objects.LastTrack>(validListeningHistory));
+            }
+            else
+            {
+                return new JsonResult(returnedHistory);
+            }
+
         }
     }
 }

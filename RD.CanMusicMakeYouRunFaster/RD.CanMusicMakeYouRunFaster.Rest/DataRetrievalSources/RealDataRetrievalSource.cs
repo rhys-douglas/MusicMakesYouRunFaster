@@ -157,7 +157,7 @@
         {
             var client = new LastfmClient("d3cf196e63d20375eb8d6729ebb982b3", "3b2dd16f5d94f119aa724dd3efe3b393");
             var recentTracks = await client.User.GetRecentScrobbles(username,after);
-            return new JsonResult(recentTracks.Content);
+            return new JsonResult(recentTracks);
         }
             
     }

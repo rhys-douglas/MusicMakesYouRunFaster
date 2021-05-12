@@ -72,8 +72,6 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
     {
         try 
         {
-            console.log(this.props.fastestStravaActivity);
-            console.log(this.props.fastestFitBitActivity);
             this.findFastestDate(this.props.fastestStravaActivity, this.props.fastestFitBitActivity)
             .then(fastestDateResponse => {
                 var fastestDateAsDate = new Date(fastestDateResponse);
@@ -98,10 +96,10 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                 }
                 else 
                 {
-                    Promise.resolve("No Data - Dates not matching.")
+                    Promise.resolve("No Data - Dates not matching")
                 }
 
-                console.log(activityDuration)
+                console.log(activityDuration);
 
                 // Get music
                 if (this.props.spotifyAccessToken !== null )
@@ -115,6 +113,7 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
 
                 if (this.props.lastFMUserName !== null )
                 {
+                    console.log(this.props.lastFMUserName);
                     this.getLastFMTracks(this.props.lastFMUserName,fastestDateResponse,activityDuration)
                     .then(lastFMTracks => {
                         this.setState({lastFMSongs: lastFMTracks});
