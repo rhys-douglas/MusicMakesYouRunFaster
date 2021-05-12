@@ -83,6 +83,7 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                     var end = this.props.fastestFitBitActivity.duration / 100;
                     this.getSpotifyTracks(this.props.spotifyAccessToken.AccessToken,fastestDateResponse,end)
                     .then(spotifyTracks => {
+                        this.setState({spotifySongs:spotifyTracks.items})
                         console.log(spotifyTracks);
                     });
                 }
