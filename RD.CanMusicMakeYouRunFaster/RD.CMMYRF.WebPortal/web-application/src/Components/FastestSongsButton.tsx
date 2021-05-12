@@ -36,14 +36,31 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
         }
     }
 
-    getSpotifyTracks = async function(spotifyAccessToken: string, after: string, duration: number){
+    getSpotifyTracks = async function(spotifyAccessToken: string, after: string, duration: number)
+    {
         try 
         {
-            var getFastestActivityPromise = await Axios.get("http://localhost:8080/CMMYRF/getSpotifyRecentlyPlayed?access_token=" 
-            + spotifyAccessToken + "&after=" + after + "&duration=")
+            var getSpotifyTracksPromise = await Axios.get("http://localhost:8080/CMMYRF/getSpotifyRecentlyPlayed?access_token=" 
+            + spotifyAccessToken + "&after=" + after + "&duration=" + duration)
             .then((response: AxiosResponse) => Promise.resolve(response.data))
                   .catch((error: AxiosError) => Promise.reject(error));
-            return getFastestActivityPromise;
+            return getSpotifyTracksPromise;
+        }
+        catch (exception)
+        {
+            console.log(exception)
+        }
+    }
+
+    getLastFMTracks = async function(lastFMUserName: string, after: string, duration: number)
+    {
+        try 
+        {
+            var getLastFMTracksPromise = await Axios.get("http://localhost:8080/CMMYRF/getLastFMRecentlyPlayed?user_name=" 
+            + lastFMUserName + "&after=" + after + "&duration=" + duration)
+            .then((response: AxiosResponse) => Promise.resolve(response.data))
+                  .catch((error: AxiosError) => Promise.reject(error));
+            return getLastFMTracksPromise;
         }
         catch (exception)
         {
@@ -65,30 +82,44 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                 console.log(fastestDateAsDate);
                 console.log(stravaDate);
                 console.log(fitbitDate);
+                var activityDuration;
                 if (fastestDateAsDate.toString() === stravaDate.toString())
                 {
-                    console.log("Strava activity");
                     // Strava activity = duration in seconds.
-                    this.getSpotifyTracks(this.props.spotifyAccessToken.AccessToken, fastestDateResponse, this.props.fastestStravaActivity.elapsed_time)
-                    .then(spotifyTracks => {
-                        console.log(spotifyTracks);
-                    });
+                    console.log("Strava activity");
+                    activityDuration = this.props.fastestStravaActivity.elapsed_time
                     
                 }
                 else if (fastestDateAsDate.toString() === fitbitDate.toString())
                 {
-                    console.log("FitBit Activity");
-                    console.log(this.props.spotifyAccessToken);
                     // Fitbit activity = duration in MS.
-                    var end = this.props.fastestFitBitActivity.duration / 100;
-                    this.getSpotifyTracks(this.props.spotifyAccessToken.AccessToken,fastestDateResponse,end)
+                    console.log("FitBit Activity");
+                    activityDuration = this.props.fastestFitBitActivity.duration / 100;
+                }
+                else 
+                {
+                    Promise.resolve("No Data - Dates not matching.")
+                }
+
+                console.log(activityDuration)
+
+                // Get music
+                if (this.props.spotifyAccessToken !== null )
+                {
+                    this.getSpotifyTracks(this.props.spotifyAccessToken.AccessToken,fastestDateResponse,activityDuration)
                     .then(spotifyTracks => {
-                        this.setState({spotifySongs:spotifyTracks.items})
-                        console.log(spotifyTracks);
+                        this.setState({spotifySongs:spotifyTracks.items});
+                        console.log(this.state.spotifySongs);
                     });
                 }
-                else {
-                    console.log("Dates not matching.")
+
+                if (this.props.lastFMUserName !== null )
+                {
+                    this.getLastFMTracks(this.props.lastFMUserName,fastestDateResponse,activityDuration)
+                    .then(lastFMTracks => {
+                        this.setState({lastFMSongs: lastFMTracks});
+                        console.log(this.state.lastFMSongs);
+                    });
                 }
             });
         }

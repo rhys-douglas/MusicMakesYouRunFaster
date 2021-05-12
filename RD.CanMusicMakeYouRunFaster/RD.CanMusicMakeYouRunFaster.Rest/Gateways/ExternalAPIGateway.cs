@@ -150,6 +150,9 @@
         /// <param name="username">Username to query for. </param>
         /// <param name="after"> DateTime to search after.</param>
         /// <returns></returns>
+        [HttpGet]
+        [Route("getLastFMRecentlyPlayed")]
+        [EnableCors("CorsPolicy")]
         public JsonResult GetLastFMRecentlyPlayed(string username, DateTimeOffset? after = null)
         {
             return this.dataSource.GetLastFMRecentlyPlayed(username, after).Result;
