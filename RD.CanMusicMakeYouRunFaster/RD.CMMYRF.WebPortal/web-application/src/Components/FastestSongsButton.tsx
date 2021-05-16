@@ -1,5 +1,6 @@
 import React from 'react';
 import Axios, { AxiosError, AxiosResponse } from "axios";
+import SongsTable  from './SongsTable'
 
 interface IFastestSongsButtonProps
 {
@@ -17,7 +18,15 @@ interface IFastestSongsButtonState
 
 export class FastestSongsButton extends React.Component<IFastestSongsButtonProps,IFastestSongsButtonState>
 {
-
+    constructor(props : any) 
+    {
+        super(props)
+        this.state =
+        {
+            spotifySongs: {} as any,
+            lastFMSongs: {} as any
+        }
+    }
     findFastestDate = async function(fastestStravaActivity: any, fastestFitBitActivity: any)
     {
         try
@@ -77,9 +86,6 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                 var fastestDateAsDate = new Date(fastestDateResponse);
                 var stravaDate = new Date(this.props.fastestStravaActivity.start_date);
                 var fitbitDate = new Date(this.props.fastestFitBitActivity.startTime);
-                console.log(fastestDateAsDate);
-                console.log(stravaDate);
-                console.log(fitbitDate);
                 var activityDuration;
                 if (fastestDateAsDate.toString() === stravaDate.toString())
                 {
@@ -98,9 +104,6 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                 {
                     Promise.resolve("No Data - Dates not matching")
                 }
-
-                console.log(activityDuration);
-
                 // Get music
                 if (this.props.spotifyAccessToken !== null )
                 {
@@ -133,6 +136,7 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
         return(
             <div>
                 <button onClick={this.handleClick}> Click here to find out what songs made you run faster!</button>
+                <SongsTable data ={this.state.spotifySongs} />
             </div>)
     }
 }
