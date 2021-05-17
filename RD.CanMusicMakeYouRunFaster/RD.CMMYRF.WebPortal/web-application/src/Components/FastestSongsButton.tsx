@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios, { AxiosError, AxiosResponse } from "axios";
-import SongsTable  from './SongsTable'
+import SongsTable from './SongsTable';
 
 interface IFastestSongsButtonProps
 {
@@ -118,6 +118,7 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                         var songsJson: any[] = Array.of(spotifyTracks.items);
                         this.setState({spotifySongs:songsJson});
                         console.log(this.state.spotifySongs);
+                        Promise.resolve(spotifyTracks);
                     });
                 }
 
@@ -129,8 +130,11 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                         var songsJson: any[] = Array.of(lastFMTracks);
                         this.setState({lastFMSongs: songsJson});
                         console.log(this.state.lastFMSongs);
+                        Promise.resolve(lastFMTracks);
                     });
                 }
+
+                Promise.resolve(fastestDateResponse);
             });
         }
         catch (exception)
@@ -144,6 +148,7 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
         return(
             <div>
                 <button onClick={this.handleClick}> Click here to find out what songs made you run faster!</button>
+                <SongsTable lastFMSongData={this.state.lastFMSongs}/>
             </div>)
     }
 }

@@ -3,7 +3,7 @@ import _ from 'lodash';
 
 interface ISongsTableProps 
 {
-    data : any
+    lastFMSongData : any
 }
 
 interface ISongsTableState
@@ -16,23 +16,39 @@ export default class SongsTable extends React.Component<ISongsTableProps, ISongs
     constructor(props : ISongsTableProps)
     {
         super(props);
+        console.log("CONSTRUCTOR CALLED");
         this.state = {
             dataColumns : []
         }
-        this.extractColumnNames();
     }
 
-    componentDidUpdate(){
-        this.extractColumnNames();
+    componentDidUpdate() 
+    {
+        console.log("UPDATER CALLED");
+        if (this.state.dataColumns.length === 0 || typeof(this.state.dataColumns) === undefined)
+        {
+            console.log("DATACOLS IS EMPTY?")
+            this.extractColumnNames();
+        }
+        else
+        {
+            console.log(this.props.lastFMSongData);
+            console.log(this.state.dataColumns)
+        }   
     }
 
     private extractColumnNames()
     {
         console.log("EXTRACTING COLUMN NAMES");
-        console.log(this.props.data);
-        var firstRecord = _.keys(this.props.data[0]);
-        console.log(firstRecord);
-        this.setState({dataColumns: firstRecord});
+        console.log(this.props.lastFMSongData);
+        try{
+            var firstRecord = _.keys(this.props.lastFMSongData[0][0]);
+            this.setState({dataColumns: firstRecord});
+        }
+        catch(exception)
+        {
+            console.log(exception)
+        }
     }
 
     private displayRecords(key:number) 
@@ -43,13 +59,16 @@ export default class SongsTable extends React.Component<ISongsTableProps, ISongs
     }
 
     private displayRecordName(colname:string, key:number){
-        const record = this.props.data[key];
+        const record = this.props.lastFMSongData[key];
         return <th>{record[colname]}</th>
     }
 
     render ()
     {
-        const datarecords = this.props.data;
+        console.log("RENDER CALLED");
+        console.log("RAW DATA: ")
+        console.log(this.props.lastFMSongData);
+        const datarecords = this.props.lastFMSongData;
         const table_headers = this.state.dataColumns;
         return(
             <div>
