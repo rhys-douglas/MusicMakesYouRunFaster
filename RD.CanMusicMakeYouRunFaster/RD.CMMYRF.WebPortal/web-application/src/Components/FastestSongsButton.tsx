@@ -27,6 +27,12 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
             lastFMSongs: []
         }
     }
+
+    spotifyTableCallback = () =>
+    {
+
+    }
+
     findFastestDate = async function(fastestStravaActivity: any, fastestFitBitActivity: any)
     {
         try
@@ -138,7 +144,6 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
         return(
             <div>
                 <button onClick={this.handleClick}> Click here to find out what songs made you run faster!</button>
-                <SongsTable data ={this.state.spotifySongs} />
             </div>)
     }
 }

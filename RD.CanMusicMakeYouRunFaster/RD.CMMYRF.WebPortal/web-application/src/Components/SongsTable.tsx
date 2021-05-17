@@ -1,6 +1,5 @@
 import React from 'react';
-import { useTable } from 'react-table';
-
+import _ from 'lodash';
 
 interface ISongsTableProps 
 {
@@ -9,7 +8,7 @@ interface ISongsTableProps
 
 interface ISongsTableState
 {
-    dataColumns : string[]
+    dataColumns : any[]
 }
 
 export default class SongsTable extends React.Component<ISongsTableProps, ISongsTableState>
@@ -17,17 +16,28 @@ export default class SongsTable extends React.Component<ISongsTableProps, ISongs
     constructor(props : ISongsTableProps)
     {
         super(props);
-        var songsJson: any[] = Array.of(props.data);
         this.state = {
-            dataColumns : ["Song name"]
+            dataColumns : []
         }
-        console.log(songsJson)
+        this.extractColumnNames();
+    }
+
+    componentDidUpdate(){
+        this.extractColumnNames();
+    }
+
+    private extractColumnNames()
+    {
+        console.log("EXTRACTING COLUMN NAMES");
+        console.log(this.props.data);
+        var firstRecord = _.keys(this.props.data[0]);
+        console.log(firstRecord);
+        this.setState({dataColumns: firstRecord});
     }
 
     private displayRecords(key:number) 
     {
         const dataColumns = this.state.dataColumns;
-        console.log(dataColumns);
         return dataColumns.map((each_col) =>
             this.displayRecordName(each_col,key))
     }
@@ -43,6 +53,7 @@ export default class SongsTable extends React.Component<ISongsTableProps, ISongs
         const table_headers = this.state.dataColumns;
         return(
             <div>
+                <h1> Songs that make you run faster </h1>
                 <div className = "container">
                     <div className = "row">
                         <table className = "table table-bordered">
@@ -53,7 +64,7 @@ export default class SongsTable extends React.Component<ISongsTableProps, ISongs
                             </thead>
                             <tbody>
                                 {datarecords && datarecords.map((eachDataRecord : any,recordIndex : any) => 
-                                <tr key = {eachDataRecord.id}>{this.displayRecords(recordIndex)}</tr>
+                                <tr key = {eachDataRecord}>{this.displayRecords(recordIndex)}</tr>
                                 )}
                             </tbody>
                         </table>
