@@ -12,8 +12,8 @@ interface IFastestSongsButtonProps
 
 interface IFastestSongsButtonState
 {
-    spotifySongs: JSON,
-    lastFMSongs: JSON
+    spotifySongs: any,
+    lastFMSongs: any
 }
 
 export class FastestSongsButton extends React.Component<IFastestSongsButtonProps,IFastestSongsButtonState>
@@ -23,8 +23,8 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
         super(props)
         this.state =
         {
-            spotifySongs: {} as any,
-            lastFMSongs: {} as any
+            spotifySongs: [],
+            lastFMSongs: []
         }
     }
     findFastestDate = async function(fastestStravaActivity: any, fastestFitBitActivity: any)
@@ -109,7 +109,8 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                 {
                     this.getSpotifyTracks(this.props.spotifyAccessToken.AccessToken,fastestDateResponse,activityDuration)
                     .then(spotifyTracks => {
-                        this.setState({spotifySongs:spotifyTracks.items});
+                        var songsJson: any[] = Array.of(spotifyTracks.items);
+                        this.setState({spotifySongs:songsJson});
                         console.log(this.state.spotifySongs);
                     });
                 }
@@ -119,7 +120,8 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                     console.log(this.props.lastFMUserName);
                     this.getLastFMTracks(this.props.lastFMUserName,fastestDateResponse,activityDuration)
                     .then(lastFMTracks => {
-                        this.setState({lastFMSongs: lastFMTracks});
+                        var songsJson: any[] = Array.of(lastFMTracks);
+                        this.setState({lastFMSongs: songsJson});
                         console.log(this.state.lastFMSongs);
                     });
                 }

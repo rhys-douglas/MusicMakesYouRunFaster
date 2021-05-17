@@ -2,7 +2,7 @@ import React from 'react';
 
 interface ISongsTableProps 
 {
-    data : JSON
+    data : any
 }
 
 export default class SongsTable extends React.Component<ISongsTableProps>
@@ -10,41 +10,13 @@ export default class SongsTable extends React.Component<ISongsTableProps>
     constructor(props : ISongsTableProps)
     {
         super(props);
-        this.getHeader = this.getHeader.bind(this);
-        this.getRowsData = this.getRowsData.bind(this);
-        this.getKeys = this.getKeys.bind(this);
+        var songsJson: any[] = Array.of(props.data);
+        console.log(songsJson)
     }
 
-    getKeys = () =>
+    Table = () =>
     {
-        return Object.keys(this.props.data[0]);
-    }
 
-    getHeader = () =>
-    {
-        var keys = this.getKeys();
-        return keys.map((key : any, index : any)=>
-        {
-            return <th key={key}>{key.toUpperCase()}</th>
-        });
-    }
-
-    getRowsData = () =>
-    {
-        var items = this.props.data;
-        var keys = this.getKeys();
-        return items.map((row: any, index: any)=>
-        {
-            return <tr key={index}><this.RenderRow key={index} data={row} keys={keys}/></tr>
-        });
-    }
-
-    RenderRow = (props: any) => 
-    {
-        return props.keys.map((key : any, index : any)=>
-        {
-            return <td key={props.data[key]}>{props.data[key]}</td>
-        })
     }
 
     render ()
@@ -52,11 +24,12 @@ export default class SongsTable extends React.Component<ISongsTableProps>
         return(
             <div>
                 <table>
-                    <thead>
-                        <tr>{this.getHeader() }</tr>
-                    </thead>
-                    <tbody>
-                        {this.getRowsData() }
+                    <tr>
+                        <th>Song name</th>
+                        <th>Artists </th>
+                    </tr>
+                    <tbody id="SpotifySongsTable">
+
                     </tbody>
                 </table>
             </div>
