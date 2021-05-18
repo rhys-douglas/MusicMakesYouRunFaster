@@ -84,16 +84,6 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
         }
     }
 
-    printState = () =>
-    {
-        console.log(this.props.fastestFitBitActivity)
-        console.log(this.props.fastestStravaActivity)
-        console.log(this.props.lastFMUserName)
-        console.log(this.props.spotifyAccessToken)
-        console.log(this.state.spotifySongs)
-        console.log(this.state.lastFMSongs)
-    }
-
     handleClick = () =>
     {
         try 
@@ -136,10 +126,10 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                             track["artistURL"] = track.track.artists[0].externalUrls.spotify;
                             track["url"] = track.track.externalUrls.spotify;
                             delete track.track;
+                            return track;
                         });
                         var songsJson: any[] = Array.of(spotifyTracks.items);
                         this.setState({spotifySongs:songsJson[0]});
-                        console.log(this.state.spotifySongs);
                         Promise.resolve(spotifyTracks);
                     });
                 }
@@ -186,7 +176,6 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
         return(
             <div>
                 <button onClick={this.handleClick}> Click here to find out what songs made you run faster! </button>
-                <button onClick = {this.printState}> Log state. </button>
                 <h2> Songs that make you run faster </h2>
                 <LastFMSongsTable lastFMSongData={this.state.lastFMSongs}/>
                 <SpotifySongsTable spotifySongsData={this.state.spotifySongs}/>

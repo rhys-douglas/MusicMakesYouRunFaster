@@ -2,13 +2,17 @@ import React from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 
+interface IDateProps {
+    dateCallback: ((updatedDate: Date) => void)
+}
+
 interface DateConstructor  {
     startDate: Date;
 } 
 
-export class StartDateInput extends React.Component<{},DateConstructor>
+export class StartDateInput extends React.Component<IDateProps,DateConstructor>
 {
-    constructor(props: any){
+    constructor(props: IDateProps){
         super(props);
         this.state = {
             startDate : new Date(new Date().setDate(new Date().getDate()-14))
@@ -20,6 +24,7 @@ export class StartDateInput extends React.Component<{},DateConstructor>
         this.setState({
             startDate : date
         });
+        this.props.dateCallback(this.state.startDate);
     }
 
     public render()

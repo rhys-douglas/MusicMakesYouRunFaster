@@ -3,7 +3,6 @@
     using DataRetrievalSources;
     using Microsoft.AspNetCore.Cors;
     using Microsoft.AspNetCore.Mvc;
-    using Newtonsoft.Json;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
     using SpotifyAPI.Web;
     using System;
@@ -17,7 +16,6 @@
     public class ExternalAPIGateway : ControllerBase
     {
         private readonly IDataRetrievalSource dataSource;
-        private SpotifyAuthenticationToken spotifyAuthToken;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ExternalAPIGateway"/> class.
@@ -43,7 +41,6 @@
         public JsonResult GetSpotifyAuthenticationToken()
         {
             var retrievedTokenJson = this.dataSource.GetSpotifyAuthenticationToken().Result;
-            spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>((string)retrievedTokenJson.Value);
             return retrievedTokenJson;
         }
 
