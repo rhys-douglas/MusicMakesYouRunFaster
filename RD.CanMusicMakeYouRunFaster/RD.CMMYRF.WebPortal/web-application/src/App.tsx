@@ -90,7 +90,10 @@ class App extends React.Component<AppProps, AppState>
         <h1>Can Music Make You Run Faster?</h1>
         <StartDateInput dateCallback={this.handleStartDateCallBack}/><EndDateInput dateCallback={this.handleEndDateCallback}/>
         <h2> Add your running history using the buttons below.</h2>
-        <StravaButton handleFastestStravaActivityCallback={this.handleFastestStravaActivityCallback}/> <FitBitButton handleFastestFitBitActivityCallback={this.handleFastestFitBitActivityCallback}/>
+        <StravaButton 
+        handleFastestStravaActivityCallback={this.handleFastestStravaActivityCallback}
+        startDate={this.state.startDate}
+        endDate={this.state.endDate}/> <FitBitButton handleFastestFitBitActivityCallback={this.handleFastestFitBitActivityCallback}/>
         <h2> Add your listening history using the buttons below.</h2>
         <SpotifyButton handleAuthTokenCallback={this.handleSpotifyTokenCallback}/> <LastFMButton handleUsernameCallback = {this.handleLastFMUsernameCallback}/>
         <h2> Click the button below to find out what music made you run faster. </h2>

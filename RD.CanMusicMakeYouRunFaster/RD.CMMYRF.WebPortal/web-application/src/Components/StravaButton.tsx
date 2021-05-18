@@ -2,7 +2,9 @@ import React from 'react';
 import Axios, { AxiosError, AxiosResponse } from "axios";
 
 interface IStravaButtonProps {
-    handleFastestStravaActivityCallback: ((stravaHistory: JSON) => void)
+    handleFastestStravaActivityCallback: ((stravaHistory: JSON) => void);
+    startDate: Date;
+    endDate : Date;
 };
 
 export class StravaButton extends React.Component<IStravaButtonProps>
@@ -23,11 +25,14 @@ export class StravaButton extends React.Component<IStravaButtonProps>
           }
     }
 
-    getStravaHistory = async function(access_token : string)
+    getStravaHistory = async function(access_token : string, startDate: Date, endDate: Date)
     {
         try 
         {
-            var getStravaHistoryPromise = await Axios.get("http://localhost:8080/CMMYRF/getStravaActivities?access_token=" + access_token)
+            var start_date = startDate.toISOString();
+            var end_date = endDate.toISOString();
+            var getStravaHistoryPromise = await Axios.get("http://localhost:8080/CMMYRF/getStravaActivities?access_token=" + access_token
+            + "&start_date="+ start_date + "&end_date=" + end_date)
             .then((response: AxiosResponse) => Promise.resolve(response.data))
                   .catch((error: AxiosError) => Promise.reject(error));
             return getStravaHistoryPromise;
@@ -60,7 +65,7 @@ export class StravaButton extends React.Component<IStravaButtonProps>
             .then(response => 
                 {
                     var accessToken = JSON.parse(response);
-                    var stravaHistoryPromise = this.getStravaHistory(accessToken.access_token)
+                    var stravaHistoryPromise = this.getStravaHistory(accessToken.access_token, this.props.startDate, this.props.endDate)
                         .then(response => 
                         {
                             this.getFastestActivity(response)
