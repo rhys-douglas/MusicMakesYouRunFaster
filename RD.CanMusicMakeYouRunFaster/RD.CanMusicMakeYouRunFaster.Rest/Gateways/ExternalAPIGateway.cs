@@ -77,10 +77,60 @@
         [HttpGet]
         [Route("getStravaActivities")]
         [EnableCors("CorsPolicy")]
-        public JsonResult GetStravaRecentActivities(string access_token)
+        public JsonResult GetStravaRecentActivities(string access_token, DateTimeOffset? start_date= null, DateTimeOffset? end_date = null)
         {
             var tempToken = new StravaAuthenticationToken { access_token = access_token };
-            return this.dataSource.GetStravaActivityHistory(tempToken).Result;
+            var activityHistoryJsonResult = this.dataSource.GetStravaActivityHistory(tempToken).Result;
+            if (start_date == null && end_date == null)
+            {
+                return activityHistoryJsonResult;
+            }
+
+            List<StravaActivity> rawActivityHistory = (List<StravaActivity>)activityHistoryJsonResult.Value;
+            List<StravaActivity> correctActivityHistory = new List<StravaActivity>();
+
+            if (start_date == null && end_date != null)
+            {
+                // Start date is null, but there is an end date.
+                // return all activities before the end date.
+                DateTimeOffset extractedEndDate = (DateTimeOffset)end_date;
+                foreach (var item in rawActivityHistory)
+                {
+                    if (item.start_date <= extractedEndDate)
+                    {
+                        correctActivityHistory.Add(item);
+                    }
+                }
+                return new JsonResult(correctActivityHistory);
+            }
+
+            if (start_date != null && end_date == null)
+            {
+                // End date is null but there is a start date.
+                // return all activities from start date until now.
+                DateTimeOffset extractedStartDate = (DateTimeOffset)start_date;
+                foreach (var item in rawActivityHistory)
+                {
+                    if (item.start_date >= extractedStartDate)
+                    {
+                        correctActivityHistory.Add(item);
+                    }
+                }
+                return new JsonResult(correctActivityHistory);
+            }
+            // Assume that start and end date are both not null.
+            DateTimeOffset startDate = (DateTimeOffset)start_date;
+            DateTimeOffset endDate = (DateTimeOffset)end_date;
+
+            foreach(var activity in rawActivityHistory)
+            {
+                if (activity.start_date >= startDate && activity.start_date <= endDate)
+                {
+                    correctActivityHistory.Add(activity);
+                }
+            }
+
+            return new JsonResult(correctActivityHistory);
         }
 
         /// <summary>
