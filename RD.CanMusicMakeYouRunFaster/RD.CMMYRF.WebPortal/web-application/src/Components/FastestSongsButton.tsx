@@ -1,6 +1,6 @@
 import React from 'react';
 import Axios, { AxiosError, AxiosResponse } from "axios";
-import SongsTable from './SongsTable';
+import LastFMSongsTable from './LastFMSongsTable';
 
 interface IFastestSongsButtonProps
 {
@@ -83,6 +83,16 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
         }
     }
 
+    printState = () =>
+    {
+        console.log(this.props.fastestFitBitActivity)
+        console.log(this.props.fastestStravaActivity)
+        console.log(this.props.lastFMUserName)
+        console.log(this.props.spotifyAccessToken)
+        console.log(this.state.spotifySongs)
+        console.log(this.state.lastFMSongs)
+    }
+
     handleClick = () =>
     {
         try 
@@ -116,7 +126,7 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                     this.getSpotifyTracks(this.props.spotifyAccessToken.AccessToken,fastestDateResponse,activityDuration)
                     .then(spotifyTracks => {
                         var songsJson: any[] = Array.of(spotifyTracks.items);
-                        this.setState({spotifySongs:songsJson});
+                        this.setState({spotifySongs:songsJson[0]});
                         console.log(this.state.spotifySongs);
                         Promise.resolve(spotifyTracks);
                     });
@@ -124,11 +134,28 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
 
                 if (this.props.lastFMUserName !== null )
                 {
-                    console.log(this.props.lastFMUserName);
                     this.getLastFMTracks(this.props.lastFMUserName,fastestDateResponse,activityDuration)
                     .then(lastFMTracks => {
+                        lastFMTracks.map((track: any) => 
+                        {
+                            delete track.id;
+                            delete track.rank;
+                            delete track.duration;
+                            delete track.mbid;
+                            delete track.artistMbid;
+                            delete track.isLoved; 
+                            delete track.topTags;
+                            delete track.listenerCount;
+                            delete track.isNowPlaying;
+                            delete track.userPlayCount;
+                            delete track.timePlayed;
+                            delete track.playCount;
+                            delete track.artistImages;
+                            track.images = track.images[2];
+                            return track;
+                        });
                         var songsJson: any[] = Array.of(lastFMTracks);
-                        this.setState({lastFMSongs: songsJson});
+                        this.setState({lastFMSongs: songsJson[0]});
                         console.log(this.state.lastFMSongs);
                         Promise.resolve(lastFMTracks);
                     });
@@ -148,7 +175,8 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
         return(
             <div>
                 <button onClick={this.handleClick}> Click here to find out what songs made you run faster!</button>
-                <SongsTable lastFMSongData={this.state.lastFMSongs}/>
+                <button onClick = {this.printState}> Log state.</button>
             </div>)
     }
 }
+//                 <LastFMSongsTable lastFMSongData={this.state.lastFMSongs}/>

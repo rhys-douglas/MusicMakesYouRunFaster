@@ -11,12 +11,11 @@ interface ISongsTableState
     dataColumns : any[]
 }
 
-export default class SongsTable extends React.Component<ISongsTableProps, ISongsTableState>
+export default class LastFMSongsTable extends React.Component<ISongsTableProps, ISongsTableState>
 {
     constructor(props : ISongsTableProps)
     {
         super(props);
-        console.log("CONSTRUCTOR CALLED");
         this.state = {
             dataColumns : []
         }
@@ -27,14 +26,8 @@ export default class SongsTable extends React.Component<ISongsTableProps, ISongs
         console.log("UPDATER CALLED");
         if (this.state.dataColumns.length === 0 || typeof(this.state.dataColumns) === undefined)
         {
-            console.log("DATACOLS IS EMPTY?")
             this.extractColumnNames();
-        }
-        else
-        {
-            console.log(this.props.lastFMSongData);
-            console.log(this.state.dataColumns)
-        }   
+        }  
     }
 
     private extractColumnNames()
@@ -44,6 +37,7 @@ export default class SongsTable extends React.Component<ISongsTableProps, ISongs
         try{
             var firstRecord = _.keys(this.props.lastFMSongData[0][0]);
             this.setState({dataColumns: firstRecord});
+            this.render();
         }
         catch(exception)
         {
@@ -66,10 +60,10 @@ export default class SongsTable extends React.Component<ISongsTableProps, ISongs
     render ()
     {
         console.log("RENDER CALLED");
-        console.log("RAW DATA: ")
-        console.log(this.props.lastFMSongData);
-        const datarecords = this.props.lastFMSongData;
+        const datarecords = this.props.lastFMSongData[0];
+        console.log(datarecords);
         const table_headers = this.state.dataColumns;
+        console.log(table_headers);
         return(
             <div>
                 <h1> Songs that make you run faster </h1>
