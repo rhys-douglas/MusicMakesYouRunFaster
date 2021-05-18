@@ -55,13 +55,13 @@ export default class LastFMSongsTable extends React.Component<ISongsTableProps, 
 
     private displayRecordName(colname:string, key:number){
         const record = this.props.lastFMSongData[key];
+        console.log(record);
         return <th>{record[colname]}</th>
     }
 
     render ()
     {
         console.log("RENDER CALLED");
-        console.log(this.props.lastFMSongData);
         const datarecords = this.props.lastFMSongData;
         console.log(datarecords);
         const table_headers = this.state.dataColumns;
@@ -78,8 +78,10 @@ export default class LastFMSongsTable extends React.Component<ISongsTableProps, 
                                 </tr>
                             </thead>
                             <tbody>
-                                {datarecords && datarecords.map((eachDataRecord : any,recordIndex : any) => 
-                                <tr key = {eachDataRecord}>{this.displayRecords(recordIndex)}</tr>
+                                {datarecords && datarecords.map((song : any, rowNumber : any) => { 
+                                    console.log(song);
+                                    console.log(rowNumber);
+                                <tr key = {song}>{this.displayRecords(rowNumber)}</tr>}
                                 )}
                             </tbody>
                         </table>
