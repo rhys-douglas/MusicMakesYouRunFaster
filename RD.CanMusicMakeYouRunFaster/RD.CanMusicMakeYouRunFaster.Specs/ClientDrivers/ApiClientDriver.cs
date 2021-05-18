@@ -21,12 +21,14 @@
         private Dictionary<object, List<object>> activitiesAndSongs = new Dictionary<object, List<object>>();
         private Dictionary<object, List<object>> fastestActivityAndSongs = new Dictionary<object, List<object>>();
         private ExternalAPIGateway externalAPIGateway;
+        private InferenceAPIGateway inferenceAPIGateway;
         private string userName;
 
         /// <inheritdoc/>
         public void SetUp(ExternalAPIGateway externalAPIGateway)
         {
             this.externalAPIGateway = externalAPIGateway;
+            this.inferenceAPIGateway = new InferenceAPIGateway();
         }
 
         /// <inheritdoc/>
@@ -96,16 +98,16 @@
         /// <inheritdoc/>
         public void GetRecentlyPlayedMusicForActivities()
         {
-            externalAPIGateway.GetSpotifyAuthenticationToken();
+            var tokenAsJson = externalAPIGateway.GetSpotifyAuthenticationToken();
+            var spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>((string)tokenAsJson.Value);
             foreach (var item in searchResults)
             {
                 if (item is StravaActivity activity)
                 {
-                    var startDateAsDateTime = activity.start_date;
-                    var startDateAsUnixTime = ((DateTimeOffset)startDateAsDateTime).ToUnixTimeMilliseconds();
+                    DateTimeOffset startDateAsDateTime = activity.start_date;
 
                     // Get Spotify songs
-                    var spotifySearchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
+                    var spotifySearchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(spotifyAuthToken.AccessToken, startDateAsDateTime);
                     CursorPaging<PlayHistoryItem> playHistoryContainer = (CursorPaging<PlayHistoryItem>)spotifySearchResult.Value;
                     List<PlayHistoryItem> spotifyFoundSongs = playHistoryContainer.Items.ToList();
                     // Get Last.FM songs
@@ -119,9 +121,9 @@
 
                 if (item is Fitbit.Api.Portable.Models.Activities fitbitActivity)
                 {
-                    long startDateAsUnixTime = fitbitActivity.StartTime.ToUnixTimeMilliseconds();
+                    DateTimeOffset startDateAsDateTime = fitbitActivity.StartTime;
                     // Get Spotify songs
-                    var spotifySearchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
+                    var spotifySearchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(spotifyAuthToken.AccessToken, startDateAsDateTime);
                     CursorPaging<PlayHistoryItem> playHistoryContainer = (CursorPaging<PlayHistoryItem>)spotifySearchResult.Value;
                     List<PlayHistoryItem> spotifyFoundSongs = playHistoryContainer.Items.ToList();
                     // Get Last.FM songs
@@ -138,16 +140,16 @@
         /// <inheritdoc/>
         public void GetRecentlyPlayedMusicForActivitiesWithMultipleSources()
         {
-            externalAPIGateway.GetSpotifyAuthenticationToken();
+            var tokenAsJson = externalAPIGateway.GetSpotifyAuthenticationToken();
+            var spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>((string)tokenAsJson.Value);
             foreach (var item in searchResults)
             {
                 if (item is StravaActivity activity)
                 {
-                    var startDateAsDateTime = activity.start_date;
-                    var startDateAsUnixTime = ((DateTimeOffset)startDateAsDateTime).ToUnixTimeMilliseconds();
+                    DateTimeOffset startDateAsDateTime = activity.start_date;
 
                     // Get Spotify songs
-                    var spotifySearchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
+                    var spotifySearchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(spotifyAuthToken.AccessToken, startDateAsDateTime);
                     CursorPaging<PlayHistoryItem> playHistoryContainer = (CursorPaging<PlayHistoryItem>)spotifySearchResult.Value;
                     List<PlayHistoryItem> spotifyFoundSongs = playHistoryContainer.Items.ToList();
                     // Get Last.FM songs
@@ -161,9 +163,9 @@
 
                 if (item is Fitbit.Api.Portable.Models.Activities fitbitActivity)
                 {
-                    long startDateAsUnixTime = fitbitActivity.StartTime.ToUnixTimeMilliseconds();
+                    DateTimeOffset startDateAsDateTime = fitbitActivity.StartTime;
                     // Get Spotify songs
-                    var spotifySearchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(startDateAsUnixTime);
+                    var spotifySearchResult = externalAPIGateway.GetSpotifyRecentlyPlayed(spotifyAuthToken.AccessToken, startDateAsDateTime);
                     CursorPaging<PlayHistoryItem> playHistoryContainer = (CursorPaging<PlayHistoryItem>)spotifySearchResult.Value;
                     List<PlayHistoryItem> spotifyFoundSongs = playHistoryContainer.Items.ToList();
                     // Get Last.FM songs
