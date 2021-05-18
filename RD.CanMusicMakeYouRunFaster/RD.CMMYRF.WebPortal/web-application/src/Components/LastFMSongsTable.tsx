@@ -26,8 +26,9 @@ export default class LastFMSongsTable extends React.Component<ISongsTableProps, 
         console.log("UPDATER CALLED");
         if (this.state.dataColumns.length === 0 || typeof(this.state.dataColumns) === undefined)
         {
-            console.log("ENTERED");
-            this.extractColumnNames();
+            if (this.props.lastFMSongData.length !== 0){
+                this.extractColumnNames();
+            }
         }  
     }
 
@@ -46,17 +47,22 @@ export default class LastFMSongsTable extends React.Component<ISongsTableProps, 
         }
     }
 
-    private displayRecords(key:number) 
+    private displayRecords(rowNumber:number) 
     {
         const dataColumns = this.state.dataColumns;
         return dataColumns.map((each_col) =>
-            this.displayRecordName(each_col,key))
+            this.displayRecordName(each_col,rowNumber))
     }
 
-    private displayRecordName(colname:string, key:number){
-        const record = this.props.lastFMSongData[key];
-        console.log(record);
-        return <th>{record[colname]}</th>
+    private displayRecordName(colname:string, rowNumber:number)
+    {
+        const song = this.props.lastFMSongData[rowNumber];
+        return <th>{song[colname]}</th>
+    }
+
+    openPage = (url: any) =>
+    {
+        window.open(url);
     }
 
     render ()
@@ -66,9 +72,18 @@ export default class LastFMSongsTable extends React.Component<ISongsTableProps, 
         console.log(datarecords);
         const table_headers = this.state.dataColumns;
         console.log(table_headers);
+        const listItems = datarecords.map((song: any) => 
+        <span>
+            <img src={song.images} onClick={() => this.openPage(song.url)}/>
+            <p key="song.name">{song.name}</p>
+            <p key="song.artistName" onClick = {() => this.openPage(song.artistUrl)}> {song.artistName}</p>
+        </span>)
         return(
             <div>
                 <h1> Songs that make you run faster </h1>
+                <div className="songs">
+                {listItems}
+                </div>
                 <div className = "container">
                     <div className = "row">
                         <table className = "table table-bordered">
@@ -78,10 +93,8 @@ export default class LastFMSongsTable extends React.Component<ISongsTableProps, 
                                 </tr>
                             </thead>
                             <tbody>
-                                {datarecords && datarecords.map((song : any, rowNumber : any) => { 
-                                    console.log(song);
-                                    console.log(rowNumber);
-                                <tr key = {song}>{this.displayRecords(rowNumber)}</tr>}
+                                {datarecords && datarecords.map((song : any, rowNumber : any) => 
+                                <tr key = {song}>{this.displayRecords(rowNumber)}</tr>
                                 )}
                             </tbody>
                         </table>
