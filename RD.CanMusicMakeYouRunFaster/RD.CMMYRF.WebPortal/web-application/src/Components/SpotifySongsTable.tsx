@@ -2,25 +2,24 @@ import React from 'react';
 
 interface ISongsTableProps 
 {
-    lastFMSongData : any
+    spotifySongsData : any
 }
 
-export default class LastFMSongsTable extends React.Component<ISongsTableProps>
+export default class SpotifySongsTable extends React.Component<ISongsTableProps>
 {
-
     openPage = (url: any) =>
     {
         window.open(url);
     }
 
-    render ()
+    render () 
     {
-        const datarecords = this.props.lastFMSongData;
+        const datarecords = this.props.spotifySongsData;
         const listItems = datarecords.map((song: any) => 
         <span>
-            <img src={song.images} onClick={() => this.openPage(song.url)}/>
+            <img src={song.image} onClick={() => this.openPage(song.url)} width="174" height="174"/>
             <p key="song.name"><b>{song.name}</b></p>
-            <p key="song.artistName" onClick = {() => this.openPage(song.artistUrl)}> {song.artistName}</p>
+            <p key="song.artist" onClick = {() => this.openPage(song.artistURL)}> {song.artist}</p>
         </span>)
 
         return(

@@ -1,6 +1,7 @@
 import React from 'react';
 import Axios, { AxiosError, AxiosResponse } from "axios";
 import LastFMSongsTable from './LastFMSongsTable';
+import SpotifySongsTable from './SpotifySongsTable';
 
 interface IFastestSongsButtonProps
 {
@@ -125,6 +126,17 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                 {
                     this.getSpotifyTracks(this.props.spotifyAccessToken.AccessToken,fastestDateResponse,activityDuration)
                     .then(spotifyTracks => {
+                        console.log(spotifyTracks.items);
+                        spotifyTracks.items.map((track: any) =>{
+                            delete track.playedAt;
+                            delete track.context;
+                            track["name"] = track.track.name;
+                            track["image"] = "https://developer.spotify.com/assets/branding-guidelines/icon1@2x.png"
+                            track["artist"] = track.track.artists[0].name;
+                            track["artistURL"] = track.track.artists[0].externalUrls.spotify;
+                            track["url"] = track.track.externalUrls.spotify;
+                            delete track.track;
+                        });
                         var songsJson: any[] = Array.of(spotifyTracks.items);
                         this.setState({spotifySongs:songsJson[0]});
                         console.log(this.state.spotifySongs);
@@ -156,7 +168,6 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                         });
                         var songsJson: any[] = Array.of(lastFMTracks);
                         this.setState({lastFMSongs: songsJson[0]});
-                        console.log(this.state.lastFMSongs);
                         Promise.resolve(lastFMTracks);
                     });
                 }
@@ -174,9 +185,11 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
     {
         return(
             <div>
-                <button onClick={this.handleClick}> Click here to find out what songs made you run faster!</button>
-                <button onClick = {this.printState}> Log state.</button>
+                <button onClick={this.handleClick}> Click here to find out what songs made you run faster! </button>
+                <button onClick = {this.printState}> Log state. </button>
+                <h2> Songs that make you run faster </h2>
                 <LastFMSongsTable lastFMSongData={this.state.lastFMSongs}/>
+                <SpotifySongsTable spotifySongsData={this.state.spotifySongs}/>
             </div>)
     }
 }                
