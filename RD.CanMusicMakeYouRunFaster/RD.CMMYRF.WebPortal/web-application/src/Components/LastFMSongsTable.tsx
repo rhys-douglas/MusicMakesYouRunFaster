@@ -26,6 +26,7 @@ export default class LastFMSongsTable extends React.Component<ISongsTableProps, 
         console.log("UPDATER CALLED");
         if (this.state.dataColumns.length === 0 || typeof(this.state.dataColumns) === undefined)
         {
+            console.log("ENTERED");
             this.extractColumnNames();
         }  
     }
@@ -35,7 +36,7 @@ export default class LastFMSongsTable extends React.Component<ISongsTableProps, 
         console.log("EXTRACTING COLUMN NAMES");
         console.log(this.props.lastFMSongData);
         try{
-            var firstRecord = _.keys(this.props.lastFMSongData[0][0]);
+            var firstRecord = _.keys(this.props.lastFMSongData[0]);
             this.setState({dataColumns: firstRecord});
             this.render();
         }
@@ -60,7 +61,8 @@ export default class LastFMSongsTable extends React.Component<ISongsTableProps, 
     render ()
     {
         console.log("RENDER CALLED");
-        const datarecords = this.props.lastFMSongData[0];
+        console.log(this.props.lastFMSongData);
+        const datarecords = this.props.lastFMSongData;
         console.log(datarecords);
         const table_headers = this.state.dataColumns;
         console.log(table_headers);
