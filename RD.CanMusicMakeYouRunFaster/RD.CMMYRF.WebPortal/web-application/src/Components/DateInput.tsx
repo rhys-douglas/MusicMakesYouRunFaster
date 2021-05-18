@@ -6,16 +6,17 @@ interface IDateProps {
     dateCallback: ((updatedDate: Date) => void)
 }
 
-interface DateConstructor  {
-    startDate: Date;
-} 
 
-export class StartDateInput extends React.Component<IDateProps,DateConstructor>
+interface IStartDateState  {
+    startDate: Date;
+}
+
+export class StartDateInput extends React.Component<IDateProps,IStartDateState>
 {
     constructor(props: IDateProps){
         super(props);
         this.state = {
-            startDate : new Date(new Date().setDate(new Date().getDate()-14))
+            startDate : new Date(new Date().setDate(new Date().getDate()-31))
         }
         this.dateModifier = this.dateModifier.bind(this);
     }
@@ -43,28 +44,36 @@ export class StartDateInput extends React.Component<IDateProps,DateConstructor>
     }
 }
 
-export class EndDateInput extends React.Component<{},DateConstructor>
+interface IEndDateState {
+    endDate: Date;
+}
+
+export class EndDateInput extends React.Component<IDateProps,IEndDateState>
 {
     constructor(props: any){
         super(props);
         this.state = {
-            startDate : new Date()
+            endDate : new Date()
         }
         this.dateModifier = this.dateModifier.bind(this);
     }
 
     private dateModifier(date : Date){
+        this.setState({
+            endDate : date
+        });
+        this.props.dateCallback(this.state.endDate);
     }
 
     public render()
     {
-        const { startDate } = this.state;
+        const { endDate } = this.state;
         return (
             <div>
                 <p>End Date</p>
                 <DatePicker
                 dateFormat="dd/MM/yyyy"
-                selected={startDate} 
+                selected={endDate} 
                 onChange={this.dateModifier}
             />
             </div>

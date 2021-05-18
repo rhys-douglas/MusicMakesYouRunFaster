@@ -12,6 +12,7 @@ interface AppProps{
 
 interface AppState{
   startDate: Date,
+  endDate: Date,
   fastestStravaActivity: JSON,
   fastestFitBitActivity: JSON,
   spotifyAuthToken: JSON,
@@ -25,7 +26,8 @@ class App extends React.Component<AppProps, AppState>
     super(AppProps);
     this.state = 
     {
-      startDate : new Date(),
+      startDate : new Date(new Date().setDate(new Date().getDate()-31)),
+      endDate : new Date(),
       lastFMUsername : "",
       fastestStravaActivity : {} as any,
       fastestFitBitActivity : {} as any,
@@ -73,12 +75,20 @@ class App extends React.Component<AppProps, AppState>
     console.log(this.state.startDate);
   }
 
+  handleEndDateCallback = (endDateUpdate: Date) =>
+  {
+    this.setState({
+      endDate: endDateUpdate
+    })
+    console.log(this.state.endDate);
+  }
+
   render()
   {
     return(
       <div className = "App">
         <h1>Can Music Make You Run Faster?</h1>
-        <StartDateInput dateCallback={this.handleStartDateCallBack}/><EndDateInput/>
+        <StartDateInput dateCallback={this.handleStartDateCallBack}/><EndDateInput dateCallback={this.handleEndDateCallback}/>
         <h2> Add your running history using the buttons below.</h2>
         <StravaButton handleFastestStravaActivityCallback={this.handleFastestStravaActivityCallback}/> <FitBitButton handleFastestFitBitActivityCallback={this.handleFastestFitBitActivityCallback}/>
         <h2> Add your listening history using the buttons below.</h2>
