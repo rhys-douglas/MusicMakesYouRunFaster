@@ -137,7 +137,7 @@
 
             var client = new FitbitClient(credentials, accessToken);
             var lastMonth = DateTime.UtcNow;
-            lastMonth.AddMonths(-1);
+            lastMonth.AddMonths(-7);
             var retrievedActivities = await client.GetActivityLogsListAsync(null,lastMonth);
             List<Activities> listOfRuns = new List<Activities>();
             foreach (var activity in retrievedActivities.Activities)

@@ -643,8 +643,7 @@
             sut = MakeSut();
             var tokenAsJson = sut.GetFitBitAuthenticationToken();
             tokenAsJson.Value.Should().NotBeNull();
-            var extractedJsonToken = JsonConvert.SerializeObject(tokenAsJson.Value);
-            var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>(extractedJsonToken);
+            var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>((string)tokenAsJson.Value);
             fitBitAuthToken.AccessToken.Should().NotBeNullOrEmpty();
         }
 
@@ -654,8 +653,7 @@
             sut = MakeSut();
             var tokenAsJson = sut.GetFitBitAuthenticationToken();
             tokenAsJson.Value.Should().NotBeNull();
-            var extractedJsonToken = JsonConvert.SerializeObject(tokenAsJson.Value);
-            var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>(extractedJsonToken);
+            var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>((string)tokenAsJson.Value);
             fitBitAuthToken.AccessToken.Should().NotBeNullOrEmpty();
 
             var activityHistory = sut.GetFitBitRecentActivities(fitBitAuthToken.AccessToken);
@@ -663,6 +661,79 @@
             actualHistory.Should().NotBeNull();
             actualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
             actualHistory.Activities.Should().HaveCount(2);
+        }
+
+        [Test]
+        public void GetFitBitActivityHistoryWithStartDate_ActivityHistoryReturned()
+        {
+            sut = MakeSut();
+            var tokenAsJson = sut.GetFitBitAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>((string)tokenAsJson.Value);
+            fitBitAuthToken.AccessToken.Should().NotBeNullOrEmpty();
+
+            var startDate = DateTime.UtcNow.AddDays(-7);
+
+            var activityHistory = sut.GetFitBitRecentActivities(fitBitAuthToken.AccessToken, startDate);
+            Fitbit.Api.Portable.Models.ActivityLogsList actualHistory = (Fitbit.Api.Portable.Models.ActivityLogsList)activityHistory.Value;
+            actualHistory.Should().NotBeNull();
+            actualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
+            actualHistory.Activities.Should().HaveCount(2);
+
+            var alternativeActivityHistory = sut.GetFitBitRecentActivities(fitBitAuthToken.AccessToken, startDate.AddDays(7));
+            Fitbit.Api.Portable.Models.ActivityLogsList alternativeActualHistory = (Fitbit.Api.Portable.Models.ActivityLogsList)alternativeActivityHistory.Value;
+            alternativeActualHistory.Should().NotBeNull();
+            alternativeActualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
+            alternativeActualHistory.Activities.Should().HaveCount(0);
+        }
+
+        [Test]
+        public void GetFitBitActivityHistoryWithEndDate_ActivityHistoryReturned()
+        {
+            sut = MakeSut();
+            var tokenAsJson = sut.GetFitBitAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>((string)tokenAsJson.Value);
+            fitBitAuthToken.AccessToken.Should().NotBeNullOrEmpty();
+
+            var endDate = DateTime.UtcNow.AddDays(1);
+
+            var activityHistory = sut.GetFitBitRecentActivities(fitBitAuthToken.AccessToken, null, endDate);
+            Fitbit.Api.Portable.Models.ActivityLogsList actualHistory = (Fitbit.Api.Portable.Models.ActivityLogsList)activityHistory.Value;
+            actualHistory.Should().NotBeNull();
+            actualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
+            actualHistory.Activities.Should().HaveCount(2);
+
+            var alternativeActivityHistory = sut.GetFitBitRecentActivities(fitBitAuthToken.AccessToken, null, endDate.AddDays(-31));
+            Fitbit.Api.Portable.Models.ActivityLogsList alternativeActualHistory = (Fitbit.Api.Portable.Models.ActivityLogsList)alternativeActivityHistory.Value;
+            alternativeActualHistory.Should().NotBeNull();
+            alternativeActualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
+            alternativeActualHistory.Activities.Should().HaveCount(0);
+        }
+
+        [Test]
+        public void GetFitBitActivityHistoryWithAllParams_ActivityHistoryReturned()
+        {
+            sut = MakeSut();
+            var tokenAsJson = sut.GetFitBitAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>((string)tokenAsJson.Value);
+            fitBitAuthToken.AccessToken.Should().NotBeNullOrEmpty();
+
+            var startDate = DateTime.UtcNow.AddDays(-7);
+            var endDate = DateTime.UtcNow.AddDays(1);
+
+            var activityHistory = sut.GetFitBitRecentActivities(fitBitAuthToken.AccessToken, startDate, endDate);
+            Fitbit.Api.Portable.Models.ActivityLogsList actualHistory = (Fitbit.Api.Portable.Models.ActivityLogsList)activityHistory.Value;
+            actualHistory.Should().NotBeNull();
+            actualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
+            actualHistory.Activities.Should().HaveCount(2);
+
+            var alternativeActivityHistory = sut.GetFitBitRecentActivities(fitBitAuthToken.AccessToken, startDate.AddDays(7), endDate.AddDays(-31));
+            Fitbit.Api.Portable.Models.ActivityLogsList alternativeActualHistory = (Fitbit.Api.Portable.Models.ActivityLogsList)alternativeActivityHistory.Value;
+            alternativeActualHistory.Should().NotBeNull();
+            alternativeActualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
+            alternativeActualHistory.Activities.Should().HaveCount(0);
         }
 
         [Test]

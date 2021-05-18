@@ -3,6 +3,8 @@ import Axios, { AxiosError, AxiosResponse } from "axios";
 
 interface IFitBitButtonProps {
     handleFastestFitBitActivityCallback: ((fitBitActivity: JSON) => void)
+    startDate: Date;
+    endDate : Date;
 };
 
 export class FitBitButton extends React.Component<IFitBitButtonProps>
@@ -23,11 +25,14 @@ export class FitBitButton extends React.Component<IFitBitButtonProps>
           }
     }
 
-    getFitBitHistory = async function(access_token : string)
+    getFitBitHistory = async function(access_token : string, startDate: Date, endDate: Date)
     {
         try 
         {
-            var getFitBitHistoryPromise = await Axios.get("http://localhost:8080/CMMYRF/getFitBitActivities?access_token=" + access_token)
+            var start_date = startDate.toISOString();
+            var end_date = endDate.toISOString();
+            var getFitBitHistoryPromise = await Axios.get("http://localhost:8080/CMMYRF/getFitBitActivities?access_token=" + access_token
+            + "&start_date="+ start_date + "&end_date=" + end_date)
             .then((response: AxiosResponse) => Promise.resolve(response.data))
                   .catch((error: AxiosError) => Promise.reject(error));
             return getFitBitHistoryPromise;
@@ -60,7 +65,7 @@ export class FitBitButton extends React.Component<IFitBitButtonProps>
             .then(response => 
                 {
                     var accessToken = JSON.parse(response);
-                    var fitBitHistoryPromise = this.getFitBitHistory(accessToken.access_token)
+                    var fitBitHistoryPromise = this.getFitBitHistory(accessToken.access_token, this.props.startDate, this.props.endDate)
                         .then(activityList => 
                         {
                             var fastestActivityPromise = this.getFastestActivity(activityList)

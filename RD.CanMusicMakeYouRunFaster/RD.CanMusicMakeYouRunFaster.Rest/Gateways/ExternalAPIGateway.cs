@@ -1,6 +1,7 @@
 ﻿namespace RD.CanMusicMakeYouRunFaster.Rest.Gateways
 {
     using DataRetrievalSources;
+    using Fitbit.Api.Portable.Models;
     using Microsoft.AspNetCore.Cors;
     using Microsoft.AspNetCore.Mvc;
     using RD.CanMusicMakeYouRunFaster.Rest.Entity;
@@ -91,8 +92,6 @@
 
             if (start_date == null && end_date != null)
             {
-                // Start date is null, but there is an end date.
-                // return all activities before the end date.
                 DateTimeOffset extractedEndDate = (DateTimeOffset)end_date;
                 foreach (var item in rawActivityHistory)
                 {
@@ -106,8 +105,6 @@
 
             if (start_date != null && end_date == null)
             {
-                // End date is null but there is a start date.
-                // return all activities from start date until now.
                 DateTimeOffset extractedStartDate = (DateTimeOffset)start_date;
                 foreach (var item in rawActivityHistory)
                 {
@@ -118,7 +115,7 @@
                 }
                 return new JsonResult(correctActivityHistory);
             }
-            // Assume that start and end date are both not null.
+
             DateTimeOffset startDate = (DateTimeOffset)start_date;
             DateTimeOffset endDate = (DateTimeOffset)end_date;
 
@@ -134,16 +131,63 @@
         }
 
         /// <summary>
-        /// Gets a <see cref="Fitbit.Api.Portable.Models.ActivityLogsList"/> object, containing FitBit runs.
+        /// Gets a <see cref="ActivityLogsList"/> object, containing FitBit runs.
         /// </summary>
         /// <returns> A list of FitBit runs.</returns>
         [HttpGet]
         [Route("getFitBitActivities")]
         [EnableCors("CorsPolicy")]
-        public JsonResult GetFitBitRecentActivities(string access_token)
+        public JsonResult GetFitBitRecentActivities(string access_token, DateTimeOffset? start_date = null, DateTimeOffset? end_date = null)
         {
             var tempToken = new FitBitAuthenticationToken { AccessToken = access_token };
-            return this.dataSource.GetFitBitActivityHistory(tempToken).Result;
+            var activityHistoryJsonResult =  this.dataSource.GetFitBitActivityHistory(tempToken).Result;
+
+            if (start_date == null && end_date == null)
+            {
+                return activityHistoryJsonResult;
+            }
+
+            ActivityLogsList rawActivityHistory = (ActivityLogsList)activityHistoryJsonResult.Value;
+            List<Activities> correctActivityHistory = new List<Activities>();
+
+            if (start_date == null && end_date != null)
+            {
+                DateTimeOffset extractedEndDate = (DateTimeOffset)end_date;
+                foreach (var item in rawActivityHistory.Activities)
+                {
+                    if (item.StartTime <= extractedEndDate)
+                    {
+                        correctActivityHistory.Add(item);
+                    }
+                }
+                return new JsonResult(new ActivityLogsList { Activities = correctActivityHistory });
+            }
+
+            if (start_date != null && end_date == null)
+            {
+                DateTimeOffset extractedStartDate = (DateTimeOffset)start_date;
+                foreach (var item in rawActivityHistory.Activities)
+                {
+                    if (item.StartTime >= extractedStartDate)
+                    {
+                        correctActivityHistory.Add(item);
+                    }
+                }
+                return new JsonResult(new ActivityLogsList { Activities = correctActivityHistory });
+            }
+
+            DateTimeOffset startDate = (DateTimeOffset)start_date;
+            DateTimeOffset endDate = (DateTimeOffset)end_date;
+
+            foreach (var activity in rawActivityHistory.Activities)
+            {
+                if (activity.StartTime >= startDate && activity.StartTime <= endDate)
+                {
+                    correctActivityHistory.Add(activity);
+                }
+            }
+
+            return new JsonResult(new ActivityLogsList { Activities = correctActivityHistory });
         }
 
         /// <summary>

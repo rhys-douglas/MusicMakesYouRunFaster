@@ -93,7 +93,11 @@ class App extends React.Component<AppProps, AppState>
         <StravaButton 
         handleFastestStravaActivityCallback={this.handleFastestStravaActivityCallback}
         startDate={this.state.startDate}
-        endDate={this.state.endDate}/> <FitBitButton handleFastestFitBitActivityCallback={this.handleFastestFitBitActivityCallback}/>
+        endDate={this.state.endDate}/> 
+        <FitBitButton 
+        handleFastestFitBitActivityCallback={this.handleFastestFitBitActivityCallback}
+        startDate={this.state.startDate}
+        endDate={this.state.endDate}/>
         <h2> Add your listening history using the buttons below.</h2>
         <SpotifyButton handleAuthTokenCallback={this.handleSpotifyTokenCallback}/> <LastFMButton handleUsernameCallback = {this.handleLastFMUsernameCallback}/>
         <h2> Click the button below to find out what music made you run faster. </h2>
