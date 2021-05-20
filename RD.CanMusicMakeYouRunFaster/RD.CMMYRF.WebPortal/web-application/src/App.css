@@ -1,9 +1,49 @@
 .App {
   text-align: center;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif
+}
+
+.FillerHeader{
+  background-color: tomato;
+  height: 20px;
+  width: 600px;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  position: inherit;
+}
+
+.MainBody
+{
+  box-sizing: border-box;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  width: 60%;
+  position: relative;
+  background-color: white;
+}
+
+.MainBody:before{
+  content: '';
+  border-radius: 1px 1px 0px 0px;
+  background-color: tomato;
+  position: absolute;
+  height: 20px;
+  width: 100%;
+  display: inline-block;
+  justify-content: center;
+  align-items: center;
+  position: inherit;
+}
+
+.SecondaryBody{
+  background-color: white;
+  height: auto;
+  min-height: 100% !important;
 }
 
 .Title{
-  text-decoration: underline;
   margin:0px;
   margin-top:10px;
 }
@@ -13,13 +53,18 @@
 }
 
 .Dates{
-  display:inline-block;
-  flex: 1;
-  margin-right: 20px;
+  display:flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.RunningButtons{
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 
 .MusicButtons{
-  text-align: center;
   display:flex;
   justify-content: center;
   align-items: center;

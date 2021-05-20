@@ -87,34 +87,39 @@ class App extends React.Component<AppProps, AppState>
   {
     return(
       <div className = "App">
-        <h1 className = "Title">Can Music Make You Run Faster?</h1>
+        <h1 className = "Title"><b>Can Music Make You Run Faster?</b></h1>
         <p className="Infotext">A running-music comparison app by Rhys Douglas.</p>
-        <h2> Pick a date range to search between.</h2>
-        <div className = "Dates">
-          <StartDateInput dateCallback={this.handleStartDateCallBack}/><EndDateInput dateCallback={this.handleEndDateCallback}/>
+        <div className="MainBody">
+          <div className="SecondaryBody">
+            <h2> Pick a date range to search between.</h2>
+            <div className = "Dates">
+              <StartDateInput dateCallback={this.handleStartDateCallBack}/>
+              <EndDateInput dateCallback={this.handleEndDateCallback}/>
+            </div>
+            <h2> Add your running history using the buttons below.</h2>
+            <div className="RunningButtons">
+              <StravaButton 
+              handleFastestStravaActivityCallback={this.handleFastestStravaActivityCallback}
+              startDate={this.state.startDate}
+              endDate={this.state.endDate}/> 
+              <FitBitButton 
+              handleFastestFitBitActivityCallback={this.handleFastestFitBitActivityCallback}
+              startDate={this.state.startDate}
+              endDate={this.state.endDate}/>
+            </div>
+            <h2> Add your listening history using the buttons below.</h2>
+              <div className="MusicButtons">
+                <SpotifyButton handleAuthTokenCallback={this.handleSpotifyTokenCallback}/> 
+                <LastFMButton handleUsernameCallback = {this.handleLastFMUsernameCallback}/>
+              </div>
+          </div>
+          <h2> Click the button below to find out what music made you run faster. </h2>
         </div>
-        <h2> Add your running history using the buttons below.</h2>
-        <div className="RunningButtons">
-        <StravaButton 
-        handleFastestStravaActivityCallback={this.handleFastestStravaActivityCallback}
-        startDate={this.state.startDate}
-        endDate={this.state.endDate}/> 
-        <FitBitButton 
-        handleFastestFitBitActivityCallback={this.handleFastestFitBitActivityCallback}
-        startDate={this.state.startDate}
-        endDate={this.state.endDate}/>
-        </div>
-        <h2> Add your listening history using the buttons below.</h2>
-        <div className="MusicButtons">
-        <SpotifyButton handleAuthTokenCallback={this.handleSpotifyTokenCallback}/> <LastFMButton handleUsernameCallback = {this.handleLastFMUsernameCallback}/>
-        </div>
-        <h2> Click the button below to find out what music made you run faster. </h2>
-        <FastestSongsButton 
-          fastestStravaActivity = {this.state.fastestStravaActivity}
-          fastestFitBitActivity = {this.state.fastestFitBitActivity}
-          spotifyAccessToken = {this.state.spotifyAuthToken}
-          lastFMUserName = {this.state.lastFMUsername}
-        />
+          <FastestSongsButton 
+            fastestStravaActivity = {this.state.fastestStravaActivity}
+            fastestFitBitActivity = {this.state.fastestFitBitActivity}
+            spotifyAccessToken = {this.state.spotifyAuthToken}
+            lastFMUserName = {this.state.lastFMUsername}/>
       </div>
     )
   }

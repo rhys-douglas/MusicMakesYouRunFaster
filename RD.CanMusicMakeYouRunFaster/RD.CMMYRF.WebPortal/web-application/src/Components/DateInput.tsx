@@ -1,6 +1,7 @@
 import React from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
+import "../Resources/DateStyles.css"
 
 interface IDateProps {
     dateCallback: ((updatedDate: Date) => void)
@@ -32,7 +33,7 @@ export class StartDateInput extends React.Component<IDateProps,IStartDateState>
     {
         const { startDate } = this.state;
         return (
-            <div>
+            <div className="StartDate">
                 <p>Start Date</p>
                 <DatePicker
                 dateFormat="dd/MM/yyyy"
@@ -69,7 +70,7 @@ export class EndDateInput extends React.Component<IDateProps,IEndDateState>
     {
         const { endDate } = this.state;
         return (
-            <div>
+            <div className="EndDate">
                 <p>End Date</p>
                 <DatePicker
                 dateFormat="dd/MM/yyyy"
