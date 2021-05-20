@@ -88,7 +88,8 @@ class App extends React.Component<AppProps, AppState>
     return(
       <div className = "App">
         <h1 className = "Title">Can Music Make You Run Faster?</h1>
-        <p>A running-music comparison app by Rhys Douglas</p>
+        <p className="Infotext">A running-music comparison app by Rhys Douglas.</p>
+        <h2> Pick a date range to search between.</h2>
         <div className = "Dates">
           <StartDateInput dateCallback={this.handleStartDateCallBack}/><EndDateInput dateCallback={this.handleEndDateCallback}/>
         </div>
@@ -104,7 +105,9 @@ class App extends React.Component<AppProps, AppState>
         endDate={this.state.endDate}/>
         </div>
         <h2> Add your listening history using the buttons below.</h2>
+        <div className="MusicButtons">
         <SpotifyButton handleAuthTokenCallback={this.handleSpotifyTokenCallback}/> <LastFMButton handleUsernameCallback = {this.handleLastFMUsernameCallback}/>
+        </div>
         <h2> Click the button below to find out what music made you run faster. </h2>
         <FastestSongsButton 
           fastestStravaActivity = {this.state.fastestStravaActivity}

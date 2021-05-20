@@ -4,12 +4,25 @@
 
 .Title{
   text-decoration: underline;
+  margin:0px;
+  margin-top:10px;
+}
+
+.Infotext{
+  margin:0px;
 }
 
 .Dates{
   display:inline-block;
   flex: 1;
   margin-right: 20px;
+}
+
+.MusicButtons{
+  text-align: center;
+  display:flex;
+  justify-content: center;
+  align-items: center;
 }
 
 @media (prefers-reduced-motion: no-preference) {

@@ -1,8 +1,9 @@
 .LastFMButton{
     background-color: #d51007;
-    border:none;
     color:white;
+    border:none;
     font-size: 16px;
     height:48px;
     width:193px;
+    display:table-cell;
 }
