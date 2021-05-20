@@ -1,5 +1,6 @@
 import React from 'react';
 import Axios, { AxiosError, AxiosResponse } from "axios";
+import '../Resources/FitBitStyles.css';
 
 interface IFitBitButtonProps {
     handleFastestFitBitActivityCallback: ((fitBitActivity: JSON) => void)
@@ -86,6 +87,6 @@ export class FitBitButton extends React.Component<IFitBitButtonProps>
     }
     public render()
     {
-        return (<button onClick={this.handleClick}>Click here to connect your FitBit History</button>);
+        return (<button onClick={this.handleClick} className="FitBitButton">Sign in to Fitbit</button>);
     }
 }

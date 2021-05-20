@@ -1,4 +1,5 @@
 import React from 'react';
+import '../Resources/LastFMStyles.css'
 
 interface ILastFMButtonProps
 {
@@ -17,6 +18,6 @@ export class LastFMButton extends React.Component<ILastFMButtonProps>
     }
     render()
     {
-        return(<button onClick={this.handleClick}>Enter your Last.FM username</button>)
+        return(<button onClick={this.handleClick} className="LastFMButton">Enter your Last.FM username</button>)
     }
 }

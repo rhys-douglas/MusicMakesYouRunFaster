@@ -1,5 +1,7 @@
 import React from 'react';
 import Axios, { AxiosError, AxiosResponse } from "axios";
+import ConnectWithStrava from '../Resources/ConnectWithStrava.svg'
+import '../Resources/StravaStyles.css'
 
 interface IStravaButtonProps {
     handleFastestStravaActivityCallback: ((stravaHistory: JSON) => void);
@@ -85,6 +87,6 @@ export class StravaButton extends React.Component<IStravaButtonProps>
     }
     public render()
     {
-        return (<button onClick={this.handleClick}>Click here to connect your Strava History</button>)
+        return (<img src={ConnectWithStrava} onClick={this.handleClick} alt="Click here to connect your Strava history!" className="StravaImage"/>)
     }
 }

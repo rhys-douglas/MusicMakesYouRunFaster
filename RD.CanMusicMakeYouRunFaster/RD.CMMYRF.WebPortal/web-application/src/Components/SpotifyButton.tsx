@@ -1,6 +1,6 @@
 import React from 'react';
-
 import Axios, { AxiosError, AxiosResponse } from "axios";
+import '../Resources/SpotifyStyles.css'
 
 interface ISpotifyButtonProps
 {
@@ -44,6 +44,6 @@ export class SpotifyButton extends React.Component<ISpotifyButtonProps>
 
   render()
   {
-    return (<button onClick={this.handleClick}>Log in to spotify</button>)
+    return (<button onClick={this.handleClick} className="SpotifyButton">Sign in to Spotify</button>)
   }
 }

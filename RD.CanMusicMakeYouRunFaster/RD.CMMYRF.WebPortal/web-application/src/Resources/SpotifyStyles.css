@@ -1,0 +1,9 @@
+.SpotifyButton{
+    background-color: #1DB954;
+    color:#FFFFFF;
+    border:none;
+    font-size: 16px;
+    padding: 15px 32px;
+    height:48px;
+    width:193px
+}
