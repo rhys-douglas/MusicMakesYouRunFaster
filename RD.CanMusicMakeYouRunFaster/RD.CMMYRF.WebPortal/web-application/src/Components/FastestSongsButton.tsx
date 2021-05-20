@@ -170,7 +170,7 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
     {
         return(
             <div>
-                <button onClick={this.handleClick}> Click here to find out what songs made you run faster! </button>
+                <button onClick={this.handleClick}> What songs make me run faster? </button>
                 <h2> Songs that make you run faster </h2>
                 <LastFMSongsTable lastFMSongData={this.state.lastFMSongs}/>
                 <SpotifySongsTable spotifySongsData={this.state.spotifySongs}/>

@@ -87,6 +87,6 @@ export class FitBitButton extends React.Component<IFitBitButtonProps>
     }
     public render()
     {
-        return (<button onClick={this.handleClick} className="FitBitButton">Sign in to Fitbit</button>);
+        return (<button onClick={this.handleClick} className="FitBitButton">Connect with Fitbit</button>);
     }
 }
