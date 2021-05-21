@@ -2,6 +2,7 @@ import React from 'react';
 import Axios, { AxiosError, AxiosResponse } from "axios";
 import LastFMSongsTable from './LastFMSongsTable';
 import SpotifySongsTable from './SpotifySongsTable';
+import '../Resources/SongsMakeMeRunFasterStyles.css'
 
 interface IFastestSongsButtonProps
 {
@@ -14,7 +15,8 @@ interface IFastestSongsButtonProps
 interface IFastestSongsButtonState
 {
     spotifySongs: any,
-    lastFMSongs: any
+    lastFMSongs: any,
+    userMessage: string
 }
 
 export class FastestSongsButton extends React.Component<IFastestSongsButtonProps,IFastestSongsButtonState>
@@ -25,7 +27,8 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
         this.state =
         {
             spotifySongs: [],
-            lastFMSongs: []
+            lastFMSongs: [],
+            userMessage : ""
         }
     }
     
@@ -106,9 +109,9 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                 {
                     Promise.resolve("No Data - Dates not matching")
                 }
-                // Get music
                 if (this.props.spotifyAccessToken !== null )
                 {
+                    // Need to add activity validation.
                     this.getSpotifyTracks(this.props.spotifyAccessToken.AccessToken,fastestDateResponse,activityDuration)
                     .then(spotifyTracks => {
                         console.log(spotifyTracks.items);
@@ -131,6 +134,7 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
 
                 if (this.props.lastFMUserName !== null )
                 {
+                    // Need to add activity validation.
                     this.getLastFMTracks(this.props.lastFMUserName,fastestDateResponse,activityDuration)
                     .then(lastFMTracks => {
                         lastFMTracks.map((track: any) => 
@@ -156,7 +160,7 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                         Promise.resolve(lastFMTracks);
                     });
                 }
-
+                this.setState({userMessage: "Songs that make you run faster"})
                 Promise.resolve(fastestDateResponse);
             });
         }
@@ -170,8 +174,8 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
     {
         return(
             <div>
-                <button onClick={this.handleClick}> What songs make me run faster? </button>
-                <h2> Songs that make you run faster </h2>
+                <button onClick={this.handleClick} className="RunFasterButton"> What songs make me run faster? </button>
+                <h2>{this.state.userMessage}</h2>
                 <LastFMSongsTable lastFMSongData={this.state.lastFMSongs}/>
                 <SpotifySongsTable spotifySongsData={this.state.spotifySongs}/>
             </div>)

@@ -1,0 +1,9 @@
+.RunFasterButton{
+    background-color: rgb(39, 173, 39);
+    color:white;
+    border:none;
+    height:40px;
+    width:75%;
+    margin-top:3%;
+    font-size: 18px;
+}

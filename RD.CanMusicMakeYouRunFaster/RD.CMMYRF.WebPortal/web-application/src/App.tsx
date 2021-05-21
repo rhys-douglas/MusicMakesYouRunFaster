@@ -16,7 +16,8 @@ interface AppState{
   fastestStravaActivity: JSON,
   fastestFitBitActivity: JSON,
   spotifyAuthToken: JSON,
-  lastFMUsername: string
+  lastFMUsername: string,
+  statusMessage: string
 }
 
 class App extends React.Component<AppProps, AppState>
@@ -31,39 +32,64 @@ class App extends React.Component<AppProps, AppState>
       lastFMUsername : "",
       fastestStravaActivity : {} as any,
       fastestFitBitActivity : {} as any,
-      spotifyAuthToken : {} as any
+      spotifyAuthToken : {} as any,
+      statusMessage: "Status:"
     }
   }
 
   handleFastestStravaActivityCallback = (fastestStravaActivityUpdate: JSON) => 
   {
-    console.log(fastestStravaActivityUpdate);
-    this.setState({
-      fastestStravaActivity: fastestStravaActivityUpdate
-    });
+    if (fastestStravaActivityUpdate === null){
+      this.setState({
+        fastestStravaActivity: fastestStravaActivityUpdate,
+        statusMessage: "Status: Strava connected successfully, no activities found!"
+      });
+    }
+    else{
+      this.setState({
+        fastestStravaActivity: fastestStravaActivityUpdate,
+        statusMessage: "Status: Strava connected successfully!"
+      });
+    }
   }
 
   handleFastestFitBitActivityCallback = (fastestFitBitActivityUpdate : JSON) => 
   {
-    console.log(fastestFitBitActivityUpdate);
-    this.setState({
-      fastestFitBitActivity: fastestFitBitActivityUpdate
-    });
+    if (fastestFitBitActivityUpdate === null){
+      this.setState({
+        fastestFitBitActivity: fastestFitBitActivityUpdate,
+        statusMessage: "Status: Fitbit connected successfully, no activities found!"
+      });
+    }
+    else {
+      this.setState({
+        fastestFitBitActivity: fastestFitBitActivityUpdate,
+        statusMessage: "Status: Fitbit connected successfully!"
+      });
+    }
   }
 
   handleSpotifyTokenCallback = (spotifyTokenUpdate: JSON) => 
   {
-    console.log(spotifyTokenUpdate);
-    this.setState({
-      spotifyAuthToken: spotifyTokenUpdate
-    });
+    if (spotifyTokenUpdate === null){
+      this.setState({
+        spotifyAuthToken: spotifyTokenUpdate,
+        statusMessage: "Status: Failed to get Spotify OAuth2 Token."
+      })
+    }
+    else {
+      this.setState({
+        spotifyAuthToken: spotifyTokenUpdate,
+        statusMessage: "Status: Spotify connected successfully!"
+      })
+    }
   }
 
   handleLastFMUsernameCallback = (lastFMUsernameUpdate: string ) => 
   {
-    console.log(lastFMUsernameUpdate);
     this.setState({
-      lastFMUsername: lastFMUsernameUpdate
+      lastFMUsername: lastFMUsernameUpdate,
+      statusMessage: "Status: Last.FM username entered!"
     });
   }
 
@@ -91,12 +117,12 @@ class App extends React.Component<AppProps, AppState>
         <p className="Infotext">A running-music comparison app by Rhys Douglas.</p>
         <div className="MainBody">
           <div className="SecondaryBody">
-            <h2> Pick a date range to search between.</h2>
+            <h2>Pick a date range to search between</h2>
             <div className = "Dates">
               <StartDateInput dateCallback={this.handleStartDateCallBack}/>
               <EndDateInput dateCallback={this.handleEndDateCallback}/>
             </div>
-            <h2> Connect your running history </h2>
+            <h2>Connect your running history</h2>
             <div className="RunningButtons">
               <StravaButton 
               handleFastestStravaActivityCallback={this.handleFastestStravaActivityCallback}
@@ -107,12 +133,13 @@ class App extends React.Component<AppProps, AppState>
               startDate={this.state.startDate}
               endDate={this.state.endDate}/>
             </div>
-            <h2> Connect your listening history </h2>
+            <h2>Connect your listening history</h2>
               <div className="MusicButtons">
                 <SpotifyButton handleAuthTokenCallback={this.handleSpotifyTokenCallback}/> 
                 <LastFMButton handleUsernameCallback = {this.handleLastFMUsernameCallback}/>
               </div>
           </div>
+          <p>{this.state.statusMessage}</p>
           <FastestSongsButton 
             fastestStravaActivity = {this.state.fastestStravaActivity}
             fastestFitBitActivity = {this.state.fastestFitBitActivity}
