@@ -4,6 +4,9 @@ import LastFMSongsTable from './LastFMSongsTable';
 import SpotifySongsTable from './SpotifySongsTable';
 import '../Resources/SongsMakeMeRunFasterStyles.css'
 
+
+type Nullable<T> = T | null;
+
 interface IFastestSongsButtonProps
 {
     fastestStravaActivity: any,
@@ -52,6 +55,9 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
 
     getSpotifyTracks = async function(spotifyAccessToken: string, after: string, duration: number)
     {
+        if(!spotifyAccessToken){
+            return null;
+        }
         try 
         {
             var getSpotifyTracksPromise = await Axios.get("http://localhost:8080/CMMYRF/getSpotifyRecentlyPlayed?access_token=" 
@@ -66,12 +72,24 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
         }
     }
 
-    getLastFMTracks = async function(lastFMUserName: string, after: string, duration: number)
+    getLastFMTracks = async function(lastFMUserName: Nullable<string>=null, after: Nullable<string>=null, duration: Nullable<number>=null)
     {
+        var url = "http://localhost:8080/CMMYRF/getLastFMRecentlyPlayed?"
+        if (!lastFMUserName){
+            return null;
+        }
+        url+= "user_name=" + lastFMUserName + "&";
+        if(after)
+        {
+            url+= "after=" + after + "&";
+        }
+        if (duration)
+        {
+            url+= "duration=" + duration
+        }
         try 
         {
-            var getLastFMTracksPromise = await Axios.get("http://localhost:8080/CMMYRF/getLastFMRecentlyPlayed?user_name=" 
-            + lastFMUserName + "&after=" + after + "&duration=" + duration)
+            var getLastFMTracksPromise = await Axios.get(url)
             .then((response: AxiosResponse) => Promise.resolve(response.data))
                   .catch((error: AxiosError) => Promise.reject(error));
             return getLastFMTracksPromise;
@@ -109,26 +127,40 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                 {
                     Promise.resolve("No Data - Dates not matching")
                 }
+
+                console.log(fastestDateResponse);
+                console.log(activityDuration);
+
+                if (fastestDateResponse === null && activityDuration === null){
+                    console.log("Missing data.")
+                    Promise.resolve("Missing data.");
+                }
                 if (this.props.spotifyAccessToken !== null )
                 {
                     // Need to add activity validation.
                     this.getSpotifyTracks(this.props.spotifyAccessToken.AccessToken,fastestDateResponse,activityDuration)
                     .then(spotifyTracks => {
-                        console.log(spotifyTracks.items);
-                        spotifyTracks.items.map((track: any) =>{
-                            delete track.playedAt;
-                            delete track.context;
-                            track["name"] = track.track.name;
-                            track["image"] = "https://developer.spotify.com/assets/branding-guidelines/icon1@2x.png"
-                            track["artist"] = track.track.artists[0].name;
-                            track["artistURL"] = track.track.artists[0].externalUrls.spotify;
-                            track["url"] = track.track.externalUrls.spotify;
-                            delete track.track;
-                            return track;
-                        });
-                        var songsJson: any[] = Array.of(spotifyTracks.items);
-                        this.setState({spotifySongs:songsJson[0]});
-                        Promise.resolve(spotifyTracks);
+                        try
+                        {
+                            spotifyTracks.items.map((track: any) =>{
+                                delete track.playedAt;
+                                delete track.context;
+                                track["name"] = track.track.name;
+                                track["image"] = "https://developer.spotify.com/assets/branding-guidelines/icon1@2x.png"
+                                track["artist"] = track.track.artists[0].name;
+                                track["artistURL"] = track.track.artists[0].externalUrls.spotify;
+                                track["url"] = track.track.externalUrls.spotify;
+                                delete track.track;
+                                return track;
+                            });
+                            var songsJson: any[] = Array.of(spotifyTracks.items);
+                            this.setState({spotifySongs:songsJson[0]});
+                            Promise.resolve(spotifyTracks);
+                        }
+                        catch(exception)
+                        {
+                            console.log(exception);
+                        }
                     });
                 }
 
@@ -137,27 +169,34 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                     // Need to add activity validation.
                     this.getLastFMTracks(this.props.lastFMUserName,fastestDateResponse,activityDuration)
                     .then(lastFMTracks => {
-                        lastFMTracks.map((track: any) => 
+                        try 
                         {
-                            delete track.id;
-                            delete track.rank;
-                            delete track.duration;
-                            delete track.mbid;
-                            delete track.artistMbid;
-                            delete track.isLoved; 
-                            delete track.topTags;
-                            delete track.listenerCount;
-                            delete track.isNowPlaying;
-                            delete track.userPlayCount;
-                            delete track.timePlayed;
-                            delete track.playCount;
-                            delete track.artistImages;
-                            track.images = track.images[2];
-                            return track;
-                        });
-                        var songsJson: any[] = Array.of(lastFMTracks);
-                        this.setState({lastFMSongs: songsJson[0]});
-                        Promise.resolve(lastFMTracks);
+                            lastFMTracks.map((track: any) => 
+                            {
+                                delete track.id;
+                                delete track.rank;
+                                delete track.duration;
+                                delete track.mbid;
+                                delete track.artistMbid;
+                                delete track.isLoved; 
+                                delete track.topTags;
+                                delete track.listenerCount;
+                                delete track.isNowPlaying;
+                                delete track.userPlayCount;
+                                delete track.timePlayed;
+                                delete track.playCount;
+                                delete track.artistImages;
+                                track.images = track.images[2];
+                                return track;
+                            });
+                            var songsJson: any[] = Array.of(lastFMTracks);
+                            this.setState({lastFMSongs: songsJson[0]});
+                            Promise.resolve(lastFMTracks);
+                        }
+                        catch(exception)
+                        {
+                            console.log(exception);
+                        }
                     });
                 }
                 this.setState({userMessage: "Songs that make you run faster"})
