@@ -162,7 +162,7 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                 if (this.props.spotifyAccessToken !== null )
                 {
                     // Need to add activity validation.
-                    this.getSpotifyTracks(this.props.spotifyAccessToken.AccessToken,fastestDateResponse,activityDuration)
+                    this.getSpotifyTracks(this.props.spotifyAccessToken.AccessToken,fastestDateAsDate.toISOString(),activityDuration)
                     .then(spotifyTracks => {
                         try
                         {
@@ -192,7 +192,7 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                 if (this.props.lastFMUserName !== null )
                 {
                     // Need to add activity validation.
-                    this.getLastFMTracks(this.props.lastFMUserName,fastestDateResponse,activityDuration)
+                    this.getLastFMTracks(this.props.lastFMUserName,fastestDateAsDate.toISOString(),activityDuration)
                     .then(lastFMTracks => {
                         try 
                         {
