@@ -134,7 +134,7 @@ class App extends React.Component<AppProps, AppState>
               endDate={this.state.endDate}/>
             </div>
             <h2>Connect your listening history</h2>
-              <div className="MusicButtons">
+              <div className="MusicButtons"> 
                 <SpotifyButton handleAuthTokenCallback={this.handleSpotifyTokenCallback}/> 
                 <LastFMButton handleUsernameCallback = {this.handleLastFMUsernameCallback}/>
               </div>
@@ -146,6 +146,13 @@ class App extends React.Component<AppProps, AppState>
             spotifyAccessToken = {this.state.spotifyAuthToken}
             lastFMUserName = {this.state.lastFMUsername}/>
         </div>
+        <footer>
+          <div className="footerDiv">
+            <h4>How does it work?</h4>
+            <p>This application works by finding your fastest run from the data sources you have connected, <br/>and then displays the songs that were making you run faster during the fastest activity.
+            </p>
+          </div>
+        </footer>
       </div>
     )
   }

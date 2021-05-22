@@ -140,14 +140,12 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                 if (fastestDateAsDate.toString() === stravaDate.toString())
                 {
                     // Strava activity = duration in seconds.
-                    console.log("Strava activity");
                     activityDuration = this.props.fastestStravaActivity.elapsed_time
                     
                 }
                 else if (fastestDateAsDate.toString() === fitbitDate.toString())
                 {
                     // Fitbit activity = duration in MS.
-                    console.log("FitBit Activity");
                     activityDuration = this.props.fastestFitBitActivity.duration / 100;
                 }
                 else 
