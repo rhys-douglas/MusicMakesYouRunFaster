@@ -26,9 +26,8 @@
         /// </summary>
         /// <typeparam name="TResponse"> Type of object to respond with.</typeparam>
         /// <param name="endpoint"> Target endpoint.</param>
-        /// <param name="queryparams"> Query params.</param>
         /// <returns>Tresponse casted object.</returns>
-        public TResponse Get<TResponse>(Uri endpoint, string queryparams = null)
+        public TResponse Get<TResponse>(Uri endpoint)
             where TResponse : class
         {
             var result = httpClient.GetAsync(endpoint).Result;

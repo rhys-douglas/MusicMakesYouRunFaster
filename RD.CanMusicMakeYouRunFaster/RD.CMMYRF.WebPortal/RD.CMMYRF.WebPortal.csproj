@@ -1,0 +1,16 @@
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+	<GenerateProgramFile>false</GenerateProgramFile>
+	<OutputType>Library</OutputType>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="WebApplication\**" />
+    <Content Remove="WebApplication\**" />
+    <EmbeddedResource Remove="WebApplication\**" />
+    <None Remove="WebApplication\**" />
+  </ItemGroup>
+
+</Project>

@@ -1,0 +1,14 @@
+.FitBitButton{
+    transition-duration: 0.4s;
+    background-color: #00B0B9;
+    border: none;
+    color: white;
+    padding:0;
+    text-align: center;
+    text-decoration: none;
+    display:inline-block;
+    font-size: 16px;
+    height:40px;
+    width:173px;
+    border-radius: 3px;
+  }

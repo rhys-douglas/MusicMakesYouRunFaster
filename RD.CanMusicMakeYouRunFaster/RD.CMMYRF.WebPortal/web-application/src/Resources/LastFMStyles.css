@@ -1,0 +1,10 @@
+.LastFMButton{
+    background-color: #d51007;
+    color:white;
+    border:none;
+    font-size: 16px;
+    height:40px;
+    width:173px;
+    display:table-cell;
+    border-radius: 3px;
+}

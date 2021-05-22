@@ -5,6 +5,7 @@
     using System.Threading.Tasks;
     using Entity;
     using Fitbit.Api.Portable;
+    using Fitbit.Api.Portable.Models;
     using IF.Lastfm.Core.Api;
     using Microsoft.AspNetCore.Mvc;
     using Newtonsoft.Json;
@@ -67,7 +68,8 @@
             await Task.Delay(0);
             var authenticator = new OAuth2Authenticator();
             var token = authenticator.GetStravaAuthToken();
-            return new JsonResult(token.Result.access_token);
+            string authToken = JsonConvert.SerializeObject(token.Result);
+            return new JsonResult(authToken);
         }
 
         /// <inheritdoc/>
@@ -76,7 +78,8 @@
             await Task.Delay(0);
             var authenticator = new OAuth2Authenticator();
             var token = authenticator.GetFitBitAuthToken();
-            return new JsonResult(token.Result.AccessToken);
+            string authToken = JsonConvert.SerializeObject(token.Result);
+            return new JsonResult(authToken);
         }
 
         /// <inheritdoc/>
@@ -133,10 +136,20 @@
             };
 
             var client = new FitbitClient(credentials, accessToken);
-            var lastWeek = DateTime.UtcNow;
-            lastWeek.AddDays(-7);
-            var retrievedActivities = await client.GetActivityLogsListAsync(null,lastWeek,20);
-            return new JsonResult(retrievedActivities);
+            var lastMonth = DateTime.UtcNow;
+            lastMonth.AddMonths(-7);
+            var retrievedActivities = await client.GetActivityLogsListAsync(null,lastMonth);
+            List<Activities> listOfRuns = new List<Activities>();
+            foreach (var activity in retrievedActivities.Activities)
+            {
+                // 90009 is a run.
+                if (activity.ActivityTypeId == 90009)
+                {
+                    listOfRuns.Add(activity);
+                }
+            }
+
+            return new JsonResult(new ActivityLogsList { Activities = listOfRuns });
         }
 
         /// <inheritdoc/>
@@ -144,7 +157,7 @@
         {
             var client = new LastfmClient("d3cf196e63d20375eb8d6729ebb982b3", "3b2dd16f5d94f119aa724dd3efe3b393");
             var recentTracks = await client.User.GetRecentScrobbles(username,after);
-            return new JsonResult(recentTracks.Content);
+            return new JsonResult(recentTracks);
         }
             
     }

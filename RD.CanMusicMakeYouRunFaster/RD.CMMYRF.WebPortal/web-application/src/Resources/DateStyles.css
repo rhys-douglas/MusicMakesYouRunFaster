@@ -1,0 +1,18 @@
+.StartDate{
+    margin-right:10px;
+}
+
+.EndDate{
+    margin-left:10px;
+}
+
+input{
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    width:60%
+}
+
+p{
+    margin: 3px;
+}

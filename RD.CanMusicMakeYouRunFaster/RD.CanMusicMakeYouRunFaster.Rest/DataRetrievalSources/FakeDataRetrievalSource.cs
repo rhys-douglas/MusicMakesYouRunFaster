@@ -10,6 +10,7 @@
     using Fitbit.Api.Portable.Models;
     using IF.Lastfm.Core.Objects;
     using IF.Lastfm.Core.Api.Helpers;
+    using Newtonsoft.Json;
 
     /// <summary>
     /// Fake data source used for testing and proof of concept, mimicking the functionality of the <see cref="RealDataRetrievalSource"/> class.
@@ -50,7 +51,8 @@
             query["RedirectUri"] = tokenRequest.RedirectUri.ToString();
             builder.Query = query.ToString();
             var authTokenResponse = externalAPICaller.Get<SpotifyAuthenticationToken>(new Uri("http://localhost:2222/authorize?ClientId=Some+client+id&Code=200&CodeVerifier=KmS_2IQWRizX1bXF5G508LjlbdO2P9432WFf7gKEfD4&RedirectUri=http%3a%2f%2flocalhost%3a2000%2fcallback%2f"));
-            return new JsonResult(authTokenResponse);
+            string returnMe = JsonConvert.SerializeObject(authTokenResponse);
+            return new JsonResult(returnMe);
         }
 
         /// <inheritdoc/>
@@ -59,7 +61,8 @@
             await Task.Delay(0);
             var exchangeTokenResponse = externalAPICaller.Get<FakeResponseServer.DTO.StravaExchangeTokenResponse>(new Uri("http://localhost:2222/oauth/authorize?client_id=1234&response_type=code&approval_prompt=force&scope=read,activity:read_all&redirect_uri=localhost:5000/callback"));
             var authTokenResponse = externalAPICaller.Get<FakeResponseServer.DTO.StravaAuthenticationTokenResponse>(new Uri("http://localhost:2222/oauth/token?client_id=1234&client_secret=23456&grant_type=authorization_code&code=" + exchangeTokenResponse.code));
-            return new JsonResult(authTokenResponse);
+            string returnMe = JsonConvert.SerializeObject(authTokenResponse);
+            return new JsonResult(returnMe);
         }
 
         public async Task<JsonResult> GetFitBitAuthenticationToken()
@@ -67,7 +70,8 @@
             await Task.Delay(0);
             var exchangeTokenResponse = externalAPICaller.Get<FakeResponseServer.DTO.FitBitExchangeTokenResponse>(new Uri("http://localhost:2222/oauth2/authorize?response_type=code&client_id=22CCZ8&redirect_uri=http://localhost:5002/fitbittoken&scope=activity%20heartrate"));
             var authTokenResponse = externalAPICaller.Get<FakeResponseServer.DTO.FitBitAuthenticationTokenResponse>(new Uri("http://localhost:2222/oauth2/token?client_id=22CCZ8&grant_type=authorization_code&redirect_uri=http://localhost:5002/fitbittoken&code=" + exchangeTokenResponse.Code));
-            return new JsonResult(authTokenResponse);
+            string returnMe = JsonConvert.SerializeObject(authTokenResponse);
+            return new JsonResult(returnMe);
         }
 
         /// <inheritdoc/>

@@ -495,8 +495,7 @@
             sut = MakeSut();
             var tokenAsJson = sut.GetSpotifyAuthenticationToken();
             tokenAsJson.Value.Should().NotBeNull();
-            var tokenAsExtractedJson = JsonConvert.SerializeObject(tokenAsJson.Value);
-            var spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>(tokenAsExtractedJson);
+            var spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>((string)tokenAsJson.Value);
             spotifyAuthToken.AccessToken.Should().NotBeNullOrEmpty();
         }
 
@@ -504,7 +503,12 @@
         public void GetSpotifyRecentlyPlayed_ListeningHistoryReturned()
         {
             sut = MakeSut();
-            var listeningHistory = sut.GetSpotifyRecentlyPlayed();
+            var tokenAsJson = sut.GetSpotifyAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>((string)tokenAsJson.Value);
+            spotifyAuthToken.AccessToken.Should().NotBeNullOrEmpty();
+
+            var listeningHistory = sut.GetSpotifyRecentlyPlayed(spotifyAuthToken.AccessToken);
             listeningHistory.Value.Should().NotBeNull();
             var listeningHistoryExtracted = JsonConvert.SerializeObject(listeningHistory.Value);
             var actualListeningHistory = JsonConvert.DeserializeObject<CursorPaging<PlayHistoryItem>>(listeningHistoryExtracted);
@@ -518,8 +522,7 @@
             sut = MakeSut();
             var tokenAsJson = sut.GetStravaAuthenticationToken();
             tokenAsJson.Value.Should().NotBeNull();
-            var tokenAsExtractedJson = JsonConvert.SerializeObject(tokenAsJson.Value);
-            var stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>(tokenAsExtractedJson);
+            var stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>((string)tokenAsJson.Value);
             stravaAuthToken.access_token.Should().NotBeNullOrEmpty();
         }
 
@@ -527,7 +530,12 @@
         public void GetStravaActivityHistory_ActivityHistoryReturned()
         {
             sut = MakeSut();
-            var activityHistory = sut.GetStravaRecentActivities();
+            var tokenAsJson = sut.GetStravaAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>((string)tokenAsJson.Value);
+            stravaAuthToken.access_token.Should().NotBeNullOrEmpty();
+
+            var activityHistory = sut.GetStravaRecentActivities(stravaAuthToken.access_token);
             activityHistory.Value.Should().NotBeNull();
             var activityHistoryExtracted = JsonConvert.SerializeObject(activityHistory.Value);
             var actualActivityHistory = JsonConvert.DeserializeObject<List<StravaActivity>>(activityHistoryExtracted);
@@ -536,19 +544,92 @@
         }
 
         [Test]
+        public void GetStravaActivityHistoryWithAcessTokenAndStartDate_CorrectActivityHistoryReturned()
+        {
+            sut = MakeSut();
+            var tokenAsJson = sut.GetStravaAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>((string)tokenAsJson.Value);
+            stravaAuthToken.access_token.Should().NotBeNullOrEmpty();
+
+            var startDate = DateTime.UtcNow.AddDays(-1);
+
+            var activityHistory = sut.GetStravaRecentActivities(stravaAuthToken.access_token, startDate);
+            activityHistory.Value.Should().NotBeNull();
+            var activityHistoryExtracted = JsonConvert.SerializeObject(activityHistory.Value);
+            var actualActivityHistory = JsonConvert.DeserializeObject<List<StravaActivity>>(activityHistoryExtracted);
+            actualActivityHistory.Count.Should().Be(2);
+
+            var alternativeActivityHistory = sut.GetStravaRecentActivities(stravaAuthToken.access_token, startDate.AddDays(7));
+            var alternativeActivityHistoryExtracted = JsonConvert.SerializeObject(alternativeActivityHistory.Value);
+            var alternativeActualActivityHistory = JsonConvert.DeserializeObject<List<StravaActivity>>(alternativeActivityHistoryExtracted);
+            alternativeActualActivityHistory.Count.Should().Be(0);
+        }
+
+        [Test]
+        public void GetStravaActivityHistoryWithAcessTokenAndEndDate_CorrectActivityHistoryReturned()
+        {
+            sut = MakeSut();
+            var tokenAsJson = sut.GetStravaAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>((string)tokenAsJson.Value);
+            stravaAuthToken.access_token.Should().NotBeNullOrEmpty();
+
+            var endDate = DateTime.UtcNow.AddDays(1);
+
+            var activityHistory = sut.GetStravaRecentActivities(stravaAuthToken.access_token, null, endDate);
+            activityHistory.Value.Should().NotBeNull();
+            var activityHistoryExtracted = JsonConvert.SerializeObject(activityHistory.Value);
+            var actualActivityHistory = JsonConvert.DeserializeObject<List<StravaActivity>>(activityHistoryExtracted);
+            actualActivityHistory.Count.Should().Be(2);
+
+            var alternativeActivityHistory = sut.GetStravaRecentActivities(stravaAuthToken.access_token, null, endDate.AddDays(-7));
+            var alternativeActivityHistoryExtracted = JsonConvert.SerializeObject(alternativeActivityHistory.Value);
+            var alternativeActualActivityHistory = JsonConvert.DeserializeObject<List<StravaActivity>>(alternativeActivityHistoryExtracted);
+            alternativeActualActivityHistory.Count.Should().Be(0);
+        }
+
+        [Test]
+        public void GetStravaActivityWithAllParams_CorrectActivityHistoryReturned()
+        {
+            sut = MakeSut();
+            var tokenAsJson = sut.GetStravaAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var stravaAuthToken = JsonConvert.DeserializeObject<StravaAuthenticationToken>((string)tokenAsJson.Value);
+            stravaAuthToken.access_token.Should().NotBeNullOrEmpty();
+
+            var startDate = DateTime.UtcNow.AddDays(-1);
+            var endDate = DateTime.UtcNow.AddDays(1);
+
+            var activityHistory = sut.GetStravaRecentActivities(stravaAuthToken.access_token, startDate, endDate);
+            activityHistory.Value.Should().NotBeNull();
+            var activityHistoryExtracted = JsonConvert.SerializeObject(activityHistory.Value);
+            var actualActivityHistory = JsonConvert.DeserializeObject<List<StravaActivity>>(activityHistoryExtracted);
+            actualActivityHistory.Count.Should().Be(2);
+
+            var alternativeActivityHistory = sut.GetStravaRecentActivities(stravaAuthToken.access_token, startDate.AddDays(7), endDate.AddDays(-7));
+            var alternativeActivityHistoryExtracted = JsonConvert.SerializeObject(alternativeActivityHistory.Value);
+            var alternativeActualActivityHistory = JsonConvert.DeserializeObject<List<StravaActivity>>(alternativeActivityHistoryExtracted);
+            alternativeActualActivityHistory.Count.Should().Be(0);
+        }
+
+        [Test]
         public void GetSpotifyRecentlyPlayedWithAfterParam_CorrectResponseReturned()
         {
             var now = DateTime.UtcNow.AddDays(-1);
-            var nowInUnix = ((DateTimeOffset)now).ToUnixTimeMilliseconds();
             sut = MakeSut();
-            var listeningHistory = sut.GetSpotifyRecentlyPlayed(nowInUnix);
+            var tokenAsJson = sut.GetSpotifyAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var spotifyAuthToken = JsonConvert.DeserializeObject<SpotifyAuthenticationToken>((string)tokenAsJson.Value);
+            spotifyAuthToken.AccessToken.Should().NotBeNullOrEmpty();
+            var listeningHistory = sut.GetSpotifyRecentlyPlayed(spotifyAuthToken.AccessToken, now);
             listeningHistory.Value.Should().NotBeNull();
             var afterTestJSON = JsonConvert.SerializeObject(listeningHistory.Value);
             var afterTest = JsonConvert.DeserializeObject<CursorPaging<PlayHistoryItem>>(afterTestJSON);
             afterTest.Items.Should().HaveCount(1);
             afterTest.Items.Should().NotBeNull().And.NotBeEmpty();
 
-            listeningHistory = sut.GetSpotifyRecentlyPlayed();
+            listeningHistory = sut.GetSpotifyRecentlyPlayed(spotifyAuthToken.AccessToken);
             listeningHistory.Value.Should().NotBeNull();
             var listeningHistoryExtracted = JsonConvert.SerializeObject(listeningHistory.Value);
             var actualListeningHistory = JsonConvert.DeserializeObject<CursorPaging<PlayHistoryItem>>(listeningHistoryExtracted);
@@ -562,8 +643,7 @@
             sut = MakeSut();
             var tokenAsJson = sut.GetFitBitAuthenticationToken();
             tokenAsJson.Value.Should().NotBeNull();
-            var extractedJsonToken = JsonConvert.SerializeObject(tokenAsJson.Value);
-            var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>(extractedJsonToken);
+            var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>((string)tokenAsJson.Value);
             fitBitAuthToken.AccessToken.Should().NotBeNullOrEmpty();
         }
 
@@ -571,11 +651,89 @@
         public void GetFitBitActivityHistory_ActivityHistoryReturned()
         {
             sut = MakeSut();
-            var activityHistory = sut.GetFitBitRecentActivities();
+            var tokenAsJson = sut.GetFitBitAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>((string)tokenAsJson.Value);
+            fitBitAuthToken.AccessToken.Should().NotBeNullOrEmpty();
+
+            var activityHistory = sut.GetFitBitRecentActivities(fitBitAuthToken.AccessToken);
             Fitbit.Api.Portable.Models.ActivityLogsList actualHistory = (Fitbit.Api.Portable.Models.ActivityLogsList)activityHistory.Value;
             actualHistory.Should().NotBeNull();
             actualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
             actualHistory.Activities.Should().HaveCount(2);
+        }
+
+        [Test]
+        public void GetFitBitActivityHistoryWithStartDate_ActivityHistoryReturned()
+        {
+            sut = MakeSut();
+            var tokenAsJson = sut.GetFitBitAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>((string)tokenAsJson.Value);
+            fitBitAuthToken.AccessToken.Should().NotBeNullOrEmpty();
+
+            var startDate = DateTime.UtcNow.AddDays(-7);
+
+            var activityHistory = sut.GetFitBitRecentActivities(fitBitAuthToken.AccessToken, startDate);
+            Fitbit.Api.Portable.Models.ActivityLogsList actualHistory = (Fitbit.Api.Portable.Models.ActivityLogsList)activityHistory.Value;
+            actualHistory.Should().NotBeNull();
+            actualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
+            actualHistory.Activities.Should().HaveCount(2);
+
+            var alternativeActivityHistory = sut.GetFitBitRecentActivities(fitBitAuthToken.AccessToken, startDate.AddDays(7));
+            Fitbit.Api.Portable.Models.ActivityLogsList alternativeActualHistory = (Fitbit.Api.Portable.Models.ActivityLogsList)alternativeActivityHistory.Value;
+            alternativeActualHistory.Should().NotBeNull();
+            alternativeActualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
+            alternativeActualHistory.Activities.Should().HaveCount(0);
+        }
+
+        [Test]
+        public void GetFitBitActivityHistoryWithEndDate_ActivityHistoryReturned()
+        {
+            sut = MakeSut();
+            var tokenAsJson = sut.GetFitBitAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>((string)tokenAsJson.Value);
+            fitBitAuthToken.AccessToken.Should().NotBeNullOrEmpty();
+
+            var endDate = DateTime.UtcNow.AddDays(1);
+
+            var activityHistory = sut.GetFitBitRecentActivities(fitBitAuthToken.AccessToken, null, endDate);
+            Fitbit.Api.Portable.Models.ActivityLogsList actualHistory = (Fitbit.Api.Portable.Models.ActivityLogsList)activityHistory.Value;
+            actualHistory.Should().NotBeNull();
+            actualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
+            actualHistory.Activities.Should().HaveCount(2);
+
+            var alternativeActivityHistory = sut.GetFitBitRecentActivities(fitBitAuthToken.AccessToken, null, endDate.AddDays(-31));
+            Fitbit.Api.Portable.Models.ActivityLogsList alternativeActualHistory = (Fitbit.Api.Portable.Models.ActivityLogsList)alternativeActivityHistory.Value;
+            alternativeActualHistory.Should().NotBeNull();
+            alternativeActualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
+            alternativeActualHistory.Activities.Should().HaveCount(0);
+        }
+
+        [Test]
+        public void GetFitBitActivityHistoryWithAllParams_ActivityHistoryReturned()
+        {
+            sut = MakeSut();
+            var tokenAsJson = sut.GetFitBitAuthenticationToken();
+            tokenAsJson.Value.Should().NotBeNull();
+            var fitBitAuthToken = JsonConvert.DeserializeObject<FitBitAuthenticationToken>((string)tokenAsJson.Value);
+            fitBitAuthToken.AccessToken.Should().NotBeNullOrEmpty();
+
+            var startDate = DateTime.UtcNow.AddDays(-7);
+            var endDate = DateTime.UtcNow.AddDays(1);
+
+            var activityHistory = sut.GetFitBitRecentActivities(fitBitAuthToken.AccessToken, startDate, endDate);
+            Fitbit.Api.Portable.Models.ActivityLogsList actualHistory = (Fitbit.Api.Portable.Models.ActivityLogsList)activityHistory.Value;
+            actualHistory.Should().NotBeNull();
+            actualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
+            actualHistory.Activities.Should().HaveCount(2);
+
+            var alternativeActivityHistory = sut.GetFitBitRecentActivities(fitBitAuthToken.AccessToken, startDate.AddDays(7), endDate.AddDays(-31));
+            Fitbit.Api.Portable.Models.ActivityLogsList alternativeActualHistory = (Fitbit.Api.Portable.Models.ActivityLogsList)alternativeActivityHistory.Value;
+            alternativeActualHistory.Should().NotBeNull();
+            alternativeActualHistory.Should().BeOfType<Fitbit.Api.Portable.Models.ActivityLogsList>();
+            alternativeActualHistory.Activities.Should().HaveCount(0);
         }
 
         [Test]

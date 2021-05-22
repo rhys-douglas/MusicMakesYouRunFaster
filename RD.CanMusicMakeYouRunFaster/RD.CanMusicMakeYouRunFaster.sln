@@ -21,6 +21,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "RD.CanMusicMakeYouRunFaster.ComparisonLogic.UnitTests", "RD.CanMusicMakeYouRunFaster.ComparisonLogic.UnitTests\RD.CanMusicMakeYouRunFaster.ComparisonLogic.UnitTests.csproj", "{AC1FC22D-359A-4EC4-9F67-C432ED98BA47}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RD.CMMYRF.WebPortal", "RD.CMMYRF.WebPortal\RD.CMMYRF.WebPortal.csproj", "{2A8F22A5-5AD4-406E-B52D-A10A5C17B0DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,6 +65,10 @@ Global
 		{AC1FC22D-359A-4EC4-9F67-C432ED98BA47}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{AC1FC22D-359A-4EC4-9F67-C432ED98BA47}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{AC1FC22D-359A-4EC4-9F67-C432ED98BA47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2A8F22A5-5AD4-406E-B52D-A10A5C17B0DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2A8F22A5-5AD4-406E-B52D-A10A5C17B0DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2A8F22A5-5AD4-406E-B52D-A10A5C17B0DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2A8F22A5-5AD4-406E-B52D-A10A5C17B0DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
