@@ -35,23 +35,23 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
         }
     }
     
-    findFastestDate = async function(fastestStravaActivity: any, fastestFitBitActivity: any)
+    findFastestDate = async function(fastestStravaActivity: Nullable<any>=null, fastestFitBitActivity: Nullable<any>=null)
     {
         try
         {
             var url = "";
-            if (!fastestStravaActivity && fastestFitBitActivity)
+            if (Object.keys(fastestStravaActivity).length === 0 && Object.keys(fastestFitBitActivity).length > 0)
             {
-                var fitBitDateAsISO = new Date(fastestFitBitActivity.startTime).toISOString();
-                url = "http://localhost:8080/CMMYRFI/findFastestActivity?stravaSpeed=0&stravaStartTime=1980-05-31T13:48:04Z" + "&fitBitSpeed=" + fastestFitBitActivity.speed + "&fitBitDateTime=" + fitBitDateAsISO
+                var fitbitDate = new Date(fastestFitBitActivity.startTime).toISOString();
+                url = "http://localhost:8080/CMMYRFI/findFastestActivity?stravaSpeed=0&stravaStartTime=1980-05-31T13:48:04Z" + "&fitBitSpeed=" + fastestFitBitActivity.speed + "&fitBitDateTime=" + fitbitDate
             }
-            else if (fastestStravaActivity && !fastestFitBitActivity)
+            else if (Object.keys(fastestStravaActivity).length > 0 && Object.keys(fastestFitBitActivity).length === 0)
             {
-                var stravaDateAsISO = new Date(fastestStravaActivity.start_date).toISOString();
+                var stravaDate = new Date(fastestStravaActivity.start_date).toISOString();
                 url = "http://localhost:8080/CMMYRFI/findFastestActivity?stravaSpeed=" + fastestStravaActivity.average_speed + 
-                "&stravaStartTime=" + stravaDateAsISO + "&fitBitSpeed=0&fitBitDateTime=1980-05-31T13:48:04Z"
+                "&stravaStartTime=" + stravaDate + "&fitBitSpeed=0&fitBitDateTime=1980-05-31T13:48:04Z"
             }
-            else if(!fastestStravaActivity && !fastestFitBitActivity)
+            else if(Object.keys(fastestStravaActivity).length === 0 && Object.keys(fastestFitBitActivity).length === 0)
             {
                 return null;
             }
@@ -117,11 +117,14 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
     {
         try 
         {
-            console.log(this.props.fastestFitBitActivity);
-            console.log(this.props.fastestStravaActivity);
-            if(Object.keys(this.props.fastestFitBitActivity).length === 0 && Object.keys(this.props.fastestStravaActivity).length === 0)
+            if (Object.keys(this.props.fastestFitBitActivity).length === 0 && Object.keys(this.props.fastestStravaActivity).length === 0)
             {
                 this.setState({userMessage:"No activities to use!"});
+                return;
+            }
+            if (this.props.lastFMUserName === "" && Object.keys(this.props.spotifyAccessToken).length === 0)
+            {
+                this.setState({userMessage:"No music providers to use!"})
                 return;
             }
             this.findFastestDate(this.props.fastestStravaActivity, this.props.fastestFitBitActivity)
@@ -152,9 +155,6 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                     Promise.resolve("No Data - Dates not matching")
                 }
 
-                console.log(fastestDateResponse);
-                console.log(activityDuration);
-
                 if (fastestDateResponse === null && activityDuration === null){
                     console.log("Missing data.")
                     Promise.resolve("Missing data.");
@@ -183,7 +183,7 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                         }
                         catch(exception)
                         {
-                            this.setState({userMessage:"No  songs found."})
+                            this.setState({userMessage:"No Spotify songs found."})
                             console.log(exception);
                         }
                     });
