@@ -39,10 +39,30 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
     {
         try
         {
-            var stravaDateAsISO = new Date(fastestStravaActivity.start_date).toISOString();
-            var fitBitDateAsISO = new Date(fastestFitBitActivity.startTime).toISOString();
-            var getFastestActivityPromise = await Axios.get("http://localhost:8080/CMMYRFI/findFastestActivity?stravaSpeed=" + fastestStravaActivity.average_speed + 
-            "&stravaStartTime=" + stravaDateAsISO + "&fitBitSpeed=" + fastestFitBitActivity.speed + "&fitBitDateTime=" + fitBitDateAsISO)
+            var url = "";
+            if (!fastestStravaActivity && fastestFitBitActivity)
+            {
+                var fitBitDateAsISO = new Date(fastestFitBitActivity.startTime).toISOString();
+                url = "http://localhost:8080/CMMYRFI/findFastestActivity?stravaSpeed=0&stravaStartTime=1980-05-31T13:48:04Z" + "&fitBitSpeed=" + fastestFitBitActivity.speed + "&fitBitDateTime=" + fitBitDateAsISO
+            }
+            else if (fastestStravaActivity && !fastestFitBitActivity)
+            {
+                var stravaDateAsISO = new Date(fastestStravaActivity.start_date).toISOString();
+                url = "http://localhost:8080/CMMYRFI/findFastestActivity?stravaSpeed=" + fastestStravaActivity.average_speed + 
+                "&stravaStartTime=" + stravaDateAsISO + "&fitBitSpeed=0&fitBitDateTime=1980-05-31T13:48:04Z"
+            }
+            else if(!fastestStravaActivity && !fastestFitBitActivity)
+            {
+                return null;
+            }
+            else 
+            {
+                var fitBitDateAsISO = new Date(fastestFitBitActivity.startTime).toISOString();
+                var stravaDateAsISO = new Date(fastestStravaActivity.start_date).toISOString();
+                url = "http://localhost:8080/CMMYRFI/findFastestActivity?stravaSpeed=" + fastestStravaActivity.average_speed + 
+                "&stravaStartTime=" + stravaDateAsISO + "&fitBitSpeed=" + fastestFitBitActivity.speed + "&fitBitDateTime=" + fitBitDateAsISO
+            }
+            var getFastestActivityPromise = await Axios.get(url)
             .then((response: AxiosResponse) => Promise.resolve(response.data))
                   .catch((error: AxiosError) => Promise.reject(error));
             return getFastestActivityPromise;
@@ -53,9 +73,10 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
         }
     }
 
-    getSpotifyTracks = async function(spotifyAccessToken: string, after: string, duration: number)
+    getSpotifyTracks = async function(spotifyAccessToken: Nullable<string>=null, after: Nullable<string>=null, duration: Nullable<number>=null)
     {
-        if(!spotifyAccessToken){
+        if(!spotifyAccessToken || !after || !duration) 
+        {
             return null;
         }
         try 
@@ -74,22 +95,14 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
 
     getLastFMTracks = async function(lastFMUserName: Nullable<string>=null, after: Nullable<string>=null, duration: Nullable<number>=null)
     {
-        var url = "http://localhost:8080/CMMYRF/getLastFMRecentlyPlayed?"
-        if (!lastFMUserName){
+        if (!lastFMUserName || !after || !duration)
+        {
             return null;
-        }
-        url+= "user_name=" + lastFMUserName + "&";
-        if(after)
-        {
-            url+= "after=" + after + "&";
-        }
-        if (duration)
-        {
-            url+= "duration=" + duration
         }
         try 
         {
-            var getLastFMTracksPromise = await Axios.get(url)
+            var getLastFMTracksPromise = await Axios.get("http://localhost:8080/CMMYRF/getLastFMRecentlyPlayed?user_name="
+            + lastFMUserName + "&after=" + after + "&duration=" + duration)
             .then((response: AxiosResponse) => Promise.resolve(response.data))
                   .catch((error: AxiosError) => Promise.reject(error));
             return getLastFMTracksPromise;
@@ -104,8 +117,19 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
     {
         try 
         {
+            console.log(this.props.fastestFitBitActivity);
+            console.log(this.props.fastestStravaActivity);
+            if(Object.keys(this.props.fastestFitBitActivity).length === 0 && Object.keys(this.props.fastestStravaActivity).length === 0)
+            {
+                this.setState({userMessage:"No activities to use!"});
+                return;
+            }
             this.findFastestDate(this.props.fastestStravaActivity, this.props.fastestFitBitActivity)
             .then(fastestDateResponse => {
+                if (!fastestDateResponse){
+                    this.setState({userMessage:"No Songs Found"})
+                    return;
+                }
                 var fastestDateAsDate = new Date(fastestDateResponse);
                 var stravaDate = new Date(this.props.fastestStravaActivity.start_date);
                 var fitbitDate = new Date(this.props.fastestFitBitActivity.startTime);
@@ -159,6 +183,7 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                         }
                         catch(exception)
                         {
+                            this.setState({userMessage:"No  songs found."})
                             console.log(exception);
                         }
                     });
@@ -195,6 +220,7 @@ export class FastestSongsButton extends React.Component<IFastestSongsButtonProps
                         }
                         catch(exception)
                         {
+                            this.setState({userMessage:"No Last.FM songs found."})
                             console.log(exception);
                         }
                     });
